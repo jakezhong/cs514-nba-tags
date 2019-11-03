@@ -1,17 +1,4 @@
-<!-- Indices written at Sat, 2 Nov 2019 13:58:08 PDT -->
+<!-- Indices written at Sat, 2 Nov 2019 14:17:54 PDT -->
 
-<datastore-indexes>
+<datastore-indexes/>
 
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="Person4" ancestor="false" source="auto">
-        <property name="createdById" direction="asc"/>
-        <property name="last" direction="asc"/>
-    </datastore-index>
-
-    <!-- Used 1 time in query history -->
-    <datastore-index kind="Group" ancestor="false" source="auto">
-        <property name="createdById" direction="asc"/>
-        <property name="name" direction="asc"/>
-    </datastore-index>
-
-</datastore-indexes>

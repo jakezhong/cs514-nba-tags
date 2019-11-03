@@ -198,7 +198,7 @@
 
     <context-param>
         <param-name>personshelf.bucket</param-name>
-        <param-value>cs514-people-tags.appspot.com</param-value>
+        <param-value>cs514-people-tags-jake.appspot.com</param-value>
     </context-param>
 
     <context-param>
