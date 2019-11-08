@@ -19,13 +19,17 @@ Copyright 2016 Google Inc.
 <div class="container">
   <h3>Group</h3>
   <div class="btn-group">
-    <a href="/group/update?id=${person.id}" class="btn btn-primary btn-sm">
+    <a href="/group/update?id=${group.id}" class="btn btn-primary btn-sm">
       <i class="glyphicon glyphicon-edit"></i>
-      Edit person
+      Edit group
     </a>
     <a href="/group/delete?id=${group.id}" class="btn btn-danger btn-sm">
       <i class="glyphicon glyphicon-trash"></i>
       Delete group
+    </a>
+    <a href="/association/create?id=${group.id}" class="btn btn-success btn-sm">
+      <i class="glyphicon glyphicon-trash"></i>
+      Add person
     </a>
   </div>
 
@@ -42,5 +46,25 @@ Copyright 2016 Google Inc.
         ${fn:escapeXml(not empty group.createdBy?group.createdBy:'Anonymous')}</small>
     </div>
   </div>
+
+  <c:choose>
+      <c:when test="${empty groupPerson}">
+      <p>No persons found</p>
+      </c:when>
+      <c:otherwise>
+      <c:forEach items="${groupPerson}" var="person">
+          <div class="media">
+            <p>${person.personId}</p>
+          </div>
+      </c:forEach>
+      <c:if test="${not empty cursor}">
+             <nav>
+               <ul class="pager">
+                 <li><a href="?cursor=${fn:escapeXml(cursor)}">More</a></li>
+               </ul>
+             </nav>
+             </c:if>
+      </c:otherwise>
+  </c:choose>
 </div>
 <!-- [END view] -->

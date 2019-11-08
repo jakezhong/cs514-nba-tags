@@ -15,14 +15,21 @@
 
 package com.example.getstarted.basicactions;
 
+import com.example.getstarted.daos.AssociationDao;
+import com.example.getstarted.daos.AssociationDataStoreDao;
 import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.PersonDao;
+import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Group;
+import com.example.getstarted.objects.Person;
+import com.example.getstarted.objects.Result;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.List;
 
 // [START example]
 @SuppressWarnings("serial")
@@ -34,6 +41,11 @@ public class ReadGroupServlet extends HttpServlet {
     GroupDao dao = (GroupDao) this.getServletContext().getAttribute("dao-group");
     try {
       Group group = dao.readGroup(id);
+      List<Association> persons = null;
+      AssociationDataStoreDao associationDao = new AssociationDataStoreDao();
+      Result<Association> result = associationDao.listPersonsByGroup(req.getParameter("id"));
+      persons = result.result;
+      req.setAttribute("groupPerson", persons);
       req.setAttribute("group", group);
       req.setAttribute("page", "view-group");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
@@ -41,5 +53,6 @@ public class ReadGroupServlet extends HttpServlet {
       throw new ServletException("Error reading group", e);
     }
   }
+
 }
 // [END example]

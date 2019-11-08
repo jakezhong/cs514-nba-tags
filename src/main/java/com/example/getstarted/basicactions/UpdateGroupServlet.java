@@ -46,7 +46,7 @@ public class UpdateGroupServlet extends HttpServlet {
       req.setAttribute("group", group);
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "update");
-      req.setAttribute("page", "form");
+      req.setAttribute("page", "form-group");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error loading group for editing", e);

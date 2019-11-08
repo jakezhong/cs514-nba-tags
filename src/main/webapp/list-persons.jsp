@@ -23,31 +23,31 @@ Copyright 2016 Google Inc.
     Add person
   </a>
   <c:choose>
-  <c:when test="${empty persons}">
-  <p>No persons found</p>
-  </c:when>
-  <c:otherwise>
-  <c:forEach items="${persons}" var="person">
-  <div class="media">
-    <a href="/person/read?id=${person.id}">
-      <div class="media-left">
-        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
-      </div>
-      <div class="media-body">
-        <h4>${fn:escapeXml(person.first)}</h4>
-        <p>${fn:escapeXml(person.last)}</p>
-      </div>
-    </a>
-  </div>
-  </c:forEach>
-  <c:if test="${not empty cursor}">
-         <nav>
-           <ul class="pager">
-             <li><a href="?cursor=${fn:escapeXml(cursor)}">More</a></li>
-           </ul>
-         </nav>
-         </c:if>
-  </c:otherwise>
+      <c:when test="${empty persons}">
+      <p>No persons found</p>
+      </c:when>
+      <c:otherwise>
+      <c:forEach items="${persons}" var="person">
+          <div class="media">
+            <a href="/person/read?id=${person.id}">
+              <div class="media-left">
+                <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+              </div>
+              <div class="media-body">
+                <h4>${fn:escapeXml(person.first)}</h4>
+                <p>${fn:escapeXml(person.last)}</p>
+              </div>
+            </a>
+          </div>
+      </c:forEach>
+      <c:if test="${not empty cursor}">
+             <nav>
+               <ul class="pager">
+                 <li><a href="?cursor=${fn:escapeXml(cursor)}">More</a></li>
+               </ul>
+             </nav>
+             </c:if>
+      </c:otherwise>
   </c:choose>
 </div>
 <!-- [END list] -->

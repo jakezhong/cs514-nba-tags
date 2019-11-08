@@ -17,7 +17,7 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.CloudSqlGroupDao;
-import com.example.getstarted.daos.DatastoreGroupDao;
+import com.example.getstarted.daos.GroupDataStoreDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
@@ -47,7 +47,7 @@ public class ListGroupsServlet extends HttpServlet {
     String storageType = this.getServletContext().getInitParameter("personshelf.storageType");
     switch (storageType) {
       case "datastore":
-        dao = new DatastoreGroupDao();
+        dao = new GroupDataStoreDao();
         break;
       case "cloudsql":
         try {

@@ -42,6 +42,7 @@
         <url-pattern>/group/delete</url-pattern>
         <url-pattern>/group/read</url-pattern>
         <url-pattern>/group/update</url-pattern>
+        <url-pattern>/association/create</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -188,6 +189,15 @@
     <servlet-mapping>
         <servlet-name>deleteGroup</servlet-name>
         <url-pattern>/group/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>createAssociation</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.CreateAssociationServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>createAssociation</servlet-name>
+        <url-pattern>/association/create</url-pattern>
     </servlet-mapping>
 
     <!-- [START config] -->

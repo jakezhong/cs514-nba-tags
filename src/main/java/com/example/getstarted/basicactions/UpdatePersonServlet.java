@@ -47,7 +47,7 @@ public class UpdatePersonServlet extends HttpServlet {
       req.setAttribute("person", person);
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "update");
-      req.setAttribute("page", "form");
+      req.setAttribute("page", "form-person");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error loading person for editing", e);

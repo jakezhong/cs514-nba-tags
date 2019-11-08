@@ -7,3 +7,4 @@ src/main/java/com/example/.DS_Store
 src/main/java/com/example/getstarted/.DS_Store
 *.config
 .DS_Store
+.idea/workspace.xml

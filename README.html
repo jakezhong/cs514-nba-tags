@@ -1,0 +1,39 @@
+<html>
+      <head>
+        <meta charset="UTF-8">
+        <title>README.md</title>
+      </head>
+      <body>
+        <h1 id="personshelf-app-for-java-on-app-engine-standard-tutorial">Personshelf App for Java on App Engine Standard Tutorial</h1>
+<h2 id="auth">Auth</h2>
+<p>Contains the code for using Cloud Datastore and Cloud SQL v2.</p>
+<p>This is a modified version of a <a href="https://cloud.google.com/java/getting-started/tutorial-app">Bookshelf tutorial</a>. It
+allows creation of person objects with images, and allows users to login to google account,
+and shows persons that each user entered (or all)</p>
+<p>To run:</p>
+<ol>
+<li>Change the “personshelf.bucket” setting in the pom.xml file so that your app will know where images are. Replace “dwpersonshelf.appspot.com” with what you are going to name your app. So if you are going to name your app zzpersonshelf, replace “dwpersonshelf” with “zzpersonshelf” in the line below: </li>
+</ol>
+<p>&lt;personshelf.bucket&gt;dwpersonshelf.appspot.com&lt;/personshelf.bucket&gt; <!-- eg project-id.appspot.com --></p>
+<ol>
+<li><p>Deploy the app using the following command (instead of mvn appengine:deploy)</p>
+<p>mvn appengine:update -Dappengine.appId=[YOUR-PROJECT-ID]<br>-Dappengine.version=[YOUR-VERSION]</p>
+</li>
+</ol>
+<p>example
+mvn appengine:update -Dappengine.appId=dwpersonshelf -Dappengine.version=1</p>
+<p>Test by going to yourapp.appspot.com</p>
+<p>Deploy before running locally because this will setup a bucket in which your images will be stored, even
+for localhost.</p>
+<ol>
+<li>Run locally. Because this app stores images, you’ll need to do things a bit differently. At a command-line terminal:</li>
+</ol>
+<p>Authorize yourself:</p>
+<p>gcloud auth application-default login</p>
+<p>Instead of mvn appengine:run, do:</p>
+<p>mvn appengine:devserver-Dpersonshelf.bucket=your app URL  e..g,</p>
+<pre><code>    mvn appengine:deverserver -Dpersonshelf.bucket=zzpersonshelf.appspot.com
+</code></pre><p>Test by going to localhost:8080</p>
+
+      </body>
+    </html>

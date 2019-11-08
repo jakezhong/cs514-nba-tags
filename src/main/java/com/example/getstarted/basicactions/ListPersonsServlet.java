@@ -17,7 +17,7 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.daos.CloudSqPersonlDao;
-import com.example.getstarted.daos.DatastorePersonDao;
+import com.example.getstarted.daos.PersonDataStoreDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
@@ -47,7 +47,7 @@ public class ListPersonsServlet extends HttpServlet {
     String storageType = this.getServletContext().getInitParameter("personshelf.storageType");
     switch (storageType) {
       case "datastore":
-        dao = new DatastorePersonDao();
+        dao = new PersonDataStoreDao();
         break;
       case "cloudsql":
         try {
