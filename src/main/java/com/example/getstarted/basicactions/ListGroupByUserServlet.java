@@ -1,4 +1,5 @@
-/* Copyright 2016 Google Inc.
+/*
+ * Copyright 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -15,7 +16,6 @@
 
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastorePersonGroupDao;
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Group;
@@ -32,29 +32,31 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
-public class ReadGroupServlet extends HttpServlet {
+public class ListGroupByUserServlet extends HttpServlet {
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
             ServletException {
-        Long id = Long.decode(req.getParameter("id"));
         GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
-     //   DatastorePersonGroupDao daoAssociation = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
         String startCursor = req.getParameter("cursor");
+        List<Group> groups = null;
+        String endCursor = null;
         try {
-            Group group = dao.readGroup(id);
-        //    List<Person> members = daoAssociation.listPersonsByGroup(id,startCursor).result;
-        //    System.out.println(members);
-            req.setAttribute("group", group);
-            req.setAttribute("page", "viewGroup");
-         //   req.setAttribute("persons",members);
-            req.getRequestDispatcher("/base.jsp").forward(req, resp);
+            Result<Group> result =
+                    dao.listGroupsByUser((String) req.getSession().getAttribute("userId"), startCursor);
+            groups = result.result;
+            endCursor = result.cursor;
         } catch (Exception e) {
-            throw new ServletException("Error reading group", e);
+            throw new ServletException("Error listing groups", e);
         }
-
-
-
+        req.getSession().getServletContext().setAttribute("groups", groups);
+        StringBuilder groupNames = new StringBuilder();
+        for (Group group : groups) {
+            groupNames.append(group.getName() + " ");
+        }
+        req.getSession().setAttribute("cursor", endCursor);
+        req.getSession().setAttribute("page", "listGroup");
+        req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }
 // [END example]

@@ -15,7 +15,7 @@
 
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.AssociationDao;
+import com.example.getstarted.daos.DatastorePersonGroupDao;
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Association;
@@ -24,31 +24,37 @@ import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
-import org.apache.commons.fileupload.FileItemIterator;
-import org.apache.commons.fileupload.FileItemStream;
-import org.apache.commons.fileupload.FileUploadException;
-import org.apache.commons.fileupload.servlet.ServletFileUpload;
-import org.apache.commons.fileupload.util.Streams;
+
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.List;
-import java.util.Map;
+
+import org.apache.commons.fileupload.FileItemIterator;
+import org.apache.commons.fileupload.FileItemStream;
+import org.apache.commons.fileupload.FileUploadException;
+import org.apache.commons.fileupload.servlet.ServletFileUpload;
+import org.apache.commons.fileupload.util.Streams;
+
+import static java.lang.System.out;
 
 // [START example]
 @SuppressWarnings("serial")
 public class CreateAssociationServlet extends HttpServlet {
+
     // [START setup]
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
         try {
             Long id = Long.decode(req.getParameter("id"));
-            PersonDao personDao = (PersonDao) this.getServletContext().getAttribute("dao-person");
+            PersonDao personDao = (PersonDao) this.getServletContext().getAttribute("dao");
             String startCursor = req.getParameter("cursor");
             List<Person> persons = null;
             String endCursor = null;
@@ -63,7 +69,7 @@ public class CreateAssociationServlet extends HttpServlet {
             req.setAttribute("cursor", endCursor);
             req.setAttribute("groupId", id);
             req.setAttribute("action", "Add");          // Part of the Header in form-association.jsp
-            req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
+            req.setAttribute("destination", "/association/create");  // The urlPattern to invoke (this Servlet)
             req.setAttribute("page", "form-association");           // Tells base.jsp to include form-association.jsp
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -75,36 +81,27 @@ public class CreateAssociationServlet extends HttpServlet {
 
     // [START formpost]
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        assert ServletFileUpload.isMultipartContent(req);
-        CloudStorageHelper storageHelper = (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
+        Long personId = Long.valueOf(req.getParameter("personId"));
+        Long groupId = Long.valueOf(req.getParameter("groupId"));
 
-        String personId = req.getParameter("personId");
-        String groupId = req.getParameter("groupId");
-
-        // [START createdBy]
-        String createdByString = "";
-        String createdByIdString = "";
-        HttpSession session = req.getSession();
-        if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
-            createdByString = (String) session.getAttribute("userEmail");
-            createdByIdString = (String) session.getAttribute("userId");
-        }
-        // [END createdBy]
-
-        // [START GroupBuilder]
+      //   [START GroupBuilder]
         Association association = new Association.Builder()
-                .personId(Long.parseLong(personId))
-                .groupId(Long.parseLong(groupId))
+                .personId(personId)
+                .groupId(groupId)
                 .build();
-        // [END AssociationBuilder]
 
+
+         //[END AssociationBuilder]
+        DatastorePersonGroupDao daoAssociation = new DatastorePersonGroupDao();
         try {
-            resp.sendRedirect("/group/read?id=" + groupId);   // read what we just wrote
+            daoAssociation.createAssociation(association);
+            resp.sendRedirect("/readGroup?id=" +groupId.toString());   // read what we just wrote
         } catch (Exception e) {
             throw new ServletException("Error creating association", e);
         }
     }
-    // [END formpost]
 }
 // [END example]
+

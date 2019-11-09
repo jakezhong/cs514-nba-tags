@@ -21,7 +21,7 @@ Copyright 2016 Google Inc.
     <c:out value="${action}" /> person
   </h3>
 
-  <form method="POST" action="${destination}">
+  <form method="POST" action="${destination}" >
     <input type="text" name="groupId" value="${groupId}" class="hidden">
     <div class="form-group">
         <label for="persons">Example multiple select</label>

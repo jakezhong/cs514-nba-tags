@@ -44,9 +44,9 @@ public class CreatePersonServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    req.setAttribute("action", "Add");          // Part of the Header in form-group.jsp
+    req.setAttribute("action", "Add");          // Part of the Header in form.jsp
     req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
-    req.setAttribute("page", "form-person");           // Tells base.jsp to include form-group.jsp
+    req.setAttribute("page", "form");           // Tells base.jsp to include form.jsp
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
   // [END setup]
@@ -99,10 +99,10 @@ public class CreatePersonServlet extends HttpServlet {
         .build();
     // [END personBuilder]
 
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao-person");
+    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
     try {
       Long id = dao.createPerson(person);
-      resp.sendRedirect("/person/read?id=" + id.toString());   // read what we just wrote
+      resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote
     } catch (Exception e) {
       throw new ServletException("Error creating person", e);
     }

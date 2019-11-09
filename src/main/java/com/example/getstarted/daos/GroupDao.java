@@ -16,22 +16,23 @@
 package com.example.getstarted.daos;
 
 import com.example.getstarted.objects.Group;
+import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 
 import java.sql.SQLException;
 
 // [START example]
 public interface GroupDao {
-  Long createGroup(Group group) throws SQLException;
+    Long createGroup(Group group) throws SQLException;
 
-  Group readGroup(Long GroupId) throws SQLException;
+    Group readGroup(Long groupId) throws SQLException;
 
-  void updateGroup(Group group) throws SQLException;
+    void updateGroup(Group group) throws SQLException;
 
-  void deleteGroup(Long GroupId) throws SQLException;
+    void deleteGroup(Long groupId) throws SQLException;
 
-  Result<Group> listGroups(String startCursor) throws SQLException;
+    Result<Group> listGroups(String startCursor) throws SQLException;
 
-  Result<Group> listGroupsByUser(String GroupId, String startCursor) throws SQLException;
+    Result<Group> listGroupsByUser(String userId, String startCursor) throws SQLException;
 }
 // [END example]

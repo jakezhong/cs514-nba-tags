@@ -41,13 +41,13 @@ public class UpdatePersonServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao-person");
+    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
     try {
       Person person = dao.readPerson(Long.decode(req.getParameter("id")));
       req.setAttribute("person", person);
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "update");
-      req.setAttribute("page", "form-person");
+      req.setAttribute("page", "form");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error loading person for editing", e);
@@ -57,7 +57,7 @@ public class UpdatePersonServlet extends HttpServlet {
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao-person");
+    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
 
     assert ServletFileUpload.isMultipartContent(req);
     CloudStorageHelper storageHelper =

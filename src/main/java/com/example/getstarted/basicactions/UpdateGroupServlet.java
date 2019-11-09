@@ -38,66 +38,68 @@ import org.apache.commons.fileupload.util.Streams;
 // [START example]
 @SuppressWarnings("serial")
 public class UpdateGroupServlet extends HttpServlet {
-  @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    GroupDao dao = (GroupDao) this.getServletContext().getAttribute("dao-group");
-    try {
-      Group group = dao.readGroup(Long.decode(req.getParameter("id")));
-      req.setAttribute("group", group);
-      req.setAttribute("action", "Edit");
-      req.setAttribute("destination", "update");
-      req.setAttribute("page", "form-group");
-      req.getRequestDispatcher("/base.jsp").forward(req, resp);
-    } catch (Exception e) {
-      throw new ServletException("Error loading group for editing", e);
-    }
-  }
-
-  @Override
-  public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-          IOException {
-    GroupDao dao = (GroupDao) this.getServletContext().getAttribute("dao-group");
-
-    assert ServletFileUpload.isMultipartContent(req);
-    CloudStorageHelper storageHelper =
-            (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
-
-    String newImageUrl = null;
-    Map<String, String> params = new HashMap<String, String>();
-    try {
-      FileItemIterator iter = new ServletFileUpload().getItemIterator(req);
-      while (iter.hasNext()) {
-        FileItemStream item = iter.next();
-        if (item.isFormField()) {
-          params.put(item.getFieldName(), Streams.asString(item.openStream()));
-        } else if (!Strings.isNullOrEmpty(item.getName())) {
-          newImageUrl = storageHelper.uploadFile(
-                  item, getServletContext().getInitParameter("groupshelf.bucket"));
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
+        GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
+        try {
+            Group group = dao.readGroup(Long.decode(req.getParameter("id")));
+            req.setAttribute("group", group);
+            req.setAttribute("action", "Edit");
+            req.setAttribute("destination", "updateGroup");
+            req.setAttribute("page", "formGroup");
+            req.getRequestDispatcher("/base.jsp").forward(req, resp);
+        } catch (Exception e) {
+            throw new ServletException("Error loading person for editing", e);
         }
-      }
-    } catch (FileUploadException e) {
-      throw new IOException(e);
     }
 
-    try {
-      Group oldGroup = dao.readGroup(Long.decode(params.get("id")));
+    @Override
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
+        GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
 
-      // [START groupBuilder]
-      Group group = new Group.Builder()
-              .name(params.get("name"))
-              .description(params.get("description"))
-              .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
-              .id(Long.decode(params.get("id")))
-              .createdBy(oldGroup.getCreatedBy())
-              .createdById(oldGroup.getCreatedById())
-              .build();
-      // [END groupBuilder]
+        assert ServletFileUpload.isMultipartContent(req);
+        CloudStorageHelper storageHelper =
+                (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
 
-      dao.updateGroup(group);
-      resp.sendRedirect("/read?id=" + params.get("id"));
-    } catch (Exception e) {
-      throw new ServletException("Error updating group", e);
+        String newImageUrl = null;
+        Map<String, String> params = new HashMap<String, String>();
+        try {
+            FileItemIterator iter = new ServletFileUpload().getItemIterator(req);
+            while (iter.hasNext()) {
+                FileItemStream item = iter.next();
+                if (item.isFormField()) {
+                    params.put(item.getFieldName(), Streams.asString(item.openStream()));
+                } else if (!Strings.isNullOrEmpty(item.getName())) {
+                    newImageUrl = storageHelper.uploadFile(
+                            item, getServletContext().getInitParameter("personshelf.bucket"));
+                }
+            }
+        } catch (FileUploadException e) {
+            throw new IOException(e);
+        }
+
+        try {
+            Group oldGroup = dao.readGroup(Long.decode(params.get("id")));
+
+            // [START personBuilder]
+            Group group = new Group.Builder()
+                    .name(params.get("name"))
+                    .description(params.get("description"))
+//                    .first(params.get("first"))
+                    .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
+                    .id(Long.decode(params.get("id")))
+                    .createdBy(oldGroup.getCreatedBy())
+                    .createdById(oldGroup.getCreatedById())
+                    .build();
+            // [END groupBuilder]
+
+            dao.updateGroup(group);
+            resp.sendRedirect("/readGroup?id=" + params.get("id"));
+        } catch (Exception e) {
+            throw new ServletException("Error updating group", e);
+        }
     }
-  }
 }
 // [END example]

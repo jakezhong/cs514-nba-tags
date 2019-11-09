@@ -27,11 +27,14 @@ Copyright 2016 Google Inc.
     <div class="navbar navbar-default">
       <div class="container">
         <div class="navbar-header">
-          <div class="navbar-brand"><a href="/">Personshelf</a></div>
+          <div class="navbar-brand">Personshelf</div>
         </div>
         <ul class="nav navbar-nav">
-          <li><a href="/persons">Persons</a></li>
+          <li><a href="/">Persons</a></li>
           <li><a href="/groups">Groups</a></li>
+          <li><a href="/persons/mine">My Persons</a></li>
+         <li><a href="/groups/mine">My Groups</a></li>
+
         </ul>
         <p class="navbar-text navbar-right">
           <c:choose>
@@ -43,10 +46,6 @@ Copyright 2016 Google Inc.
             </c:if>
             ${fn:escapeXml(userEmail)}
           </a>
-            <ul>
-                <li><a href="/persons/mine">My Persons</a></li>
-                <li><a href="/groups/mine">My Groups</a></li>
-            </ul>
           </c:when>
           <c:otherwise>
           <a href="/login">Login</a>

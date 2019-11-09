@@ -16,27 +16,30 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.PersonDao;
+
+import java.io.IOException;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
 
 // [START example]
 @SuppressWarnings("serial")
 public class DeleteGroupServlet extends HttpServlet {
 
-  @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    Long id = Long.decode(req.getParameter("id"));
-    GroupDao dao = (GroupDao) this.getServletContext().getAttribute("dao-group");
-    try {
-      dao.deleteGroup(id);
-      resp.sendRedirect("/groups");
-    } catch (Exception e) {
-      throw new ServletException("Error deleting group", e);
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
+            IOException {
+        Long id = Long.decode(req.getParameter("id"));
+        GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
+        try {
+            dao.deleteGroup(id);
+            resp.sendRedirect("/groups");
+        } catch (Exception e) {
+            throw new ServletException("Error deleting group", e);
+        }
     }
-  }
 }
 // [END example]

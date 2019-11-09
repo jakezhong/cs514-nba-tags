@@ -1,4 +1,5 @@
-/* Copyright 2016 Google Inc.
+/*
+ * Copyright 2016 Google Inc.
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
  * you may not use this file except in compliance with the License.
@@ -17,8 +18,10 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Person;
+import com.example.getstarted.objects.Result;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -27,21 +30,31 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
-public class ReadPersonServlet extends HttpServlet {
+public class ListByUserServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-      ServletException {
-    Long id = Long.decode(req.getParameter("id"));
+        ServletException {
     PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
+    String startCursor = req.getParameter("cursor");
+    List<Person> persons = null;
+    String endCursor = null;
     try {
-      Person person = dao.readPerson(id);
-      req.setAttribute("person", person);
-      req.setAttribute("page", "view");
-      req.getRequestDispatcher("/base.jsp").forward(req, resp);
+      Result<Person> result =
+          dao.listPersonsByUser((String) req.getSession().getAttribute("userId"), startCursor);
+      persons = result.result;
+      endCursor = result.cursor;
     } catch (Exception e) {
-      throw new ServletException("Error reading person", e);
+      throw new ServletException("Error listing persons", e);
     }
+    req.getSession().getServletContext().setAttribute("persons", persons);
+    StringBuilder personNames = new StringBuilder();
+    for (Person person : persons) {
+      personNames.append(person.getFirst() + " ");
+    }
+    req.getSession().setAttribute("cursor", endCursor);
+    req.getSession().setAttribute("page", "list");
+    req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
 // [END example]

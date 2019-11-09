@@ -15,10 +15,10 @@
 
 package com.example.getstarted.daos;
 
-import com.example.getstarted.objects.Person;
-import com.example.getstarted.objects.Result;
+        import com.example.getstarted.objects.Person;
+        import com.example.getstarted.objects.Result;
 
-import java.sql.SQLException;
+        import java.sql.SQLException;
 
 // [START example]
 public interface PersonDao {

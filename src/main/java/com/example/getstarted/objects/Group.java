@@ -17,21 +17,23 @@ package com.example.getstarted.objects;
 
 // [START example]
 public class Group {
-    // [START group]
+    // [START person]
     private String name;
     private String createdBy;
     private String createdById;
+
     private String description;
     private Long id;
     private String imageUrl;
-
-    // [END group]
+    // [END person]
     // [START keys]
     public static final String NAME = "name";
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";
     public static final String DESCRIPTION = "description";
     public static final String ID = "id";
+
+
     public static final String IMAGE_URL = "imageUrl";
     // [END keys]
 
@@ -41,6 +43,7 @@ public class Group {
         this.name = builder.name;
         this.createdBy = builder.createdBy;
         this.createdById = builder.createdById;
+
         this.description = builder.description;
         this.id = builder.id;
         this.imageUrl = builder.imageUrl;
@@ -50,6 +53,7 @@ public class Group {
     // [START builder]
     public static class Builder {
         private String name;
+        private String last;
         private String createdBy;
         private String createdById;
         private String publishedDate;
@@ -62,6 +66,11 @@ public class Group {
             return this;
         }
 
+        public Builder last(String last) {
+            this.last = last;
+            return this;
+        }
+
         public Builder createdBy(String createdBy) {
             this.createdBy = createdBy;
             return this;
@@ -71,6 +80,7 @@ public class Group {
             this.createdById = createdById;
             return this;
         }
+
 
         public Builder description(String description) {
             this.description = description;
@@ -116,6 +126,7 @@ public class Group {
         this.createdById = createdById;
     }
 
+
     public String getDescription() {
         return description;
     }
@@ -143,14 +154,8 @@ public class Group {
     // [END builder]
     @Override
     public String toString() {
-        return "Group{" +
-                "name='" + name + '\'' +
-                ", createdBy='" + createdBy + '\'' +
-                ", createdById='" + createdById + '\'' +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                ", imageUrl='" + imageUrl + '\'' +
-                '}';
+        return
+                "Name: " + name  + ", Added by: " + createdBy;
     }
 }
 // [END example]

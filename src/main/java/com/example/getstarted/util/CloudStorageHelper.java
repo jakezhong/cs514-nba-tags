@@ -43,6 +43,7 @@ public class CloudStorageHelper {
   // [START init]
   static {
     storage = StorageOptions.getDefaultInstance().getService();
+    // it is simple to use Cloud Storage API for java. In most cases, a single line is all you  need to authenticate locally
   }
   // [END init]
 
@@ -50,8 +51,10 @@ public class CloudStorageHelper {
   /**
    * Uploads a file to Google Cloud Storage to the bucket specified in the BUCKET_NAME
    * environment variable, appending a timestamp to end of the uploaded filename.
+   * checks that the file extension  is supported
    */
-  public String uploadFile(FileItemStream fileStream, final String bucketName) throws IOException, ServletException {
+  public String uploadFile(FileItemStream fileStream, final String bucketName)
+      throws IOException, ServletException {
     checkFileExtension(fileStream.getName());
 
     DateTimeFormatter dtf = DateTimeFormat.forPattern("-YYYY-MM-dd-HHmmssSSS");

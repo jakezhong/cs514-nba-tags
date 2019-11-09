@@ -15,14 +15,14 @@
 
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.PersonDao;
+        import com.example.getstarted.daos.PersonDao;
 
-import java.io.IOException;
+        import java.io.IOException;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
+        import javax.servlet.ServletException;
+        import javax.servlet.http.HttpServlet;
+        import javax.servlet.http.HttpServletRequest;
+        import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
@@ -30,12 +30,12 @@ public class DeletePersonServlet extends HttpServlet {
 
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+          IOException {
     Long id = Long.decode(req.getParameter("id"));
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao-person");
+    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
     try {
       dao.deletePerson(id);
-      resp.sendRedirect("/persons");
+      resp.sendRedirect("/person");
     } catch (Exception e) {
       throw new ServletException("Error deleting person", e);
     }

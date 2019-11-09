@@ -16,13 +16,17 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.DatastorePersonGroupDao;
-import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.objects.Group;
+import com.example.getstarted.daos.CloudSqlDao;
+import com.example.getstarted.daos.DatastoreDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
+import com.example.getstarted.util.CloudStorageHelper;
+
+import com.google.common.base.Strings;
 
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -32,29 +36,31 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
-public class ReadGroupServlet extends HttpServlet {
+public class ListGroupMemberServlet extends HttpServlet {
+
 
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
             ServletException {
-        Long id = Long.decode(req.getParameter("id"));
-        GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
-     //   DatastorePersonGroupDao daoAssociation = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
+        DatastorePersonGroupDao dao = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
         String startCursor = req.getParameter("cursor");
+        Long groupId = Long.decode(req.getParameter("id"));
+        System.out.println(groupId);
+        List<Person> persons = null;
+        String endCursor = null;
         try {
-            Group group = dao.readGroup(id);
-        //    List<Person> members = daoAssociation.listPersonsByGroup(id,startCursor).result;
-        //    System.out.println(members);
-            req.setAttribute("group", group);
-            req.setAttribute("page", "viewGroup");
-         //   req.setAttribute("persons",members);
-            req.getRequestDispatcher("/base.jsp").forward(req, resp);
+            Result<Person> result = dao.listPersonsByGroup(groupId,startCursor);
+            persons=result.result;
+            System.out.println(persons);
+            endCursor = result.cursor;
         } catch (Exception e) {
-            throw new ServletException("Error reading group", e);
+            throw new ServletException("Error listing persons", e);
         }
+        req.getSession().getServletContext().setAttribute("persons", persons);
 
-
-
+        req.setAttribute("cursor", endCursor);
+        req.setAttribute("page", "listGroupMember");
+        req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }
 // [END example]
