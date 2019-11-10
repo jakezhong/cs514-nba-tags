@@ -36,13 +36,13 @@ limitations under the License.
 
         <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
             <label for="file">Cover Image</label>
-            <input type="file" name="file" id="file" class="form-control" />
+            <input type="file" name="file" id="file" class="form-control image-uploader" />
+            <img class="image-uploader-review" src="" alt="" />
         </div>
 
         <div class="form-group hidden">
             <label for="imageUrl">Cover Image URL</label>
             <input type="hidden" name="id" value="${group.id}" />
-            <input type="text" name="imageUrl" id="imageUrl" value="${fn:escapeXml(group.imageUrl)}" class="form-control" />
         </div>
 
         <button type="submit" class="btn btn-success">Save</button>

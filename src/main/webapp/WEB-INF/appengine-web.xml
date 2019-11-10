@@ -22,11 +22,12 @@
   <system-properties>
     <property name="java.util.logging.config.file" value="WEB-INF/logging.properties"/>
   </system-properties>
-  
-  <runtime>java8</runtime> 
+
+  <runtime>java8</runtime>
 
   <static-files>
     <include path="/static/**" />
+    <include path="ui/**" />
   </static-files>
 
   <resource-files>

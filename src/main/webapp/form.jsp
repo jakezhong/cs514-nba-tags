@@ -40,14 +40,14 @@ Copyright 2016 Google Inc.
     </div>
 
     <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
-      <label for="file">Cover Image</label>
-      <input type="file" name="file" id="file" class="form-control" />
+        <label for="file">Cover Image</label>
+		<input type="file" name="file" id="file" class="form-control image-uploader" />
+		<img class="image-uploader-review" src="" alt="" />
     </div>
 
     <div class="form-group hidden">
-      <label for="imageUrl">Cover Image URL</label>
-      <input type="hidden" name="id" value="${person.id}" />
-      <input type="text" name="imageUrl" id="imageUrl" value="${fn:escapeXml(person.imageUrl)}" class="form-control" />
+        <label for="imageUrl">Cover Image URL</label>
+        <input type="hidden" name="id" value="${person.id}" />
     </div>
 
     <button type="submit" class="btn btn-success">Save</button>
