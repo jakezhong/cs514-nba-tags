@@ -22273,6 +22273,14 @@ main {
   font-weight: 600;
 }
 
+/* ============= Forms ============ */
+.form-group .image-uploader-reviewer {
+  display: block;
+  float: none;
+  max-width: 400px;
+  margin-top: 20px;
+}
+
 /* ============= Suggestions ============ */
 .sd-title {
   float: left;

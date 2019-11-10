@@ -4,4 +4,8 @@
         <property name="createdById" direction="asc"/>
         <property name="last" direction="asc"/>
     </datastore-index>
+    <datastore-index kind="Group4" ancestor="false" source="auto">
+        <property name="createdById" direction="asc"/>
+        <property name="last" direction="asc"/>
+    </datastore-index>
 </datastore-indexes>

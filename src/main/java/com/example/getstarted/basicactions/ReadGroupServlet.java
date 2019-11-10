@@ -40,12 +40,29 @@ public class ReadGroupServlet extends HttpServlet {
         Long id = Long.decode(req.getParameter("id"));
         GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
      //   DatastorePersonGroupDao daoAssociation = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
-        String startCursor = req.getParameter("cursor");
         try {
             Group group = dao.readGroup(id);
         //    List<Person> members = daoAssociation.listPersonsByGroup(id,startCursor).result;
         //    System.out.println(members);
+
+            DatastorePersonGroupDao associationDao = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
+            String startCursor = req.getParameter("cursor");
+            Long groupId = Long.decode(req.getParameter("id"));
+            List<Person> persons = null;
+            String endCursor = null;
+
+            try {
+                Result<Person> result = associationDao.listPersonsByGroup(groupId,startCursor);
+                persons=result.result;
+                System.out.println(persons);
+                endCursor = result.cursor;
+            } catch (Exception e) {
+                throw new ServletException("Error listing persons", e);
+            }
+
             req.setAttribute("group", group);
+            req.getSession().getServletContext().setAttribute("persons", persons);
+            req.setAttribute("cursor", endCursor);
             req.setAttribute("page", "viewGroup");
          //   req.setAttribute("persons",members);
             req.getRequestDispatcher("/base.jsp").forward(req, resp);

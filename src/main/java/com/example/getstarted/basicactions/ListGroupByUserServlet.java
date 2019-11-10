@@ -50,10 +50,10 @@ public class ListGroupByUserServlet extends HttpServlet {
             throw new ServletException("Error listing groups", e);
         }
         req.getSession().getServletContext().setAttribute("groups", groups);
-        StringBuilder groupNames = new StringBuilder();
-        for (Group group : groups) {
-            groupNames.append(group.getName() + " ");
-        }
+//        StringBuilder groupNames = new StringBuilder();
+//        for (Group group : groups) {
+//            groupNames.append(group.getName() + " ");
+//        }
         req.getSession().setAttribute("cursor", endCursor);
         req.getSession().setAttribute("page", "listGroup");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);

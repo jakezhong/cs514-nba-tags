@@ -33,7 +33,6 @@ Copyright 2016 Google Inc.
       <input type="text" name="last" id="last" value="${fn:escapeXml(person.last)}" class="form-control" />
     </div>
 
-
     <div class="form-group">
       <label for="description">Description</label>
       <textarea name="description" id="description" class="form-control">${fn:escapeXml(person.description)}</textarea>
@@ -42,7 +41,7 @@ Copyright 2016 Google Inc.
     <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
         <label for="file">Cover Image</label>
 		<input type="file" name="file" id="file" class="form-control image-uploader" />
-		<img class="image-uploader-review" src="" alt="" />
+		<img class="image-uploader-reviewer" src="" alt="" />
     </div>
 
     <div class="form-group hidden">

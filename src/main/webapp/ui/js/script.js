@@ -1,9 +1,5 @@
 $(window).on("load", function() {
     "use strict";
-
-    
-
-    
     //============= POST PROJECT POPUP FUNCTION =========
 
     $(".post_project").on("click", function(){
@@ -188,7 +184,7 @@ $(window).on("load", function() {
     });
 
 
-    //  ============== ChatBox ============== 
+    //  ============== ChatBox ==============
 
 
     $(".chat-mg").on("click", function(){
@@ -286,24 +282,15 @@ $(window).on("load", function() {
     });
 
 	function readURL(input) {
-	  if (input.files && input.files[0]) {
-		var reader = new FileReader();
-
-		reader.onload = function(e) {
-		  $(e.target).next('.image-uploader-review').attr('src', e.target.result);
-		}
-
-		reader.readAsDataURL(input.files[0]);
-	  }
+        if (input.files && input.files[0]) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $(input).next('.image-uploader-reviewer').attr('src', e.target.result);
+            }
+            reader.readAsDataURL(input.files[0]);
+        }
 	}
-
 	$(".image-uploader").change(function() {
   		readURL(this);
 	});
-
-
-
-
 });
-
-

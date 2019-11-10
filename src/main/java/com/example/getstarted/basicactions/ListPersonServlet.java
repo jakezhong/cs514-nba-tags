@@ -1,24 +1,6 @@
-/* Copyright 2016 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastorePersonGroupDao;
-import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.CloudSqlDao;
-import com.example.getstarted.daos.DatastoreDao;
+import com.example.getstarted.daos.*;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
@@ -38,9 +20,14 @@ import javax.servlet.http.HttpServletResponse;
 @SuppressWarnings("serial")
 public class ListPersonServlet extends HttpServlet {
 
+  /**
+   *
+   * @throws ServletException
+   */
   @Override
   public void init() throws ServletException {
     PersonDao dao = null;
+    GroupDao daoGroup = null;
     DatastorePersonGroupDao daoAssociation = null;
     CloudStorageHelper storageHelper = new CloudStorageHelper();
 
@@ -49,6 +36,8 @@ public class ListPersonServlet extends HttpServlet {
     switch (storageType) {
       case "datastore":
         dao = new DatastoreDao();
+        daoGroup = new DatastoreGroupDao() {
+        };
         daoAssociation = new DatastorePersonGroupDao();
 
         break;
@@ -76,6 +65,7 @@ public class ListPersonServlet extends HttpServlet {
             "Invalid storage type. Check if personshelf.storageType property is set.");
     }
     this.getServletContext().setAttribute("dao", dao);
+    this.getServletContext().setAttribute("daoGroup", daoGroup);
     this.getServletContext().setAttribute("dao-association", daoAssociation);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
     this.getServletContext().setAttribute(
@@ -83,6 +73,13 @@ public class ListPersonServlet extends HttpServlet {
         !Strings.isNullOrEmpty(getServletContext().getInitParameter("personshelf.bucket")));
   }
 
+  /**
+   *
+   * @param req
+   * @param resp
+   * @throws IOException
+   * @throws ServletException
+   */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {

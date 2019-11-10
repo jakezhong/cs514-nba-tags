@@ -37,7 +37,7 @@ limitations under the License.
         <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
             <label for="file">Cover Image</label>
             <input type="file" name="file" id="file" class="form-control image-uploader" />
-            <img class="image-uploader-review" src="" alt="" />
+            <img class="image-uploader-reviewer" src="" alt="" />
         </div>
 
         <div class="form-group hidden">
