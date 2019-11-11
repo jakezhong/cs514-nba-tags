@@ -24205,7 +24205,7 @@ footer {
   width: 100%;
   height: 300px;
   background-size: cover;
-  background-position: top top;
+  background-position: top center;
   background-repeat: no-repeat;
 }
 
@@ -25269,7 +25269,6 @@ a:hover {
 }
 
 .company-title {
-  float: left;
   width: 100%;
   margin-bottom: 20px;
   padding: 0 15px;
@@ -25284,7 +25283,6 @@ a:hover {
 }
 
 .companies-list {
-  float: left;
   width: 100%;
   margin-bottom: -30px;
 }
@@ -25294,6 +25292,7 @@ a:hover {
   width: 100%;
   background-color: #fff;
   text-align: center;
+  border-top: 1px solid #e4e4e4;
   border-left: 1px solid #e4e4e4;
   border-right: 1px solid #e4e4e4;
   border-bottom: 1px solid #e4e4e4;
@@ -27382,7 +27381,12 @@ a:hover {
 
 /* ============= Customized CSS ============ */
 .main h3 {
+  margin-bottom: 20px;
   font-size: 30px;
+}
+
+.main .post-project h3 {
+  margin-bottom: 0;
 }
 
 .main .center {
@@ -27397,6 +27401,17 @@ a:hover {
 
 .main .no-result {
   margin-top: 40px;
+}
+
+.main .read-more {
+  width: 100px;
+  margin: 0 auto 30px;
+  text-align: center;
+}
+
+.main .read-more a {
+  display: block;
+  width: 100%;
 }
 
 /* ============= Forms ============ */
@@ -27417,7 +27432,7 @@ a:hover {
 
 .form-group label {
   display: block;
-  margin-bottom: 5px;
+  margin-bottom: 10px;
 }
 
 .form-group .fileupload {

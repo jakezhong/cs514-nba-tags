@@ -33,17 +33,11 @@
                                 </div><!--company_profile_info end-->
                             </div>
                         </c:forEach>
-                        <div class="process-comm">
-                            <a href="?cursor=${fn:escapeXml(cursor)}" title=""><img src="images/process-icon.png" alt=""></a>
-                        </div>
                         <c:if test="${not empty cursor}">
-                            <nav>
-                                <ul class="pager">
-                                    <li><a href="?cursor=${fn:escapeXml(cursor)}">More</a></li>
-                                </ul>
-                            </nav>
-                            <div class="process-comm">
-                                <a href="?cursor=${fn:escapeXml(cursor)}" title=""><img src="images/process-icon.png" alt=""></a>
+                            <div class="read-more">
+                                <a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
+                                    <i class="glyphicon glyphicon-edit"></i>More
+                                </a>
                             </div>
                         </c:if>
                     </div>

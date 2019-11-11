@@ -53,12 +53,12 @@
                                 <div class="star-descp">
                                     <p><span>${fn:escapeXml(person.title)}</span></p>
                                     <p>
-                                        <small class="person-added-by">Added by
+                                        <small>Added by
                                             ${fn:escapeXml(not empty person.createdBy?person.createdBy:'Anonymous')}
                                         </small>
                                     </p>
                                     <p>
-                                        <small class="person-publishedDate">Added on
+                                        <small>Added on
                                             ${fn:escapeXml(not empty person.publishedDate?person.publishedDate:'')}
                                         </small>
                                     </p>
@@ -67,7 +67,7 @@
                             <div class="post-bar">
                                 <div class="detail_descp">
                                     <h3>Introduction</h3>
-                                    <p class="person-introduction">${fn:escapeXml(person.introduction)}</p>
+                                    <p>${fn:escapeXml(person.introduction)}</p>
                                 </div>
                             </div>
                             <div class="post-bar">
