@@ -40,6 +40,7 @@ public class LoginServlet extends HttpServlet {
       User user = userService.getCurrentUser();
       req.getSession().setAttribute("userEmail", user.getEmail());
       req.getSession().setAttribute("userId", user.getUserId());
+      req.getSession().setAttribute("userName", user.getNickname());
 
       String destination = (String) req.getSession().getAttribute("loginDestination");
       if (destination == null) {

@@ -8,17 +8,15 @@
   <component name="ChangeListManager">
     <list default="true" id="40ca9056-fc53-4dd7-8c44-3e14ebf7f513" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListGroupByUserServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListGroupByUserServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListGroupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListGroupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListPersonServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListPersonServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ReadGroupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ReadGroupServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/WEB-INF/datastore-indexes.xml" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/WEB-INF/datastore-indexes.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/auth/LoginServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/auth/LoginServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/CloudSqlGroupDao.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/base.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/base.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/compile-sass.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/form-association.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form-association.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/formGroup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/formGroup.jsp" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/ui/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ui/css/style.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/ui/css/style.css.map" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/ui/css/style.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/ui/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ui/js/script.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/pubspec.yaml" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view.jsp" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/viewGroup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/viewGroup.jsp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
