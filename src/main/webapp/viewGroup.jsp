@@ -63,11 +63,11 @@
 					<c:if test="${not empty cursor}">
 						<nav>
 							<ul class="pager">
-								<li><a href="?cursor=${fn:escapeXml(cursor)}">More</a></li>
+								<li><a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}">More</a></li>
 							</ul>
 						</nav>
 						<div class="process-comm">
-							<a href="?cursor=${fn:escapeXml(cursor)}" title=""><img src="images/process-icon.png" alt=""></a>
+							<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}" title=""><img src="images/process-icon.png" alt=""></a>
 						</div>
 					</c:if>
 				</div>

@@ -55,7 +55,13 @@ public class ListGroupByPersonServlet extends HttpServlet {
             ServletException {
         DatastorePersonGroupDao dao = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
         String startCursor = req.getParameter("cursor");
-        Long peopleId = Long.decode(req.getParameter("id"));
+        long peopleId ;
+        if(startCursor!=null){
+            peopleId = (Long)req.getSession().getServletContext().getAttribute("id");
+        }else{
+            peopleId = Long.decode(req.getParameter("id"));
+        }
+
         System.out.println(peopleId);
         List<Group> groups = null;
         String endCursor = null;
@@ -68,6 +74,7 @@ public class ListGroupByPersonServlet extends HttpServlet {
             throw new ServletException("Error listing persons", e);
         }
         req.getSession().getServletContext().setAttribute("groups", groups);
+        req.getSession().getServletContext().setAttribute("id", peopleId);
 
         req.setAttribute("cursor", endCursor);
         req.setAttribute("page", "listGroupByPerson");
