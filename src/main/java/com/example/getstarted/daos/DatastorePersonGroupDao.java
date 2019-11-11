@@ -23,8 +23,8 @@ import static com.example.getstarted.objects.Association.PERSON_ID;
 //Some NoSQL databases have less restrictions on value types.
 
 public class DatastorePersonGroupDao implements PersonGroupDao {
-    private static final String PERSON_KIND = "Person4";
-    private static final String GROUP_KIND = "Group4";
+    private static final String PERSON_KIND = "Person";
+    private static final String GROUP_KIND = "Group";
     private static final String PERSON_GROUP = "Person_group";
     private DatastoreService datastore;
     /**

@@ -86,9 +86,9 @@
 					</div>
 				</div><!--header-data end-->
 			</div>
-		</header><!--header end-->
+        </header><!--header end-->
+        <c:import url="/${page}.jsp" />
 	</div>
-	<c:import url="/${page}.jsp" />
 	<script type="text/javascript" src="${main_ui}/js/jquery.js"></script>
 	<script type="text/javascript" src="${main_ui}/js/jquery.plugins.js"></script>
 	<script type="text/javascript" src="${main_ui}/js/script.js"></script>

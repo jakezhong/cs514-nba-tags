@@ -111,7 +111,6 @@ public class CreateAssociationServlet extends HttpServlet {
                 .groupId(groupId)
                 .build();
 
-
          //[END AssociationBuilder]
         DatastorePersonGroupDao daoAssociation = new DatastorePersonGroupDao();
         try {

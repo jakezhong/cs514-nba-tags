@@ -21,6 +21,9 @@ import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -97,6 +100,8 @@ public class CreateGroupServlet extends HttpServlet {
         // [START createdBy]
         String createdByString = "";
         String createdByIdString = "";
+        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+        Date date = new Date();
         HttpSession session = req.getSession();
         if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
             createdByString = (String) session.getAttribute("userEmail");
@@ -107,12 +112,22 @@ public class CreateGroupServlet extends HttpServlet {
         // [START personBuilder]
         Group group = new Group.Builder()
                 .name(params.get("name"))
+                .name(params.get("introduction"))
+                .name(params.get("category"))
+                .name(params.get("type"))
+                .name(params.get("linkedin"))
+                .name(params.get("facebook"))
+                .name(params.get("twitter"))
+                .name(params.get("instagram"))
+                .name(params.get("youtube"))
+                .name(params.get("website"))
+                .name(params.get("description"))
                 .description(params.get("description"))
-//                .first(params.get("first"))
                 .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
                 // [START auth]
                 .createdBy(createdByString)
                 .createdById(createdByIdString)
+                .createdDate(date)
                 // [END auth]
                 .build();
         // [END groupBuilder]

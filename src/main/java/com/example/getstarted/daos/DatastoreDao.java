@@ -152,7 +152,7 @@ public class DatastoreDao implements PersonDao {
       Entity entity = new Entity(key);         // Convert Person to an Entity
       entity.setProperty(Person.FIRST, person.getFirst());
       entity.setProperty(Person.LAST, person.getLast());
-      entity.setProperty(Person.TITLE, person.getLast());
+      entity.setProperty(Person.TITLE, person.getTitle());
       entity.setProperty(Person.INTRODUCTION, person.getIntroduction());
       entity.setProperty(Person.EMAIL, person.getEmail());
       entity.setProperty(Person.PHONE, person.getPhone());

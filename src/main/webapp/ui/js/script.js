@@ -281,6 +281,28 @@ $(window).on("load", function() {
 
     });
 
+	uploader();
+	uploadFile();
+	function uploader() {
+		var upload = '<div class="upload-upper">';
+			upload += '<span class="upload-text">Drop Files Here <span>-or-</span></span>';
+			upload += '<span class="upload-btn">Browse Files</span>';
+			upload += '</div><span class="upload-filename" class="upload-file"></span>';
+		$('.fileupload').prepend(upload);
+	}
+
+	function uploadFile() {
+		var trigger = $("form input[type=file]");
+		$(trigger).change(function() {
+			var display = $(this).parents("form").find(".upload-filename"),
+				filename = $(this).val(),
+				fakePath = filename.toString().split('\\');
+				fakePath = fakePath[fakePath.length - 1];
+			$(display).html(fakePath);
+  			readURL(this);
+		});
+	}
+
 	function readURL(input) {
         if (input.files && input.files[0]) {
             var reader = new FileReader();
@@ -290,7 +312,4 @@ $(window).on("load", function() {
             reader.readAsDataURL(input.files[0]);
         }
 	}
-	$(".image-uploader").change(function() {
-  		readURL(this);
-	});
 });

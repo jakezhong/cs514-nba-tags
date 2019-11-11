@@ -7,15 +7,26 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="40ca9056-fc53-4dd7-8c44-3e14ebf7f513" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" afterPath="$PROJECT_DIR$/.gitignore" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/CreatePersonServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/CreatePersonServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/UpdatePersonServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/UpdatePersonServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/CreateAssociationServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/CreateAssociationServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/CreateGroupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/CreateGroupServlet.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/UpdateGroupServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/UpdateGroupServlet.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/DatastoreDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/DatastoreDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/DatastoreGroupDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/DatastoreGroupDao.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/DatastorePersonGroupDao.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/daos/DatastorePersonGroupDao.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/objects/Group.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/objects/Group.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/objects/Person.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/objects/Person.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/base.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/base.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/form-association.jsp" beforeDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/formGroup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/formGroup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/list.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/list.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/listGroup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/listGroup.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/listGroupByPerson.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/listGroupByPerson.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/ui/css/style.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ui/css/style.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/ui/js/script.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/ui/js/script.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/webapp/view.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/view.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/viewGroup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/viewGroup.jsp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

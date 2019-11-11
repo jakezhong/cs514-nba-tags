@@ -102,13 +102,25 @@ public class UpdateGroupServlet extends HttpServlet {
 
             // [START personBuilder]
             Group group = new Group.Builder()
-                    .name(params.get("name"))
-                    .description(params.get("description"))
-//                    .first(params.get("first"))
-                    .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
                     .id(Long.decode(params.get("id")))
+                    .name(params.get("name"))
+                    .name(params.get("introduction"))
+                    .name(params.get("category"))
+                    .name(params.get("type"))
+                    .name(params.get("linkedin"))
+                    .name(params.get("facebook"))
+                    .name(params.get("twitter"))
+                    .name(params.get("instagram"))
+                    .name(params.get("youtube"))
+                    .name(params.get("website"))
+                    .name(params.get("description"))
+                    .description(params.get("description"))
+                    .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
+                    // [START auth]
                     .createdBy(oldGroup.getCreatedBy())
                     .createdById(oldGroup.getCreatedById())
+                    .createdDate(oldGroup.getCreatedDate())
+                    // [END auth]
                     .build();
             // [END groupBuilder]
 

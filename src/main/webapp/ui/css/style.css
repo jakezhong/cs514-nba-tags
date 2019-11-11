@@ -22158,6 +22158,7 @@ main {
 .main-section {
   float: left;
   width: 100%;
+  font-size: 16px;
 }
 
 .main-section-data {
@@ -22169,6 +22170,7 @@ main {
   float: left;
   width: 100%;
   margin-top: -20px;
+  background-color: #fff;
 }
 
 .full-width {
@@ -22271,14 +22273,6 @@ main {
   color: #e44d3a;
   font-size: 14px;
   font-weight: 600;
-}
-
-/* ============= Forms ============ */
-.form-group .image-uploader-reviewer {
-  display: block;
-  float: none;
-  max-width: 400px;
-  margin-top: 20px;
 }
 
 /* ============= Suggestions ============ */
@@ -22449,6 +22443,14 @@ main {
 .main-ws-sec {
   float: left;
   width: 100%;
+}
+
+.main-ws-sec h3 {
+  font-size: 30px;
+}
+
+.detail_descp {
+  padding: 20px;
 }
 
 /* ============ post-topbar =========== */
@@ -24199,6 +24201,14 @@ footer {
 }
 
 /* ================== USER PROFILE =================== */
+.cover-sec {
+  width: 100%;
+  height: 300px;
+  background-size: cover;
+  background-position: top top;
+  background-repeat: no-repeat;
+}
+
 .cover-sec img {
   width: 100%;
 }
@@ -24223,21 +24233,33 @@ footer {
 
 /* ============= user_profile ============= */
 .user_profile {
-  float: left;
   width: 100%;
-  background-color: #fff;
   margin-bottom: 20px;
   text-align: center;
   margin-top: -40px;
 }
 
 .user-pro-img {
-  float: left;
-  width: 100%;
+  position: relative;
+  width: 80%;
+  padding-bottom: 80%;
   text-align: center;
+  margin: 0 auto;
   margin-bottom: 28px;
   margin-top: -95px;
-  position: relative;
+  background-color: #fff;
+  border-radius: 50%;
+  overflow: hidden;
+}
+
+.user-pro-img img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  -o-object-fit: cover;
+  object-fit: cover;
 }
 
 .user-pro-img > a {
@@ -24256,56 +24278,39 @@ footer {
   left: 60%;
 }
 
-.user-pro-img img {
-  -webkit-border-radius: 100px;
-  -moz-border-radius: 100px;
-  -ms-border-radius: 100px;
-  -o-border-radius: 100px;
-  border-radius: 100px;
-  float: none;
-  border: 5px solid #fff;
-}
-
 .user_pro_status {
-  float: left;
   width: 100%;
   border-bottom: 1px solid #e5e5e5;
-  padding-bottom: 27px;
+  padding: 0 20px 20px;
+}
+
+.user_pro_status .btn {
+  width: 100%;
+  background-color: #e44d3a;
+  border: 0;
+}
+
+.user_pro_status .btn:hover {
+  background-color: #53d690;
 }
 
 .flw-hr {
-  float: left;
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: end;
+  -ms-flex-pack: end;
+  justify-content: flex-end;
   width: 100%;
-  margin-bottom: 30px;
 }
 
 .flw-hr li {
-  display: inline-block;
-  margin-right: 17px;
+  margin-right: 20px;
+  margin-bottom: 20px;
 }
 
 .flw-hr li:last-child {
   margin-right: 0;
-}
-
-.flw-hr li a {
-  display: inline-block;
-  color: #ffffff;
-  font-size: 16px;
-  font-weight: 600;
-  padding: 11px 15px;
-}
-
-.flw-hr li a i {
-  padding-right: 5px;
-}
-
-.flww {
-  background-color: #53d690;
-}
-
-.hre {
-  background-color: #51a5fb;
 }
 
 /* =============== flw-status ============ */
@@ -24339,20 +24344,18 @@ footer {
 
 /* ================== social_links ============= */
 .social_links {
-  float: left;
   width: 100%;
   text-align: left;
 }
 
 .social_links li {
-  float: left;
   width: 100%;
   padding: 15px 15px;
   border-bottom: 1px solid #e5e5e5;
 }
 
 .social_links li a {
-  float: left;
+  display: block;
   width: 100%;
   color: #51a5fb;
   font-size: 13px;
@@ -24433,7 +24436,6 @@ footer {
 }
 
 .star-descp span {
-  float: left;
   color: #686868;
   font-size: 18px;
   font-weight: 600;
@@ -27376,6 +27378,129 @@ a:hover {
 
 .widget-feat ul li i.fa-eye {
   color: #00b540;
+}
+
+/* ============= Customized CSS ============ */
+.main h3 {
+  font-size: 30px;
+}
+
+.main .center {
+  text-align: center;
+}
+
+.main .landing-header {
+  margin-bottom: 20px;
+  padding: 0 15px;
+  text-align: right;
+}
+
+.main .no-result {
+  margin-top: 40px;
+}
+
+/* ============= Forms ============ */
+.main-form .form-footer {
+  width: 200px;
+  margin: 40px auto 0;
+}
+
+.main-form .form-footer button[type="submit"] {
+  width: 100%;
+}
+
+.form-group .image-uploader-reviewer {
+  display: block;
+  float: none;
+  max-width: 400px;
+}
+
+.form-group label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+.form-group .fileupload {
+  position: relative;
+  display: block;
+  width: 100%;
+  background-color: #F7F7F7;
+}
+
+.form-group .fileupload .upload-upper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-align: center;
+  -ms-flex-align: center;
+  align-items: center;
+  -webkit-box-pack: justify;
+  -ms-flex-pack: justify;
+  justify-content: space-between;
+  padding: 10px;
+  font-size: 0;
+}
+
+.form-group .fileupload .upload-upper span {
+  margin-bottom: 0;
+}
+
+.form-group .fileupload .upload-upper .upload-text {
+  width: 50%;
+  display: inline-block;
+  vertical-align: middle;
+  color: #000;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 13px;
+}
+
+.form-group .fileupload .upload-upper .upload-text span {
+  color: #BABABA;
+}
+
+.form-group .fileupload .upload-upper .upload-btn {
+  display: inline-block;
+  vertical-align: middle;
+  width: 120px;
+  height: 40px;
+  line-height: 40px;
+  background-color: #e44d3a;
+  color: #fff;
+  font-size: 13px;
+  letter-spacing: 1px;
+  text-align: center;
+  text-transform: uppercase;
+}
+
+.form-group .fileupload input[type=file] {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0;
+  padding-top: 118px;
+  overflow: hidden;
+  background-color: transparent;
+  border: 0;
+  margin: 0;
+}
+
+.form-group .fileupload .upload-filename {
+  display: block;
+  width: 100%;
+  height: 58px;
+  line-height: 58px;
+  padding: 0 10px;
+  background-color: rgba(216, 216, 216, 0.4);
+  font-size: 13px;
+  color: #000;
+  -webkit-box-sizing: border-box;
+  box-sizing: border-box;
+}
+
+.form-group:hover .upload-upper .upload-btn {
+  background-color: #53d690;
 }
 
 /* =============== ANIMATION LOADER =============== */
