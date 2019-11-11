@@ -38,9 +38,20 @@ import org.apache.commons.fileupload.util.Streams;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * Create group object
+ */
 public class CreateGroupServlet extends HttpServlet {
 
     // [START setup]
+
+    /**
+     * When request add Group, redirect the page to form-group JSP
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
@@ -52,6 +63,13 @@ public class CreateGroupServlet extends HttpServlet {
     // [END setup]
 
     // [START formpost]
+    /**
+     * Create  an Group Object and store in Group4 Kind, store image to bucket
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {

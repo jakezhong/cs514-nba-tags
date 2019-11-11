@@ -31,13 +31,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 // [START init]
+
+/**
+ * Logout
+ */
 public class LogoutFilter implements Filter {
   // [END init]
 
+  /**
+   * implement Filter interface abstract method
+   * @param config FilterConfig
+   * @throws ServletException
+   */
   @Override
   public void init(FilterConfig config) throws ServletException {
   }
 
+  /**
+   *to check if user login before logout
+   * @param servletReq servletRequest
+   * @param servletResp servletResponse
+   * @param chain FilterChain
+   * @throws IOException
+   * @throws ServletException
+   */
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)
       throws IOException, ServletException {
@@ -55,6 +72,10 @@ public class LogoutFilter implements Filter {
     }
   }
 
+
+  /**
+   * implement Filter interface abstract method
+   */
   @Override
   public void destroy() {
   }

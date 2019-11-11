@@ -18,16 +18,30 @@ package com.example.getstarted.objects;
 import java.util.List;
 
 // [START example]
+
+/**
+ * To parameter(use generic type) List & curor
+ * @param <K>
+ */
 public class Result<K> {
 
   public String cursor;
   public List<K> result;
 
+  /**
+   * Constructor
+   * @param result list
+   * @param cursor string
+   */
   public Result(List<K> result, String cursor) {
     this.result = result;
     this.cursor = cursor;
   }
-
+  /**
+   * Constructor
+   * @param result list
+   *  cursor null
+   */
   public Result(List<K> result) {
     this.result = result;
     this.cursor = null;

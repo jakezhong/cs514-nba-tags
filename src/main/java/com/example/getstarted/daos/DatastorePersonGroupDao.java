@@ -25,13 +25,20 @@ import static com.example.getstarted.objects.Association.PERSON_ID;
 public class DatastorePersonGroupDao implements PersonGroupDao {
     private static final String PERSON_KIND = "Person4";
     private static final String GROUP_KIND = "Group4";
-    private DatastoreService datastore;
     private static final String PERSON_GROUP = "Person_group";
-
+    private DatastoreService datastore;
+    /**
+     * Constructor  to get Datastore service
+     */
     public DatastorePersonGroupDao() {
         datastore = DatastoreServiceFactory.getDatastoreService(); // Lastized Datastore service
     }
 
+    /**
+     * To create an entity and create key
+     * @param association Association
+     * @return Long, the id of the key
+     */
     @Override
     public Long createAssociation(Association association) {
         Entity incAssociationEntity = new Entity(PERSON_GROUP);  // Key will be assigned once written
@@ -42,7 +49,11 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         return associationKey.getId();                     // The ID of the Key
     }
 
-
+    /**
+     * To translate a entity to association Object
+     * @param entity entity
+     * @return association Object
+     */
     public Association entityToAssociation(Entity entity) {
         return new Association.Builder()                                     // Convert to Association form
                 .id(entity.getKey().getId())
@@ -51,6 +62,12 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
                 .build();
     }
 
+    /**
+     * Read group according to groupId
+     * @param associationId Long associationId
+     * @return association Object
+     */
+    @Override
     public Association readAssociation(Long associationId) {
         try {
             Entity associationEntity = datastore.get(KeyFactory.createKey(PERSON_GROUP, associationId));
@@ -60,11 +77,23 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         }
     }
 
+
+    /**
+     * To delete Group according to groupId
+     * @param associationId
+     */
+    @Override
     public void deleteAssociation(Long associationId) {
         Key key = KeyFactory.createKey(PERSON_GROUP, associationId);        // Create the Key
         datastore.delete(key);                      // Delete the Entity
     }
 
+    /**
+     * Loop through Iterator<Result> and call entity to group
+     *  To translate all entities to association Object
+     * @param results Iterator<Entity>
+     * @return List<Association>
+     */
     public List<Association> entitiesToAssociations(Iterator<Entity> results) {
         List<Association> resultAssociations = new ArrayList<>();
         while (results.hasNext()) {  // We still have data
@@ -73,7 +102,12 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         return resultAssociations;
     }
 
-
+    /**
+     * list all group member in a specific group
+     * @param groupId groupId
+     * @param startCursor startCursor
+     * @return Result<Person>
+     */
     @Override
     public Result<Person> listPersonsByGroup(Long groupId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
@@ -112,7 +146,12 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
     }
 
 
-
+    /**
+     * List all groups by specific person
+     * @param peopelId peopelId
+     * @param startCursor startCursor
+     * @return Result<Group>
+     */
     public Result<Group> listGroupByPerson(Long peopelId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
@@ -150,7 +189,11 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
     }
 
 
-
+    /**
+     * To translate a entity to Person Object
+     * @param entity entity
+     * @return Person Object
+     */
     private Person entityToPerson(Entity entity) {
         return new Person.Builder()                                     // Convert to Person form
                 .last((String) entity.getProperty(Person.LAST))
@@ -163,6 +206,11 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
                 .build();
     }
 
+    /**
+     * Read Person according to personId
+     * @param personId Long PersonId
+     * @return Person Object
+     */
     public Person readPerson(Long personId) {
         try {
             Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
@@ -172,6 +220,11 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         }
     }
 
+    /**
+     * Read group according to groupId
+     * @param groupId Long groupId
+     * @return group Object
+     */
     public Group readGroup(Long groupId) {
         try {
             Entity groupEntity = datastore.get(KeyFactory.createKey(GROUP_KIND, groupId));
@@ -180,6 +233,11 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
             return null;
         }
     }
+    /**
+     * To create an entity and create key
+     * @param entity entity
+     * @return Long, the id of the key
+     */
     public Group entityToGroup(Entity entity) {
         return new Group.Builder()                                     // Convert to Group form
                 .name((String) entity.getProperty(Group.NAME))

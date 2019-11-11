@@ -16,6 +16,11 @@
 package com.example.getstarted.objects;
 
 // [START example]
+
+/**
+ * defining an entity, PersonGroupAssoc, w
+ * hich is "relational" in the sense that it maps a personId with a groupId.
+ */
 public class Association {
     // [START group]
     private Long id;
@@ -44,6 +49,11 @@ public class Association {
         private Long personId;
         private Long groupId;
 
+        /**
+         * Build constructor
+         * @param id id
+         * @return Builder
+         */
         public Builder id(Long id) {
             this.id = id;
             return this;
@@ -64,25 +74,46 @@ public class Association {
         }
     }
 
+    /**
+     * get method
+     * @return id
+     */
     public Long getId() {
         return id;
     }
-
+    /**
+     * set method to update id
+     * @return id
+     */
     public void setId(Long id) {
         this.id = id;
     }
-
+    /**
+     * get method to get personId
+     * @return id
+     */
     public Long getPersonId() {
         return personId;
     }
-
+    /**
+     * set method to update personId
+     * @return id
+     */
     public void setPersonId(Long personId) {
         this.personId = personId;
     }
-
+    /**
+     * get method to get groupId
+     * @return id
+     */
     public Long getGroupId() {
         return groupId;
     }
+
+    /**
+     * set method to update groupId
+     * @return id
+     */
 
     public void setGroupId(Long groupId) {
         this.groupId = groupId;
@@ -90,6 +121,10 @@ public class Association {
 
     // [END builder]
 
+    /**
+     * Override toString method
+     * @return String
+     */
     @Override
     public String toString() {
         return "Association{" +

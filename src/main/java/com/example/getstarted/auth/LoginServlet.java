@@ -29,13 +29,25 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To to finish login and also get User info
+ * store in the session
+ */
 public class LoginServlet extends HttpServlet {
+  /**
+   *
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws IOException
+   * @throws ServletException
+   */
   @Override
   protected void doGet(HttpServletRequest req, HttpServletResponse resp)
       throws IOException, ServletException {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
+
       // Save the relevant profile info and store it in the session.
       User user = userService.getCurrentUser();
       req.getSession().setAttribute("userEmail", user.getEmail());

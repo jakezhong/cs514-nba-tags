@@ -106,6 +106,11 @@ public class Person {
       private Date publishedDate;
       private String imageUrl;
 
+      /**
+       * Build constructor
+       * @param id id
+       * @return Builder
+       */
       public Builder id(Long id) {
           this.id = id;
           return this;

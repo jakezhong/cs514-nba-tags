@@ -36,9 +36,18 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * List all group members in a specific group
+ */
 public class ListGroupMemberServlet extends HttpServlet {
 
-
+    /**
+     * list all group member in a specific group according to groupId
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws IOException
+     * @throws ServletException
+     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
             ServletException {

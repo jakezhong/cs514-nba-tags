@@ -26,6 +26,10 @@ import javax.servlet.http.HttpSession;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To logout and invalidate the user info
+ * and also rebuild session
+ */
 public class LogoutServlet extends HttpServlet {
 
   @Override

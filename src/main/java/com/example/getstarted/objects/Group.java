@@ -67,6 +67,11 @@ public class Group {
         private Long id;
         private String imageUrl;
 
+        /**
+         * Build constructor
+         * @param name name
+         * @return Builder
+         */
         public Builder name(String name) {
             this.name = name;
             return this;

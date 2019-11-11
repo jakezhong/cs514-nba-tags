@@ -25,9 +25,20 @@ import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * Create Person Object and store, display it
+ */
 public class CreatePersonServlet extends HttpServlet {
 
   // [START setup]
+
+  /**
+   * When adding Person, redirect page to form JSP
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws ServletException
+   * @throws IOException
+   */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
@@ -39,6 +50,14 @@ public class CreatePersonServlet extends HttpServlet {
   // [END setup]
 
   // [START formpost]
+  /**
+   * Create person object and store in Person4 kind
+   * Check whether if created by specific user
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws ServletException
+   * @throws IOException
+   */
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {

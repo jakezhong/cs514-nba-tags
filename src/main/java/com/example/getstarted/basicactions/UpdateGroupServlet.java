@@ -37,7 +37,17 @@ import org.apache.commons.fileupload.util.Streams;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To update group info
+ */
 public class UpdateGroupServlet extends HttpServlet {
+    /**
+     * To redirect to page formGroup jsp
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
@@ -54,6 +64,13 @@ public class UpdateGroupServlet extends HttpServlet {
         }
     }
 
+    /**
+     * According to updated info to create group object and store it datastore
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {

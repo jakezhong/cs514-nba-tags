@@ -15,7 +15,7 @@
 
 package com.example.getstarted.basicactions;
 
-        import com.example.getstarted.daos.PersonDao;
+ import com.example.getstarted.daos.PersonDao;
 
         import java.io.IOException;
 
@@ -26,8 +26,18 @@ package com.example.getstarted.basicactions;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * Delete person object according to personId
+ */
 public class DeletePersonServlet extends HttpServlet {
 
+    /**
+     * To delete person object according by personId
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
           IOException {

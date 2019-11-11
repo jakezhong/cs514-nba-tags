@@ -27,8 +27,17 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To Delete Group Object
+ */
 public class DeleteGroupServlet extends HttpServlet {
-
+    /**
+     * To delete Group object according by groupId
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {

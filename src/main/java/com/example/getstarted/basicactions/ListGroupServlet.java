@@ -19,12 +19,15 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To list all groups
+ */
 public class ListGroupServlet extends HttpServlet {
 
     /**
-     *
-     * @param req
-     * @param resp
+     *List all groups / display by using cursor (fetch 10 by time)
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
      * @throws IOException
      * @throws ServletException
      */

@@ -27,8 +27,18 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To view all information of a specific person
+ */
 public class ReadPersonServlet extends HttpServlet {
 
+  /**
+   * To view all information of a specific person
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws IOException
+   * @throws ServletException
+   */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {

@@ -37,7 +37,17 @@ import org.apache.commons.fileupload.util.Streams;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To update person info
+ */
 public class UpdatePersonServlet extends HttpServlet {
+  /**
+   * To redirect to page form jsp
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws ServletException
+   * @throws IOException
+   */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
@@ -53,6 +63,14 @@ public class UpdatePersonServlet extends HttpServlet {
       throw new ServletException("Error loading person for editing", e);
     }
   }
+
+  /**
+   * According to updated info to create person object and store it datastore
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws ServletException
+   * @throws IOException
+   */
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,

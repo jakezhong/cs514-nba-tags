@@ -37,18 +37,28 @@ import java.util.Iterator;
 import java.util.List;
 
 // [START example]
+// DatastoreDao as storage type
 public class DatastoreDao implements PersonDao {
 
   // [START constructor]
   private DatastoreService datastore;
   static final String PERSON_KIND = "Person";
 
+    /**
+     * Constructor  to get Datastore service
+     */
   public DatastoreDao() {
     datastore = DatastoreServiceFactory.getDatastoreService(); // Lastized Datastore service
   }
   // [END constructor]
 
   // [START entityToPerson]
+
+    /**
+     * To translate a entity to Person Object
+     * @param entity entity
+     * @return Person Object
+     */
   public Person entityToPerson(Entity entity) {
       return new Person.Builder()                                     // Convert to Person form
           .id(entity.getKey().getId())
@@ -77,6 +87,12 @@ public class DatastoreDao implements PersonDao {
   // [END entityToPerson]
 
   // [START create]
+
+    /**
+     * To create an entity and create key
+     * @param person Person
+     * @return Long, the id of the key
+     */
   @Override
   public Long createPerson(Person person) {
       Entity incPersonEntity = new Entity(PERSON_KIND);  // Key will be assigned once written
@@ -107,6 +123,12 @@ public class DatastoreDao implements PersonDao {
   // [END create]
 
   // [START read]
+
+    /**
+     * Read Person according to personId
+     * @param personId Long PersonId
+     * @return Person Object
+     */
   @Override
   public Person readPerson(Long personId) {
       try {
@@ -119,6 +141,11 @@ public class DatastoreDao implements PersonDao {
   // [END read]
 
   // [START update]
+
+    /**
+     * To update person info and store the updated info
+     * @param person Person Object
+     */
   @Override
   public void updatePerson(Person person) {
       Key key = KeyFactory.createKey(PERSON_KIND, person.getId());  // From a person, create a Key
@@ -149,6 +176,11 @@ public class DatastoreDao implements PersonDao {
   // [END update]
 
   // [START delete]
+
+    /**
+     * To delete Person according to personId
+     * @param personId
+     */
   @Override
   public void deletePerson(Long personId) {
       Key key = KeyFactory.createKey(PERSON_KIND, personId);        // Create the Key
@@ -157,6 +189,13 @@ public class DatastoreDao implements PersonDao {
   // [END delete]
 
   // [START entitiesToPersons]
+
+    /**
+     * Loop through Iterator<Result> and call entity to person
+     * To translate all entities to person Object
+     * @param results  Iterator<Entity>
+     * @return a lit of person
+     */
   public List<Person> entitiesToPersons(Iterator<Entity> results) {
       List<Person> resultPersons = new ArrayList<>();
       while (results.hasNext()) {  // We still have data
@@ -167,6 +206,12 @@ public class DatastoreDao implements PersonDao {
   // [END entitiesToPersons]
 
   // [START listpersons]
+
+    /**
+     * List all Persons
+     * @param startCursorString to display 10 per time
+     * @return Result<Person>
+     */
   @Override
   public Result<Person> listPersons(String startCursorString) {
       FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
@@ -191,6 +236,11 @@ public class DatastoreDao implements PersonDao {
 
   // [START listbyuser]
   @Override
+  /**
+   * List all Persons by specific person
+   * @param startCursorString to display 10 per time
+   * @return Result<Person>
+   */
   public Result<Person> listPersonsByUser(String userId, String startCursorString) {
       FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
       if (startCursorString != null && !startCursorString.equals("")) {

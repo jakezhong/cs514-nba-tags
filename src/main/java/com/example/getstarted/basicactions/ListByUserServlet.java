@@ -30,8 +30,19 @@ import javax.servlet.http.HttpServletResponse;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * To List persons by user according to userId
+ */
 public class ListByUserServlet extends HttpServlet {
 
+  /**
+   * list all persons created by specific user according to userID
+   * display all persons by cursor( fetch 10 per time)
+   * @param req HttpServletRequest
+   * @param resp HttpServletResponse
+   * @throws IOException
+   * @throws ServletException
+   */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
         ServletException {

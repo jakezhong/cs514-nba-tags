@@ -46,9 +46,20 @@ import static java.lang.System.out;
 
 // [START example]
 @SuppressWarnings("serial")
+/**
+ * Create Association between person and group
+ */
 public class CreateAssociationServlet extends HttpServlet {
 
     // [START setup]
+
+    /**
+     * When user request Join group, redirect to form-association jsp
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
@@ -80,6 +91,14 @@ public class CreateAssociationServlet extends HttpServlet {
     // [END setup]
 
     // [START formpost]
+
+    /**
+     * To create association entity and store in corresponding kind
+     * @param req HttpServletRequest
+     * @param resp HttpServletResponse
+     * @throws ServletException
+     * @throws IOException
+     */
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {

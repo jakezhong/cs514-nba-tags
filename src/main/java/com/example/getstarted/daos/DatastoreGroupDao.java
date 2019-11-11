@@ -36,18 +36,26 @@ import java.util.Iterator;
 import java.util.List;
 
 // [START example]
+// DatastoreGroupDao as storage type
 public class DatastoreGroupDao implements GroupDao {
 
     // [START constructor]
     private DatastoreService datastore;
     private static final String GROUP_KIND = "Group4";
-
+    /**
+     * Constructor  to get Datastore service
+     */
     public DatastoreGroupDao() {
         datastore = DatastoreServiceFactory.getDatastoreService(); // Lastized Datastore service
     }
     // [END constructor]
 
     // [START entityToPerson]
+    /**
+     * To translate a entity to group Object
+     * @param entity entity
+     * @return Group Object
+     */
     public Group entityToGroup(Entity entity) {
         return new Group.Builder()
             .id(entity.getKey().getId())                   // Convert to Group form
@@ -62,6 +70,11 @@ public class DatastoreGroupDao implements GroupDao {
 
     // [START create]
     @Override
+    /**
+     * To create an entity and create key
+     * @param Group group
+     * @return Long, the id of the key
+     */
     public Long createGroup(Group group) {
         Entity incGroupEntity = new Entity(GROUP_KIND);  // Key will be assigned once written
         incGroupEntity.setProperty(Group.NAME, group.getName());
@@ -76,6 +89,11 @@ public class DatastoreGroupDao implements GroupDao {
     // [END create]
 
     // [START read]
+    /**
+     * Read group according to groupId
+     * @param groupId Long groupId
+     * @return group Object
+     */
     @Override
     public Group readGroup(Long groupId) {
         try {
@@ -88,6 +106,10 @@ public class DatastoreGroupDao implements GroupDao {
     // [END read]
 
     // [START update]
+    /**
+     * To update group info and store the updated info
+     * @param group Person Object
+     */
     @Override
     public void updateGroup(Group group) {
         Key key = KeyFactory.createKey(GROUP_KIND, group.getId());  // From a group, create a Key
@@ -103,6 +125,10 @@ public class DatastoreGroupDao implements GroupDao {
     // [END update]
 
     // [START delete]
+    /**
+     * To delete Group according to groupId
+     * @param groupId
+     */
     @Override
     public void deleteGroup(Long groupId) {
         Key key = KeyFactory.createKey(GROUP_KIND, groupId);        // Create the Key
@@ -111,6 +137,12 @@ public class DatastoreGroupDao implements GroupDao {
     // [END delete]
 
     // [START entitiesToGroups]
+    /**
+     * Loop through Iterator<Result> and call entity to group
+     * To translate all entities to group Object
+     * @param results  Iterator<Entity>
+     * @return a lit of group
+     */
     public List<Group> entitiesToGroups(Iterator<Entity> results) {
         List<Group> resultGroups = new ArrayList<>();
         while (results.hasNext()) {  // We still have data
@@ -121,6 +153,11 @@ public class DatastoreGroupDao implements GroupDao {
     // [END entitiesToPersons]
 
     // [START listgroups]
+    /**
+     * List all groups
+     * @param startCursorString to display 10 per time
+     * @return Result<Group>
+     */
     @Override
     public Result<Group> listGroups(String startCursorString) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
@@ -144,6 +181,11 @@ public class DatastoreGroupDao implements GroupDao {
     // [END listpersons]
 
     // [START listbyuser]
+    /**
+     * List all groups by specific group
+     * @param startCursorString to display 10 per time
+     * @return Result<Group>
+     */
     @Override
     public Result<Group> listGroupsByUser(String userId, String startCursorString) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time

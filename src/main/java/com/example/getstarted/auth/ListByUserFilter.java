@@ -30,12 +30,29 @@ import javax.servlet.ServletResponse;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+/**
+ * List person by created By (user)
+ * Filter to check user whether login
+ */
 public class ListByUserFilter implements Filter {
 
+  /**
+   * implements Filter, implement interface
+   * @param config FilterConfig
+   * @throws ServletException
+   */
   @Override
   public void init(FilterConfig config) throws ServletException {
   }
 
+  /**
+   *
+   * @param servletReq servletRequest
+   * @param servletResp servletResponse
+   * @param chain FilterChain
+   * @throws IOException
+   * @throws ServletException
+   */
   @Override
   public void doFilter(ServletRequest servletReq, ServletResponse servletResp, FilterChain chain)
       throws IOException, ServletException {
@@ -51,6 +68,9 @@ public class ListByUserFilter implements Filter {
     }
   }
 
+  /**
+   * implement Filter interface abstract method
+   */
   @Override
   public void destroy() {
   }
