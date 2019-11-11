@@ -38,44 +38,45 @@
                            </div>
                         </div>
                         <div class="col-lg-4">
-                           <div class="form-group">
-                               <label for="category">Category</label>
-                               <input type="text" name="category" id="category" value="${fn:escapeXml(person.category)}" class="form-control" />
-                           </div>
-
-                           <div class="form-group">
-                               <label for="type">Type</label>
-                               <input type="text" name="type" id="type" value="${fn:escapeXml(person.type)}" class="form-control" />
-                           </div>
+                            <div class="form-group">
+                                <label for="category">Category</label>
+                                <select class="form-control" name="category" id="category">
+                                    <option value="basketball" ${fn:escapeXml(group.category)==basketball?"selected" : ""}>Basketball</option>
+                                    <option value="football" ${fn:escapeXml(group.category)==football?"selected" : ""}>Football</option>
+                                    <option value="baseball" ${fn:escapeXml(group.category)==baseball?"selected" : ""}>Baseball</option>
+                                    <option value="soccer" ${fn:escapeXml(group.category)==soccer?"selected" : ""}>Soccer</option>
+                                    <option value="hiking" ${fn:escapeXml(group.category)==hiking?"selected" : ""}>Hiking</option>
+                                </select>
+                            </div>
 
                            <div class="form-group">
                                <label for="linkedin">Linkedin</label>
-                               <input type="url" name="linkedin" id="linkedin" value="${fn:escapeXml(person.linkedin)}" class="form-control" />
+                               <input type="url" name="linkedin" id="linkedin" value="${fn:escapeXml(group.linkedin)}" class="form-control" />
                            </div>
 
                            <div class="form-group">
                                <label for="facebook">Facebook</label>
-                               <input type="url" name="facebook" id="facebook" value="${fn:escapeXml(person.facebook)}" class="form-control" />
+                               <input type="url" name="facebook" id="facebook" value="${fn:escapeXml(group.facebook)}" class="form-control" />
                            </div>
 
                            <div class="form-group">
                                <label for="twitter">Twitter</label>
-                               <input type="url" name="twitter" id="twitter" value="${fn:escapeXml(person.twitter)}" class="form-control" />
+                               <input type="url" name="twitter" id="twitter" value="${fn:escapeXml(group.twitter)}" class="form-control" />
                            </div>
 
                            <div class="form-group">
                                <label for="instagram">Instagram</label>
-                               <input type="url" name="instagram" id="instagram" value="${fn:escapeXml(person.instagram)}" class="form-control" />
+                               <input type="url" name="instagram" id="instagram" value="${fn:escapeXml(group.instagram)}" class="form-control" />
                            </div>
 
                            <div class="form-group">
                                <label for="youtube">Youtube</label>
-                               <input type="url" name="youtube" id="youtube" value="${fn:escapeXml(person.youtube)}" class="form-control" />
+                               <input type="url" name="youtube" id="youtube" value="${fn:escapeXml(group.youtube)}" class="form-control" />
                            </div>
 
                            <div class="form-group">
                                <label for="website">Website</label>
-                               <input type="url" name="website" id="website" value="${fn:escapeXml(person.website)}" class="form-control" />
+                               <input type="url" name="website" id="website" value="${fn:escapeXml(group.website)}" class="form-control" />
                            </div>
                         </div>
                     </div>

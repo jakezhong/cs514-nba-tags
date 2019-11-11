@@ -52,6 +52,7 @@
                                 <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(not empty person.last?person.last:'Unknown')}</h3>
                                 <div class="star-descp">
                                     <p><span>${fn:escapeXml(person.title)}</span></p>
+                                    <p class="category"><span>${fn:escapeXml(person.category)}</span></p>
                                     <p>
                                         <small>Added by
                                             ${fn:escapeXml(not empty person.createdBy?person.createdBy:'Anonymous')}

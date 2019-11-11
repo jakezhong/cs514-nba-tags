@@ -65,12 +65,13 @@
 
                             <div class="form-group">
                                 <label for="category">Category</label>
-                                <input type="text" name="category" id="category" value="${fn:escapeXml(person.category)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="type">Type</label>
-                                <input type="text" name="type" id="type" value="${fn:escapeXml(person.type)}" class="form-control" />
+                                <select class="form-control" name="category" id="category">
+                                    <option value="basketball" ${fn:escapeXml(person.category)==basketball?"selected" : ""}>Basketball</option>
+                                    <option value="football" ${fn:escapeXml(person.category)==football?"selected" : ""}>Football</option>
+                                    <option value="baseball" ${fn:escapeXml(person.category)==baseball?"selected" : ""}>Baseball</option>
+                                    <option value="soccer" ${fn:escapeXml(person.category)==soccer?"selected" : ""}>Soccer</option>
+                                    <option value="hiking" ${fn:escapeXml(person.category)==hiking?"selected" : ""}>Hiking</option>
+                                </select>
                             </div>
 
                             <div class="form-group">

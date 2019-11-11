@@ -25,14 +25,14 @@
                                 </div><!--company_profile_info end-->
                             </div>
                         </c:forEach>
-                        <c:if test="${not empty cursor}">
-                            <div class="read-more">
-                                <a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
-                                    <i class="glyphicon glyphicon-edit"></i>More
-                                </a>
-                            </div>
-                        </c:if>
                     </div>
+                    <c:if test="${not empty cursor}">
+                        <div class="read-more">
+                            <a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
+                                <i class="glyphicon glyphicon-edit"></i>More
+                            </a>
+                        </div>
+                    </c:if>
                 </div>
             </c:otherwise>
         </c:choose>

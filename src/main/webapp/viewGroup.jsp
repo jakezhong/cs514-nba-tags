@@ -50,6 +50,7 @@
                                 </ul>
                                 <h3>${fn:escapeXml(group.name)}</h3>
                                 <div class="star-descp">
+                                    <p class="category"><span>${fn:escapeXml(group.category)}</span></p>
                                     <p>
                                         <small>Added by
                                             ${fn:escapeXml(not empty group.createdBy?group.createdBy:'Anonymous')}
@@ -98,14 +99,14 @@
                                                             </div><!--company_profile_info end-->
                                                         </div>
                                                     </c:forEach>
-                                                    <c:if test="${not empty cursor}">
-                                                        <div class="read-more">
-                                                            <a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
-                                                                <i class="glyphicon glyphicon-edit"></i>More
-                                                            </a>
-                                                        </div>
-                                                    </c:if>
                                                 </div>
+                                                <c:if test="${not empty cursor}">
+                                                    <div class="read-more">
+                                                        <a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+                                                            <i class="glyphicon glyphicon-edit"></i>More
+                                                        </a>
+                                                    </div>
+                                                </c:if>
                                             </div>
                                         </c:otherwise>
                                     </c:choose>

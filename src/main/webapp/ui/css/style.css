@@ -21965,20 +21965,17 @@ nav > ul > li > a:hover {
 }
 
 .user-account {
+  position: relative;
   float: right;
-  min-width: 110px;
   border-left: 1px solid #dd3e2b;
   border-right: 1px solid #dd3e2b;
   -webkit-box-sizing: border-box;
   box-sizing: border-box;
-  position: relative;
 }
 
 .user-info {
-  float: left;
-  width: 100%;
-  padding: 13px 10px;
   position: relative;
+  padding: 13px 30px 13px 13px;
 }
 
 .user-account-settingss {
@@ -22128,7 +22125,6 @@ nav > ul > li > a:hover {
 .user-info a {
   color: #fff;
   font-size: 14px;
-  float: left;
 }
 
 .user-info a:hover {
@@ -26078,9 +26074,10 @@ a:hover {
 }
 
 .menu-btn a {
+  display: inline-block;
   font-size: 24px;
   color: #fff;
-  display: inline-block;
+  margin-left: 13px;
 }
 
 /* ============= account-tabs-setting ============ */
@@ -27412,6 +27409,10 @@ a:hover {
 .main .read-more a {
   display: block;
   width: 100%;
+}
+
+.main .category {
+  text-transform: capitalize;
 }
 
 /* ============= Forms ============ */

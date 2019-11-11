@@ -21,11 +21,11 @@
 							<a href="${home_url}" title=""><img src="${main_ui}/images/logo.png" alt=""></a>
 						</div><!--logo end-->
 						<div class="search-bar">
-						<form>
-							<input type="text" name="search" placeholder="Search...">
-							<button type="submit"><i class="la la-search"></i></button>
-						</form>
-					</div><!--search-bar end-->
+                            <form>
+                                <input type="text" name="search" placeholder="Search...">
+                                <button type="submit"><i class="la la-search"></i></button>
+                            </form>
+                        </div><!--search-bar end-->
 					</div>
 					<div class="header-right">
 						<nav>
@@ -71,9 +71,6 @@
 										<h3 class="tc"><a href="/logout" title="">Logout</a></h3>
 									</div><!--user-account-settingss end-->
 								</div>
-								<div class="menu-btn">
-									<a href="#" title=""><i class="fa fa-bars"></i></a>
-								</div><!--menu-btn end-->
 							</c:when>
 							<c:otherwise>
 								<div class="user-account">
@@ -83,6 +80,9 @@
 								</div>
 							</c:otherwise>
 						</c:choose>
+                        <div class="menu-btn">
+                            <a href="#" title=""><i class="fa fa-bars"></i></a>
+                        </div><!--menu-btn end-->
 					</div>
 				</div><!--header-data end-->
 			</div>
