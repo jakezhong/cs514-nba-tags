@@ -49,14 +49,14 @@ public class DatastoreGroupDao implements GroupDao {
 
     // [START entityToPerson]
     public Group entityToGroup(Entity entity) {
-        return new Group.Builder()                                     // Convert to Group form
-                .name((String) entity.getProperty(Group.NAME))
-                .description((String) entity.getProperty(Group.DESCRIPTION))
-                .id(entity.getKey().getId())
-                .imageUrl((String) entity.getProperty(Group.IMAGE_URL))
-                .createdBy((String) entity.getProperty(Group.CREATED_BY))
-                .createdById((String) entity.getProperty(Group.CREATED_BY_ID))
-                .build();
+        return new Group.Builder()
+            .id(entity.getKey().getId())                   // Convert to Group form
+            .name((String) entity.getProperty(Group.NAME))
+            .description((String) entity.getProperty(Group.DESCRIPTION))
+            .imageUrl((String) entity.getProperty(Group.IMAGE_URL))
+            .createdBy((String) entity.getProperty(Group.CREATED_BY))
+            .createdById((String) entity.getProperty(Group.CREATED_BY_ID))
+            .build();
     }
     // [END entityToPerson]
 

@@ -85,13 +85,27 @@ public class UpdatePersonServlet extends HttpServlet {
 
       // [START personBuilder]
       Person person = new Person.Builder()
-          .last(params.get("last"))
-          .description(params.get("description"))
-          .first(params.get("first"))
-          .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
           .id(Long.decode(params.get("id")))
+          .first(params.get("first"))
+          .last(params.get("last"))
+          .title(params.get("title"))
+          .introduction(params.get("introduction"))
+          .email(params.get("email"))
+          .phone(params.get("phone"))
+          .address(params.get("address"))
+          .category(params.get("category"))
+          .type(params.get("type"))
+          .linkedin(params.get("linkedin"))
+          .facebook(params.get("facebook"))
+          .twitter(params.get("twitter"))
+          .instagram(params.get("instagram"))
+          .youtube(params.get("youtube"))
+          .website(params.get("website"))
+          .description(params.get("description"))
+          .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
           .createdBy(oldPerson.getCreatedBy())
           .createdById(oldPerson.getCreatedById())
+          .publishedDate(oldPerson.getPublishedDate())
           .build();
       // [END personBuilder]
 

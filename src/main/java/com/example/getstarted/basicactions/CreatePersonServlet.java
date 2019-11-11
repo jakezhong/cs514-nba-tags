@@ -1,18 +1,3 @@
-/* Copyright 2016 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PersonDao;
@@ -21,6 +6,9 @@ import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 
 import java.io.IOException;
+import java.util.Date;
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -35,7 +23,6 @@ import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
-
 // [START example]
 @SuppressWarnings("serial")
 public class CreatePersonServlet extends HttpServlet {
@@ -81,30 +68,46 @@ public class CreatePersonServlet extends HttpServlet {
     String createdByIdString = "";
     HttpSession session = req.getSession();
     if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
-      createdByString = (String) session.getAttribute("userEmail");
-      createdByIdString = (String) session.getAttribute("userId");
+        createdByString = (String) session.getAttribute("userEmail");
+        createdByIdString = (String) session.getAttribute("userId");
     }
+    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
+    Date date = new Date();
     // [END createdBy]
 
     // [START personBuilder]
     Person person = new Person.Builder()
-        .last(params.get("last"))
-        .description(params.get("description"))
         .first(params.get("first"))
+        .last(params.get("last"))
+        .title(params.get("title"))
+        .introduction(params.get("introduction"))
+        .email(params.get("email"))
+        .phone(params.get("phone"))
+        .address(params.get("address"))
+        .category(params.get("category"))
+        .type(params.get("type"))
+        .linkedin(params.get("linkedin"))
+        .facebook(params.get("facebook"))
+        .twitter(params.get("twitter"))
+        .instagram(params.get("instagram"))
+        .youtube(params.get("youtube"))
+        .website(params.get("website"))
+        .description(params.get("description"))
         .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
         // [START auth]
         .createdBy(createdByString)
         .createdById(createdByIdString)
+        .publishedDate(date)
         // [END auth]
         .build();
     // [END personBuilder]
 
     PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
     try {
-      Long id = dao.createPerson(person);
-      resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote
+        Long id = dao.createPerson(person);
+        resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote
     } catch (Exception e) {
-      throw new ServletException("Error creating person", e);
+        throw new ServletException("Error creating person", e);
     }
   }
   // [END formpost]

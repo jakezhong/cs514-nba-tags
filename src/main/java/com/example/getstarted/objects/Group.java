@@ -27,25 +27,31 @@ public class Group {
     private String imageUrl;
     // [END person]
     // [START keys]
+    public static final String ID = "id";
     public static final String NAME = "name";
+    public static final String CATEGORY = "category";
+    public static final String TYPE = "type";
+    public static final String INTRODUCTION = "introduction";
+    public static final String LINKEDIN = "linkedin";
+    public static final String FACEBOOK = "facebook";
+    public static final String TWITTER = "twitter";
+    public static final String INSTAGRAM = "instagram";
+    public static final String YOUTUBE = "youtube";
+    public static final String DESCRIPTION = "description";
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";
-    public static final String DESCRIPTION = "description";
-    public static final String ID = "id";
-
-
     public static final String IMAGE_URL = "imageUrl";
+    public static final String PROFILE_BG = "profileBg";
     // [END keys]
 
     // [START constructor]
     // We use a Builder pattern here to simplify and standardize construction of Group objects.
     private Group(Builder builder) {
+        this.id = builder.id;
         this.name = builder.name;
+        this.description = builder.description;
         this.createdBy = builder.createdBy;
         this.createdById = builder.createdById;
-
-        this.description = builder.description;
-        this.id = builder.id;
         this.imageUrl = builder.imageUrl;
     }
     // [END constructor]
@@ -80,7 +86,6 @@ public class Group {
             this.createdById = createdById;
             return this;
         }
-
 
         public Builder description(String description) {
             this.description = description;
