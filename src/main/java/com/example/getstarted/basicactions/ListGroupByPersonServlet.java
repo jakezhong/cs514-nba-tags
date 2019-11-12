@@ -71,7 +71,7 @@ public class ListGroupByPersonServlet extends HttpServlet {
             System.out.println(groups);
             endCursor = result.cursor;
         } catch (Exception e) {
-            throw new ServletException("Error listing persons", e);
+            throw new ServletException("Error listing groups", e);
         }
         req.getSession().getServletContext().setAttribute("groups", groups);
         req.getSession().getServletContext().setAttribute("id", peopleId);

@@ -16,7 +16,7 @@
 				<div class="header-data">
 					<div class="header-left">
 						<div class="logo">
-							<a href="${pageContext.request.contextPath}" title=""><img src="${pageContext.request.contextPath}/ui/images/logo.png" alt=""></a>
+							<a href="/${pageContext.request.contextPath}" title=""><img src="${pageContext.request.contextPath}/ui/images/logo.png" alt=""></a>
 						</div><!--logo end-->
 						<div class="search-bar">
                             <form>
@@ -29,7 +29,7 @@
 						<nav>
 							<ul>
 								<li>
-									<a href="${pageContext.request.contextPath}" title="">
+									<a href="/${pageContext.request.contextPath}" title="">
 										<span><img src="${pageContext.request.contextPath}/ui/images/icon1.png" alt=""></span>
 										Home
 									</a>
