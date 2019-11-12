@@ -21,6 +21,9 @@ import com.example.getstarted.objects.Result;
 
 import java.sql.SQLException;
 
+/**
+ * Interface for GroupDao Class
+ */
 // [START example]
 public interface GroupDao {
     Long createGroup(Group group) throws SQLException;

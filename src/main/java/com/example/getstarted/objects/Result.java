@@ -16,6 +16,7 @@
 package com.example.getstarted.objects;
 
 import java.util.List;
+import java.util.Objects;
 
 // [START example]
 
@@ -45,6 +46,31 @@ public class Result<K> {
   public Result(List<K> result) {
     this.result = result;
     this.cursor = null;
+  }
+
+  /**
+   * Customized toString() with instance variables
+   * @return
+   */
+  @Override
+  public String toString() {
+    return "Result{" +
+            "cursor='" + cursor + '\'' +
+            ", result=" + result +
+            '}';
+  }
+
+  /**
+   * Customized equals() with instance variables
+   * @return
+   */
+  @Override
+  public boolean equals(Object o) {
+    if (this == o) return true;
+    if (o == null || getClass() != o.getClass()) return false;
+    Result<?> result1 = (Result<?>) o;
+    return Objects.equals(cursor, result1.cursor) &&
+            Objects.equals(result, result1.result);
   }
 }
 // [END example]

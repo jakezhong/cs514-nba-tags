@@ -21683,6 +21683,10 @@ header {
   margin-right: 14px;
 }
 
+.logo img {
+  width: 100%;
+}
+
 .forum-bar {
   display: block;
   width: 400px;
@@ -23448,7 +23452,6 @@ main {
 
 .post-project-fields form textarea {
   padding: 15px;
-  height: 130px;
 }
 
 .post-project-fields form input,
@@ -24230,7 +24233,6 @@ footer {
 /* ============= user_profile ============= */
 .user_profile {
   width: 100%;
-  margin-bottom: 20px;
   text-align: center;
   margin-top: -40px;
 }
@@ -24416,6 +24418,10 @@ footer {
   float: left;
   width: 100%;
   margin-bottom: 50px;
+}
+
+.star-descp .category {
+  margin-bottom: 10px;
 }
 
 .star-descp > a {

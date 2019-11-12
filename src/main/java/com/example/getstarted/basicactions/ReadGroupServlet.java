@@ -79,9 +79,6 @@ public class ReadGroupServlet extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException("Error reading group", e);
         }
-
-
-
     }
 }
 // [END example]

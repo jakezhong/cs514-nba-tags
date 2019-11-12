@@ -17,6 +17,8 @@ package com.example.getstarted.objects;
 
 // [START example]
 
+import java.util.Objects;
+
 /**
  * defining an entity, PersonGroupAssoc, w
  * hich is "relational" in the sense that it maps a personId with a groupId.
@@ -132,6 +134,20 @@ public class Association {
                 ", personId=" + personId +
                 ", groupId=" + groupId +
                 '}';
+    }
+
+    /**
+     * Override equals method
+     * @return String
+     */
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        Association that = (Association) o;
+        return Objects.equals(id, that.id) &&
+                Objects.equals(personId, that.personId) &&
+                Objects.equals(groupId, that.groupId);
     }
 }
 // [END example]

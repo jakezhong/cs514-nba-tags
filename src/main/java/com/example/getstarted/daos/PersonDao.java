@@ -19,7 +19,9 @@ package com.example.getstarted.daos;
         import com.example.getstarted.objects.Result;
 
         import java.sql.SQLException;
-
+/**
+ * Interface for PersonDao Class
+ */
 // [START example]
 public interface PersonDao {
   Long createPerson(Person person) throws SQLException;

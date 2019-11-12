@@ -28,6 +28,7 @@
                                         <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
                                         <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
                                         <h4>${fn:escapeXml(person.title)}</h4>
+                                        <h5 class="category">${fn:escapeXml(person.category)}</h5>
                                     </div>
                                     <a href="/read?id=${person.id}" title="" class="view-more-pro">View Profile</a>
                                 </div><!--company_profile_info end-->

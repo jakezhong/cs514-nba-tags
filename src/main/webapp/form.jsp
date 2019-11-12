@@ -26,12 +26,12 @@
 
                             <div class="form-group">
                                 <label for="introduction">Introduction</label>
-                                <textarea name="introduction" id="introduction" class="form-control" height="100">${fn:escapeXml(person.introduction)}</textarea>
+                                <textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(person.introduction)}</textarea>
                             </div>
 
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description" class="form-control" height="500">${fn:escapeXml(person.description)}</textarea>
+                                <textarea name="description" id="description" class="form-control" rows="12">${fn:escapeXml(person.description)}</textarea>
                             </div>
 
                             <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
@@ -49,6 +49,20 @@
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">
+                                <label for="category">Category</label>
+                                <div class="inp-field">
+                                    <select name="category" id="category">
+                                        <option value="" selected disabled>Choose Category</option>
+                                        <option value="basketball" ${person.category=='basketball'?"selected" : ""}>Basketball</option>
+                                        <option value="football" ${person.category=='football'?"selected" : ""}>Football</option>
+                                        <option value="baseball" ${person.category=='baseball'?"selected" : ""}>Baseball</option>
+                                        <option value="soccer" ${person.category=='soccer'?"selected" : ""}>Soccer</option>
+                                        <option value="hiking" ${person.category=='hiking'?"selected" : ""}>Hiking</option>
+                                    </select>
+                                </div>
+                            </div>
+
+                            <div class="form-group">
                                 <label for="email">Email</label>
                                 <input type="email" name="email" id="email" value="${fn:escapeXml(person.email)}" class="form-control" />
                             </div>
@@ -61,17 +75,6 @@
                             <div class="form-group">
                                 <label for="address">Address</label>
                                 <input type="text" name="address" id="address" value="${fn:escapeXml(person.address)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="category">Category</label>
-                                <select class="form-control" name="category" id="category">
-                                    <option value="basketball" ${fn:escapeXml(person.category)==basketball?"selected" : ""}>Basketball</option>
-                                    <option value="football" ${fn:escapeXml(person.category)==football?"selected" : ""}>Football</option>
-                                    <option value="baseball" ${fn:escapeXml(person.category)==baseball?"selected" : ""}>Baseball</option>
-                                    <option value="soccer" ${fn:escapeXml(person.category)==soccer?"selected" : ""}>Soccer</option>
-                                    <option value="hiking" ${fn:escapeXml(person.category)==hiking?"selected" : ""}>Hiking</option>
-                                </select>
                             </div>
 
                             <div class="form-group">

@@ -191,7 +191,7 @@ public class DatastoreGroupDao implements GroupDao {
      */
     @Override
     public Result<Group> listGroups(String startCursorString) {
-        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(4); // Only show 10 at a time
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
         if (startCursorString != null && !startCursorString.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
         }
@@ -202,7 +202,7 @@ public class DatastoreGroupDao implements GroupDao {
 
         List<Group> resultGroups = entitiesToGroups(results);     // Retrieve and convert Entities
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && resultGroups.size() == 4) {         // Are we paging? Save Cursor
+        if (cursor != null && resultGroups.size() == 8) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
             return new Result<>(resultGroups, cursorString);
         } else {
@@ -219,7 +219,7 @@ public class DatastoreGroupDao implements GroupDao {
      */
     @Override
     public Result<Group> listGroupsByUser(String userId, String startCursorString) {
-        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(4); // Only show 10 at a time
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
         if (startCursorString != null && !startCursorString.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
         }
@@ -235,7 +235,7 @@ public class DatastoreGroupDao implements GroupDao {
 
         List<Group> resultGroups = entitiesToGroups(results);     // Retrieve and convert Entities
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && resultGroups.size() == 4) {         // Are we paging? Save Cursor
+        if (cursor != null && resultGroups.size() == 8) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
             return new Result<>(resultGroups, cursorString);
         } else {

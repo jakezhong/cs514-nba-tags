@@ -7,6 +7,9 @@ import com.google.appengine.api.datastore.Entity;
 
 import java.sql.SQLException;
 
+/**
+ * Interface for PersonGroup Classes
+ */
 public interface PersonGroupDao {
 
     Long createAssociation(Association association) throws SQLException;

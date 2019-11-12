@@ -16,12 +16,12 @@
 
                            <div class="form-group">
                                <label for="introduction">Introduction</label>
-                               <textarea name="introduction" id="introduction" class="form-control" height="100">${fn:escapeXml(person.introduction)}</textarea>
+                               <textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(person.introduction)}</textarea>
                            </div>
 
                            <div class="form-group">
                                <label for="description">Description</label>
-                               <textarea name="description" id="description" class="form-control">${fn:escapeXml(group.description)}</textarea>
+                               <textarea name="description" id="description" class="form-control" rows="12">${fn:escapeXml(group.description)}</textarea>
                            </div>
 
                             <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
@@ -40,13 +40,16 @@
                         <div class="col-lg-4">
                             <div class="form-group">
                                 <label for="category">Category</label>
-                                <select class="form-control" name="category" id="category">
-                                    <option value="basketball" ${fn:escapeXml(group.category)==basketball?"selected" : ""}>Basketball</option>
-                                    <option value="football" ${fn:escapeXml(group.category)==football?"selected" : ""}>Football</option>
-                                    <option value="baseball" ${fn:escapeXml(group.category)==baseball?"selected" : ""}>Baseball</option>
-                                    <option value="soccer" ${fn:escapeXml(group.category)==soccer?"selected" : ""}>Soccer</option>
-                                    <option value="hiking" ${fn:escapeXml(group.category)==hiking?"selected" : ""}>Hiking</option>
-                                </select>
+                                <div class="inp-field">
+                                    <select name="category" id="category">
+                                        <option value="" selected disabled>Choose Category</option>
+                                        <option value="basketball" ${group.category=='basketball'?"selected" : ""}>Basketball</option>
+                                        <option value="football" ${group.category=='football'?"selected" : ""}>Football</option>
+                                        <option value="baseball" ${group.category=='baseball'?"selected" : ""}>Baseball</option>
+                                        <option value="soccer" ${group.category=='soccer'?"selected" : ""}>Soccer</option>
+                                        <option value="hiking" ${group.category=='hiking'?"selected" : ""}>Hiking</option>
+                                    </select>
+                                </div>
                             </div>
 
                            <div class="form-group">
