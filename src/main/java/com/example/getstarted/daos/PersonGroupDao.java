@@ -18,6 +18,8 @@ public interface PersonGroupDao {
 
     void deleteAssociation(Long associationId) throws SQLException;
 
+    void deleteAssociationByPersonId(Long personId) throws SQLException;
+
     Association entityToAssociation(Entity entity) throws SQLException;
 
     Result<Person> listPersonsByGroup(Long groupId, String startCursor) throws SQLException;

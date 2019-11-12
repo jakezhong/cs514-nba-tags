@@ -79,7 +79,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
 
 
     /**
-     * To delete Group according to groupId
+     * To delete Association according to associationId
      * @param associationId
      */
     @Override
@@ -87,6 +87,32 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         Key key = KeyFactory.createKey(PERSON_GROUP, associationId);        // Create the Key
         datastore.delete(key);                      // Delete the Entity
     }
+
+    /**
+     * when deleting person also deleting association
+     * @param personId personId
+     */
+    public void deleteAssociationByPersonId(Long personId){
+        Query query = new Query(PERSON_GROUP) // We only care about Persons
+                // Only for this user
+                .setFilter(new Query.FilterPredicate(
+                        Association. PERSON_ID, Query.FilterOperator.EQUAL, personId));
+
+//        System.out.println(query);
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+//        Association association = new Association.Builder().groupId(groupId).personId(personId).build();
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+        List<Association> resultPersons = entitiesToAssociations(results);
+
+        for(Association association: resultPersons){
+            Long associationId = association.getId();
+            Key key = KeyFactory.createKey(PERSON_GROUP, associationId);// Create the Key
+            datastore.delete(key);// Delete the Entity
+        }
+    }
+
+
 
     /**
      * Loop through Iterator<Result> and call entity to group
