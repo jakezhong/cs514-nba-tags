@@ -8,8 +8,8 @@
   <component name="ChangeListManager">
     <list default="true" id="40ca9056-fc53-4dd7-8c44-3e14ebf7f513" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListGroupByPersonServlet.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/example/getstarted/basicactions/ListGroupByPersonServlet.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/webapp/base.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/base.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/form.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/form.jsp" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/main/webapp/formGroup.jsp" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/webapp/formGroup.jsp" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />

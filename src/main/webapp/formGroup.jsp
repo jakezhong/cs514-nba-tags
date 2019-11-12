@@ -11,7 +11,7 @@
                         <div class="col-lg-8">
                            <div class="form-group">
                                <label for="name">Group Name</label>
-                               <input type="text" name="name" id="name" value="${fn:escapeXml(group.name)}" class="form-control" />
+                               <input type="text" name="name" id="name" value="${fn:escapeXml(group.name)}" class="form-control" placeholder="Required" required />
                            </div>
 
                            <div class="form-group">

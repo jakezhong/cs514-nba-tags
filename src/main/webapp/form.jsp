@@ -11,17 +11,17 @@
                         <div class="col-lg-8">
                             <div class="form-group">
                                 <label for="first">First</label>
-                                <input type="text" name="first" id="first" value="${fn:escapeXml(person.first)}" class="form-control" required />
+                                <input type="text" name="first" id="first" value="${fn:escapeXml(person.first)}" class="form-control" placeholder="Required" required />
                             </div>
 
                             <div class="form-group">
                                 <label for="last">Last</label>
-                                <input type="text" name="last" id="last" value="${fn:escapeXml(person.last)}" class="form-control" required />
+                                <input type="text" name="last" id="last" value="${fn:escapeXml(person.last)}" class="form-control" placeholder="Required" required />
                             </div>
 
                             <div class="form-group">
                                 <label for="title">Title</label>
-                                <input type="text" name="title" id="title" value="${fn:escapeXml(person.title)}" class="form-control" required />
+                                <input type="text" name="title" id="title" value="${fn:escapeXml(person.title)}" class="form-control" placeholder="Required" required />
                             </div>
 
                             <div class="form-group">
