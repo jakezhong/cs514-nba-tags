@@ -1,8 +1,7 @@
 <!-- [START view] -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
-<c:url value="/ui" var="main_ui" />
-<div class="cover-sec" style="background-image: url(${main_ui}/images/banner1.jpeg)"></div>
+<div class="cover-sec" style="background-image: url(${pageContext.request.contextPath}/ui/images/banner1.jpeg)"></div>
 <main class="main">
     <div class="main-section">
         <div class="container">

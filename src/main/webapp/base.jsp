@@ -4,12 +4,10 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<title>Personshelf - Java on Google Cloud Platform</title>
+	<title>Sport Tags</title>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<meta name="description" content="" />
-	<c:url value="/" var="home_url" />
-	<c:url value="/ui" var="main_ui" />
-    <link rel="stylesheet" href="${main_ui}/css/style.css"/>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/ui/css/style.css" type="text/css"/>
 </head>
 <body>
 	<div class="wrapper">
@@ -18,7 +16,7 @@
 				<div class="header-data">
 					<div class="header-left">
 						<div class="logo">
-							<a href="${home_url}" title=""><img src="${main_ui}/images/logo.png" alt=""></a>
+							<a href="${pageContext.request.contextPath}" title=""><img src="${pageContext.request.contextPath}/ui/images/logo.png" alt=""></a>
 						</div><!--logo end-->
 						<div class="search-bar">
                             <form>
@@ -31,20 +29,20 @@
 						<nav>
 							<ul>
 								<li>
-									<a href="${home_url}" title="">
-										<span><img src="${main_ui}/images/icon1.png" alt=""></span>
+									<a href="${pageContext.request.contextPath}" title="">
+										<span><img src="${pageContext.request.contextPath}/ui/images/icon1.png" alt=""></span>
 										Home
 									</a>
 								</li>
 								<li>
 									<a href="/groups" title="">
-										<span><img src="${main_ui}/images/icon2.png" alt=""></span>
+										<span><img src="${pageContext.request.contextPath}/ui/images/icon2.png" alt=""></span>
 										Groups
 									</a>
 								</li>
 								<li>
 									<a href="/persons" title="Persons">
-										<span><img src="${main_ui}/images/icon4.png" alt=""></span>
+										<span><img src="${pageContext.request.contextPath}/ui/images/icon4.png" alt=""></span>
 										Persons
 									</a>
 								</li>
@@ -89,9 +87,9 @@
         </header><!--header end-->
         <c:import url="/${page}.jsp" />
 	</div>
-	<script type="text/javascript" src="${main_ui}/js/jquery.js"></script>
-	<script type="text/javascript" src="${main_ui}/js/jquery.plugins.js"></script>
-	<script type="text/javascript" src="${main_ui}/js/script.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/jquery.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/jquery.plugins.js"></script>
+	<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/script.js"></script>
 </body>
 </html>
 <!-- [END base]-->
