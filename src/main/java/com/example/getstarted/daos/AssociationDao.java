@@ -10,7 +10,7 @@ import java.sql.SQLException;
 /**
  * Interface for PersonGroup Classes
  */
-public interface PersonGroupDao {
+public interface AssociationDao {
 
     Long createAssociation(Association association) throws SQLException;
 

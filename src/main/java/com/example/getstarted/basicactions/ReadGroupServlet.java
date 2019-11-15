@@ -15,7 +15,7 @@
 
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastorePersonGroupDao;
+import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Group;
@@ -49,13 +49,13 @@ public class ReadGroupServlet extends HttpServlet {
             ServletException {
         Long id = Long.decode(req.getParameter("id"));
         GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
-     //   DatastorePersonGroupDao daoAssociation = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
+     //   DatastoreAssociationDao daoAssociation = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
         try {
             Group group = dao.readGroup(id);
         //    List<Person> members = daoAssociation.listPersonsByGroup(id,startCursor).result;
         //    System.out.println(members);
 
-            DatastorePersonGroupDao associationDao = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
+            DatastoreAssociationDao associationDao = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
             String startCursor = req.getParameter("cursor");
             Long groupId = Long.decode(req.getParameter("id"));
             List<Person> persons = null;

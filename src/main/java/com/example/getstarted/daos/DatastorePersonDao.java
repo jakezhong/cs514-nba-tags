@@ -37,8 +37,8 @@ import java.util.Iterator;
 import java.util.List;
 
 // [START example]
-// DatastoreDao as storage type
-public class DatastoreDao implements PersonDao {
+// DatastorePersonDao as storage type
+public class DatastorePersonDao implements PersonDao {
 
   // [START constructor]
   private DatastoreService datastore;
@@ -47,7 +47,7 @@ public class DatastoreDao implements PersonDao {
     /**
      * Constructor  to get Datastore service
      */
-  public DatastoreDao() {
+  public DatastorePersonDao() {
     datastore = DatastoreServiceFactory.getDatastoreService(); // Lastized Datastore service
   }
   // [END constructor]

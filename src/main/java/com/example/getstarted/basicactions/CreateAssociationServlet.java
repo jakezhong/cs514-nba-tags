@@ -15,7 +15,7 @@
 
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastorePersonGroupDao;
+import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Association;
@@ -112,7 +112,7 @@ public class CreateAssociationServlet extends HttpServlet {
                 .build();
 
          //[END AssociationBuilder]
-        DatastorePersonGroupDao daoAssociation = new DatastorePersonGroupDao();
+        DatastoreAssociationDao daoAssociation = new DatastoreAssociationDao();
         try {
             daoAssociation.createAssociation(association);
             resp.sendRedirect("/readGroup?id=" +groupId.toString());   // read what we just wrote

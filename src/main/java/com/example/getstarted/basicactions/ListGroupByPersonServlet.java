@@ -15,19 +15,11 @@
 
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastorePersonGroupDao;
-import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.CloudSqlDao;
-import com.example.getstarted.daos.DatastoreDao;
+import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.objects.Group;
-import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
-import com.example.getstarted.util.CloudStorageHelper;
-
-import com.google.common.base.Strings;
 
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -53,7 +45,7 @@ public class ListGroupByPersonServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
             ServletException {
-        DatastorePersonGroupDao dao = (DatastorePersonGroupDao) this.getServletContext().getAttribute("dao-association");
+        DatastoreAssociationDao dao = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
         String startCursor = req.getParameter("cursor");
         long peopleId ;
         if(startCursor!=null){

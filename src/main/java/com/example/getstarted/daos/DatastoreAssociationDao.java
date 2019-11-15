@@ -1,6 +1,4 @@
 package com.example.getstarted.daos;
-
-
 import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Person;
@@ -18,19 +16,19 @@ import static com.example.getstarted.objects.Association.PERSON_ID;
 //The Datastore we are using is NoSQL, but it has restrictions in terms of the type of values you can have in a key-value pair.
 //You can have lists of strings as a value, but not lists of arbitrary objects. So we can't have,
 // say, a person entity with a property of "collections" and a value of a list of Collection objects.
-//So we are defining an entity, PersonGroupAssoc, which is "relational" in the sense that it maps a personId with a groupId.
+//So we are defining an entity, Association, which is "relational" in the sense that it maps a personId with a groupId.
 //
 //Some NoSQL databases have less restrictions on value types.
 
-public class DatastorePersonGroupDao implements PersonGroupDao {
+public class DatastoreAssociationDao implements AssociationDao {
     private static final String PERSON_KIND = "Person";
     private static final String GROUP_KIND = "Group";
-    private static final String PERSON_GROUP = "Person_group";
+    private static final String ASSOCIATION_GROUP = "Association";
     private DatastoreService datastore;
     /**
      * Constructor  to get Datastore service
      */
-    public DatastorePersonGroupDao() {
+    public DatastoreAssociationDao() {
         datastore = DatastoreServiceFactory.getDatastoreService(); // Lastized Datastore service
     }
 
@@ -41,7 +39,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
      */
     @Override
     public Long createAssociation(Association association) {
-        Entity incAssociationEntity = new Entity(PERSON_GROUP);  // Key will be assigned once written
+        Entity incAssociationEntity = new Entity(ASSOCIATION_GROUP);  // Key will be assigned once written
         incAssociationEntity.setProperty(Association.PERSON_ID, association.getPersonId());
         incAssociationEntity.setProperty(Association.GROUP_ID, association.getGroupId());
 
@@ -70,7 +68,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
     @Override
     public Association readAssociation(Long associationId) {
         try {
-            Entity associationEntity = datastore.get(KeyFactory.createKey(PERSON_GROUP, associationId));
+            Entity associationEntity = datastore.get(KeyFactory.createKey(ASSOCIATION_GROUP, associationId));
             return entityToAssociation(associationEntity);
         } catch (EntityNotFoundException e) {
             return null;
@@ -84,7 +82,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
      */
     @Override
     public void deleteAssociation(Long associationId) {
-        Key key = KeyFactory.createKey(PERSON_GROUP, associationId);        // Create the Key
+        Key key = KeyFactory.createKey(ASSOCIATION_GROUP, associationId);        // Create the Key
         datastore.delete(key);                      // Delete the Entity
     }
 
@@ -93,7 +91,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
      * @param personId personId
      */
     public void deleteAssociationByPersonId(Long personId){
-        Query query = new Query(PERSON_GROUP) // We only care about Persons
+        Query query = new Query(ASSOCIATION_GROUP) // We only care about Persons
                 // Only for this user
                 .setFilter(new Query.FilterPredicate(
                         Association. PERSON_ID, Query.FilterOperator.EQUAL, personId));
@@ -107,7 +105,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
 
         for(Association association: resultPersons){
             Long associationId = association.getId();
-            Key key = KeyFactory.createKey(PERSON_GROUP, associationId);// Create the Key
+            Key key = KeyFactory.createKey(ASSOCIATION_GROUP, associationId);// Create the Key
             datastore.delete(key);// Delete the Entity
         }
     }
@@ -140,7 +138,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
-        Query query = new Query(PERSON_GROUP) // We only care about Persons
+        Query query = new Query(ASSOCIATION_GROUP) // We only care about Persons
                 // Only for this user
                 .setFilter(new Query.FilterPredicate(
                         Association.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
@@ -183,7 +181,7 @@ public class DatastorePersonGroupDao implements PersonGroupDao {
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
-        Query query = new Query(PERSON_GROUP) // We only care about Persons
+        Query query = new Query(ASSOCIATION_GROUP) // We only care about Persons
                 // Only for this user
                 .setFilter(new Query.FilterPredicate(
                        Association.PERSON_ID, Query.FilterOperator.EQUAL, peopelId));

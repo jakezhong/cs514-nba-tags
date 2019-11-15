@@ -34,7 +34,7 @@ import javax.servlet.http.HttpServletResponse;
  * List person by created By (user)
  * Filter to check user whether login
  */
-public class ListByUserFilter implements Filter {
+public class ListPersonByUserFilter implements Filter {
 
   /**
    * implements Filter, implement interface

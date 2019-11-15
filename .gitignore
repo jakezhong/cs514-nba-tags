@@ -1,6 +1,6 @@
 *.DS_Store
 *.config
-.idea/workspace.xml
+../../../Desktop/.idea/workspace.xml
 target
 src/main/webapp/.DS_Store
 pom.xml

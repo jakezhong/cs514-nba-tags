@@ -16,7 +16,7 @@
 package com.example.getstarted.basicactions;
 
  import com.example.getstarted.daos.PersonDao;
- import com.example.getstarted.daos.PersonGroupDao;
+ import com.example.getstarted.daos.AssociationDao;
 
  import java.io.IOException;
 
@@ -44,7 +44,7 @@ public class DeletePersonServlet extends HttpServlet {
           IOException {
     Long id = Long.decode(req.getParameter("id"));
     PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
-      PersonGroupDao personGroupDao =(PersonGroupDao) this.getServletContext().getAttribute("dao-association");
+      AssociationDao personGroupDao =(AssociationDao) this.getServletContext().getAttribute("dao-association");
     try {
       dao.deletePerson(id);
       personGroupDao.deleteAssociationByPersonId(id);

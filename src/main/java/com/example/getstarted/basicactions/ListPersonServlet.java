@@ -31,17 +31,17 @@ public class ListPersonServlet extends HttpServlet {
   public void init() throws ServletException {
     PersonDao dao = null;
     GroupDao daoGroup = null;
-    DatastorePersonGroupDao daoAssociation = null;
+    DatastoreAssociationDao daoAssociation = null;
     CloudStorageHelper storageHelper = new CloudStorageHelper();
 
     // Creates the DAO based on the Context Parameters
     String storageType = this.getServletContext().getInitParameter("personshelf.storageType");
     switch (storageType) {
       case "datastore":
-        dao = new DatastoreDao();
+        dao = new DatastorePersonDao();
         daoGroup = new DatastoreGroupDao() {
         };
-        daoAssociation = new DatastorePersonGroupDao();
+        daoAssociation = new DatastoreAssociationDao();
 
         break;
       case "cloudsql":
