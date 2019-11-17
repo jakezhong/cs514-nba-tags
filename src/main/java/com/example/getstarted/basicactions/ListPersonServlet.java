@@ -4,13 +4,10 @@ import com.example.getstarted.daos.*;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
-
 import com.google.common.base.Strings;
-
 import java.io.IOException;
 import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,18 +26,19 @@ public class ListPersonServlet extends HttpServlet {
    */
   @Override
   public void init() throws ServletException {
-    PersonDao dao = null;
+    UserDao daoUser = null;
+    PersonDao daoPerson = null;
     GroupDao daoGroup = null;
-    DatastoreAssociationDao daoAssociation = null;
+    AssociationDao daoAssociation = null;
     CloudStorageHelper storageHelper = new CloudStorageHelper();
 
     // Creates the DAO based on the Context Parameters
     String storageType = this.getServletContext().getInitParameter("personshelf.storageType");
     switch (storageType) {
       case "datastore":
-        dao = new DatastorePersonDao();
-        daoGroup = new DatastoreGroupDao() {
-        };
+        daoUser = new DatastoreUserDao();
+        daoPerson = new DatastorePersonDao();
+        daoGroup = new DatastoreGroupDao();
         daoAssociation = new DatastoreAssociationDao();
 
         break;
@@ -57,7 +55,7 @@ public class ListPersonServlet extends HttpServlet {
             // Uses a special adapter because of the App Engine sandbox.
             connect = this.getServletContext().getInitParameter("sql.urlRemoteGAE");
           }
-          dao = new CloudSqlDao(connect);
+          daoPerson = new CloudSqlDao(connect);
           
         } catch (SQLException e) {
           throw new ServletException("SQL error", e);
@@ -67,8 +65,9 @@ public class ListPersonServlet extends HttpServlet {
         throw new IllegalStateException(
             "Invalid storage type. Check if personshelf.storageType property is set.");
     }
-    this.getServletContext().setAttribute("dao", dao);
-    this.getServletContext().setAttribute("daoGroup", daoGroup);
+    this.getServletContext().setAttribute("dao-user", daoUser);
+    this.getServletContext().setAttribute("dao-person", daoPerson);
+    this.getServletContext().setAttribute("dao-group", daoGroup);
     this.getServletContext().setAttribute("dao-association", daoAssociation);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
     this.getServletContext().setAttribute(
@@ -86,12 +85,12 @@ public class ListPersonServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     String startCursor = req.getParameter("cursor");
     List<Person> persons = null;
     String endCursor = null;
     try {
-      Result<Person> result = dao.listPersons(startCursor);
+      Result<Person> result = daoPerson.listPersons(startCursor);
       persons = result.result;
       endCursor = result.cursor;
     } catch (Exception e) {

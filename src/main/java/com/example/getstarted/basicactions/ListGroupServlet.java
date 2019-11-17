@@ -2,16 +2,9 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.*;
 import com.example.getstarted.objects.Group;
-import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
-import com.example.getstarted.util.CloudStorageHelper;
-
-import com.google.common.base.Strings;
-
 import java.io.IOException;
-import java.sql.SQLException;
 import java.util.List;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,7 +27,7 @@ public class ListGroupServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
             ServletException {
-        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("daoGroup");
+        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         String startCursor = req.getParameter("cursor");
         List<Group> groups;
         groups = null;

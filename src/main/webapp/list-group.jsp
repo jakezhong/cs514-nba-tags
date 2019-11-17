@@ -7,7 +7,7 @@
             <h3>All Groups</h3>
         </div>
         <div class="landing-header">
-            <a href="create" class="btn btn-success btn-sm">
+            <a href="/group/create" class="btn btn-success btn-sm">
                 <i class="glyphicon glyphicon-plus"></i>
                 Add group
             </a>

@@ -47,21 +47,20 @@ public class LoginServlet extends HttpServlet {
 
     UserService userService = UserServiceFactory.getUserService();
     if (userService.isUserLoggedIn()) {
+        // Save the relevant profile info and store it in the session.
+        User user = userService.getCurrentUser();
+        req.getSession().setAttribute("userEmail", user.getEmail());
+        req.getSession().setAttribute("userId", user.getUserId());
+        req.getSession().setAttribute("userName", user.getNickname());
 
-      // Save the relevant profile info and store it in the session.
-      User user = userService.getCurrentUser();
-      req.getSession().setAttribute("userEmail", user.getEmail());
-      req.getSession().setAttribute("userId", user.getUserId());
-      req.getSession().setAttribute("userName", user.getNickname());
+        String destination = (String) req.getSession().getAttribute("loginDestination");
+        if (destination == null) {
+          destination = "/";
+        }
 
-      String destination = (String) req.getSession().getAttribute("loginDestination");
-      if (destination == null) {
-        destination = "/persons";
-      }
-
-      resp.sendRedirect(destination);
+        resp.sendRedirect(destination);
     } else {
-      resp.sendRedirect(userService.createLoginURL("/login"));
+        resp.sendRedirect(userService.createLoginURL("/login"));
     }
   }
 }

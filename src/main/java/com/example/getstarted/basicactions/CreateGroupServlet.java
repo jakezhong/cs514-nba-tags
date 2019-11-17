@@ -1,38 +1,20 @@
-/* Copyright 2016 Google Inc.
- *
- * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
- * You may obtain a copy of the License at
- *
- *       http://www.apache.org/licenses/LICENSE-2.0
- *
- * Unless required by applicable law or agreed to in writing, software
- * distributed under the License is distributed on an "AS IS" BASIS,
- * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
- * See the License for the specific language governing permissions and
- * limitations under the License.
- */
-
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
-
 import java.io.IOException;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
@@ -58,9 +40,9 @@ public class CreateGroupServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        req.setAttribute("action", "Add");          // Part of the Header in person-form.jsp
-        req.setAttribute("destination", "group/create");  // The urlPattern to invoke (this Servlet)
-        req.setAttribute("page", "form-group");           // Tells base.jsp to include person-form.jsp
+        req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
+        req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
+        req.setAttribute("page", "form-group");           // Tells base.jsp to include form-person.jsp
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
     // [END setup]
@@ -131,10 +113,10 @@ public class CreateGroupServlet extends HttpServlet {
                 .build();
         // [END groupBuilder]
 
-        GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
+        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         try {
-            Long id = dao.createGroup(group);
-            resp.sendRedirect("group/read?id=" + id.toString());   // read what we just wrote
+            Long id = daoGroup.createGroup(group);
+            resp.sendRedirect("/group/read?id=" + id.toString());   // read what we just wrote
         } catch (Exception e) {
             throw new ServletException("Error creating group", e);
         }

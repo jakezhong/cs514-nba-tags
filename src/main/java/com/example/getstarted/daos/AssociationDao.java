@@ -4,7 +4,6 @@ import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.Entity;
-
 import java.sql.SQLException;
 
 /**
@@ -19,6 +18,8 @@ public interface AssociationDao {
     void deleteAssociation(Long associationId) throws SQLException;
 
     void deleteAssociationByPersonId(Long personId) throws SQLException;
+
+    void deleteAssociationByGroupId(Long personId) throws SQLException;
 
     Association entityToAssociation(Entity entity) throws SQLException;
 

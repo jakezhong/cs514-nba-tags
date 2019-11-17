@@ -4,25 +4,23 @@ import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
-
 import java.io.IOException;
 import java.util.Date;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
-
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
-
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
+
 // [START example]
 @SuppressWarnings("serial")
 /**
@@ -42,9 +40,9 @@ public class CreatePersonServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    req.setAttribute("action", "Add");          // Part of the Header in person-form.jsp
-    req.setAttribute("destination", "person/create");  // The urlPattern to invoke (this Servlet)
-    req.setAttribute("page", "form-person");           // Tells base.jsp to include person-form.jsp
+    req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
+    req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
+    req.setAttribute("page", "form-person");           // Tells base.jsp to include form-person.jsp
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
   // [END setup]
@@ -121,10 +119,10 @@ public class CreatePersonServlet extends HttpServlet {
         .build();
     // [END personBuilder]
 
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     try {
-        Long id = dao.createPerson(person);
-        resp.sendRedirect("/read?id=" + id.toString());   // read what we just wrote
+        Long id = daoPerson.createPerson(person);
+        resp.sendRedirect("/person/read?id=" + id.toString());   // read what we just wrote
     } catch (Exception e) {
         throw new ServletException("Error creating person", e);
     }
