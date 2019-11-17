@@ -65,7 +65,7 @@ public class ListGroupByUserServlet extends HttpServlet {
 //            groupNames.append(group.getName() + " ");
 //        }
         req.getSession().setAttribute("cursor", endCursor);
-        req.getSession().setAttribute("page", "listGroup");
+        req.getSession().setAttribute("page", "list-group");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }

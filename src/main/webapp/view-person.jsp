@@ -14,7 +14,7 @@
                                     <img class="person-image" height="200" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
                                 </div><!--user-pro-img end-->
                                 <div class="user_pro_status">
-                                    <a href="/listGroupByperson?id=${person.id}" class="btn btn-primary btn-sm">
+                                    <a href="groups?id=${person.id}" class="btn btn-primary btn-sm">
                                         <i class="glyphicon glyphicon-edit"></i>
                                         My Groups
                                     </a>
@@ -34,13 +34,13 @@
                             <div class="user-tab-sec">
                                 <ul class="flw-hr">
                                     <li>
-                                        <a href="/update?id=${person.id}" class="btn btn-primary btn-sm">
+                                        <a href="update?id=${person.id}" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
                                             Edit person
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/delete?id=${person.id}" class="btn btn-danger btn-sm">
+                                        <a href="delete?id=${person.id}" class="btn btn-danger btn-sm">
                                             <i class="glyphicon glyphicon-trash"></i>
                                             Delete person
                                         </a>

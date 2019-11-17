@@ -69,7 +69,7 @@ public class ListGroupByPersonServlet extends HttpServlet {
         req.getSession().getServletContext().setAttribute("id", peopleId);
 
         req.setAttribute("cursor", endCursor);
-        req.setAttribute("page", "listGroupByPerson");
+        req.setAttribute("page", "list-association");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }

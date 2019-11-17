@@ -17,12 +17,14 @@
                         <c:forEach items="${groups}" var="group">
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="company_profile_info">
-                                    <div class="company-up-info">
-                                        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
-                                        <h3>${fn:escapeXml(group.name)}</h3>
-                                        <h5 class="category">${fn:escapeXml(group.category)}</h5>
-                                    </div>
-                                    <a href="/readGroup?id=${group.id}" title="" class="view-more-pro">View Detail</a>
+                                    <a href="/group/read?id=${group.id}" title="">
+                                        <div class="company-up-info">
+                                            <img alt="ahhh" height="200"src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+                                            <h3>${fn:escapeXml(group.name)}</h3>
+                                            <h5 class="category">${fn:escapeXml(group.category)}</h5>
+                                        </div>
+                                        <div class="view-more-pro">View Detail</div>
+                                    </a>
                                 </div><!--company_profile_info end-->
                             </div>
                         </c:forEach>

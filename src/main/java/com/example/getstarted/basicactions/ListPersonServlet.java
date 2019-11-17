@@ -104,7 +104,7 @@ public class ListPersonServlet extends HttpServlet {
       personNames.append(person.getFirst() + " ");
     }
     req.setAttribute("cursor", endCursor);
-    req.setAttribute("page", "list");
+    req.setAttribute("page", "list-person");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

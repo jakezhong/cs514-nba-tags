@@ -33,7 +33,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * To List persons by user according to userId
  */
-public class ListByUserServlet extends HttpServlet {
+public class ListPersonByUserServlet extends HttpServlet {
 
   /**
    * list all persons created by specific user according to userID
@@ -64,7 +64,7 @@ public class ListByUserServlet extends HttpServlet {
       personNames.append(person.getFirst() + " ");
     }
     req.getSession().setAttribute("cursor", endCursor);
-    req.getSession().setAttribute("page", "list");
+    req.getSession().setAttribute("page", "list-person");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

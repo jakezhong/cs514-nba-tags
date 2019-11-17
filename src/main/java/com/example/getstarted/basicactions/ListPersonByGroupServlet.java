@@ -32,7 +32,7 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * List all group members in a specific group
  */
-public class ListGroupMemberServlet extends HttpServlet {
+public class ListPersonByGroupServlet extends HttpServlet {
 
     /**
      * list all group member in a specific group according to groupId
@@ -61,7 +61,7 @@ public class ListGroupMemberServlet extends HttpServlet {
         req.getSession().getServletContext().setAttribute("persons", persons);
 
         req.setAttribute("cursor", endCursor);
-        req.setAttribute("page", "listGroupMember");
+        req.setAttribute("page", "list-person");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }

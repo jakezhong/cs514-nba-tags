@@ -56,8 +56,8 @@ public class UpdatePersonServlet extends HttpServlet {
       Person person = dao.readPerson(Long.decode(req.getParameter("id")));
       req.setAttribute("person", person);
       req.setAttribute("action", "Edit");
-      req.setAttribute("destination", "update");
-      req.setAttribute("page", "form");
+      req.setAttribute("destination", "person/update");
+      req.setAttribute("page", "form-person");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error loading person for editing", e);
@@ -128,7 +128,7 @@ public class UpdatePersonServlet extends HttpServlet {
       // [END personBuilder]
 
       dao.updatePerson(person);
-      resp.sendRedirect("/read?id=" + params.get("id"));
+      resp.sendRedirect("person/read?id=" + params.get("id"));
     } catch (Exception e) {
       throw new ServletException("Error updating person", e);
     }

@@ -3287,7 +3287,7 @@ a:hover {
 	margin-bottom: -30px;
 }
 .company_profile_info {
-	float: left;
+	display: block;
 	width: 100%;
 	background-color: #fff;
 	text-align: center;
@@ -3298,7 +3298,6 @@ a:hover {
 	margin-bottom: 30px;
 }
 .company-up-info {
-	float: left;
 	width: 100%;
 	padding: 30px 0;
 	border-bottom: 1px solid #e5e5e5;
@@ -3355,14 +3354,6 @@ a:hover {
 .hire-us {
 	background-color: #51a5fb;
 }
-.company_profile_info > a {
-	display: inline-block;
-	color: #000000;
-	font-size: 16px;
-	font-weight: 600;
-	padding: 18px 0;
-}
-
 
 /* ============= search-sec ============= */
 
@@ -5183,6 +5174,15 @@ a:hover {
 	.category {
 		text-transform: capitalize;
 	}
+}
+.company_profile_info > a {
+	display: block;
+}
+.view-more-pro {
+	padding: 18px 0;
+	color: #000000;
+	font-size: 16px;
+	font-weight: 600;
 }
 
 /* ============= Forms ============ */

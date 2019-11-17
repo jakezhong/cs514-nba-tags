@@ -52,7 +52,7 @@ public class ListGroupServlet extends HttpServlet {
             personNames.append(group.getName() + " ");
         }
         req.setAttribute("cursor", endCursor);
-        req.setAttribute("page", "listGroup");
+        req.setAttribute("page", "list-group");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }

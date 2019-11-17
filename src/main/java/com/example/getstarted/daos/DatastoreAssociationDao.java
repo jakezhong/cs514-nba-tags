@@ -110,8 +110,6 @@ public class DatastoreAssociationDao implements AssociationDao {
         }
     }
 
-
-
     /**
      * Loop through Iterator<Result> and call entity to group
      *  To translate all entities to association Object
@@ -169,7 +167,6 @@ public class DatastoreAssociationDao implements AssociationDao {
         }
     }
 
-
     /**
      * List all groups by specific person
      * @param peopelId peopelId
@@ -211,7 +208,6 @@ public class DatastoreAssociationDao implements AssociationDao {
             return new Result<>(groups);
         }
     }
-
 
     /**
      * To translate a entity to Person Object
@@ -273,4 +269,3 @@ public class DatastoreAssociationDao implements AssociationDao {
                 .build();
     }
 }
-

@@ -45,7 +45,7 @@ public class DeleteGroupServlet extends HttpServlet {
         GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
         try {
             dao.deleteGroup(id);
-            resp.sendRedirect("/groups");
+            resp.sendRedirect("/groups/mine");
         } catch (Exception e) {
             throw new ServletException("Error deleting group", e);
         }

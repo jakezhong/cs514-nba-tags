@@ -115,7 +115,7 @@ public class CreateAssociationServlet extends HttpServlet {
         DatastoreAssociationDao daoAssociation = new DatastoreAssociationDao();
         try {
             daoAssociation.createAssociation(association);
-            resp.sendRedirect("/readGroup?id=" +groupId.toString());   // read what we just wrote
+            resp.sendRedirect("/group/read?id=" +groupId.toString());   // read what we just wrote
         } catch (Exception e) {
             throw new ServletException("Error creating association", e);
         }

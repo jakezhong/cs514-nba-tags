@@ -16,7 +16,7 @@
                                 <div class="user_pro_status">
                                     <a href="/association/create?id=${group.id}" class="btn btn-primary btn-sm">
                                         <i class="glyphicon glyphicon-edit"></i>
-                                        Join group
+                                        Add Member
                                     </a>
                                 </div><!--user_pro_status end-->
                                 <ul class="social_links">
@@ -34,13 +34,13 @@
                             <div class="user-tab-sec">
                                 <ul class="flw-hr">
                                     <li>
-                                        <a href="/updateGroup?id=${group.id}" class="btn btn-primary btn-sm">
+                                        <a href="update?id=${group.id}" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
                                             Edit group
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="/deleteGroup?id=${group.id}" class="btn btn-danger btn-sm">
+                                        <a href="delete?id=${group.id}" class="btn btn-danger btn-sm">
                                             <i class="glyphicon glyphicon-trash"></i>
                                             Delete group
                                         </a>
@@ -89,13 +89,15 @@
                                                     <c:forEach items="${persons}" var="person">
                                                         <div class="col-lg-4 col-md-6  col-sm-12 col-12">
                                                             <div class="company_profile_info">
-                                                                <div class="company-up-info">
-                                                                    <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
-                                                                    <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
-                                                                    <h4>${fn:escapeXml(person.title)}</h4>
-                                                                    <h5 class="category">${fn:escapeXml(person.category)}</h5>
-                                                                </div>
-                                                                <a href="/read?id=${person.id}" title="" class="view-more-pro">View Profile</a>
+                                                                <a href="/person/read?id=${person.id}" title="">
+                                                                    <div class="company-up-info">
+                                                                        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+                                                                        <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
+                                                                        <h4>${fn:escapeXml(person.title)}</h4>
+                                                                        <h5 class="category">${fn:escapeXml(person.category)}</h5>
+                                                                    </div>
+                                                                    <div class="view-more-pro">View Profile</div>
+                                                                </a>
                                                             </div><!--company_profile_info end-->
                                                         </div>
                                                     </c:forEach>

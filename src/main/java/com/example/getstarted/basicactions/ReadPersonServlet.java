@@ -47,7 +47,7 @@ public class ReadPersonServlet extends HttpServlet {
     try {
       Person person = dao.readPerson(id);
       req.setAttribute("person", person);
-      req.setAttribute("page", "view");
+      req.setAttribute("page", "view-person");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
       throw new ServletException("Error reading person", e);

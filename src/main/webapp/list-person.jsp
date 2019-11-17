@@ -7,7 +7,7 @@
             <h3>All Persons</h3>
         </div>
         <div class="landing-header">
-            <a href="/create" class="btn btn-success btn-sm">
+            <a href="create" class="btn btn-success btn-sm">
                 <i class="glyphicon glyphicon-plus"></i>
                 Add person
             </a>
@@ -24,13 +24,15 @@
                         <c:forEach items="${persons}" var="person">
                             <div class="col-lg-3 col-md-4 col-sm-6 col-12">
                                 <div class="company_profile_info">
-                                    <div class="company-up-info">
-                                        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
-                                        <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
-                                        <h4>${fn:escapeXml(person.title)}</h4>
-                                        <h5 class="category">${fn:escapeXml(person.category)}</h5>
-                                    </div>
-                                    <a href="/read?id=${person.id}" title="" class="view-more-pro">View Profile</a>
+                                    <a href="/person/read?id=${person.id}" title="">
+                                        <div class="company-up-info">
+                                            <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+                                            <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
+                                            <h4>${fn:escapeXml(person.title)}</h4>
+                                            <h5 class="category">${fn:escapeXml(person.category)}</h5>
+                                        </div>
+                                        <div class="view-more-pro">View Profile</div>
+                                    </a>
                                 </div><!--company_profile_info end-->
                             </div>
                         </c:forEach>

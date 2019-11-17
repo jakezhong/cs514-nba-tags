@@ -48,7 +48,7 @@ public class DeletePersonServlet extends HttpServlet {
     try {
       dao.deletePerson(id);
       personGroupDao.deleteAssociationByPersonId(id);
-      resp.sendRedirect("/person");
+      resp.sendRedirect("/person/mine");
     } catch (Exception e) {
       throw new ServletException("Error deleting person", e);
     }

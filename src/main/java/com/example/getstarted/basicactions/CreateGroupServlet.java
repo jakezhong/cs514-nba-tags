@@ -58,9 +58,9 @@ public class CreateGroupServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
             IOException {
-        req.setAttribute("action", "Add");          // Part of the Header in form.jsp
-        req.setAttribute("destination", "createGroup");  // The urlPattern to invoke (this Servlet)
-        req.setAttribute("page", "formGroup");           // Tells base.jsp to include form.jsp
+        req.setAttribute("action", "Add");          // Part of the Header in person-form.jsp
+        req.setAttribute("destination", "group/create");  // The urlPattern to invoke (this Servlet)
+        req.setAttribute("page", "form-group");           // Tells base.jsp to include person-form.jsp
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
     // [END setup]
@@ -134,7 +134,7 @@ public class CreateGroupServlet extends HttpServlet {
         GroupDao dao = (GroupDao) this.getServletContext().getAttribute("daoGroup");
         try {
             Long id = dao.createGroup(group);
-            resp.sendRedirect("/readGroup?id=" + id.toString());   // read what we just wrote
+            resp.sendRedirect("group/read?id=" + id.toString());   // read what we just wrote
         } catch (Exception e) {
             throw new ServletException("Error creating group", e);
         }

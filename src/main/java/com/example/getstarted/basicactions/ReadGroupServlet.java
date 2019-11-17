@@ -73,7 +73,7 @@ public class ReadGroupServlet extends HttpServlet {
             req.setAttribute("group", group);
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.setAttribute("cursor", endCursor);
-            req.setAttribute("page", "viewGroup");
+            req.setAttribute("page", "view-group");
          //   req.setAttribute("persons",members);
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
