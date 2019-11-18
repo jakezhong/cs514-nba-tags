@@ -23,6 +23,8 @@ public interface AssociationDao {
 
     Association entityToAssociation(Entity entity) throws SQLException;
 
-    Result<Person> listPersonsByGroup(Long groupId, String startCursor) throws SQLException;
+    Result<Long> listPersonsByGroup(Long groupId, String startCursor) throws SQLException;
+
+    Result<Long> listGroupByPerson(Long peopelId, String startCursor) throws SQLException;
 
 }

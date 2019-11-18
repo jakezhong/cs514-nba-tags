@@ -1,9 +1,11 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.DatastoreAssociationDao;
+import com.example.getstarted.daos.DatastorePersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -28,19 +30,26 @@ public class ListPersonByGroupServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
             ServletException {
         DatastoreAssociationDao daoAssociation = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
+        DatastorePersonDao daoPerson = (DatastorePersonDao) this.getServletContext().getAttribute("dao-person");
         String startCursor = req.getParameter("cursor");
         Long groupId = Long.decode(req.getParameter("id"));
-        System.out.println(groupId);
-        List<Person> persons = null;
-        String endCursor = null;
+
+        List<Long> personsId ;
+        List<Person> persons = new ArrayList<>();
+        String endCursor ;
         try {
-            Result<Person> result = daoAssociation.listPersonsByGroup(groupId,startCursor);
-            persons=result.result;
-            System.out.println(persons);
+            Result<Long> result = daoAssociation.listPersonsByGroup(groupId,startCursor);
+            personsId=result.result;
+
+            for(Long personId: personsId){
+                Person person = daoPerson.readPerson(personId);
+                persons.add(person);
+            }
             endCursor = result.cursor;
         } catch (Exception e) {
             throw new ServletException("Error listing persons", e);
         }
+
         req.getSession().getServletContext().setAttribute("persons", persons);
 
         req.setAttribute("cursor", endCursor);

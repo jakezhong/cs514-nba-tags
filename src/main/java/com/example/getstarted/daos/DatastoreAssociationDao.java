@@ -13,8 +13,6 @@ import java.util.List;
  * DatastoreAssociationDao as storage type
  */
 public class DatastoreAssociationDao implements AssociationDao {
-    private static final String PERSON_KIND = "Person";
-    private static final String GROUP_KIND = "Group";
     private static final String ASSOCIATION_KIND = "Association";
     private DatastoreService datastore;
     /**
@@ -138,7 +136,7 @@ public class DatastoreAssociationDao implements AssociationDao {
      * @return Result<Person>
      */
     @Override
-    public Result<Person> listPersonsByGroup(Long groupId, String startCursor) {
+    public Result<Long> listPersonsByGroup(Long groupId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
@@ -150,27 +148,27 @@ public class DatastoreAssociationDao implements AssociationDao {
                 // a custom datastore index is required since you are filtering by one property
                 // but ordering by another
 //                .addSort(Person.LAST, Query.SortDirection.ASCENDING);
-        System.out.println(query);
+
         PreparedQuery preparedQuery = datastore.prepare(query);
-        System.out.println(preparedQuery);
+
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
 
         List<Association> resultPersons = entitiesToAssociations(results);     // Retrieve and convert Entities
-        List<Person> member = new ArrayList<>();
+        List<Long> memberIds= new ArrayList<>();
 
         for(Association association: resultPersons){
-            Person person = readPerson(association.getPersonId());
-            member.add(person);
+            Long person = association.getPersonId();
+            memberIds.add(person);
         }
 
 
         Cursor cursor = results.getCursor();              // Where to start next time
         if (cursor != null && resultPersons.size() == 6) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
-            return new Result<>(member, cursorString);
+            return new Result<>(memberIds, cursorString);
         } else {
-            return new Result<>(member);
+            return new Result<>(memberIds);
         }
     }
 
@@ -180,7 +178,7 @@ public class DatastoreAssociationDao implements AssociationDao {
      * @param startCursor startCursor
      * @return Result<Group>
      */
-    public Result<Group> listGroupByPerson(Long peopelId, String startCursor) {
+    public Result<Long> listGroupByPerson(Long peopelId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
@@ -192,88 +190,29 @@ public class DatastoreAssociationDao implements AssociationDao {
         // a custom datastore index is required since you are filtering by one property
         // but ordering by another
 //                .addSort(Person.LAST, Query.SortDirection.ASCENDING);
-        System.out.println(query);
+
         PreparedQuery preparedQuery = datastore.prepare(query);
         System.out.println(preparedQuery);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
 
         List<Association> resultPersons = entitiesToAssociations(results);     // Retrieve and convert Entities
-        List<Group> groups = new ArrayList<>();
+        List<Long> groupsId = new ArrayList<>();
 
         for(Association association: resultPersons){
-            Group group = readGroup(association.getGroupId());
-            groups.add(group);
+            Long groupId = association.getGroupId();
+            groupsId.add(groupId);
         }
 
 
         Cursor cursor = results.getCursor();              // Where to start next time
         if (cursor != null && resultPersons.size() == 6) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
-            return new Result<>(groups, cursorString);
+            return new Result<>(groupsId, cursorString);
         } else {
-            return new Result<>(groups);
+            return new Result<>(groupsId);
         }
     }
 
-    /**
-     * To translate a entity to Person Object
-     * @param entity entity
-     * @return Person Object
-     */
-    private Person entityToPerson(Entity entity) {
-        return new Person.Builder()                                     // Convert to Person form
-        .last((String) entity.getProperty(Person.LAST))
-        .description((String) entity.getProperty(Person.DESCRIPTION))
-        .id(entity.getKey().getId())
-        .imageUrl((String) entity.getProperty(Person.IMAGE_URL))
-        .createdBy((String) entity.getProperty(Person.CREATED_BY))
-        .createdById((String) entity.getProperty(Person.CREATED_BY_ID))
-        .first((String) entity.getProperty(Person.FIRST))
-        .build();
-    }
 
-    /**
-     * Read Person according to personId
-     * @param personId Long PersonId
-     * @return Person Object
-     */
-    public Person readPerson(Long personId) {
-        try {
-            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
-            return entityToPerson(personEntity);
-        } catch (EntityNotFoundException e) {
-            return null;
-        }
-    }
-
-    /**
-     * Read group according to groupId
-     * @param groupId Long groupId
-     * @return group Object
-     */
-    public Group readGroup(Long groupId) {
-        try {
-            Entity groupEntity = datastore.get(KeyFactory.createKey(GROUP_KIND, groupId));
-            return entityToGroup(groupEntity);
-        } catch (EntityNotFoundException e) {
-            return null;
-        }
-    }
-
-    /**
-     * To create an entity and create key
-     * @param entity entity
-     * @return Long, the id of the key
-     */
-    public Group entityToGroup(Entity entity) {
-        return new Group.Builder()                                     // Convert to Group form
-        .name((String) entity.getProperty(Group.NAME))
-        .description((String) entity.getProperty(Group.DESCRIPTION))
-        .id(entity.getKey().getId())
-        .imageUrl((String) entity.getProperty(Group.IMAGE_URL))
-        .createdBy((String) entity.getProperty(Group.CREATED_BY))
-        .createdById((String) entity.getProperty(Group.CREATED_BY_ID))
-        .build();
-    }
 }

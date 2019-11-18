@@ -1,6 +1,7 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.DatastoreAssociationDao;
+import com.example.getstarted.daos.DatastorePersonDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Person;
@@ -33,19 +34,19 @@ public class CreateAssociationServlet extends HttpServlet {
             IOException {
         try {
             Long id = Long.decode(req.getParameter("id"));
-            PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
-            String startCursor = req.getParameter("cursor");
+            DatastorePersonDao daoPerson = (DatastorePersonDao) this.getServletContext().getAttribute("dao-person");
+
             List<Person> persons = null;
-            String endCursor = null;
+
             try {
-                Result<Person> result = daoPerson.listPersons(startCursor);
+                Result<Person> result = daoPerson.listAllPersons();
                 persons = result.result;
-                endCursor = result.cursor;
+
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);
             }
             req.getSession().getServletContext().setAttribute("persons", persons);
-            req.setAttribute("cursor", endCursor);
+
             req.setAttribute("groupId", id);
             req.setAttribute("action", "Add");          // Part of the Header in form-association.jsp
             req.setAttribute("destination", "/association/create");  // The urlPattern to invoke (this Servlet)

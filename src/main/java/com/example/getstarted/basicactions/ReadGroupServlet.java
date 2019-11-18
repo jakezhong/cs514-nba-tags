@@ -2,10 +2,12 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,22 +33,30 @@ public class ReadGroupServlet extends HttpServlet {
             ServletException {
         Long id = Long.decode(req.getParameter("id"));
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
-     //   DatastoreAssociationDao daoAssociation = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
+        PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         try {
             Group group = daoGroup.readGroup(id);
-        //    List<Person> members = daoAssociation.listPersonsByGroup(id,startCursor).result;
-        //    System.out.println(members);
 
             DatastoreAssociationDao associationDao = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
             String startCursor = req.getParameter("cursor");
             Long groupId = Long.decode(req.getParameter("id"));
-            List<Person> persons = null;
+            List<Person> persons = new ArrayList<>();
+            List<Long> personsId =null;
             String endCursor = null;
 
             try {
-                Result<Person> result = associationDao.listPersonsByGroup(groupId,startCursor);
-                persons=result.result;
-                System.out.println(persons);
+                Result<Long> result = associationDao.listPersonsByGroup(groupId,startCursor);
+                personsId=result.result;
+
+                System.out.println(personsId);
+
+                for(Long personId: personsId){
+                    Person person=daoPerson.readPerson(personId);
+                    persons.add(person);
+
+                }
+
+
                 endCursor = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);
@@ -56,7 +66,7 @@ public class ReadGroupServlet extends HttpServlet {
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.setAttribute("cursor", endCursor);
             req.setAttribute("page", "view-group");
-         //   req.setAttribute("persons",members);
+
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new ServletException("Error reading group", e);

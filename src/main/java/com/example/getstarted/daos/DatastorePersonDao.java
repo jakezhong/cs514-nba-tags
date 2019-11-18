@@ -218,6 +218,21 @@ public class DatastorePersonDao implements PersonDao {
   }
   // [END listpersons]
 
+
+    public Result<Person> listAllPersons() {
+
+        Query query = new Query(PERSON_KIND) // We only care about Persons
+                .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
+
+        return new Result<>(resultPersons);
+
+    }
+
   // [START listbyuser]
   @Override
   /**
