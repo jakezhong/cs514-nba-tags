@@ -4,11 +4,12 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * User Class
+ * OurUser Class
  */
-public class User {
+public class OurUser {
   // [START user]
     private Long id;
+    private String userId;
     private String userName;
     private String first;
     private String last;
@@ -31,7 +32,8 @@ public class User {
   // [END user]
   // [START keys]
     public static final String ID = "id";
-    public static final String USERNAME = "userName";
+    public static final String USER_ID = "userId";
+    public static final String USER_NAME = "userName";
     public static final String FIRST = "first";
     public static final String LAST = "last";
     public static final String TITLE = "title";
@@ -52,9 +54,10 @@ public class User {
     // [END keys]
 
     // [START constructor]
-    // We use a Builder pattern here to simplify and standardize construction of User objects.
-    private User(Builder builder) {
+    // We use a Builder pattern here to simplify and standardize construction of OurUser objects.
+    private OurUser(Builder builder) {
         this.id = builder.id;
+        this.userId = builder.userId;
         this.userName = builder.userName;
         this.first = builder.first;
         this.last = builder.last;
@@ -78,6 +81,7 @@ public class User {
     // [START builder]
     public static class Builder {
         private Long id;
+        private String userId;
         private String userName;
         private String first;
         private String last;
@@ -103,6 +107,11 @@ public class User {
         */
         public Builder id(Long id) {
             this.id = id;
+            return this;
+        }
+
+        public Builder userId(String userId) {
+            this.userId = userId;
             return this;
         }
 
@@ -191,8 +200,8 @@ public class User {
             return this;
         }
 
-        public User build() {
-            return new User(this);
+        public OurUser build() {
+            return new OurUser(this);
         }
     }
 
@@ -206,6 +215,14 @@ public class User {
 
     public void setId(Long id) {
         this.id = id;
+    }
+
+    public String getUserId() {
+        return userId;
+    }
+
+    public void setUserId(String userId) {
+        this.userId = userId;
     }
 
     public String getUserName() {
@@ -360,8 +377,9 @@ public class User {
     */
     @Override
     public String toString() {
-        return "User{" +
+        return "OurUser{" +
         "id=" + id +
+        ", userId='" + userId + '\'' +
         ", userName='" + userName + '\'' +
         ", first='" + first + '\'' +
         ", last='" + last + '\'' +
@@ -390,23 +408,24 @@ public class User {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        User user = (User) o;
-        return Objects.equals(id, user.id) &&
-        Objects.equals(userName, user.userName) &&
-        Objects.equals(first, user.first) &&
-        Objects.equals(last, user.last) &&
-        Objects.equals(title, user.title) &&
-        Objects.equals(introduction, user.introduction) &&
-        Objects.equals(email, user.email) &&
-        Objects.equals(phone, user.phone) &&
-        Objects.equals(address, user.address) &&
-        Objects.equals(linkedin, user.linkedin) &&
-        Objects.equals(facebook, user.facebook) &&
-        Objects.equals(twitter, user.twitter) &&
-        Objects.equals(instagram, user.instagram) &&
-        Objects.equals(youtube, user.youtube) &&
-        Objects.equals(website, user.website) &&
-        Objects.equals(description, user.description) &&
-        Objects.equals(imageUrl, user.imageUrl);
+        OurUser ourUser = (OurUser) o;
+        return Objects.equals(id, ourUser.id) &&
+        Objects.equals(userId, ourUser.userId) &&
+        Objects.equals(userName, ourUser.userName) &&
+        Objects.equals(first, ourUser.first) &&
+        Objects.equals(last, ourUser.last) &&
+        Objects.equals(title, ourUser.title) &&
+        Objects.equals(introduction, ourUser.introduction) &&
+        Objects.equals(email, ourUser.email) &&
+        Objects.equals(phone, ourUser.phone) &&
+        Objects.equals(address, ourUser.address) &&
+        Objects.equals(linkedin, ourUser.linkedin) &&
+        Objects.equals(facebook, ourUser.facebook) &&
+        Objects.equals(twitter, ourUser.twitter) &&
+        Objects.equals(instagram, ourUser.instagram) &&
+        Objects.equals(youtube, ourUser.youtube) &&
+        Objects.equals(website, ourUser.website) &&
+        Objects.equals(description, ourUser.description) &&
+        Objects.equals(imageUrl, ourUser.imageUrl);
     }
 }

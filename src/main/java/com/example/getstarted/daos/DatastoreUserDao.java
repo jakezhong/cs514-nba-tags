@@ -1,6 +1,6 @@
 package com.example.getstarted.daos;
 
-import com.example.getstarted.objects.User;
+import com.example.getstarted.objects.OurUser;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.SortDirection;
@@ -16,7 +16,7 @@ public class DatastoreUserDao implements UserDao {
 
     // [START constructor]
     private DatastoreService datastore;
-    static final String PERSON_KIND = "User";
+    static final String USER_KIND = "User";
 
     /**
      * Constructor  to get Datastore service
@@ -29,29 +29,31 @@ public class DatastoreUserDao implements UserDao {
     // [START entityToUser]
 
     /**
-        * To translate a entity to User Object
+        * To translate a entity to OurUser Object
         * @param entity entity
-        * @return User Object
+        * @return OurUser Object
     */
-    public User entityToUser(Entity entity) {
-        return new User.Builder()                                     // Convert to User form
-        .id(entity.getKey().getId())
-        .first((String) entity.getProperty(User.FIRST))
-        .last((String) entity.getProperty(User.LAST))
-        .title((String) entity.getProperty(User.TITLE))
-        .introduction((String) entity.getProperty(User.INTRODUCTION))
-        .email((String) entity.getProperty(User.EMAIL))
-        .phone((String) entity.getProperty(User.PHONE))
-        .address((String) entity.getProperty(User.ADDRESS))
-        .linkedin((String) entity.getProperty(User.LINKEDIN))
-        .facebook((String) entity.getProperty(User.FACEBOOK))
-        .twitter((String) entity.getProperty(User.TWITTER))
-        .instagram((String) entity.getProperty(User.INSTAGRAM))
-        .youtube((String) entity.getProperty(User.YOUTUBE))
-        .website((String) entity.getProperty(User.WEBSITE))
-        .description((String) entity.getProperty(User.DESCRIPTION))
-        .createdDate((Date) entity.getProperty(User.CREATED_DATE))
-        .imageUrl((String) entity.getProperty(User.IMAGE_URL))
+    public OurUser entityToUser(Entity entity) {
+        return new OurUser.Builder()                                     // Convert to OurUser form
+        .id(entity.getKey().getId())                                  // Convert to OurUser form
+        .userId((String) entity.getProperty(OurUser.USER_ID))
+        .userName((String) entity.getProperty(OurUser.USER_NAME))
+        .first((String) entity.getProperty(OurUser.FIRST))
+        .last((String) entity.getProperty(OurUser.LAST))
+        .title((String) entity.getProperty(OurUser.TITLE))
+        .introduction((String) entity.getProperty(OurUser.INTRODUCTION))
+        .email((String) entity.getProperty(OurUser.EMAIL))
+        .phone((String) entity.getProperty(OurUser.PHONE))
+        .address((String) entity.getProperty(OurUser.ADDRESS))
+        .linkedin((String) entity.getProperty(OurUser.LINKEDIN))
+        .facebook((String) entity.getProperty(OurUser.FACEBOOK))
+        .twitter((String) entity.getProperty(OurUser.TWITTER))
+        .instagram((String) entity.getProperty(OurUser.INSTAGRAM))
+        .youtube((String) entity.getProperty(OurUser.YOUTUBE))
+        .website((String) entity.getProperty(OurUser.WEBSITE))
+        .description((String) entity.getProperty(OurUser.DESCRIPTION))
+        .createdDate((Date) entity.getProperty(OurUser.CREATED_DATE))
+        .imageUrl((String) entity.getProperty(OurUser.IMAGE_URL))
         .build();
   }
   // [END entityToUser]
@@ -60,29 +62,30 @@ public class DatastoreUserDao implements UserDao {
 
     /**
      * To create an entity and create key
-     * @param user User
+     * @param ourUser OurUser
      * @return Long, the id of the key
      */
   @Override
-  public Long createUser(User user) {
-      Entity incUserEntity = new Entity(PERSON_KIND);  // Key will be assigned once written
-      incUserEntity.setProperty(User.USERNAME, user.getUserName());
-      incUserEntity.setProperty(User.FIRST, user.getFirst());
-      incUserEntity.setProperty(User.LAST, user.getLast());
-      incUserEntity.setProperty(User.TITLE, user.getTitle());
-      incUserEntity.setProperty(User.INTRODUCTION, user.getIntroduction());
-      incUserEntity.setProperty(User.EMAIL, user.getEmail());
-      incUserEntity.setProperty(User.PHONE, user.getPhone());
-      incUserEntity.setProperty(User.ADDRESS, user.getAddress());
-      incUserEntity.setProperty(User.LINKEDIN, user.getLinkedin());
-      incUserEntity.setProperty(User.FACEBOOK, user.getFacebook());
-      incUserEntity.setProperty(User.TWITTER, user.getTwitter());
-      incUserEntity.setProperty(User.INSTAGRAM, user.getInstagram());
-      incUserEntity.setProperty(User.YOUTUBE, user.getYoutube());
-      incUserEntity.setProperty(User.WEBSITE, user.getWebsite());
-      incUserEntity.setProperty(User.CREATED_DATE, user.getCreatedDate());
-      incUserEntity.setProperty(User.DESCRIPTION, user.getDescription());
-      incUserEntity.setProperty(User.IMAGE_URL, user.getImageUrl());
+  public Long createUser(OurUser ourUser) {
+      Entity incUserEntity = new Entity(USER_KIND);  // Key will be assigned once written
+      incUserEntity.setProperty(OurUser.USER_ID, ourUser.getUserId());
+      incUserEntity.setProperty(OurUser.USER_NAME, ourUser.getUserName());
+      incUserEntity.setProperty(OurUser.FIRST, ourUser.getFirst());
+      incUserEntity.setProperty(OurUser.LAST, ourUser.getLast());
+      incUserEntity.setProperty(OurUser.TITLE, ourUser.getTitle());
+      incUserEntity.setProperty(OurUser.INTRODUCTION, ourUser.getIntroduction());
+      incUserEntity.setProperty(OurUser.EMAIL, ourUser.getEmail());
+      incUserEntity.setProperty(OurUser.PHONE, ourUser.getPhone());
+      incUserEntity.setProperty(OurUser.ADDRESS, ourUser.getAddress());
+      incUserEntity.setProperty(OurUser.LINKEDIN, ourUser.getLinkedin());
+      incUserEntity.setProperty(OurUser.FACEBOOK, ourUser.getFacebook());
+      incUserEntity.setProperty(OurUser.TWITTER, ourUser.getTwitter());
+      incUserEntity.setProperty(OurUser.INSTAGRAM, ourUser.getInstagram());
+      incUserEntity.setProperty(OurUser.YOUTUBE, ourUser.getYoutube());
+      incUserEntity.setProperty(OurUser.WEBSITE, ourUser.getWebsite());
+      incUserEntity.setProperty(OurUser.CREATED_DATE, ourUser.getCreatedDate());
+      incUserEntity.setProperty(OurUser.DESCRIPTION, ourUser.getDescription());
+      incUserEntity.setProperty(OurUser.IMAGE_URL, ourUser.getImageUrl());
 
       Key userKey = datastore.put(incUserEntity); // Save the Entity
       return userKey.getId();                     // The ID of the Key
@@ -92,14 +95,14 @@ public class DatastoreUserDao implements UserDao {
   // [START read]
 
     /**
-     * Read User according to userId
+     * Read OurUser according to userId
      * @param userId Long UserId
-     * @return User Object
+     * @return OurUser Object
      */
   @Override
-  public User readUser(Long userId) {
+  public OurUser readUser(Long userId) {
       try {
-        Entity userEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, userId));
+        Entity userEntity = datastore.get(KeyFactory.createKey(USER_KIND, userId));
         return entityToUser(userEntity);
       } catch (EntityNotFoundException e) {
         return null;
@@ -107,33 +110,61 @@ public class DatastoreUserDao implements UserDao {
   }
   // [END read]
 
+    // [START find]
+
+    /**
+     * Read OurUser according to userId
+     * @param userId Long UserId
+     * @return OurUser Object
+     */
+    @Override
+    public OurUser findUser(String userId) {
+        try {
+            OurUser currentUser = null;
+            Query query = new Query(USER_KIND) // We only care about Groups
+                    // Only for this user
+                    .setFilter(new Query.FilterPredicate(OurUser.USER_ID, Query.FilterOperator.EQUAL, userId));
+            PreparedQuery preparedQuery = datastore.prepare(query);
+            QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+            List<OurUser> resultUsers = entitiesToUsers(results);     // Retrieve and convert Entities
+            for (OurUser user: resultUsers) {
+                currentUser = readUser(user.getId());
+            }
+            return currentUser;
+        } catch (Exception e) {
+            return null;
+        }
+    }
+    // [END find]
+
   // [START update]
 
     /**
-     * To update user info and store the updated info
-     * @param user User Object
+     * To update ourUser info and store the updated info
+     * @param ourUser OurUser Object
      */
   @Override
-  public void updateUser(User user) {
-      Key key = KeyFactory.createKey(PERSON_KIND, user.getId());  // From a user, create a Key
-      Entity entity = new Entity(key);         // Convert User to an Entity
-      entity.setProperty(User.USERNAME, user.getUserName());
-      entity.setProperty(User.FIRST, user.getFirst());
-      entity.setProperty(User.LAST, user.getLast());
-      entity.setProperty(User.TITLE, user.getTitle());
-      entity.setProperty(User.INTRODUCTION, user.getIntroduction());
-      entity.setProperty(User.EMAIL, user.getEmail());
-      entity.setProperty(User.PHONE, user.getPhone());
-      entity.setProperty(User.ADDRESS, user.getAddress());
-      entity.setProperty(User.LINKEDIN, user.getLinkedin());
-      entity.setProperty(User.FACEBOOK, user.getFacebook());
-      entity.setProperty(User.TWITTER, user.getTwitter());
-      entity.setProperty(User.INSTAGRAM, user.getInstagram());
-      entity.setProperty(User.YOUTUBE, user.getYoutube());
-      entity.setProperty(User.WEBSITE, user.getWebsite());
-      entity.setProperty(User.DESCRIPTION, user.getDescription());
-      entity.setProperty(User.CREATED_DATE, user.getCreatedDate());
-      entity.setProperty(User.IMAGE_URL, user.getImageUrl());
+  public void updateUser(OurUser ourUser) {
+      Key key = KeyFactory.createKey(USER_KIND, ourUser.getId());  // From a ourUser, create a Key
+      Entity entity = new Entity(key);         // Convert OurUser to an Entity
+      entity.setProperty(OurUser.USER_NAME, ourUser.getUserName());
+      entity.setProperty(OurUser.FIRST, ourUser.getFirst());
+      entity.setProperty(OurUser.LAST, ourUser.getLast());
+      entity.setProperty(OurUser.TITLE, ourUser.getTitle());
+      entity.setProperty(OurUser.INTRODUCTION, ourUser.getIntroduction());
+      entity.setProperty(OurUser.EMAIL, ourUser.getEmail());
+      entity.setProperty(OurUser.PHONE, ourUser.getPhone());
+      entity.setProperty(OurUser.ADDRESS, ourUser.getAddress());
+      entity.setProperty(OurUser.LINKEDIN, ourUser.getLinkedin());
+      entity.setProperty(OurUser.FACEBOOK, ourUser.getFacebook());
+      entity.setProperty(OurUser.TWITTER, ourUser.getTwitter());
+      entity.setProperty(OurUser.INSTAGRAM, ourUser.getInstagram());
+      entity.setProperty(OurUser.YOUTUBE, ourUser.getYoutube());
+      entity.setProperty(OurUser.WEBSITE, ourUser.getWebsite());
+      entity.setProperty(OurUser.DESCRIPTION, ourUser.getDescription());
+      entity.setProperty(OurUser.CREATED_DATE, ourUser.getCreatedDate());
+      entity.setProperty(OurUser.IMAGE_URL, ourUser.getImageUrl());
 
       datastore.put(entity);                   // Update the Entity
   }
@@ -142,12 +173,12 @@ public class DatastoreUserDao implements UserDao {
   // [START delete]
 
     /**
-     * To delete User according to userId
+     * To delete OurUser according to userId
      * @param userId
      */
   @Override
   public void deleteUser(Long userId) {
-      Key key = KeyFactory.createKey(PERSON_KIND, userId);        // Create the Key
+      Key key = KeyFactory.createKey(USER_KIND, userId);        // Create the Key
       datastore.delete(key);                      // Delete the Entity
   }
   // [END delete]
@@ -160,12 +191,12 @@ public class DatastoreUserDao implements UserDao {
      * @param results  Iterator<Entity>
      * @return a lit of user
      */
-    public List<User> entitiesToUsers(Iterator<Entity> results) {
-        List<User> resultUsers = new ArrayList<>();
+    public List<OurUser> entitiesToUsers(Iterator<Entity> results) {
+        List<OurUser> resultOurUsers = new ArrayList<>();
         while (results.hasNext()) {  // We still have data
-            resultUsers.add(entityToUser(results.next()));      // Add the User to the List
+            resultOurUsers.add(entityToUser(results.next()));      // Add the OurUser to the List
         }
-    return resultUsers;
+    return resultOurUsers;
 }
   // [END entitiesToUsers]
 
@@ -174,26 +205,26 @@ public class DatastoreUserDao implements UserDao {
     /**
      * List all Users
      * @param startCursorString to display 10 per time
-     * @return Result<User>
+     * @return Result<OurUser>
      */
   @Override
-  public Result<User> listUsers(String startCursorString) {
+  public Result<OurUser> listUsers(String startCursorString) {
       FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
       if (startCursorString != null && !startCursorString.equals("")) {
         fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
       }
-      Query query = new Query(PERSON_KIND) // We only care about Users
-          .addSort(User.USERNAME, SortDirection.ASCENDING); // Use default Index "first"
+      Query query = new Query(USER_KIND) // We only care about Users
+          .addSort(OurUser.USER_NAME, SortDirection.ASCENDING); // Use default Index "first"
       PreparedQuery preparedQuery = datastore.prepare(query);
       QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
-      List<User> resultUsers = entitiesToUsers(results);     // Retrieve and convert Entities
+      List<OurUser> resultOurUsers = entitiesToUsers(results);     // Retrieve and convert Entities
       Cursor cursor = results.getCursor();              // Where to start next time
-      if (cursor != null && resultUsers.size() == 8) {         // Are we paging? Save Cursor
+      if (cursor != null && resultOurUsers.size() == 8) {         // Are we paging? Save Cursor
         String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
-        return new Result<>(resultUsers, cursorString);
+        return new Result<>(resultOurUsers, cursorString);
       } else {
-        return new Result<>(resultUsers);
+        return new Result<>(resultOurUsers);
       }
   }
   // [END listusers]

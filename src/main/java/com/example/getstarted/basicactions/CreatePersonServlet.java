@@ -6,8 +6,6 @@ import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Date;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.HashMap;
 import java.util.Map;
 import javax.servlet.ServletException;
@@ -21,7 +19,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
  * Create Person Object and store, display it
@@ -88,7 +85,6 @@ public class CreatePersonServlet extends HttpServlet {
         createdByString = (String) session.getAttribute("userEmail");
         createdByIdString = (String) session.getAttribute("userId");
     }
-    DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
     Date date = new Date();
     // [END createdBy]
 
@@ -117,6 +113,7 @@ public class CreatePersonServlet extends HttpServlet {
         .publishedDate(date)
         // [END auth]
         .build();
+        System.out.println(person);
     // [END personBuilder]
 
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
@@ -129,4 +126,3 @@ public class CreatePersonServlet extends HttpServlet {
   }
   // [END formpost]
 }
-// [END example]

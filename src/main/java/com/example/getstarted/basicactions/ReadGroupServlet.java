@@ -29,8 +29,7 @@ public class ReadGroupServlet extends HttpServlet {
      * @throws ServletException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-            ServletException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         Long id = Long.decode(req.getParameter("id"));
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
@@ -47,16 +46,11 @@ public class ReadGroupServlet extends HttpServlet {
             try {
                 Result<Long> result = associationDao.listPersonsByGroup(groupId,startCursor);
                 personsId=result.result;
-
-                System.out.println(personsId);
-
                 for(Long personId: personsId){
-                    Person person=daoPerson.readPerson(personId);
+                    Person person = daoPerson.readPerson(personId);
                     persons.add(person);
 
                 }
-
-
                 endCursor = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);
@@ -66,7 +60,6 @@ public class ReadGroupServlet extends HttpServlet {
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.setAttribute("cursor", endCursor);
             req.setAttribute("page", "view-group");
-
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new ServletException("Error reading group", e);

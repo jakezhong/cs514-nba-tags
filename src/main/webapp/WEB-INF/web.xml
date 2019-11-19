@@ -45,6 +45,7 @@
         <url-pattern>/group/update</url-pattern>
         <url-pattern>/group/members</url-pattern>
         <url-pattern>/association/create</url-pattern>
+        <url-pattern>/user</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -229,6 +230,15 @@
         <url-pattern>/association/create</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>ReadUser</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.ReadUserServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>ReadUser</servlet-name>
+        <url-pattern>/user</url-pattern>
+    </servlet-mapping>
+
     <!-- [START config] -->
     <context-param>
         <param-name>personshelf.storageType</param-name>
@@ -242,17 +252,17 @@
 
     <context-param>
         <param-name>sql.urlRemoteGAE</param-name>
-        <param-value>jdbc:google:mysql://${sql.instanceName}/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}</param-value>
+        <param-value>jdbc:google:mysql://${sql.instanceName}/${sql.dbName}?ourUser=${sql.userName}&amp;password=${sql.password}</param-value>
     </context-param>
 
     <context-param>
         <param-name>sql.urlRemote</param-name>
-        <param-value>jdbc:mysql://google/${sql.dbName}?cloudSqlInstance=${sql.instanceName}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;user=${sql.userName}&amp;password=${sql.password}</param-value>
+        <param-value>jdbc:mysql://google/${sql.dbName}?cloudSqlInstance=${sql.instanceName}&amp;socketFactory=com.google.cloud.sql.mysql.SocketFactory&amp;ourUser=${sql.userName}&amp;password=${sql.password}</param-value>
     </context-param>
 
     <context-param>
         <param-name>sql.urlLocal</param-name>
-        <param-value>jdbc:mysql://localhost/${sql.dbName}?user=${sql.userName}&amp;password=${sql.password}&amp;useSSL=false</param-value>
+        <param-value>jdbc:mysql://localhost/${sql.dbName}?ourUser=${sql.userName}&amp;password=${sql.password}&amp;useSSL=false</param-value>
     </context-param>
     <!-- [END config] -->
 </web-app>

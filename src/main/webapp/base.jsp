@@ -63,6 +63,7 @@
 									</div>
 									<div class="user-account-settingss">
 										<ul class="us-links">
+											<li><a href="/user" title="">Profile</a></li>
 											<li><a href="/persons/mine" title="">My Persons</a></li>
 											<li><a href="/groups/mine" title="">My Groups</a></li>
 										</ul>

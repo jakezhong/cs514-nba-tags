@@ -184,15 +184,12 @@ public class DatastoreAssociationDao implements AssociationDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
-                // Only for this user
-                .setFilter(new Query.FilterPredicate(
-                       Association.PERSON_ID, Query.FilterOperator.EQUAL, peopelId));
+        // Only for this user
+        .setFilter(new Query.FilterPredicate(Association.PERSON_ID, Query.FilterOperator.EQUAL, peopelId));
         // a custom datastore index is required since you are filtering by one property
         // but ordering by another
-//                .addSort(Person.LAST, Query.SortDirection.ASCENDING);
 
         PreparedQuery preparedQuery = datastore.prepare(query);
-        System.out.println(preparedQuery);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
 
@@ -203,7 +200,6 @@ public class DatastoreAssociationDao implements AssociationDao {
             Long groupId = association.getGroupId();
             groupsId.add(groupId);
         }
-
 
         Cursor cursor = results.getCursor();              // Where to start next time
         if (cursor != null && resultPersons.size() == 6) {         // Are we paging? Save Cursor

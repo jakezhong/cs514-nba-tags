@@ -11,14 +11,14 @@
                         <div class="main-left-sidebar">
                             <div class="user_profile">
                                 <div class="user-pro-img">
-                                    <img class="person-image" height="200" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+                                    <img class="user-image" height="200" src="${fn:escapeXml(not empty user.imageUrl?user.imageUrl:'http://placekitten.com/g/128/192')}">
                                 </div><!--user-pro-img end-->
                                 <ul class="social_links">
-                                    <li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(person.website)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(person.facebook)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(person.twitter)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(person.instagram)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(person.youtube)}</a></li>
+                                    <li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(user.website)}</a></li>
+                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(user.facebook)}</a></li>
+                                    <li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(user.twitter)}</a></li>
+                                    <li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(user.instagram)}</a></li>
+                                    <li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(user.youtube)}</a></li>
                                 </ul>
                             </div><!--user_profile end-->
                         </div><!--main-left-sidebar end-->
@@ -28,50 +28,24 @@
                             <div class="user-tab-sec">
                                 <ul class="flw-hr">
                                     <li>
-                                        <a href="update?id=${person.id}" class="btn btn-primary btn-sm">
+                                        <a href="update?id=${user.id}" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
-                                            Edit person
+                                            Edit User
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="delete?id=${person.id}" class="btn btn-danger btn-sm">
+                                        <a href="delete?id=${user.id}" class="btn btn-danger btn-sm">
                                             <i class="glyphicon glyphicon-trash"></i>
-                                            Delete person
+                                            Delete User
                                         </a>
-                                    </li>
-                                    <li>
                                     </li>
                                 </ul>
-                                <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(not empty person.last?person.last:'Unknown')}</h3>
-                                <div class="star-descp">
-                                    <p><span>${fn:escapeXml(person.title)}</span></p>
-                                    <p class="category"><span>${fn:escapeXml(person.category)}</span></p>
-                                    <p>
-                                        <small>Added by
-                                            ${fn:escapeXml(not empty person.createdBy?person.createdBy:'Anonymous')}
-                                        </small>
-                                    </p>
-                                    <p>
-                                        <small>Added on
-                                            ${fn:escapeXml(not empty person.publishedDate?person.publishedDate:'')}
-                                        </small>
-                                    </p>
-                                </div><!--star-descp end-->
+                                <ul class="flw-hr">
+                                    <li><a href="/user" title="">About</a></li>
+                                    <li><a href="/persons/mine" title="">My Persons</a></li>
+                                    <li><a href="/groups/mine" title="">My Groups</a></li>
+                                </ul>
                             </div><!--user-tab-sec end-->
-                            <div class="post-bar">
-                                <div class="detail_descp">
-                                    <h3>Introduction</h3>
-                                    <p>${fn:escapeXml(person.introduction)}</p>
-                                </div>
-                            </div>
-                            <div class="post-bar">
-                                <div class="detail_descp">
-                                    <h3>Description</h3>
-                                    <div class="content-main">
-                                        <p>${fn:escapeXml(person.description)}</p>
-                                    </div>
-                                </div>
-                            </div>
                             <c:choose>
                                 <c:when test="${not empty groups}">
                                     <div class="post-bar">

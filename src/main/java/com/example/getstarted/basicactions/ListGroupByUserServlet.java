@@ -1,7 +1,9 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.UserDao;
 import com.example.getstarted.objects.Group;
+import com.example.getstarted.objects.OurUser;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
 import java.util.List;
@@ -25,8 +27,30 @@ public class ListGroupByUserServlet extends HttpServlet {
      * @throws ServletException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-            ServletException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        /*
+            Load user first
+         */
+        String id = req.getParameter("id");
+        OurUser currentUser = null;
+        UserDao daoUser = (UserDao) this.getServletContext().getAttribute("dao-user");
+        if (id == null || id.isEmpty()) {
+            if (req.getSession().getAttribute("userEmail") == null || ((String) req.getSession().getAttribute("userEmail")).isEmpty()) {
+                resp.sendRedirect("/");
+            } else {
+                currentUser= (OurUser) this.getServletContext().getAttribute("login-user");
+            }
+        } else {
+            try {
+                Long userId = Long.decode(id);
+                currentUser = daoUser.readUser(userId);
+            } catch (Exception e) {
+                resp.sendRedirect("/");
+            }
+        }
+        /*
+            Load groups after user
+         */
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         String startCursor = req.getParameter("cursor");
         List<Group> groups = null;
@@ -38,13 +62,10 @@ public class ListGroupByUserServlet extends HttpServlet {
         } catch (Exception e) {
             throw new ServletException("Error listing groups", e);
         }
+        req.setAttribute("user", currentUser);
         req.getSession().getServletContext().setAttribute("groups", groups);
-//        StringBuilder groupNames = new StringBuilder();
-//        for (Group group : groups) {
-//            groupNames.append(group.getName() + " ");
-//        }
         req.getSession().setAttribute("cursor", endCursor);
-        req.getSession().setAttribute("page", "list-group");
+        req.getSession().setAttribute("page", "view-user-groups");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }

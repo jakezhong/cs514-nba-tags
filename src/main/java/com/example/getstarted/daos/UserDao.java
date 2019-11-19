@@ -1,6 +1,6 @@
 package com.example.getstarted.daos;
 
-import com.example.getstarted.objects.User;
+import com.example.getstarted.objects.OurUser;
 import com.example.getstarted.objects.Result;
 import java.sql.SQLException;
 
@@ -8,13 +8,15 @@ import java.sql.SQLException;
  * Interface for UserDao Class
  */
 public interface UserDao {
-    Long createUser(User user) throws SQLException;
+    Long createUser(OurUser ourUser) throws SQLException;
 
-    User readUser(Long userId) throws SQLException;
+    OurUser readUser(Long userId) throws SQLException;
 
-    void updateUser(User user) throws SQLException;
+    OurUser findUser(String userId) throws SQLException;
+
+    void updateUser(OurUser ourUser) throws SQLException;
 
     void deleteUser(Long userId) throws SQLException;
 
-    Result<User> listUsers(String startCursor) throws SQLException;
+    Result<OurUser> listUsers(String startCursor) throws SQLException;
 }

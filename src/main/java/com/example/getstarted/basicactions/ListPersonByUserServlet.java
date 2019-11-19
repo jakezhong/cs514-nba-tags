@@ -1,6 +1,8 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PersonDao;
+import com.example.getstarted.daos.UserDao;
+import com.example.getstarted.objects.OurUser;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
@@ -26,8 +28,30 @@ public class ListPersonByUserServlet extends HttpServlet {
    * @throws ServletException
    */
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-        ServletException {
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+    /*
+            Load user first
+         */
+    String id = req.getParameter("id");
+    OurUser currentUser = null;
+    UserDao daoUser = (UserDao) this.getServletContext().getAttribute("dao-user");
+    if (id == null || id.isEmpty()) {
+      if (req.getSession().getAttribute("userEmail") == null || ((String) req.getSession().getAttribute("userEmail")).isEmpty()) {
+        resp.sendRedirect("/");
+      } else {
+        currentUser= (OurUser) this.getServletContext().getAttribute("login-user");
+      }
+    } else {
+      try {
+        Long userId = Long.decode(id);
+        currentUser = daoUser.readUser(userId);
+      } catch (Exception e) {
+        resp.sendRedirect("/");
+      }
+    }
+    /*
+        Load persons after user
+     */
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     String startCursor = req.getParameter("cursor");
     List<Person> persons = null;
@@ -39,13 +63,10 @@ public class ListPersonByUserServlet extends HttpServlet {
     } catch (Exception e) {
       throw new ServletException("Error listing persons", e);
     }
+    req.setAttribute("user", currentUser);
     req.getSession().getServletContext().setAttribute("persons", persons);
-    StringBuilder personNames = new StringBuilder();
-    for (Person person : persons) {
-      personNames.append(person.getFirst() + " ");
-    }
     req.getSession().setAttribute("cursor", endCursor);
-    req.getSession().setAttribute("page", "list-person");
+    req.getSession().setAttribute("page", "view-user-persons");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
