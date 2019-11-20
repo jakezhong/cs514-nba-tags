@@ -9,6 +9,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.io.IOException;
 
 // [START example]
@@ -29,9 +30,10 @@ public class ReadUserServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
     String id = req.getParameter("id");
     OurUser currentUser = null;
+    HttpSession session = req.getSession();
     UserDao daoUser = (UserDao) this.getServletContext().getAttribute("dao-user");
     if (id == null || id.isEmpty()) {
-        if (req.getSession().getAttribute("userEmail") == null || ((String) req.getSession().getAttribute("userEmail")).isEmpty()) {
+        if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
             resp.sendRedirect("/");
         } else {
             currentUser= (OurUser) this.getServletContext().getAttribute("login-user");

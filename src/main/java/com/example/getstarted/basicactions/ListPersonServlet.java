@@ -97,11 +97,6 @@ public class ListPersonServlet extends HttpServlet {
       throw new ServletException("Error listing persons", e);
     }
     req.getSession().getServletContext().setAttribute("persons", persons);
-
-    StringBuilder personNames = new StringBuilder();
-    for (Person person : persons) {
-      personNames.append(person.getFirst() + " ");
-    }
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list-person");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
