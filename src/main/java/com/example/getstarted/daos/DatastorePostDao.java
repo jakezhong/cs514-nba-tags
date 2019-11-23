@@ -37,13 +37,11 @@ public class DatastorePostDao implements PostDao {
   public Post entityToPost(Entity entity) {
       return new Post.Builder()                                     // Convert to Post form
           .id(entity.getKey().getId())
+          .slug((String) entity.getProperty(Post.SLUG))
           .title((String) entity.getProperty(Post.TITLE))
           .introduction((String) entity.getProperty(Post.INTRODUCTION))
           .category((String) entity.getProperty(Post.CATEGORY))
-          .type((String) entity.getProperty(Post.TYPE))
           .status((String) entity.getProperty(Post.STATUS))
-          .personTag((String) entity.getProperty(Post.PERSON_TAG))
-          .groupTag((String) entity.getProperty(Post.GROUP_TAG))
           .description((String) entity.getProperty(Post.DESCRIPTION))
           .createdBy((String) entity.getProperty(Post.CREATED_BY))
           .createdById((String) entity.getProperty(Post.CREATED_BY_ID))
@@ -66,9 +64,9 @@ public class DatastorePostDao implements PostDao {
       incPostEntity.setProperty(Post.SLUG, post.getSlug());
       incPostEntity.setProperty(Post.TITLE, post.getTitle());
       incPostEntity.setProperty(Post.INTRODUCTION, post.getIntroduction());
-      incPostEntity.setProperty(Post.CATEGORY, post.getCategory());
-      incPostEntity.setProperty(Post.TYPE, post.getType());
       incPostEntity.setProperty(Post.DESCRIPTION, post.getDescription());
+      incPostEntity.setProperty(Post.CATEGORY, post.getCategory());
+      incPostEntity.setProperty(Post.STATUS, post.getStatus());
       incPostEntity.setProperty(Post.CREATED_BY, post.getCreatedBy());
       incPostEntity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
       incPostEntity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
@@ -111,10 +109,7 @@ public class DatastorePostDao implements PostDao {
       entity.setProperty(Post.TITLE, post.getTitle());
       entity.setProperty(Post.INTRODUCTION, post.getIntroduction());
       entity.setProperty(Post.CATEGORY, post.getCategory());
-      entity.setProperty(Post.TYPE, post.getType());
       entity.setProperty(Post.STATUS, post.getStatus());
-      entity.setProperty(Post.PERSON_TAG, post.getPersonTag());
-      entity.setProperty(Post.GROUP_TAG, post.getGroupTag());
       entity.setProperty(Post.DESCRIPTION, post.getDescription());
       entity.setProperty(Post.CREATED_BY, post.getCreatedBy());
       entity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
@@ -183,7 +178,6 @@ public class DatastorePostDao implements PostDao {
       }
   }
   // [END listposts]
-
 
     public Result<Post> listAllPosts() {
 

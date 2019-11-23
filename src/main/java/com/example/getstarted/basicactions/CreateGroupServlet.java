@@ -5,11 +5,10 @@ import com.example.getstarted.objects.Group;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 import java.io.IOException;
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -38,8 +37,7 @@ public class CreateGroupServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-            IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
         req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
         req.setAttribute("page", "form-group");           // Tells base.jsp to include form-person.jsp
@@ -56,11 +54,9 @@ public class CreateGroupServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-            IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         assert ServletFileUpload.isMultipartContent(req);
-        CloudStorageHelper storageHelper =
-                (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
+        CloudStorageHelper storageHelper = (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
 
         String newImageUrl = null;
         Map<String, String> params = new HashMap<String, String>();
@@ -82,9 +78,9 @@ public class CreateGroupServlet extends HttpServlet {
         // [START createdBy]
         String createdByString = "";
         String createdByIdString = "";
-        DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd HH:mm:ss");
         Date date = new Date();
         HttpSession session = req.getSession();
+
         if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
             createdByString = (String) session.getAttribute("userEmail");
             createdByIdString = (String) session.getAttribute("userId");

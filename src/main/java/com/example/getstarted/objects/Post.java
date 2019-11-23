@@ -10,10 +10,7 @@ public class Post {
     private String title;
     private String introduction;
     private String category;
-    private String type;
     private String status;
-    private String personTag;
-    private String groupTag;
     private String description;
     private String createdBy;
     private String createdById;
@@ -28,10 +25,7 @@ public class Post {
     public static final String TITLE = "title";
     public static final String INTRODUCTION = "introduction";
     public static final String CATEGORY = "category";
-    public static final String TYPE = "type";
-    public static final String STATUS = "type";
-    public static final String PERSON_TAG = "personTag";
-    public static final String GROUP_TAG = "groupTag";
+    public static final String STATUS = "status";
     public static final String DESCRIPTION = "description";
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";
@@ -48,14 +42,11 @@ public class Post {
       this.title = builder.title;
       this.introduction = builder.introduction;
       this.category = builder.category;
-      this.type = builder.type;
       this.status = builder.status;
-      this.personTag = builder.personTag;
-      this.groupTag = builder.groupTag;
       this.description = builder.description;
       this.createdBy = builder.createdBy;
-      this.publishedDate = builder.publishedDate;
       this.createdById = builder.createdById;
+      this.publishedDate = builder.publishedDate;
       this.imageUrl = builder.imageUrl;
   }
   // [END constructor]
@@ -67,7 +58,6 @@ public class Post {
       private String title;
       private String introduction;
       private String category;
-      private String type;
       private String status;
       private String personTag;
       private String groupTag;
@@ -107,29 +97,14 @@ public class Post {
           return this;
       }
 
-      public Builder type(String type) {
-          this.type = type;
-          return this;
-      }
-
       public Builder status(String status) {
           this.status = status;
           return this;
       }
 
-      public Builder personTag(String personTag) {
-          this.personTag = personTag;
-          return this;
-      }
-
-      public Builder groupTag(String groupTag) {
-          this.groupTag = groupTag;
-          return this;
-      }
-
-      public Builder description(String description) {
-          this.description = description;
-          return this;
+    public Builder description(String description) {
+        this.description = description;
+        return this;
     }
 
       public Builder createdBy(String createdBy) {
@@ -201,35 +176,12 @@ public class Post {
         this.category = category;
     }
 
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
     public String getStatus() {
         return status;
     }
 
     public void setStatus(String status) {
         this.status = status;
-    }
-
-    public String getPersonTag() {
-        return personTag;
-    }
-
-    public void setPersonTag(String personTag) {
-        this.personTag = personTag;
-    }
-    public String getGroupTag() {
-        return groupTag;
-    }
-
-    public void setGroupTag(String groupTag) {
-        this.groupTag = groupTag;
     }
 
     public String getDescription() {
@@ -293,10 +245,7 @@ public class Post {
             ", title='" + title + '\'' +
             ", introduction='" + introduction + '\'' +
             ", category='" + category + '\'' +
-            ", type='" + type + '\'' +
             ", status='" + status + '\'' +
-            ", personTag='" + personTag + '\'' +
-            ", groupTag='" + groupTag + '\'' +
             ", description='" + description + '\'' +
             ", createdBy='" + createdBy + '\'' +
             ", createdById='" + createdById + '\'' +
@@ -320,10 +269,7 @@ public class Post {
                 Objects.equals(title, post.title) &&
                 Objects.equals(introduction, post.introduction) &&
                 Objects.equals(category, post.category) &&
-                Objects.equals(type, post.type) &&
                 Objects.equals(status, post.status) &&
-                Objects.equals(personTag, post.personTag) &&
-                Objects.equals(groupTag, post.groupTag) &&
                 Objects.equals(description, post.description) &&
                 Objects.equals(createdBy, post.createdBy) &&
                 Objects.equals(createdById, post.createdById) &&

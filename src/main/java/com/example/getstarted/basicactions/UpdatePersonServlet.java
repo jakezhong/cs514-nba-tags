@@ -33,9 +33,9 @@ public class UpdatePersonServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
       IOException {
-    PersonDao dao = (PersonDao) this.getServletContext().getAttribute("dao");
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     try {
-      Person person = dao.readPerson(Long.decode(req.getParameter("id")));
+      Person person = daoPerson.readPerson(Long.decode(req.getParameter("id")));
       req.setAttribute("person", person);
       req.setAttribute("action", "Edit");
       req.setAttribute("destination", "person/update");

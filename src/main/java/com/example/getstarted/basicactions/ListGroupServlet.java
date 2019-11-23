@@ -25,13 +25,11 @@ public class ListGroupServlet extends HttpServlet {
      * @throws ServletException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-            ServletException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         String startCursor = req.getParameter("cursor");
         List<Group> groups;
-        groups = null;
-        String endCursor = null;
+        String endCursor;
         try {
             Result<Group> result = daoGroup.listGroups(startCursor);
             groups = result.result;

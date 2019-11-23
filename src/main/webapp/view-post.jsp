@@ -13,24 +13,19 @@
                                 <div class="forum-post-view">
                                     <div class="usr-question">
                                         <div class="usr_img">
-                                            <img src="http://via.placeholder.com/60x60" alt="">
+											<img alt="ahhh" width="60" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/60/60')}">
                                         </div>
                                         <div class="usr_quest">
-                                            <h3>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</h3>
-                                            <span><i class="fa fa-clock-o"></i>3 min ago</span>
-                                            <ul class="react-links">
-                                                <li><a href="#" title=""><i class="fa fa-heart"></i> Vote 150</a></li>
-                                                <li><a href="#" title=""><i class="fa fa-share-alt"></i> Share</a></li>
-                                            </ul>
+                                            <h3>${fn:escapeXml(post.title)}</h3>
+                                            <span><i class="fa fa-clock-o"></i>${fn:escapeXml(post.publishedDate)}</span>
                                             <ul class="quest-tags">
-                                                <li><a href="#" title="">Work</a></li>
-                                                <li><a href="#" title="">Php</a></li>
-                                                <li><a href="#" title="">Design</a></li>
+                                                <li><a href="#" title="">${fn:escapeXml(post.category)}</a></li>
                                             </ul>
-                                            <p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. Suspendisse at libero elit. Mauris ultrices sed lorem nec efficitur. Donec sit amet facilisis lorem, quis facilisis tellus. Nullam mollis dignissim nisi sit amet tempor. Nullam sollicitudin neque a felis commodo gravida at sed nunc. In justo nunc, sagittis sed venenatis at, dictum vel erat. Curabitur at quam ipsum. Quisque eget nibh aliquet, imperdiet diam pharetra, dapibus lacus. Sed tincidunt sapien in dui imperdiet eleifend. Ut ut sagittis purus, non tristique elit. Quisque tincidunt metus eget ligula sodales luctus. Donec convallis ex at dui convallis malesuada. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Ut pretium euismod mollis. Pellentesque convallis gravida ante eu pretium. Integer rutrum mi nec purus tincidunt, nec rhoncus mauris porttitor. Donec id tellus at leo gravida egestas. Suspendisse consequat mi vel euismod efficitur. Donec sed elementum libero.</p>
-                                            <p> Etiam rutrum ut urna eu tempus. Curabitur suscipit quis lorem vel dictum. Aliquam erat volutpat. Pellentesque volutpat viverra pulvinar. Mauris ac sapien ac metus tincidunt volutpat eu eu purus. Suspendisse pharetra quis quam id auctor. Pellentesque feugiat venenatis urna, vitae suscipit enim volutpat vitae. Nunc egestas tortor est, at sodales ligula auctor efficitur.</p>
+											<p>
+                                            	${fn:escapeXml(post.description)}
+											</p>
                                             <div class="comment-section">
-                                                <h3>03 Comments</h3>
+                                                <h3>3 Comments</h3>
                                                 <div class="comment-sec">
                                                     <ul>
                                                         <li>
@@ -95,26 +90,10 @@
                                 </div><!--next-prev end-->
                             </div>
                             <div class="col-lg-4">
-                                <div class="widget widget-feat">
-                                    <ul>
-                                        <li>
-                                            <i class="fa fa-heart"></i>
-                                            <span>1185</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-comment"></i>
-                                            <span>1165</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-share-alt"></i>
-                                            <span>1120</span>
-                                        </li>
-                                        <li>
-                                            <i class="fa fa-eye"></i>
-                                            <span>1009</span>
-                                        </li>
-                                    </ul>
-                                </div><!--widget-feat end-->
+                                <div class="widget widget-adver">
+                                    <img src="http://via.placeholder.com/370x270" alt="">
+                                </div><!--widget-adver end-->
+								
                                 <div class="widget widget-user">
                                     <h3 class="title-wd">Top User of the Week</h3>
                                     <ul>
@@ -168,9 +147,6 @@
                                         </li>
                                     </ul>
                                 </div><!--widget-user end-->
-                                <div class="widget widget-adver">
-                                    <img src="http://via.placeholder.com/370x270" alt="">
-                                </div><!--widget-adver end-->
                             </div>
                         </div>
                     </div><!--forum-questions-sec end-->

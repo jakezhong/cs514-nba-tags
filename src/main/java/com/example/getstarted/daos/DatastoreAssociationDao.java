@@ -143,11 +143,7 @@ public class DatastoreAssociationDao implements AssociationDao {
         }
         Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
                 // Only for this user
-                .setFilter(new Query.FilterPredicate(
-                        Association.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
-                // a custom datastore index is required since you are filtering by one property
-                // but ordering by another
-//                .addSort(Person.LAST, Query.SortDirection.ASCENDING);
+                .setFilter(new Query.FilterPredicate(Association.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
 
         PreparedQuery preparedQuery = datastore.prepare(query);
 
@@ -174,18 +170,18 @@ public class DatastoreAssociationDao implements AssociationDao {
 
     /**
      * List all groups by specific person
-     * @param peopelId peopelId
+     * @param personId personId
      * @param startCursor startCursor
      * @return Result<Group>
      */
-    public Result<Long> listGroupByPerson(Long peopelId, String startCursor) {
+    public Result<Long> listGroupByPerson(Long personId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
         // Only for this user
-        .setFilter(new Query.FilterPredicate(Association.PERSON_ID, Query.FilterOperator.EQUAL, peopelId));
+        .setFilter(new Query.FilterPredicate(Association.PERSON_ID, Query.FilterOperator.EQUAL, personId));
         // a custom datastore index is required since you are filtering by one property
         // but ordering by another
 

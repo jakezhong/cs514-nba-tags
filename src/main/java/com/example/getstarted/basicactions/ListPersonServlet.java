@@ -30,6 +30,7 @@ public class ListPersonServlet extends HttpServlet {
     PersonDao daoPerson = null;
     GroupDao daoGroup = null;
     AssociationDao daoAssociation = null;
+    PostDao daoPost = null;
     CloudStorageHelper storageHelper = new CloudStorageHelper();
 
     // Creates the DAO based on the Context Parameters
@@ -40,6 +41,7 @@ public class ListPersonServlet extends HttpServlet {
         daoPerson = new DatastorePersonDao();
         daoGroup = new DatastoreGroupDao();
         daoAssociation = new DatastoreAssociationDao();
+        daoPost = new DatastorePostDao();
 
         break;
       case "cloudsql":
@@ -69,6 +71,7 @@ public class ListPersonServlet extends HttpServlet {
     this.getServletContext().setAttribute("dao-person", daoPerson);
     this.getServletContext().setAttribute("dao-group", daoGroup);
     this.getServletContext().setAttribute("dao-association", daoAssociation);
+    this.getServletContext().setAttribute("dao-post", daoPost);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
     this.getServletContext().setAttribute(
         "isCloudStorageConfigured",  // Hide upload when Cloud Storage is not configured.

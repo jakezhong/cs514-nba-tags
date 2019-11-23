@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.List;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
  * To list all posts
@@ -26,13 +25,11 @@ public class ListPostServlet extends HttpServlet {
      * @throws ServletException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-            ServletException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
         String startCursor = req.getParameter("cursor");
         List<Post> posts;
-        posts = null;
-        String endCursor = null;
+        String endCursor;
         try {
             Result<Post> result = daoPost.listPosts(startCursor);
             posts = result.result;
@@ -46,4 +43,3 @@ public class ListPostServlet extends HttpServlet {
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }
-// [END example]

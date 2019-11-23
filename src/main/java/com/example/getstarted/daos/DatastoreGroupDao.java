@@ -208,12 +208,9 @@ public class DatastoreGroupDao implements GroupDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
         }
         Query query = new Query(GROUP_KIND) // We only care about Groups
-                // Only for this user
-                .setFilter(new Query.FilterPredicate(
-                        Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
-                // a custom datastore index is required since you are filtering by one property
-                // but ordering by another
-                .addSort(Group.NAME, SortDirection.ASCENDING);
+            // Only for this user
+            .setFilter(new Query.FilterPredicate(Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+            .addSort(Group.NAME, SortDirection.ASCENDING);
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 

@@ -160,7 +160,6 @@ public class DatastorePersonDao implements PersonDao {
   // [END update]
 
   // [START delete]
-
     /**
      * To delete Person according to personId
      * @param personId

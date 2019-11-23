@@ -48,8 +48,8 @@
 								</li>
 								<li>
 									<a href="/posts" title="Persons">
-										<span><img src="${pageContext.request.contextPath}/ui/images/icon4.png" alt=""></span>
-										Persons
+										<span><img src="${pageContext.request.contextPath}/ui/images/icon3.png" alt=""></span>
+										Posts
 									</a>
 								</li>
 							</ul>
@@ -72,7 +72,7 @@
 											<li><a href="/user" title="">Profile</a></li>
 											<li><a href="/persons/mine" title="">My Persons</a></li>
 											<li><a href="/groups/mine" title="">My Groups</a></li>
-											<li><a href="/posts/mine" title="">My Groups</a></li>
+											<li><a href="/posts/mine" title="">My Posts</a></li>
 										</ul>
 										<h3 class="tc"><a href="/logout" title="">Logout</a></h3>
 									</div><!--user-account-settingss end-->

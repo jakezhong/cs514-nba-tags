@@ -238,7 +238,7 @@
 
     <servlet>
         <servlet-name>ListPost</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListpostServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.ListPostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListPost</servlet-name>

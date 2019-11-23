@@ -4,7 +4,7 @@
 <main class="main">
     <div class="container">
         <div class="post-project">
-            <h3><c:out value="${action}" /> person</h3>
+            <h3><c:out value="${action}" /> Person</h3>
             <div class="post-project-fields">
                 <form method="POST" action="${destination}" enctype="multipart/form-data" class="main-form">
                     <div class="row">
