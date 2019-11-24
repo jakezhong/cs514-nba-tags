@@ -18,5 +18,9 @@ public interface PersonDao {
 
   Result<Person> listPersons(String startCursor) throws SQLException;
 
+  Result<Person> listAllPersons() throws SQLException;
+
   Result<Person> listPersonsByUser(String userId, String startCursor) throws SQLException;
+
+  Result<Person> listAllPersonsByUser(String userId) throws SQLException;
 }

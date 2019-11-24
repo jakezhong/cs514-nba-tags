@@ -19,5 +19,9 @@ public interface PostDao {
 
   Result<Post> listPosts(String startCursor) throws SQLException;
 
+  Result<Post> listAllPosts() throws SQLException;
+
   Result<Post> listPostsByUser(String userId, String startCursor) throws SQLException;
+
+  Result<Post> listAllPostsByUser(String userId) throws SQLException;
 }

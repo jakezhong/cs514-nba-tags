@@ -39,7 +39,7 @@ public class UpdatePostServlet extends HttpServlet {
       Post post = dao.readPost(Long.decode(req.getParameter("id")));
       req.setAttribute("post", post);
       req.setAttribute("action", "Edit");
-      req.setAttribute("destination", "post/update");
+      req.setAttribute("destination", "update");
       req.setAttribute("page", "form-post");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {

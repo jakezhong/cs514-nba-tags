@@ -1,8 +1,6 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PostDao;
-import com.example.getstarted.daos.UserDao;
-import com.example.getstarted.objects.OurUser;
 import com.example.getstarted.objects.Post;
 import com.example.getstarted.objects.Result;
 
@@ -30,44 +28,34 @@ public class ListPostByUserServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-    /*
-            Load user first
-         */
-    String id = req.getParameter("id");
-    OurUser currentUser = null;
-    UserDao daoUser = (UserDao) this.getServletContext().getAttribute("dao-user");
-    if (id == null || id.isEmpty()) {
-      if (req.getSession().getAttribute("userEmail") == null || ((String) req.getSession().getAttribute("userEmail")).isEmpty()) {
-        resp.sendRedirect("/");
-      } else {
-        currentUser= (OurUser) this.getServletContext().getAttribute("login-user");
-      }
-    } else {
-      try {
-        Long userId = Long.decode(id);
-        currentUser = daoUser.readUser(userId);
-      } catch (Exception e) {
-        resp.sendRedirect("/");
-      }
+     /*
+      If there's user id parameter, list group by this id
+      Otherwise, list group by logged in user id
+   */
+    String userId;
+    try {
+      userId = req.getParameter("id") == null || req.getParameter("id").isEmpty() ? (String) req.getSession().getAttribute("userId") : req.getParameter("id");
+    } catch (Exception e) {
+      userId = (String) req.getSession().getAttribute("userId");
     }
-    /*
-        Load posts after user
-     */
+
     PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
     String startCursor = req.getParameter("cursor");
-    List<Post> posts = null;
-    String endCursor = null;
+    List<Post> posts;
+    String endCursor;
     try {
-      Result<Post> result = daoPost.listPostsByUser((String) req.getSession().getAttribute("userId"), startCursor);
+      Result<Post> result = daoPost.listPostsByUser(userId, startCursor);
       posts = result.result;
       endCursor = result.cursor;
+      if (posts.size() <= 0) {
+        resp.sendRedirect("/");
+      }
     } catch (Exception e) {
       throw new ServletException("Error listing posts", e);
     }
-    req.setAttribute("user", currentUser);
     req.getSession().getServletContext().setAttribute("posts", posts);
     req.getSession().setAttribute("cursor", endCursor);
-    req.getSession().setAttribute("page", "view-user-posts");
+    req.getSession().setAttribute("page", "list-user-posts");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

@@ -217,51 +217,58 @@ public class DatastorePersonDao implements PersonDao {
   }
   // [END listpersons]
 
-
     public Result<Person> listAllPersons() {
-
         Query query = new Query(PERSON_KIND) // We only care about Persons
                 .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
-
         List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
 
         return new Result<>(resultPersons);
-
     }
 
   // [START listbyuser]
-  @Override
-  /**
-   * List all Persons by specific person
-   * @param startCursorString to display 10 per time
-   * @return Result<Person>
-   */
-  public Result<Person> listPersonsByUser(String userId, String startCursorString) {
-      FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
-      if (startCursorString != null && !startCursorString.equals("")) {
-        fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
-      }
-      Query query = new Query(PERSON_KIND) // We only care about Persons
-          // Only for this user
-          .setFilter(new Query.FilterPredicate(
-              Person.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
-          // a custom datastore index is required since you are filtering by one property
-          // but ordering by another
-          .addSort(Person.LAST, SortDirection.ASCENDING);
-      PreparedQuery preparedQuery = datastore.prepare(query);
-      QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
+    @Override
+    /**
+    * List all Persons by specific person
+    * @param startCursorString to display 10 per time
+    * @return Result<Person>
+    */
+    public Result<Person> listPersonsByUser(String userId, String startCursorString) {
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
+        if (startCursorString != null && !startCursorString.equals("")) {
+            fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
+        }
+        Query query = new Query(PERSON_KIND) // We only care about Persons
+        // Only for this user
+        .setFilter(new Query.FilterPredicate(Person.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+        // a custom datastore index is required since you are filtering by one property
+        // but ordering by another
+        .addSort(Person.LAST, SortDirection.ASCENDING);
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
-      List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
-      Cursor cursor = results.getCursor();              // Where to start next time
-      if (cursor != null && resultPersons.size() == 8) {         // Are we paging? Save Cursor
-        String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
-        return new Result<>(resultPersons, cursorString);
-      } else {
+        List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
+        Cursor cursor = results.getCursor();              // Where to start next time
+        if (cursor != null && resultPersons.size() == 8) {         // Are we paging? Save Cursor
+            String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
+            return new Result<>(resultPersons, cursorString);
+        } else {
+            return new Result<>(resultPersons);
+        }
+    }
+
+    // [END listbyuser]
+    public Result<Person> listAllPersonsByUser(String userId) {
+        Query query = new Query(PERSON_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(Person.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+        .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+        List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
+
         return new Result<>(resultPersons);
-      }
-  }
-  // [END listbyuser]
+    }
 }

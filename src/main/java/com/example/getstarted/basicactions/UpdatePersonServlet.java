@@ -38,7 +38,7 @@ public class UpdatePersonServlet extends HttpServlet {
       Person person = daoPerson.readPerson(Long.decode(req.getParameter("id")));
       req.setAttribute("person", person);
       req.setAttribute("action", "Edit");
-      req.setAttribute("destination", "person/update");
+      req.setAttribute("destination", "update");
       req.setAttribute("page", "form-person");
       req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {

@@ -56,12 +56,6 @@
                 </div>
                 <div class="col-lg-9">
                     <div class="main-ws-sec">
-						<div class="landing-header">
-							<a href="/post/create" class="btn btn-success btn-sm">
-								<i class="glyphicon glyphicon-plus"></i>
-								Add Post
-							</a>
-						</div>
 						<c:choose>
 							<c:when test="${empty posts}">
 								<div class="no-result center">

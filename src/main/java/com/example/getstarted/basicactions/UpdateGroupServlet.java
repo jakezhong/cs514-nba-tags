@@ -38,7 +38,7 @@ public class UpdateGroupServlet extends HttpServlet {
             Group group = daoGroup.readGroup(Long.decode(req.getParameter("id")));
             req.setAttribute("group", group);
             req.setAttribute("action", "Edit");
-            req.setAttribute("destination", "updateGroup");
+            req.setAttribute("destination", "update");
             req.setAttribute("page", "formGroup");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {

@@ -1,7 +1,6 @@
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastoreAssociationDao;
-import com.example.getstarted.daos.DatastorePersonDao;
+import com.example.getstarted.daos.AssociationDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Person;
@@ -30,14 +29,12 @@ public class CreateAssociationServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-            IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
             Long id = Long.decode(req.getParameter("id"));
-            DatastorePersonDao daoPerson = (DatastorePersonDao) this.getServletContext().getAttribute("dao-person");
+            PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
 
-            List<Person> persons = null;
-
+            List<Person> persons;
             try {
                 Result<Person> result = daoPerson.listAllPersons();
                 persons = result.result;
@@ -69,19 +66,18 @@ public class CreateAssociationServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-            IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long personId = Long.valueOf(req.getParameter("personId"));
         Long groupId = Long.valueOf(req.getParameter("groupId"));
+        AssociationDao daoAssociation = (AssociationDao) this.getServletContext().getAttribute("dao-association");
 
       //   [START GroupBuilder]
         Association association = new Association.Builder()
-                .personId(personId)
-                .groupId(groupId)
-                .build();
+            .personId(personId)
+            .groupId(groupId)
+            .build();
 
          //[END AssociationBuilder]
-        DatastoreAssociationDao daoAssociation = new DatastoreAssociationDao();
         try {
             daoAssociation.createAssociation(association);
             resp.sendRedirect("/group/read?id=" +groupId.toString());   // read what we just wrote

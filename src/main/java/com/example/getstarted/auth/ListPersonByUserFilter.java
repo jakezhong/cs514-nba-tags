@@ -47,7 +47,7 @@ public class ListPersonByUserFilter implements Filter {
     if (userService.isUserLoggedIn()) {
       chain.doFilter(servletReq, servletResp);
     } else {
-      req.getSession().setAttribute("loginDestination", "/persons/mine");
+      req.getSession().setAttribute("loginDestination", "/persons/user");
       resp.sendRedirect(userService.createLoginURL("/login"));
     }
   }

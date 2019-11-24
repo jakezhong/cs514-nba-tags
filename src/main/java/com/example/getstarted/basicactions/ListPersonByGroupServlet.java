@@ -1,7 +1,9 @@
 package com.example.getstarted.basicactions;
 
+import com.example.getstarted.daos.AssociationDao;
 import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.daos.DatastorePersonDao;
+import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
@@ -27,21 +29,22 @@ public class ListPersonByGroupServlet extends HttpServlet {
      * @throws ServletException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
-            ServletException {
-        DatastoreAssociationDao daoAssociation = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
-        DatastorePersonDao daoPerson = (DatastorePersonDao) this.getServletContext().getAttribute("dao-person");
-        String startCursor = req.getParameter("cursor");
-        Long groupId = Long.decode(req.getParameter("id"));
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
+        AssociationDao daoAssociation = (AssociationDao) this.getServletContext().getAttribute("dao-association");
+        PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
 
-        List<Long> personsId ;
+        Long groupId = Long.decode(req.getParameter("id"));
+        String startCursor = req.getParameter("cursor");
+
+        List<Long> personIds ;
         List<Person> persons = new ArrayList<>();
         String endCursor ;
-        try {
-            Result<Long> result = daoAssociation.listPersonsByGroup(groupId,startCursor);
-            personsId=result.result;
 
-            for(Long personId: personsId){
+        try {
+            Result<Long> result = daoAssociation.listPersonsByGroup(groupId, startCursor);
+            personIds = result.result;
+
+            for(Long personId: personIds){
                 Person person = daoPerson.readPerson(personId);
                 persons.add(person);
             }
@@ -51,7 +54,6 @@ public class ListPersonByGroupServlet extends HttpServlet {
         }
 
         req.getSession().getServletContext().setAttribute("persons", persons);
-
         req.setAttribute("cursor", endCursor);
         req.setAttribute("page", "list-person");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);

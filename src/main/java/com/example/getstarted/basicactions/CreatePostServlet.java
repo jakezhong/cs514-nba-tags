@@ -1,12 +1,16 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PostDao;
-import com.example.getstarted.objects.Post;
+import com.example.getstarted.daos.PersonDao;
+import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.PostTagDao;
+import com.example.getstarted.objects.*;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 import java.io.IOException;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.ServletException;
@@ -37,6 +41,28 @@ public class CreatePostServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    String userId = (String) req.getSession().getAttribute("userId");
+
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
+    GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+
+    List<Person> persons;
+    try {
+      Result<Person> result = daoPerson.listAllPersonsByUser(userId);
+      persons = result.result;
+    } catch (Exception e) {
+      throw new ServletException("Error listing persons", e);
+    }
+
+    List<Group> groups;
+    try {
+      Result<Group> result = daoGroup.listAllGroupsByUser(userId);
+      groups = result.result;
+    } catch (Exception e) {
+      throw new ServletException("Error listing groups", e);
+    }
+    req.setAttribute("persons", persons);
+    req.setAttribute("groups", groups);
     req.setAttribute("action", "Add");          // Part of the Header in form-post.jsp
     req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
     req.setAttribute("page", "form-post");           // Tells base.jsp to include form-post.jsp
@@ -104,13 +130,40 @@ public class CreatePostServlet extends HttpServlet {
         .build();
     // [END postBuilder]
 
+    Long postId;
     PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
+    PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
+    Long personId = params.get("personId").isEmpty() ? 0 : Long.decode(params.get("personId"));
+    Long groupId = params.get("groupId").isEmpty() ? 0 : Long.decode(params.get("groupId"));
+
     try {
-        Long id = daoPost.createPost(post);
-        resp.sendRedirect("/post/read?id=" + id.toString());   // read what we just wrote
+        postId = daoPost.createPost(post);
     } catch (Exception e) {
         throw new ServletException("Error creating post", e);
     }
+
+    try {
+      //   [START GroupBuilder]
+      PostTag postPersonTag = new PostTag.Builder()
+              .postId(postId)
+              .personId(personId)
+              .build();
+      daoPostTag.createPostTag(postPersonTag);
+    } catch (Exception e) {
+        throw new ServletException("Error creating person post tag", e);
+    }
+
+    try {
+      //   [START GroupBuilder]
+      PostTag postGroupTag = new PostTag.Builder()
+              .postId(postId)
+              .groupId(groupId)
+              .build();
+      daoPostTag.createPostTag(postGroupTag);
+    } catch (Exception e) {
+      throw new ServletException("Error creating group post post", e);
+    }
+    resp.sendRedirect("/post/read?id=" + postId.toString());   // read what we just wrote
   }
   // [END formpost]
 }

@@ -69,10 +69,10 @@
 									</div>
 									<div class="user-account-settingss">
 										<ul class="us-links">
-											<li><a href="/user" title="">Profile</a></li>
-											<li><a href="/persons/mine" title="">My Persons</a></li>
-											<li><a href="/groups/mine" title="">My Groups</a></li>
-											<li><a href="/posts/mine" title="">My Posts</a></li>
+											<li><a href="/profile/user" title="">Profile</a></li>
+											<li><a href="/persons/user" title="">My Persons</a></li>
+											<li><a href="/groups/user" title="">My Groups</a></li>
+											<li><a href="/posts/user" title="">My Posts</a></li>
 										</ul>
 										<h3 class="tc"><a href="/logout" title="">Logout</a></h3>
 									</div><!--user-account-settingss end-->

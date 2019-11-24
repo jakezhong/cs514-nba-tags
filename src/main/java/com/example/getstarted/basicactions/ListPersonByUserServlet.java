@@ -1,8 +1,6 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.UserDao;
-import com.example.getstarted.objects.OurUser;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
@@ -30,43 +28,34 @@ public class ListPersonByUserServlet extends HttpServlet {
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
     /*
-            Load user first
-         */
-    String id = req.getParameter("id");
-    OurUser currentUser = null;
-    UserDao daoUser = (UserDao) this.getServletContext().getAttribute("dao-user");
-    if (id == null || id.isEmpty()) {
-      if (req.getSession().getAttribute("userEmail") == null || ((String) req.getSession().getAttribute("userEmail")).isEmpty()) {
-        resp.sendRedirect("/");
-      } else {
-        currentUser= (OurUser) this.getServletContext().getAttribute("login-user");
-      }
-    } else {
-      try {
-        Long userId = Long.decode(id);
-        currentUser = daoUser.readUser(userId);
-      } catch (Exception e) {
-        resp.sendRedirect("/");
-      }
+      If there's user id parameter, list persons by this id
+      Otherwise, list persons by logged in user id
+   */
+
+    String userId;
+    try {
+      userId = req.getParameter("id") == null || req.getParameter("id").isEmpty() ? (String) req.getSession().getAttribute("userId") : req.getParameter("id");
+    } catch (Exception e) {
+      userId = (String) req.getSession().getAttribute("userId");
     }
-    /*
-        Load persons after user
-     */
+
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     String startCursor = req.getParameter("cursor");
-    List<Person> persons = null;
-    String endCursor = null;
+    List<Person> persons;
+    String endCursor;
     try {
-      Result<Person> result = daoPerson.listPersonsByUser((String) req.getSession().getAttribute("userId"), startCursor);
+      Result<Person> result = daoPerson.listPersonsByUser(userId, startCursor);
       persons = result.result;
       endCursor = result.cursor;
+      if (result == null) {
+        resp.sendRedirect("/");
+      }
     } catch (Exception e) {
       throw new ServletException("Error listing persons", e);
     }
-    req.setAttribute("user", currentUser);
     req.getSession().getServletContext().setAttribute("persons", persons);
     req.getSession().setAttribute("cursor", endCursor);
-    req.getSession().setAttribute("page", "view-user-persons");
+    req.getSession().setAttribute("page", "list-user-persons");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }

@@ -1,6 +1,6 @@
 package com.example.getstarted.basicactions;
 
-import com.example.getstarted.daos.DatastoreAssociationDao;
+import com.example.getstarted.daos.AssociationDao;
 import com.example.getstarted.daos.GroupDao;
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Group;
@@ -30,27 +30,29 @@ public class ReadGroupServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        Long id = Long.decode(req.getParameter("id"));
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
-        try {
-            Group group = daoGroup.readGroup(id);
+        AssociationDao daoAssociation = (AssociationDao) this.getServletContext().getAttribute("dao-association");
 
-            DatastoreAssociationDao associationDao = (DatastoreAssociationDao) this.getServletContext().getAttribute("dao-association");
+        Long groupId = Long.decode(req.getParameter("id"));
+
+        try {
+            Group group = daoGroup.readGroup(groupId);
+
             String startCursor = req.getParameter("cursor");
-            Long groupId = Long.decode(req.getParameter("id"));
             List<Person> persons = new ArrayList<>();
-            List<Long> personsId =null;
-            String endCursor = null;
+            List<Long> personIds;
+            String endCursor;
 
             try {
-                Result<Long> result = associationDao.listPersonsByGroup(groupId,startCursor);
-                personsId=result.result;
-                for(Long personId: personsId){
+                Result<Long> result = daoAssociation.listPersonsByGroup(groupId, startCursor);
+                personIds = result.result;
+
+                for(Long personId: personIds){
                     Person person = daoPerson.readPerson(personId);
                     persons.add(person);
-
                 }
+
                 endCursor = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);

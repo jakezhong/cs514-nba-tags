@@ -28,41 +28,55 @@
                             <div class="user-tab-sec">
                                 <ul class="flw-hr">
                                     <li>
-                                        <a href="update?id=${user.id}" class="btn btn-primary btn-sm">
+                                        <a href="/user" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
-                                            Edit User
+                                            About
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="delete?id=${user.id}" class="btn btn-danger btn-sm">
-                                            <i class="glyphicon glyphicon-trash"></i>
-                                            Delete User
+                                        <a href="/persons/user" class="btn btn-primary btn-sm">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                            My Persons
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/groups/user" class="btn btn-primary btn-sm">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                            My Groups
+                                        </a>
+                                    </li>
+                                    <li>
+                                        <a href="/posts/user" class="btn btn-primary btn-sm">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                            My Posts
                                         </a>
                                     </li>
                                 </ul>
-                                <ul class="flw-hr">
-                                    <li><a href="/user" title="">About</a></li>
-                                    <li><a href="/persons/mine" title="">My Persons</a></li>
-                                    <li><a href="/groups/mine" title="">My Groups</a></li>
-                                </ul>
+								<div class="landing-header">
+									<a href="/person/create" class="btn btn-success btn-sm">
+										<i class="glyphicon glyphicon-plus"></i>
+										Add Person
+									</a>
+								</div>
                             </div><!--user-tab-sec end-->
                             <c:choose>
-                                <c:when test="${not empty groups}">
+                                <c:when test="${not empty persons}">
                                     <div class="post-bar">
                                         <div class="detail_descp">
-                                            <h3>Groups</h3>
+                                            <h3>Members</h3>
                                             <div class="companies-list">
                                                 <div class="row">
-                                                    <c:forEach items="${groups}" var="group">
+                                                    <c:forEach items="${persons}" var="person">
                                                         <div class="col-lg-4 col-md-6  col-sm-12 col-12">
                                                             <div class="company_profile_info">
-                                                                <a href="/group/read?id=${group.id}" title="">
+                                                                <a href="/person/read?id=${person.id}" title="">
                                                                     <div class="company-up-info">
-                                                                        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
-                                                                        <h3>${fn:escapeXml(group.name)}</h3>
-                                                                        <h5 class="category">${fn:escapeXml(group.category)}</h5>
+                                                                        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+                                                                        <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
+                                                                        <h4>${fn:escapeXml(person.title)}</h4>
+                                                                        <h5 class="category">${fn:escapeXml(person.category)}</h5>
                                                                     </div>
-                                                                    <div class="view-more-pro">View Detail</div>
+                                                                    <div class="view-more-pro">View Profile</div>
                                                                 </a>
                                                             </div><!--company_profile_info end-->
                                                         </div>

@@ -6,12 +6,6 @@
         <div class="company-title">
             <h3>All Groups</h3>
         </div>
-        <div class="landing-header">
-            <a href="/group/create" class="btn btn-success btn-sm">
-                <i class="glyphicon glyphicon-plus"></i>
-                Add group
-            </a>
-        </div>
         <c:choose>
             <c:when test="${empty groups}">
                 <div class="no-result center">

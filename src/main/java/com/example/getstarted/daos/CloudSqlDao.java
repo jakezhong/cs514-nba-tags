@@ -170,6 +170,47 @@ public class CloudSqlDao implements PersonDao {
   }
   // [END listpersons]
 
+  @Override
+  public Result<Person> listAllPersons() throws SQLException {
+    String cursor = null;
+    int offset = 0;
+    if (cursor != null && !cursor.equals("")) {
+      offset = Integer.parseInt(cursor);
+    }
+    final String listPersonsString = "SELECT SQL_CALC_FOUND_ROWS last, createdBy, createdById, "
+            + "description, id,  first, imageUrl FROM persons4 ORDER BY first ASC "
+            + "LIMIT 10 OFFSET ?";
+    try (Connection conn = DriverManager.getConnection(sqlUrl);
+         PreparedStatement listPersonsStmt = conn.prepareStatement(listPersonsString)) {
+      listPersonsStmt.setInt(1, offset);
+      List<Person> resultPersons = new ArrayList<>();
+      try (ResultSet rs = listPersonsStmt.executeQuery()) {
+        while (rs.next()) {
+          Person person = new Person.Builder()
+                  .last(rs.getString(Person.LAST))
+                  .createdBy(rs.getString(Person.CREATED_BY))
+                  .createdById(rs.getString(Person.CREATED_BY_ID))
+                  .description(rs.getString(Person.DESCRIPTION))
+                  .id(rs.getLong(Person.ID))
+                  .first(rs.getString(Person.FIRST))
+                  .imageUrl(rs.getString(Person.IMAGE_URL))
+                  .build();
+          resultPersons.add(person);
+        }
+      }
+      try (ResultSet rs = conn.createStatement().executeQuery("SELECT FOUND_ROWS()")) {
+        int totalNumRows = 0;
+        if (rs.next()) {
+          totalNumRows = rs.getInt(1);
+        }
+        if (totalNumRows > offset + 10) {
+          return new Result<>(resultPersons, Integer.toString(offset + 10));
+        } else {
+          return new Result<>(resultPersons);
+        }
+      }
+    }
+  }
   // [START listbyuser]
   @Override
   public Result<Person> listPersonsByUser(String userId, String startCursor) throws SQLException {
@@ -213,5 +254,47 @@ public class CloudSqlDao implements PersonDao {
     }
   }
   // [END listbyuser]
+
+  @Override
+  public Result<Person> listAllPersonsByUser(String userId) throws SQLException {
+    String cursor = null;
+    int offset = 0;
+    if (cursor != null && !cursor.equals("")) {
+      offset = Integer.parseInt(cursor);
+    }
+    final String listPersonsString = "SELECT SQL_CALC_FOUND_ROWS last, createdBy, createdById, "
+            + "description, id,  first, imageUrl FROM persons4 ORDER BY first ASC "
+            + "LIMIT 10 OFFSET ?";
+    try (Connection conn = DriverManager.getConnection(sqlUrl);
+         PreparedStatement listPersonsStmt = conn.prepareStatement(listPersonsString)) {
+      listPersonsStmt.setInt(1, offset);
+      List<Person> resultPersons = new ArrayList<>();
+      try (ResultSet rs = listPersonsStmt.executeQuery()) {
+        while (rs.next()) {
+          Person person = new Person.Builder()
+                  .last(rs.getString(Person.LAST))
+                  .createdBy(rs.getString(Person.CREATED_BY))
+                  .createdById(rs.getString(Person.CREATED_BY_ID))
+                  .description(rs.getString(Person.DESCRIPTION))
+                  .id(rs.getLong(Person.ID))
+                  .first(rs.getString(Person.FIRST))
+                  .imageUrl(rs.getString(Person.IMAGE_URL))
+                  .build();
+          resultPersons.add(person);
+        }
+      }
+      try (ResultSet rs = conn.createStatement().executeQuery("SELECT FOUND_ROWS()")) {
+        int totalNumRows = 0;
+        if (rs.next()) {
+          totalNumRows = rs.getInt(1);
+        }
+        if (totalNumRows > offset + 10) {
+          return new Result<>(resultPersons, Integer.toString(offset + 10));
+        } else {
+          return new Result<>(resultPersons);
+        }
+      }
+    }
+  }
 }
 // [END example]

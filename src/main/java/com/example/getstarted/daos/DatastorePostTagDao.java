@@ -238,19 +238,19 @@ public class DatastorePostTagDao implements PostTagDao {
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
         List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
-        List<Long> memberIds= new ArrayList<>();
+        List<Long> personIds = new ArrayList<>();
 
         for(PostTag tag: resultTags){
             Long person = tag.getPersonId();
-            memberIds.add(person);
+            personIds.add(person);
         }
 
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && memberIds.size() == 6) {         // Are we paging? Save Cursor
+        if (cursor != null && personIds.size() == 6) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
-            return new Result<>(memberIds, cursorString);
+            return new Result<>(personIds, cursorString);
         } else {
-            return new Result<>(memberIds);
+            return new Result<>(personIds);
         }
     }
 
@@ -273,7 +273,7 @@ public class DatastorePostTagDao implements PostTagDao {
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
         List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
-        List<Long> groupIds= new ArrayList<>();
+        List<Long> groupIds = new ArrayList<>();
 
         for(PostTag tag: resultTags){
             Long group = tag.getGroupId();

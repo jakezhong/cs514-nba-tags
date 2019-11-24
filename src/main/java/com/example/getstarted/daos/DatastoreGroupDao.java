@@ -195,6 +195,17 @@ public class DatastoreGroupDao implements GroupDao {
     }
     // [END listpersons]
 
+    public Result<Group> listAllGroups() {
+        Query query = new Query(GROUP_KIND) // We only care about Persons
+                .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+        List<Group> resultGroups = entitiesToGroups(results);     // Retrieve and convert Entities
+
+        return new Result<>(resultGroups);
+    }
+
     // [START listbyuser]
     /**
      * List all groups by specific group
@@ -222,6 +233,18 @@ public class DatastoreGroupDao implements GroupDao {
         } else {
             return new Result<>(resultGroups);
         }
+    }
+
+    public Result<Group> listAllGroupsByUser(String userId) {
+        Query query = new Query(GROUP_KIND) // We only care about Persons
+                .setFilter(new Query.FilterPredicate(Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+                .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+        List<Group> resultGroups = entitiesToGroups(results);     // Retrieve and convert Entities
+
+        return new Result<>(resultGroups);
     }
     // [END listbyuser]
 }

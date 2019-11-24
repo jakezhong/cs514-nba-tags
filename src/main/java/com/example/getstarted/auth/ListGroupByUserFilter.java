@@ -62,7 +62,7 @@ public class ListGroupByUserFilter implements Filter {
         if (userService.isUserLoggedIn()) {
             chain.doFilter(servletReq, servletResp);
         } else {
-            req.getSession().setAttribute("loginDestination", "/groups/mine");
+            req.getSession().setAttribute("loginDestination", "/groups/user");
             resp.sendRedirect(userService.createLoginURL("/login"));
         }
     }

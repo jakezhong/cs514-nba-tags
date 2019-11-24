@@ -180,7 +180,6 @@ public class DatastorePostDao implements PostDao {
   // [END listposts]
 
     public Result<Post> listAllPosts() {
-
         Query query = new Query(POST_KIND) // We only care about Posts
                 .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "first"
 
@@ -190,7 +189,6 @@ public class DatastorePostDao implements PostDao {
         List<Post> resultPosts = entitiesToPosts(results);     // Retrieve and convert Entities
 
         return new Result<>(resultPosts);
-
     }
 
   // [START listbyuser]
@@ -207,8 +205,7 @@ public class DatastorePostDao implements PostDao {
       }
       Query query = new Query(POST_KIND) // We only care about Posts
           // Only for this user
-          .setFilter(new Query.FilterPredicate(
-              Post.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+          .setFilter(new Query.FilterPredicate(Post.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
           // a custom datastore index is required since you are filtering by one property
           // but ordering by another
           .addSort(Post.TITLE, SortDirection.ASCENDING);
@@ -224,5 +221,17 @@ public class DatastorePostDao implements PostDao {
         return new Result<>(resultPosts);
       }
   }
+    public Result<Post> listAllPostsByUser(String userId) {
+        Query query = new Query(POST_KIND) // We only care about Posts
+        .setFilter(new Query.FilterPredicate(Post.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+        .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "first"
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<Post> resultPosts = entitiesToPosts(results);     // Retrieve and convert Entities
+
+        return new Result<>(resultPosts);
+    }
   // [END listbyuser]
 }

@@ -51,6 +51,22 @@
                                     </select>
                                 </div>
                             </div>
+                            <div class="form-group">
+                                <label for="persons">Tag Person</label>
+                                <select name="personId" class="form-control" id="persons">
+                                    <c:forEach items="${persons}" var="person">
+                                    <option value="${fn:escapeXml(person.id)}">${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label for="groups">Tag Group</label>
+                                <select name="groupId" class="form-control" id="groups">
+                                    <c:forEach items="${groups}" var="group">
+                                    <option value="${fn:escapeXml(group.id)}">${fn:escapeXml(group.name)}</option>
+                                    </c:forEach>
+                                </select>
+                            </div>
                         </div>
                     </div>
                     <div class="form-footer">

@@ -19,5 +19,9 @@ public interface GroupDao {
 
     Result<Group> listGroups(String startCursor) throws SQLException;
 
+    Result<Group> listAllGroups() throws SQLException;
+
     Result<Group> listGroupsByUser(String userId, String startCursor) throws SQLException;
+
+    Result<Group> listAllGroupsByUser(String userId) throws SQLException;
 }
