@@ -39,7 +39,7 @@ public class UpdateGroupServlet extends HttpServlet {
             req.setAttribute("group", group);
             req.setAttribute("action", "Edit");
             req.setAttribute("destination", "update");
-            req.setAttribute("page", "formGroup");
+            req.setAttribute("page", "form-group");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
             throw new ServletException("Error loading person for editing", e);
@@ -54,13 +54,11 @@ public class UpdateGroupServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-            IOException {
+    public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
 
         assert ServletFileUpload.isMultipartContent(req);
-        CloudStorageHelper storageHelper =
-                (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
+        CloudStorageHelper storageHelper = (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
 
         String newImageUrl = null;
         Map<String, String> params = new HashMap<String, String>();
@@ -72,7 +70,7 @@ public class UpdateGroupServlet extends HttpServlet {
                     params.put(item.getFieldName(), Streams.asString(item.openStream()));
                 } else if (!Strings.isNullOrEmpty(item.getName())) {
                     newImageUrl = storageHelper.uploadFile(
-                            item, getServletContext().getInitParameter("personshelf.bucket"));
+                            item, getServletContext().getInitParameter("postshelf.bucket"));
                 }
             }
         } catch (FileUploadException e) {
@@ -106,7 +104,7 @@ public class UpdateGroupServlet extends HttpServlet {
             // [END groupBuilder]
 
             daoGroup.updateGroup(group);
-            resp.sendRedirect("/readGroup?id=" + params.get("id"));
+            resp.sendRedirect("read?id=" + params.get("id"));
         } catch (Exception e) {
             throw new ServletException("Error updating group", e);
         }

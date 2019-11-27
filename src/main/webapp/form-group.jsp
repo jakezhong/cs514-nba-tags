@@ -9,33 +9,32 @@
                 <form method="POST" action="${destination}" enctype="multipart/form-data" class="main-form">
                     <div class="row">
                         <div class="col-lg-8">
-                           <div class="form-group">
-                               <label for="name">Group Name</label>
-                               <input type="text" name="name" id="name" value="${fn:escapeXml(group.name)}" class="form-control" placeholder="Required" required />
-                           </div>
+							<div class="form-group hidden">
+							   <input type="hidden" name="id" value="${group.id}" />
+							</div>
 
-                           <div class="form-group">
-                               <label for="introduction">Introduction</label>
-                               <textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(person.introduction)}</textarea>
-                           </div>
+							<div class="form-group">
+							   <label for="name">Group Name</label>
+							   <input type="text" name="name" id="name" value="${fn:escapeXml(group.name)}" class="form-control" placeholder="Required" required />
+							</div>
 
-                           <div class="form-group">
-                               <label for="description">Description</label>
-                               <textarea name="description" id="description" class="form-control" rows="12">${fn:escapeXml(group.description)}</textarea>
-                           </div>
+							<div class="form-group">
+							   <label for="introduction">Introduction</label>
+							   <textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(person.introduction)}</textarea>
+							</div>
 
-                            <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
-                                <label for="file">Cover Image</label>
-                                <div class="fileupload">
-                                    <input type="file" name="file" id="file" class="form-control image-uploader">
-                                    <img class="image-uploader-reviewer" src="" alt="" />
-                                </div>
-                            </div>
+							<div class="form-group">
+							   <label for="description">Description</label>
+							   <textarea name="description" id="description" class="form-control" rows="12">${fn:escapeXml(group.description)}</textarea>
+							</div>
 
-                           <div class="form-group hidden">
-                               <label for="imageUrl">Cover Image URL</label>
-                               <input type="hidden" name="id" value="${group.id}" />
-                           </div>
+							<div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
+								<label for="file">Cover Image</label>
+								<div class="fileupload">
+									<input type="file" name="file" id="file" class="form-control image-uploader">
+									<img class="image-uploader-reviewer" src="" alt="" />
+								</div>
+							</div>
                         </div>
                         <div class="col-lg-4">
                             <div class="form-group">

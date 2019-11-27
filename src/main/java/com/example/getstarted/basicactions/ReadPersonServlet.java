@@ -41,8 +41,8 @@ public class ReadPersonServlet extends HttpServlet {
       String startCursor = req.getParameter("cursor");
       Long personId = Long.decode(req.getParameter("id"));
       List<Group> groups = new ArrayList<>();
-      List<Long> groupsId =null;
-      String endCursor = null;
+      List<Long> groupsId;
+      String endCursor;
 
       try {
         Result<Long> result = associationDao.listGroupByPerson(personId,startCursor);

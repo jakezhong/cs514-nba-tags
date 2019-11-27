@@ -4,13 +4,11 @@ import java.util.Date;
 import java.util.Objects;
 
 /**
- * OurUser Class
+ * Profile Class
  */
-public class OurUser {
+public class Profile {
   // [START user]
     private Long id;
-    private String userId;
-    private String userName;
     private String first;
     private String last;
     private String title;
@@ -25,15 +23,15 @@ public class OurUser {
     private String youtube;
     private String website;
     private String description;
-    private Date createdDate;
+    private String createdBy;
+    private String createdById;
+    private Date publishedDate;
     private String imageUrl;
     private String profileBg;
 
   // [END user]
   // [START keys]
     public static final String ID = "id";
-    public static final String USER_ID = "userId";
-    public static final String USER_NAME = "userName";
     public static final String FIRST = "first";
     public static final String LAST = "last";
     public static final String TITLE = "title";
@@ -48,17 +46,17 @@ public class OurUser {
     public static final String YOUTUBE = "youtube";
     public static final String WEBSITE = "website";
     public static final String DESCRIPTION = "description";
-    public static final String CREATED_DATE = "createdDate";
+    public static final String CREATED_BY = "createdBy";
+    public static final String CREATED_BY_ID = "createdById";
+    public static final String PUBLISHED_DATE = "publishedDate";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
     // [END keys]
 
     // [START constructor]
-    // We use a Builder pattern here to simplify and standardize construction of OurUser objects.
-    private OurUser(Builder builder) {
+    // We use a Builder pattern here to simplify and standardize construction of Profile objects.
+    private Profile(Builder builder) {
         this.id = builder.id;
-        this.userId = builder.userId;
-        this.userName = builder.userName;
         this.first = builder.first;
         this.last = builder.last;
         this.title = builder.title;
@@ -73,7 +71,9 @@ public class OurUser {
         this.youtube = builder.youtube;
         this.website = builder.website;
         this.description = builder.description;
-        this.createdDate = builder.createdDate;
+        this.createdBy = builder.createdBy;
+        this.publishedDate = builder.publishedDate;
+        this.createdById = builder.createdById;
         this.imageUrl = builder.imageUrl;
     }
     // [END constructor]
@@ -81,8 +81,6 @@ public class OurUser {
     // [START builder]
     public static class Builder {
         private Long id;
-        private String userId;
-        private String userName;
         private String first;
         private String last;
         private String title;
@@ -97,7 +95,9 @@ public class OurUser {
         private String youtube;
         private String website;
         private String description;
-        private Date createdDate;
+        private String createdBy;
+        private String createdById;
+        private Date publishedDate;
         private String imageUrl;
 
         /**
@@ -107,16 +107,6 @@ public class OurUser {
         */
         public Builder id(Long id) {
             this.id = id;
-            return this;
-        }
-
-        public Builder userId(String userId) {
-            this.userId = userId;
-            return this;
-        }
-
-        public Builder userName(String userName) {
-            this.userName = userName;
             return this;
         }
 
@@ -190,8 +180,18 @@ public class OurUser {
             return this;
         }
 
-        public Builder createdDate(Date createdDate) {
-            this.createdDate = createdDate;
+        public Builder createdBy(String createdBy) {
+            this.createdBy = createdBy;
+            return this;
+        }
+
+        public Builder createdById(String createdById) {
+            this.createdById = createdById;
+            return this;
+        }
+
+        public Builder publishedDate(Date publishedDate) {
+            this.publishedDate = publishedDate;
             return this;
         }
 
@@ -200,8 +200,8 @@ public class OurUser {
             return this;
         }
 
-        public OurUser build() {
-            return new OurUser(this);
+        public Profile build() {
+            return new Profile(this);
         }
     }
 
@@ -215,22 +215,6 @@ public class OurUser {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public String getUserId() {
-        return userId;
-    }
-
-    public void setUserId(String userId) {
-        this.userId = userId;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
     }
 
     public String getFirst() {
@@ -345,12 +329,28 @@ public class OurUser {
         this.description = description;
     }
 
-    public Date getCreatedDate() {
-        return createdDate;
+    public String getCreatedBy() {
+        return createdBy;
     }
 
-    public void setCreatedDate(Date createdDate) {
-        this.createdDate = createdDate;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
+    }
+
+    public String getCreatedById() {
+        return createdById;
+    }
+
+    public void setCreatedById(String createdById) {
+        this.createdById = createdById;
+    }
+
+    public Date getPublishedDate() {
+        return publishedDate;
+    }
+
+    public void setPublishedDate(Date publishedDate) {
+        this.publishedDate = publishedDate;
     }
 
     public String getImageUrl() {
@@ -377,10 +377,8 @@ public class OurUser {
     */
     @Override
     public String toString() {
-        return "OurUser{" +
+        return "Profile{" +
         "id=" + id +
-        ", userId='" + userId + '\'' +
-        ", userName='" + userName + '\'' +
         ", first='" + first + '\'' +
         ", last='" + last + '\'' +
         ", title='" + title + '\'' +
@@ -395,6 +393,9 @@ public class OurUser {
         ", youtube='" + youtube + '\'' +
         ", website='" + website + '\'' +
         ", description='" + description + '\'' +
+        ", createdBy='" + createdBy + '\'' +
+        ", createdById='" + createdById + '\'' +
+        ", publishedDate='" + publishedDate + '\'' +
         ", imageUrl='" + imageUrl + '\'' +
         '}';
     }
@@ -408,24 +409,25 @@ public class OurUser {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-        OurUser ourUser = (OurUser) o;
-        return Objects.equals(id, ourUser.id) &&
-        Objects.equals(userId, ourUser.userId) &&
-        Objects.equals(userName, ourUser.userName) &&
-        Objects.equals(first, ourUser.first) &&
-        Objects.equals(last, ourUser.last) &&
-        Objects.equals(title, ourUser.title) &&
-        Objects.equals(introduction, ourUser.introduction) &&
-        Objects.equals(email, ourUser.email) &&
-        Objects.equals(phone, ourUser.phone) &&
-        Objects.equals(address, ourUser.address) &&
-        Objects.equals(linkedin, ourUser.linkedin) &&
-        Objects.equals(facebook, ourUser.facebook) &&
-        Objects.equals(twitter, ourUser.twitter) &&
-        Objects.equals(instagram, ourUser.instagram) &&
-        Objects.equals(youtube, ourUser.youtube) &&
-        Objects.equals(website, ourUser.website) &&
-        Objects.equals(description, ourUser.description) &&
-        Objects.equals(imageUrl, ourUser.imageUrl);
+        Profile profile = (Profile) o;
+        return Objects.equals(id, profile.id) &&
+        Objects.equals(first, profile.first) &&
+        Objects.equals(last, profile.last) &&
+        Objects.equals(title, profile.title) &&
+        Objects.equals(introduction, profile.introduction) &&
+        Objects.equals(email, profile.email) &&
+        Objects.equals(phone, profile.phone) &&
+        Objects.equals(address, profile.address) &&
+        Objects.equals(linkedin, profile.linkedin) &&
+        Objects.equals(facebook, profile.facebook) &&
+        Objects.equals(twitter, profile.twitter) &&
+        Objects.equals(instagram, profile.instagram) &&
+        Objects.equals(youtube, profile.youtube) &&
+        Objects.equals(website, profile.website) &&
+        Objects.equals(description, profile.description) &&
+        Objects.equals(createdBy, profile.createdBy) &&
+        Objects.equals(createdById, profile.createdById) &&
+        Objects.equals(publishedDate, profile.publishedDate) &&
+        Objects.equals(imageUrl, profile.imageUrl);
     }
 }

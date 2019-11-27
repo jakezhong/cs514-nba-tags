@@ -6,6 +6,7 @@ import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -31,20 +32,37 @@ public class CreateAssociationServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         try {
-            Long id = Long.decode(req.getParameter("id"));
-            PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
+            Long groupId = Long.decode(req.getParameter("id"));
+            String userId = (String) req.getSession().getAttribute("userId");
 
-            List<Person> persons;
+            PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
+            AssociationDao daoAssociation = (AssociationDao) this.getServletContext().getAttribute("dao-association");
+
+            List<Person> allPersons;
+            List<Long> oldPersonIds;
+            List<Person> persons = new ArrayList<Person>();
             try {
-                Result<Person> result = daoPerson.listAllPersons();
-                persons = result.result;
+                /* List all persons */
+                Result<Person> result = daoPerson.listAllPersonsByUser(userId);
+                allPersons = result.result;
+
+                /* List all persons from this group */
+                Result<Long> newResult = daoAssociation.listAllPersonsByGroup(groupId);
+                oldPersonIds = newResult.result;
+
+                /* If the current person is already in this group, skip it */
+                for (Person person: allPersons) {
+                    if (oldPersonIds.indexOf(person.getId()) < 0) {
+                        persons.add(person);
+                    }
+                }
 
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);
             }
             req.getSession().getServletContext().setAttribute("persons", persons);
 
-            req.setAttribute("groupId", id);
+            req.setAttribute("groupId", groupId);
             req.setAttribute("action", "Add");          // Part of the Header in form-association.jsp
             req.setAttribute("destination", "/association/create");  // The urlPattern to invoke (this Servlet)
             req.setAttribute("page", "form-association");           // Tells base.jsp to include form-association.jsp
@@ -71,7 +89,7 @@ public class CreateAssociationServlet extends HttpServlet {
         Long groupId = Long.valueOf(req.getParameter("groupId"));
         AssociationDao daoAssociation = (AssociationDao) this.getServletContext().getAttribute("dao-association");
 
-      //   [START GroupBuilder]
+      //   [START AssociationBuilder]
         Association association = new Association.Builder()
             .personId(personId)
             .groupId(groupId)
@@ -80,7 +98,7 @@ public class CreateAssociationServlet extends HttpServlet {
          //[END AssociationBuilder]
         try {
             daoAssociation.createAssociation(association);
-            resp.sendRedirect("/group/read?id=" +groupId.toString());   // read what we just wrote
+            resp.sendRedirect("/group/read?id=" + groupId.toString());   // read what we just wrote
         } catch (Exception e) {
             throw new ServletException("Error creating association", e);
         }

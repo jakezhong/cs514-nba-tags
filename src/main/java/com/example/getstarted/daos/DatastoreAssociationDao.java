@@ -142,13 +142,11 @@ public class DatastoreAssociationDao implements AssociationDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
-                // Only for this user
-                .setFilter(new Query.FilterPredicate(Association.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
+        .setFilter(new Query.FilterPredicate(Association.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
 
         PreparedQuery preparedQuery = datastore.prepare(query);
 
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
-
 
         List<Association> resultPersons = entitiesToAssociations(results);     // Retrieve and convert Entities
         List<Long> memberIds= new ArrayList<>();
@@ -157,7 +155,6 @@ public class DatastoreAssociationDao implements AssociationDao {
             Long person = association.getPersonId();
             memberIds.add(person);
         }
-
 
         Cursor cursor = results.getCursor();              // Where to start next time
         if (cursor != null && resultPersons.size() == 6) {         // Are we paging? Save Cursor
@@ -169,25 +166,47 @@ public class DatastoreAssociationDao implements AssociationDao {
     }
 
     /**
+     * list all group member in a specific group
+     * @param groupId groupId
+     * @return Result<Person>
+     */
+    @Override
+    public Result<Long> listAllPersonsByGroup(Long groupId) {
+        Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(Association.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<Association> resultPersons = entitiesToAssociations(results);     // Retrieve and convert Entities
+        List<Long> memberIds= new ArrayList<>();
+
+        for(Association association: resultPersons){
+            Long person = association.getPersonId();
+            memberIds.add(person);
+        }
+
+        return new Result<>(memberIds);
+    }
+
+    /**
      * List all groups by specific person
      * @param personId personId
      * @param startCursor startCursor
      * @return Result<Group>
      */
+    @Override
     public Result<Long> listGroupByPerson(Long personId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
-        // Only for this user
         .setFilter(new Query.FilterPredicate(Association.PERSON_ID, Query.FilterOperator.EQUAL, personId));
-        // a custom datastore index is required since you are filtering by one property
-        // but ordering by another
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
-
 
         List<Association> resultPersons = entitiesToAssociations(results);     // Retrieve and convert Entities
         List<Long> groupsId = new ArrayList<>();
@@ -206,5 +225,27 @@ public class DatastoreAssociationDao implements AssociationDao {
         }
     }
 
+    /**
+     * List all groups by specific person
+     * @param personId personId
+     * @return Result<Group>
+     */
+    @Override
+    public Result<Long> listAllGroupByPerson(Long personId) {
+        Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(Association.PERSON_ID, Query.FilterOperator.EQUAL, personId));
 
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<Association> resultPersons = entitiesToAssociations(results);     // Retrieve and convert Entities
+        List<Long> groupsId = new ArrayList<>();
+
+        for(Association association: resultPersons){
+            Long groupId = association.getGroupId();
+            groupsId.add(groupId);
+        }
+
+        return new Result<>(groupsId);
+    }
 }

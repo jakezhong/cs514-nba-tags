@@ -9,6 +9,10 @@
                 <form method="POST" action="${destination}" enctype="multipart/form-data" class="main-form">
                     <div class="row">
                         <div class="col-lg-8">
+							<div class="form-group hidden">
+								<input type="hidden" name="id" value="${post.id}" />
+							</div>
+							
 							<div class="form-group">
 								<label for="name">Post Title</label>
 								<input type="text" name="title" id="title" value="${fn:escapeXml(post.title)}" class="form-control" placeholder="Required" required />
@@ -16,25 +20,20 @@
 
 							<div class="form-group">
 								<label for="introduction">Introduction</label>
-								<textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(person.introduction)}</textarea>
+								<textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(post.introduction)}</textarea>
 							</div>
 
 							<div class="form-group">
 								<label for="description">Description</label>
 								<textarea name="description" id="description" class="form-control" rows="12">${fn:escapeXml(post.description)}</textarea>
 							</div>
-
+							
                             <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
                                 <label for="file">Cover Image</label>
                                 <div class="fileupload">
                                     <input type="file" name="file" id="file" class="form-control image-uploader">
                                     <img class="image-uploader-reviewer" src="" alt="" />
                                 </div>
-                            </div>
-
-                            <div class="form-group hidden">
-                                <label for="imageUrl">Cover Image URL</label>
-                                <input type="hidden" name="id" value="${person.id}" />
                             </div>
                         </div>
                         <div class="col-lg-4">
@@ -50,22 +49,6 @@
                                         <option value="hiking" ${post.category=='hiking'?"selected" : ""}>Hiking</option>
                                     </select>
                                 </div>
-                            </div>
-                            <div class="form-group">
-                                <label for="persons">Tag Person</label>
-                                <select name="personId" class="form-control" id="persons">
-                                    <c:forEach items="${persons}" var="person">
-                                    <option value="${fn:escapeXml(person.id)}">${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</option>
-                                    </c:forEach>
-                                </select>
-                            </div>
-                            <div class="form-group">
-                                <label for="groups">Tag Group</label>
-                                <select name="groupId" class="form-control" id="groups">
-                                    <c:forEach items="${groups}" var="group">
-                                    <option value="${fn:escapeXml(group.id)}">${fn:escapeXml(group.name)}</option>
-                                    </c:forEach>
-                                </select>
                             </div>
                         </div>
                     </div>

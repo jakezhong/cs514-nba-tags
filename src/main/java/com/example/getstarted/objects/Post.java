@@ -1,6 +1,7 @@
 package com.example.getstarted.objects;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 public class Post {
@@ -32,105 +33,103 @@ public class Post {
     public static final String PUBLISHED_DATE = "publishedDate";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
-  // [END keys]
+    // [END keys]
 
-  // [START constructor]
-  // We use a Builder pattern here to simplify and standardize construction of Post objects.
-  private Post(Builder builder) {
-      this.id = builder.id;
-      this.slug = builder.slug;
-      this.title = builder.title;
-      this.introduction = builder.introduction;
-      this.category = builder.category;
-      this.status = builder.status;
-      this.description = builder.description;
-      this.createdBy = builder.createdBy;
-      this.createdById = builder.createdById;
-      this.publishedDate = builder.publishedDate;
-      this.imageUrl = builder.imageUrl;
-  }
-  // [END constructor]
-
-  // [START builder]
-  public static class Builder {
-      private Long id;
-      private String slug;
-      private String title;
-      private String introduction;
-      private String category;
-      private String status;
-      private String personTag;
-      private String groupTag;
-      private String description;
-      private String createdBy;
-      private String createdById;
-      private Date publishedDate;
-      private String imageUrl;
-
-      /**
-       * Build constructor
-       * @param id id
-       * @return Builder
-       */
-      public Builder id(Long id) {
-          this.id = id;
-          return this;
-      }
-
-      public Builder slug(String slug) {
-          this.slug = slug;
-          return this;
-      }
-
-      public Builder title(String title) {
-          this.title = title;
-          return this;
-      }
-
-      public Builder introduction(String introduction) {
-          this.introduction = introduction;
-          return this;
-      }
-
-      public Builder category(String category) {
-          this.category = category;
-          return this;
-      }
-
-      public Builder status(String status) {
-          this.status = status;
-          return this;
-      }
-
-    public Builder description(String description) {
-        this.description = description;
-        return this;
+    // [START constructor]
+    // We use a Builder pattern here to simplify and standardize construction of Post objects.
+    private Post(Builder builder) {
+        this.id = builder.id;
+        this.slug = builder.slug;
+        this.title = builder.title;
+        this.introduction = builder.introduction;
+        this.category = builder.category;
+        this.status = builder.status;
+        this.description = builder.description;
+        this.createdBy = builder.createdBy;
+        this.createdById = builder.createdById;
+        this.publishedDate = builder.publishedDate;
+        this.imageUrl = builder.imageUrl;
     }
+    // [END constructor]
 
-      public Builder createdBy(String createdBy) {
-          this.createdBy = createdBy;
-          return this;
-      }
+    // [START builder]
+    public static class Builder {
+        private Long id;
+        private String slug;
+        private String title;
+        private String introduction;
+        private String category;
+        private String status;
+        private String description;
+        private String createdBy;
+        private String createdById;
+        private Date publishedDate;
+        private String imageUrl;
 
-      public Builder createdById(String createdById) {
-          this.createdById = createdById;
-          return this;
-      }
+        /**
+        * Build constructor
+        * @param id id
+        * @return Builder
+        */
+        public Builder id(Long id) {
+            this.id = id;
+            return this;
+        }
 
-      public Builder publishedDate(Date publishedDate) {
+        public Builder slug(String slug) {
+            this.slug = slug;
+            return this;
+        }
+
+        public Builder title(String title) {
+            this.title = title;
+            return this;
+        }
+
+        public Builder introduction(String introduction) {
+            this.introduction = introduction;
+            return this;
+        }
+
+        public Builder category(String category) {
+            this.category = category;
+            return this;
+        }
+
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+
+        public Builder description(String description) {
+            this.description = description;
+            return this;
+        }
+
+        public Builder createdBy(String createdBy) {
+            this.createdBy = createdBy;
+            return this;
+        }
+
+        public Builder createdById(String createdById) {
+            this.createdById = createdById;
+            return this;
+        }
+
+        public Builder publishedDate(Date publishedDate) {
           this.publishedDate = publishedDate;
           return this;
-      }
+        }
 
-      public Builder imageUrl(String imageUrl) {
+        public Builder imageUrl(String imageUrl) {
           this.imageUrl = imageUrl;
           return this;
-      }
+        }
 
-      public Post build() {
-      return new Post(this);
+        public Post build() {
+        return new Post(this);
+        }
     }
-  }
 
     /**
     * Bunch of getters and setters

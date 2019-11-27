@@ -838,7 +838,10 @@ main {
 	float: left;
 	width: 100%;
 	position: relative;
-	padding: 20px 20px 15px 20px;
+	margin-bottom: 40px;
+	img {
+		width: 100%;
+	}
 }
 .usy-dt {
 	float: left;
@@ -3303,15 +3306,10 @@ a:hover {
 	border-bottom: 1px solid #e5e5e5;
 }
 .company-up-info img {
+	width: 80%l;
+	max-width: 140px;
 	float: none;
-	margin-bottom: 10px;
-	-webkit-border-radius: 100px;
-	-moz-border-radius: 100px;
-	-ms-border-radius: 100px;
-	-o-border-radius: 100px;
-	border-radius: 100px;
-	height: 90px;
-	object-fit: cover;
+	margin: 0 auto 20px;
 }
 .company-up-info h3 {
 	color: #000000;

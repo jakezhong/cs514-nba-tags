@@ -20,7 +20,7 @@
                                 <div class="company_profile_info">
                                     <a href="/person/read?id=${person.id}" title="">
                                         <div class="company-up-info">
-                                            <img alt="ahhh" height="200" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+                                            <img alt="ahhh" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
                                             <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
                                             <h4>${fn:escapeXml(person.title)}</h4>
                                             <h5 class="category">${fn:escapeXml(person.category)}</h5>

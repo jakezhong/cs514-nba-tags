@@ -11,7 +11,7 @@
                         <div class="main-left-sidebar">
                             <div class="user_profile">
                                 <div class="user-pro-img">
-                                    <img class="user-image" height="200" src="${fn:escapeXml(not empty user.imageUrl?user.imageUrl:'http://placekitten.com/g/128/192')}">
+                                    <img class="user-image" src="${fn:escapeXml(not empty user.imageUrl?user.imageUrl:'http://placekitten.com/g/500/500')}">
                                 </div><!--user-pro-img end-->
                                 <ul class="social_links">
                                     <li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(user.website)}</a></li>
@@ -25,33 +25,33 @@
                     </div>
                     <div class="col-lg-9">
                         <div class="main-ws-sec">
+							<ul class="flw-hr">
+								<li>
+									<a href="/profile/user" class="btn btn-primary btn-sm">
+										<i class="glyphicon glyphicon-edit"></i>
+										About
+									</a>
+								</li>
+								<li>
+									<a href="/persons/user" class="btn btn-primary btn-sm">
+										<i class="glyphicon glyphicon-edit"></i>
+										My Persons
+									</a>
+								</li>
+								<li>
+									<a href="/groups/user" class="btn btn-primary btn-sm">
+										<i class="glyphicon glyphicon-edit"></i>
+										My Groups
+									</a>
+								</li>
+								<li>
+									<a href="/posts/user" class="btn btn-primary btn-sm">
+										<i class="glyphicon glyphicon-edit"></i>
+										My Posts
+									</a>
+								</li>
+							</ul>
                             <div class="user-tab-sec">
-                                <ul class="flw-hr">
-                                    <li>
-                                        <a href="/user" class="btn btn-primary btn-sm">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                            About
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/persons/user" class="btn btn-primary btn-sm">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                            My Persons
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/groups/user" class="btn btn-primary btn-sm">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                            My Groups
-                                        </a>
-                                    </li>
-                                    <li>
-                                        <a href="/posts/user" class="btn btn-primary btn-sm">
-                                            <i class="glyphicon glyphicon-edit"></i>
-                                            My Posts
-                                        </a>
-                                    </li>
-                                </ul>
 								<div class="landing-header">
 									<a href="/post/create" class="btn btn-success btn-sm">
 										<i class="glyphicon glyphicon-plus"></i>
@@ -70,17 +70,15 @@
 										<c:forEach items="${posts}" var="post">
 											<div class="post-bar">
 												<div class="post_topbar">
-													<div class="usy-dt">
-														<img alt="ahhh" width="50" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/50/50')}">
-														<div class="usy-name">
-															<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
-															<span><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt="">${fn:escapeXml(post.publishedDate)}</span>
-														</div>
-													</div>
+													<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
 												</div>
 												<div class="epi-sec">
-													<ul class="descp">
+													<div class="usy-name">
+														<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
+													</div>
+													<ul>
 														<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
+														<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
 													</ul>
 												</div>
 												<div class="job_descp">

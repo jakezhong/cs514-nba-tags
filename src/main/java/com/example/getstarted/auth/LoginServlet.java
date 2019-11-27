@@ -1,7 +1,7 @@
 package com.example.getstarted.auth;
 
-import com.example.getstarted.daos.UserDao;
-import com.example.getstarted.objects.OurUser;
+import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.objects.Profile;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
@@ -16,7 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 /**
- * To to finish login and also get OurUser info
+ * To to finish login and also get Profile info
  * store in the session
  */
 public class LoginServlet extends HttpServlet {
@@ -42,46 +42,6 @@ public class LoginServlet extends HttpServlet {
         String destination = (String) req.getSession().getAttribute("loginDestination");
         if (destination == null) {
           destination = "/";
-        }
-
-        UserDao daoUser = (UserDao) this.getServletContext().getAttribute("dao-user");
-        try {
-            OurUser currentUser = daoUser.findUser(user.getUserId());
-            if (currentUser == null) {
-                Date date = new Date();
-                // [START userBuilder]
-                OurUser ourUser = new OurUser.Builder()
-                        .userId(user.getUserId())
-                        .userName(user.getNickname())
-                        .first(null)
-                        .last(null)
-                        .title(null)
-                        .introduction(null)
-                        .email(user.getEmail())
-                        .phone(null)
-                        .address(null)
-                        .linkedin(null)
-                        .facebook(null)
-                        .twitter(null)
-                        .instagram(null)
-                        .youtube(null)
-                        .website(null)
-                        .description(null)
-                        .createdDate(date)
-                        .imageUrl(null)
-                        .build();
-                // [END userBuilder]
-                try {
-                    Long id = daoUser.createUser(ourUser);
-                    currentUser = daoUser.readUser(id);
-                } catch (Exception createE) {
-                    throw new ServletException("Error creating user", createE);
-                }
-            }
-            System.out.println(currentUser);
-            this.getServletContext().setAttribute("login-user", currentUser);
-        } catch(Exception e) {
-            throw new ServletException("Error finding user", e);
         }
         resp.sendRedirect(destination);
     } else {

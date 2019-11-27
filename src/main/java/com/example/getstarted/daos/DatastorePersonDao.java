@@ -202,7 +202,8 @@ public class DatastorePersonDao implements PersonDao {
         fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
       }
       Query query = new Query(PERSON_KIND) // We only care about Persons
-          .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
+      .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
+
       PreparedQuery preparedQuery = datastore.prepare(query);
       QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 

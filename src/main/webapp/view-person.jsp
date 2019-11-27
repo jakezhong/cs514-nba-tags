@@ -84,7 +84,7 @@
                                                             <div class="company_profile_info">
                                                                 <a href="/group/read?id=${group.id}" title="">
                                                                     <div class="company-up-info">
-                                                                        <img alt="ahhh" height="200"src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+                                                                        <img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
                                                                         <h3>${fn:escapeXml(group.name)}</h3>
                                                                         <h5 class="category">${fn:escapeXml(group.category)}</h5>
                                                                     </div>

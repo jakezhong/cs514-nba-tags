@@ -26,7 +26,7 @@ public class ListPersonServlet extends HttpServlet {
    */
   @Override
   public void init() throws ServletException {
-    UserDao daoUser = null;
+    ProfileDao daoProfile = null;
     PersonDao daoPerson = null;
     GroupDao daoGroup = null;
     AssociationDao daoAssociation = null;
@@ -38,7 +38,7 @@ public class ListPersonServlet extends HttpServlet {
     String storageType = this.getServletContext().getInitParameter("personshelf.storageType");
     switch (storageType) {
       case "datastore":
-        daoUser = new DatastoreUserDao();
+        daoProfile = new DatastoreProfileDao();
         daoPerson = new DatastorePersonDao();
         daoGroup = new DatastoreGroupDao();
         daoAssociation = new DatastoreAssociationDao();
@@ -69,7 +69,7 @@ public class ListPersonServlet extends HttpServlet {
         throw new IllegalStateException(
             "Invalid storage type. Check if personshelf.storageType property is set.");
     }
-    this.getServletContext().setAttribute("dao-user", daoUser);
+    this.getServletContext().setAttribute("dao-profile", daoProfile);
     this.getServletContext().setAttribute("dao-person", daoPerson);
     this.getServletContext().setAttribute("dao-group", daoGroup);
     this.getServletContext().setAttribute("dao-association", daoAssociation);

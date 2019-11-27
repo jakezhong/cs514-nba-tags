@@ -34,9 +34,9 @@ public class ListPersonByUserServlet extends HttpServlet {
 
     String userId;
     try {
-      userId = req.getParameter("id") == null || req.getParameter("id").isEmpty() ? (String) req.getSession().getAttribute("userId") : req.getParameter("id");
+        userId = req.getParameter("id") == null || req.getParameter("id").isEmpty() ? (String) req.getSession().getAttribute("userId") : req.getParameter("id");
     } catch (Exception e) {
-      userId = (String) req.getSession().getAttribute("userId");
+        userId = (String) req.getSession().getAttribute("userId");
     }
 
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
@@ -44,14 +44,14 @@ public class ListPersonByUserServlet extends HttpServlet {
     List<Person> persons;
     String endCursor;
     try {
-      Result<Person> result = daoPerson.listPersonsByUser(userId, startCursor);
-      persons = result.result;
-      endCursor = result.cursor;
-      if (result == null) {
-        resp.sendRedirect("/");
-      }
+        Result<Person> result = daoPerson.listPersonsByUser(userId, startCursor);
+        persons = result.result;
+        endCursor = result.cursor;
+        if (result == null) {
+            resp.sendRedirect("/");
+        }
     } catch (Exception e) {
-      throw new ServletException("Error listing persons", e);
+        throw new ServletException("Error listing persons", e);
     }
     req.getSession().getServletContext().setAttribute("persons", persons);
     req.getSession().setAttribute("cursor", endCursor);

@@ -110,7 +110,7 @@ public class UpdatePersonServlet extends HttpServlet {
       // [END personBuilder]
 
       daoPerson.updatePerson(person);
-      resp.sendRedirect("person/read?id=" + params.get("id"));
+      resp.sendRedirect("read?id=" + params.get("id"));
     } catch (Exception e) {
       throw new ServletException("Error updating person", e);
     }

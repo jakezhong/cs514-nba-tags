@@ -25,6 +25,10 @@ public interface AssociationDao {
 
     Result<Long> listPersonsByGroup(Long groupId, String startCursor) throws SQLException;
 
-    Result<Long> listGroupByPerson(Long peopelId, String startCursor) throws SQLException;
+    Result<Long> listAllPersonsByGroup(Long groupId) throws SQLException;
+
+    Result<Long> listGroupByPerson(Long personId, String startCursor) throws SQLException;
+
+    Result<Long> listAllGroupByPerson(Long personId) throws SQLException;
 
 }

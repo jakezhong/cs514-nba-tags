@@ -255,6 +255,29 @@ public class DatastorePostTagDao implements PostTagDao {
     }
 
     /**
+     * list all persons in a specific post
+     * @param postId groupId
+     * @return Result<Person>
+     */
+    @Override
+    public Result<Long> listAllPersonByPost(Long postId) {
+        Query query = new Query(POST_TAG_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
+        List<Long> personIds = new ArrayList<>();
+
+        for(PostTag tag: resultTags){
+            Long person = tag.getPersonId();
+            personIds.add(person);
+        }
+        return new Result<>(personIds);
+    }
+
+    /**
      * list all groups in a specific post
      * @param postId groupId
      * @param startCursor startCursor
@@ -267,8 +290,8 @@ public class DatastorePostTagDao implements PostTagDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(POST_TAG_KIND) // We only care about Persons
-        // Only for this user
-        .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+                // Only for this user
+                .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
@@ -287,5 +310,27 @@ public class DatastorePostTagDao implements PostTagDao {
         } else {
             return new Result<>(groupIds);
         }
+    }
+
+    /**
+     * list all groups in a specific post
+     * @param postId groupId
+     * @return Result<Group>
+     */
+    @Override
+    public Result<Long> listAllGroupByPost(Long postId) {
+        Query query = new Query(POST_TAG_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
+        List<Long> groupIds = new ArrayList<>();
+
+        for(PostTag tag: resultTags){
+            Long group = tag.getGroupId();
+            groupIds.add(group);
+        }
+        return new Result<>(groupIds);
     }
 }
