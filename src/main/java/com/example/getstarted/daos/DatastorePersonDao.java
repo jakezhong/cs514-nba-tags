@@ -209,6 +209,7 @@ public class DatastorePersonDao implements PersonDao {
 
       List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
       Cursor cursor = results.getCursor();              // Where to start next time
+
       if (cursor != null && resultPersons.size() == 8) {         // Are we paging? Save Cursor
         String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
         return new Result<>(resultPersons, cursorString);

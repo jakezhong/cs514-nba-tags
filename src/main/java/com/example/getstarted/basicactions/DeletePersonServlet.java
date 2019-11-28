@@ -2,6 +2,8 @@ package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.daos.AssociationDao;
+import com.example.getstarted.daos.PostTagDao;
+
 import java.io.IOException;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -25,11 +27,13 @@ public class DeletePersonServlet extends HttpServlet {
         Long id = Long.decode(req.getParameter("id"));
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
+        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
 
         try {
             daoPerson.deletePerson(id);
             daoAssociation.deleteAssociationByPersonId(id);
-            resp.sendRedirect("/person/mine");
+            dapPostTag.deletePostTagByPersonId(id);
+            resp.sendRedirect("/person/user");
         } catch (Exception e) {
             throw new ServletException("Error deleting person", e);
         }

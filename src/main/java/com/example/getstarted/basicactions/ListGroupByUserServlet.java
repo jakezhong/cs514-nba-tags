@@ -1,7 +1,9 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.ProfileDao;
 import com.example.getstarted.objects.Group;
+import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
 import java.util.List;
@@ -37,6 +39,20 @@ public class ListGroupByUserServlet extends HttpServlet {
             userId = (String) req.getSession().getAttribute("userId");
         }
 
+        /* First fetch the user profile information */
+        ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
+        List<Profile> profiles;
+        Profile profile;
+
+        try {
+            Result<Profile> result = daoProfile.findProfile(userId);
+            profiles = result.result;
+            profile = profiles.get(0);
+        } catch (Exception e) {
+            profile = null;
+        }
+
+        /* Then fetch the user's groups */
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         String startCursor = req.getParameter("cursor");
         List<Group> groups;
@@ -45,12 +61,11 @@ public class ListGroupByUserServlet extends HttpServlet {
             Result<Group> result = daoGroup.listGroupsByUser(userId, startCursor);
             groups = result.result;
             endCursor = result.cursor;
-            if (result == null) {
-                resp.sendRedirect("/");
-            }
         } catch (Exception e) {
             throw new ServletException("Error listing groups", e);
         }
+
+        req.setAttribute("profile", profile);
         req.getSession().getServletContext().setAttribute("groups", groups);
         req.getSession().setAttribute("cursor", endCursor);
         req.getSession().setAttribute("page", "list-user-groups");

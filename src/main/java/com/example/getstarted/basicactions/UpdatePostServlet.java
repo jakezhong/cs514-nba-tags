@@ -71,7 +71,7 @@ public class UpdatePostServlet extends HttpServlet {
                     params.put(item.getFieldName(), Streams.asString(item.openStream()));
                 } else if (!Strings.isNullOrEmpty(item.getName())) {
                     newImageUrl = storageHelper.uploadFile(
-                    item, getServletContext().getInitParameter("postshelf.bucket"));
+                            item, getServletContext().getInitParameter("personshelf.bucket"));
                 }
             }
         } catch (FileUploadException e) {

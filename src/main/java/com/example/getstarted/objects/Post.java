@@ -16,6 +16,7 @@ public class Post {
     private String createdBy;
     private String createdById;
     private Date publishedDate;
+    private List<Object> postTags;
     private String imageUrl;
     private String profileBg;
     // [END post]
@@ -31,6 +32,7 @@ public class Post {
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";
     public static final String PUBLISHED_DATE = "publishedDate";
+    public static final String POST_TAGS = "postTags";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
     // [END keys]
@@ -48,6 +50,7 @@ public class Post {
         this.createdBy = builder.createdBy;
         this.createdById = builder.createdById;
         this.publishedDate = builder.publishedDate;
+        this.postTags = builder.postTags;
         this.imageUrl = builder.imageUrl;
     }
     // [END constructor]
@@ -64,6 +67,7 @@ public class Post {
         private String createdBy;
         private String createdById;
         private Date publishedDate;
+        private List<Object> postTags;
         private String imageUrl;
 
         /**
@@ -119,6 +123,11 @@ public class Post {
         public Builder publishedDate(Date publishedDate) {
           this.publishedDate = publishedDate;
           return this;
+        }
+
+        public Builder postTags(List<Object> postTags) {
+            this.postTags = postTags;
+            return this;
         }
 
         public Builder imageUrl(String imageUrl) {
@@ -215,6 +224,14 @@ public class Post {
         this.publishedDate = publishedDate;
     }
 
+    public List<Object> getPostTags() {
+        return postTags;
+    }
+
+    public void setPostTags(List<Object> postTags) {
+        this.postTags = postTags;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -249,6 +266,7 @@ public class Post {
             ", createdBy='" + createdBy + '\'' +
             ", createdById='" + createdById + '\'' +
             ", publishedDate='" + publishedDate + '\'' +
+            ", postTags='" + postTags + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             '}';
     }
@@ -273,6 +291,7 @@ public class Post {
                 Objects.equals(createdBy, post.createdBy) &&
                 Objects.equals(createdById, post.createdById) &&
                 Objects.equals(publishedDate, post.publishedDate) &&
+                Objects.equals(postTags, post.postTags) &&
                 Objects.equals(imageUrl, post.imageUrl);
     }
 }

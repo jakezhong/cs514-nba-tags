@@ -38,14 +38,15 @@ public class ReadProfileServlet extends HttpServlet {
         }
 
         ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
-        List<Profile> profile;
+        List<Profile> profiles;
+        Profile profile;
 
         try {
             Result<Profile> result = daoProfile.findProfile(userId);
-            profile = result.result;
-            System.out.println(profile);
+            profiles = result.result;
+            profile = profiles.get(0);
         } catch (Exception e) {
-            throw new ServletException("Error displaying profile", e);
+            profile = null;
         }
 
         req.setAttribute("profile", profile);

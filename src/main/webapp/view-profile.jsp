@@ -84,7 +84,7 @@
 										</p>
 										<p>
 											<small>Joined on
-												${fn:escapeXml(not empty profile.createdDate?profile.createdDate:'')}
+												${fn:escapeXml(not empty profile.publishedDate?profile.publishedDate:'')}
 											</small>
 										</p>
 									</div><!--star-descp end-->

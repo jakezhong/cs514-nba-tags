@@ -70,9 +70,7 @@
 												<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
 											</div>
 											<div class="epi-sec">
-												<div class="usy-name">
-													<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
-												</div>
+												<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
 												<ul>
 													<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 													<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>

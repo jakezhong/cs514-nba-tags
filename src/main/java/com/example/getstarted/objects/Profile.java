@@ -1,6 +1,7 @@
 package com.example.getstarted.objects;
 
 import java.util.Date;
+import java.util.List;
 import java.util.Objects;
 
 /**
@@ -72,8 +73,8 @@ public class Profile {
         this.website = builder.website;
         this.description = builder.description;
         this.createdBy = builder.createdBy;
-        this.publishedDate = builder.publishedDate;
         this.createdById = builder.createdById;
+        this.publishedDate = builder.publishedDate;
         this.imageUrl = builder.imageUrl;
     }
     // [END constructor]

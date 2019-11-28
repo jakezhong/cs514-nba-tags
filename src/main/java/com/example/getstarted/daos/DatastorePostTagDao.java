@@ -226,6 +226,46 @@ public class DatastorePostTagDao implements PostTagDao {
      * @return Result<Person>
      */
     @Override
+    public Result<PostTag> listTagsByPost(Long postId, String startCursor) {
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(10); // Only show 10 at a time
+        if (startCursor != null && !startCursor.equals("")) {
+            fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
+        }
+        Query query = new Query(POST_TAG_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
+
+        List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
+        Cursor cursor = results.getCursor();              // Where to start next time
+
+        if (cursor != null && resultTags.size() == 10) {         // Are we paging? Save Cursor
+            String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
+            return new Result<>(resultTags, cursorString);
+        } else {
+            return new Result<>(resultTags);
+        }
+    }
+
+    public Result<PostTag> listAllTagsByPost(Long postId) {
+        Query query = new Query(POST_TAG_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
+
+        return new Result<>(resultTags);
+    }
+    /**
+     * list all persons in a specific post
+     * @param postId groupId
+     * @param startCursor startCursor
+     * @return Result<Person>
+     */
+    @Override
     public Result<Long> listPersonByPost(Long postId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {

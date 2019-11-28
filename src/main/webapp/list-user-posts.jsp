@@ -8,20 +8,24 @@
             <div class="main-section-data">
                 <div class="row">
                     <div class="col-lg-3">
-                        <div class="main-left-sidebar">
-                            <div class="user_profile">
-                                <div class="user-pro-img">
-                                    <img class="user-image" src="${fn:escapeXml(not empty user.imageUrl?user.imageUrl:'http://placekitten.com/g/500/500')}">
-                                </div><!--user-pro-img end-->
-                                <ul class="social_links">
-                                    <li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(user.website)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(user.facebook)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(user.twitter)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(user.instagram)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(user.youtube)}</a></li>
-                                </ul>
-                            </div><!--user_profile end-->
-                        </div><!--main-left-sidebar end-->
+						<c:choose>
+							<c:when test="${not empty profile}">
+							<div class="main-left-sidebar">
+								<div class="user_profile">
+									<div class="user-pro-img">
+										<img class="user-image" src="${fn:escapeXml(not empty profile.imageUrl?profile.imageUrl:'http://placekitten.com/g/500/500')}">
+									</div><!--user-pro-img end-->
+									<ul class="social_links">
+										<li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(profile.website)}</a></li>
+										<li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(profile.facebook)}</a></li>
+										<li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(profile.twitter)}</a></li>
+										<li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(profile.instagram)}</a></li>
+										<li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(profile.youtube)}</a></li>
+									</ul>
+								</div><!--user_profile end-->
+							</div><!--main-left-sidebar end-->
+							</c:when>
+						</c:choose>
                     </div>
                     <div class="col-lg-9">
                         <div class="main-ws-sec">
@@ -60,12 +64,7 @@
 								</div>
                             </div><!--user-tab-sec end-->
 							<c:choose>
-								<c:when test="${empty posts}">
-									<div class="no-result center">
-										<h3>No posts found</h3>
-									</div>
-								</c:when>
-								<c:otherwise>
+								<c:when test="${not empty posts}">
 									<div class="posts-section">
 										<c:forEach items="${posts}" var="post">
 											<div class="post-bar">
@@ -73,9 +72,7 @@
 													<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
 												</div>
 												<div class="epi-sec">
-													<div class="usy-name">
-														<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
-													</div>
+													<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
 													<ul>
 														<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 														<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
@@ -103,7 +100,7 @@
 											</div><!--process-comm end-->
 										</c:if>
 									</div><!--posts-section end-->
-								</c:otherwise>
+								</c:when>
 							</c:choose>
                         </div><!--main-ws-sec end-->
                     </div>
