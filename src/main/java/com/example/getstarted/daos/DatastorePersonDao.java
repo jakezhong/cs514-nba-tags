@@ -221,7 +221,7 @@ public class DatastorePersonDao implements PersonDao {
 
     public Result<Person> listAllPersons() {
         Query query = new Query(PERSON_KIND) // We only care about Persons
-                .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
+        .addSort(Person.FIRST, SortDirection.ASCENDING); // Use default Index "first"
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
@@ -247,7 +247,7 @@ public class DatastorePersonDao implements PersonDao {
         .setFilter(new Query.FilterPredicate(Person.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
         // a custom datastore index is required since you are filtering by one property
         // but ordering by another
-        .addSort(Person.LAST, SortDirection.ASCENDING);
+        .addSort(Person.FIRST, SortDirection.ASCENDING);
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
