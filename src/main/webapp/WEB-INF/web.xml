@@ -53,6 +53,7 @@
         <url-pattern>/post/update</url-pattern>
         <url-pattern>/post-tag/create</url-pattern>
         <url-pattern>/profile/user</url-pattern>
+        <url-pattern>/add/socialLink</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -316,6 +317,15 @@
     <servlet-mapping>
         <servlet-name>CreateProfile</servlet-name>
         <url-pattern>/profile/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addSocialLink</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.AddSocialLinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addSocialLink</servlet-name>
+        <url-pattern>/add/socialLink</url-pattern>
     </servlet-mapping>
 
     <!-- [START config] -->

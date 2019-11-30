@@ -14,11 +14,54 @@
                                     <img class="person-image" height="200" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
                                 </div><!--user-pro-img end-->
                                 <ul class="social_links">
-                                    <li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(person.website)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(person.facebook)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(person.twitter)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(person.instagram)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(person.youtube)}</a></li>
+                                    <c:choose>
+                                        <c:when test="${not empty socialLinks}">
+                                            <c:forEach items="${socialLinks}" var ="socialLink">
+                                                <c:if test="${socialLink.socialLinkName=='Facebook'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                                <c:if test="${socialLink.socialLinkName=='Twitter'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                                <c:if test="${socialLink.socialLinkName=='Instagram'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                                <c:if test="${socialLink.socialLinkName=='Youtube'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                                <c:if test="${socialLink.socialLinkName=='Linkedin'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-linkedin"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                                <c:if test="${socialLink.socialLinkName=='website'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                                <c:if test="${socialLink.socialLinkName=='other'}">
+                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
+                                                </c:if>
+                                            </c:forEach>
+                                        </c:when>
+                                    </c:choose>
+                                    <form method="POST" action="/add/socialLink" >
+                                        <input type="text" name="personId" value="${person.id}" class="hidden">
+                                        <div class="form-group">
+                                            <label for="socialLinks">Add social links</label>
+                                            <select name="socialLink" class="form-control" id="socialLink">
+                                                <option value="website">Personal Website</option>
+                                                <option value="Facebook">Facebook</option>
+                                                <option value="Twitter">Twitter</option>
+                                                <option value="Instagram">Instagram</option>
+                                                <option value="Youtube">Youtube</option>
+                                                <option value="Linkedin">Linkedin</option>
+                                                <option value ="other">other</option>
+                                                <input name= "other" type="text" style="display:none;"/>
+                                            </select>
+                                        </div>
+                                        <div class="form-socialLinks">
+                                            <label for="socialLinks">Links</label>
+                                            <textarea name="socialLinkUrl" id="socialLinks" class="form-control" rows="2"></textarea>
+                                        </div>
+                                        <button type="submit" class="btn btn-success">Save</button>
+                                    </form>
                                 </ul>
                             </div><!--user_profile end-->
                         </div><!--main-left-sidebar end-->
@@ -113,4 +156,5 @@
         </div>
     </div>
 </div>
+</main>
 <!-- [END view] -->
