@@ -125,7 +125,13 @@
                                 <c:when test="${not empty groups}">
                                     <div class="post-bar">
                                         <div class="detail_descp">
+                                            <form method ="POST" action ="/group/quit" class="detail_descp">
                                             <h3>Groups</h3>
+                                                <button type="submit"  class="btn btn-primary btn-sm">
+                                                    <i class="glyphicon glyphicon-edit"></i>
+                                                    Quit Groups
+                                                </button>
+                                                <input type="text" name="personId" value="${person.id}" class="hidden">
                                             <div class="companies-list">
                                                 <div class="row">
                                                     <c:forEach items="${groups}" var="group">
@@ -139,6 +145,7 @@
                                                                     </div>
                                                                     <div class="view-more-pro">View Detail</div>
                                                                 </a>
+                                                                <input type="checkbox" name="groups" value=${group.id} />
                                                             </div><!--company_profile_info end-->
                                                         </div>
                                                     </c:forEach>
@@ -151,6 +158,7 @@
                                                     </div>
                                                 </c:if>
                                             </div>
+                                            </form>
                                         </div>
                                     </div>
                                 </c:when>

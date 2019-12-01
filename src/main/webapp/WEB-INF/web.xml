@@ -56,6 +56,7 @@
         <url-pattern>/add/socialLink</url-pattern>
         <url-pattern>/enjoyGroups</url-pattern>
         <url-pattern>/association/delete</url-pattern><!--delete group members -->
+        <url-pattern>/group/quit</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -341,12 +342,21 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>DeleteAssociation</servlet-name>
+        <servlet-name>DeleteAssociation</servlet-name><!--remove group members -->
         <servlet-class>com.example.getstarted.basicactions.DeleteGroupMembersServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteAssociation</servlet-name>
         <url-pattern>/association/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>QuitGroups</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.QuitGroupsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QuitGroups</servlet-name>
+        <url-pattern>/group/quit</url-pattern>
     </servlet-mapping>
 
     <!-- [START config] -->

@@ -127,11 +127,11 @@ public class DatastoreAssociationDao implements AssociationDao {
                 Query.CompositeFilterOperator.and(filterGroupId, filterpersonId);
 
         Query query = new Query(ASSOCIATION_KIND).setFilter(filter);
-         System.out.println(query);
+        // System.out.println(query);
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> resultAssociations = preparedQuery.asQueryResultIterator();
-        System.out.println(resultAssociations);
+       // System.out.println(resultAssociations);
 
 //        while (resultAssociations.hasNext()) {  // We still have data
 //            System.out.println(resultAssociations.toString());
