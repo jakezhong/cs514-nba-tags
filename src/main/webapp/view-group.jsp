@@ -79,8 +79,13 @@
                             <c:choose>
                                 <c:when test="${not empty persons}">
                                     <div class="post-bar">
-                                        <div class="detail_descp">
+                                        <form method ="POST" action ="/association/delete" class="detail_descp">
                                             <h3>Members</h3>
+                                            <button type="submit"  class="btn btn-primary btn-sm">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                                Remove Members
+                                            </button>
+                                            <input type="text" name="groupId" value="${group.id}" class="hidden">
                                             <div class="companies-list">
                                                 <div class="row">
                                                     <c:forEach items="${persons}" var="person">
@@ -95,6 +100,7 @@
                                                                     </div>
                                                                     <div class="view-more-pro">View Profile</div>
                                                                 </a>
+                                                                <input type="checkbox" name="members" value=${person.id} />
                                                             </div><!--company_profile_info end-->
                                                         </div>
                                                     </c:forEach>
@@ -107,7 +113,7 @@
                                                     </div>
                                                 </c:if>
                                             </div>
-                                        </div>
+                                        </form><!--deleteGroupMembers-->
                                     </div>
                                 </c:when>
                             </c:choose>
@@ -118,4 +124,5 @@
         </div>
     </div>
 </div>
+</main>
 <!-- [END view] -->

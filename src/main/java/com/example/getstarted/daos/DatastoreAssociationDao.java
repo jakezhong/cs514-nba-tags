@@ -116,6 +116,36 @@ public class DatastoreAssociationDao implements AssociationDao {
     }
 
     /**
+     * delete association by groupId and personId
+     * @param groupId
+     * @param personId
+     */
+    public void deleteAssociationByGroupPersonID(Long groupId,Long personId)  {
+        Query.FilterPredicate filterGroupId = new Query.FilterPredicate(Association. GROUP_ID, Query.FilterOperator.EQUAL, groupId);
+        Query.FilterPredicate filterpersonId = new Query.FilterPredicate(Association. PERSON_ID, Query.FilterOperator.EQUAL, personId);
+        Query.CompositeFilter filter =
+                Query.CompositeFilterOperator.and(filterGroupId, filterpersonId);
+
+        Query query = new Query(ASSOCIATION_KIND).setFilter(filter);
+         System.out.println(query);
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> resultAssociations = preparedQuery.asQueryResultIterator();
+        System.out.println(resultAssociations);
+
+//        while (resultAssociations.hasNext()) {  // We still have data
+//            System.out.println(resultAssociations.toString());
+//        }
+        List<Association> result = entitiesToAssociations(resultAssociations);
+        System.out.println(result);
+        for(Association association: result){
+            Long associationId = association.getId();
+            Key key = KeyFactory.createKey(ASSOCIATION_KIND, associationId);// Create the Key
+            datastore.delete(key);// Delete the Entity
+        }
+    }
+
+    /**
      * Loop through Iterator<Result> and call entity to group
      *  To translate all entities to association Object
      * @param results Iterator<Entity>
