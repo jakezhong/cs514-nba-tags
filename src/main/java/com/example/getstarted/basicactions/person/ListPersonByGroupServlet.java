@@ -1,9 +1,7 @@
 package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.AssociationDao;
-import com.example.getstarted.daos.DatastoreAssociationDao;
-import com.example.getstarted.daos.DatastorePersonDao;
-import com.example.getstarted.daos.PersonDao;
+import com.example.getstarted.daos.interfaces.AssociationDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;

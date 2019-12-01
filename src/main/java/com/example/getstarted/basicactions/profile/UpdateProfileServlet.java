@@ -1,6 +1,6 @@
 package com.example.getstarted.basicactions.profile;
 
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.interfaces.ProfileDao;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
@@ -64,15 +64,15 @@ public class UpdateProfileServlet extends HttpServlet {
       Map<String, String> params = new HashMap<String, String>();
       try {
           FileItemIterator iter = new ServletFileUpload().getItemIterator(req);
-        while (iter.hasNext()) {
-            FileItemStream item = iter.next();
-            if (item.isFormField()) {
-                params.put(item.getFieldName(), Streams.asString(item.openStream()));
-            } else if (!Strings.isNullOrEmpty(item.getName())) {
-                newImageUrl = storageHelper.uploadFile(
-                item, getServletContext().getInitParameter("profileshelf.bucket"));
-            }
-        }
+          while (iter.hasNext()) {
+              FileItemStream item = iter.next();
+              if (item.isFormField()) {
+                  params.put(item.getFieldName(), Streams.asString(item.openStream()));
+              } else if (!Strings.isNullOrEmpty(item.getName())) {
+                  newImageUrl = storageHelper.uploadFile(
+                          item, getServletContext().getInitParameter("personshelf.bucket"));
+              }
+          }
       } catch (FileUploadException e) {
           throw new IOException(e);
       }
@@ -105,7 +105,7 @@ public class UpdateProfileServlet extends HttpServlet {
           // [END profileBuilder]
 
           daoProfile.updateProfile(profile);
-          resp.sendRedirect("/profile/user?id=" + params.get("id"));
+          resp.sendRedirect("/profile/user?id=" + oldProfile.getCreatedById());
       } catch (Exception e) {
           throw new ServletException("Error updating profile", e);
       }

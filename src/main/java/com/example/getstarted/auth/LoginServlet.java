@@ -1,13 +1,10 @@
 package com.example.getstarted.auth;
 
-import com.example.getstarted.daos.ProfileDao;
-import com.example.getstarted.objects.Profile;
 import com.google.appengine.api.users.User;
 import com.google.appengine.api.users.UserService;
 import com.google.appengine.api.users.UserServiceFactory;
 
 import java.io.IOException;
-import java.util.Date;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

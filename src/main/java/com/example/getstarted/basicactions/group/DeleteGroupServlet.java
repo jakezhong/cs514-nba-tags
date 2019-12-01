@@ -1,8 +1,8 @@
 package com.example.getstarted.basicactions.group;
 
-import com.example.getstarted.daos.GroupDao;
-import com.example.getstarted.daos.AssociationDao;
-import com.example.getstarted.daos.PostTagDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
+import com.example.getstarted.daos.interfaces.AssociationDao;
+import com.example.getstarted.daos.interfaces.PostTagDao;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class DeleteGroupServlet extends HttpServlet {
         Long id = Long.decode(req.getParameter("id"));
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
-        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
+        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         try {
             daoGroup.deleteGroup(id);

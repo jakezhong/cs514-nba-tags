@@ -1,7 +1,7 @@
 package com.example.getstarted.basicactions.group;
 
-import com.example.getstarted.daos.GroupDao;
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
+import com.example.getstarted.daos.interfaces.ProfileDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;

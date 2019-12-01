@@ -1,4 +1,5 @@
 package com.example.getstarted.daos;
+import com.example.getstarted.daos.interfaces.PostTagDao;
 import com.example.getstarted.objects.PostTag;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.*;
@@ -6,7 +7,6 @@ import com.google.appengine.api.datastore.*;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
-import java.util.Objects;
 
 /**
  * DatastoreAssociationDao as storage type
@@ -96,8 +96,8 @@ public class DatastorePostTagDao implements PostTagDao {
      */
     public void deletePostTagByPostId(Long postId){
         Query query = new Query(POST_TAG_KIND) // We only care about Persons
-                // Only for this user
-                .setFilter(new Query.FilterPredicate(PostTag. POST_ID, Query.FilterOperator.EQUAL, postId));
+        // Only for this user
+        .setFilter(new Query.FilterPredicate(PostTag. POST_ID, Query.FilterOperator.EQUAL, postId));
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> resultPostTags = preparedQuery.asQueryResultIterator();
@@ -117,7 +117,7 @@ public class DatastorePostTagDao implements PostTagDao {
     public void deletePostTagByPersonId(Long personId){
         Query query = new Query(POST_TAG_KIND) // We only care about Persons
         // Only for this user
-        .setFilter(new Query.FilterPredicate(PostTag. PERSON_ID, Query.FilterOperator.EQUAL, personId));
+        .setFilter(new Query.FilterPredicate(PostTag.PERSON_ID, Query.FilterOperator.EQUAL, personId));
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> resultPostTags = preparedQuery.asQueryResultIterator();

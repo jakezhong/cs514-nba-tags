@@ -1,7 +1,6 @@
 package com.example.getstarted.basicactions.profile;
 
-import com.example.getstarted.daos.AssociationDao;
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.interfaces.ProfileDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;

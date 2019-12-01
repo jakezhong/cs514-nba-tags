@@ -1,6 +1,6 @@
 package com.example.getstarted.basicactions.profile;
 
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.interfaces.ProfileDao;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;

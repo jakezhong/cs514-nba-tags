@@ -1,9 +1,9 @@
 package com.example.getstarted.basicactions.post;
 
-import com.example.getstarted.daos.GroupDao;
-import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.PostDao;
-import com.example.getstarted.daos.PostTagDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
+import com.example.getstarted.daos.interfaces.PostDao;
+import com.example.getstarted.daos.interfaces.PostTagDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Post;

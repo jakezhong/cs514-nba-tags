@@ -1,5 +1,6 @@
 package com.example.getstarted.daos;
 
+import com.example.getstarted.daos.interfaces.SocialLinkDao;
 import com.example.getstarted.objects.SocialLink;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.Cursor;

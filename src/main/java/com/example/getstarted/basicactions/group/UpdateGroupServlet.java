@@ -1,6 +1,6 @@
 package com.example.getstarted.basicactions.group;
 
-import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;

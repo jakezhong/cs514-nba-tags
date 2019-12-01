@@ -1,14 +1,13 @@
 package com.example.getstarted.daos;
 
+import com.example.getstarted.daos.interfaces.PostDao;
 import com.example.getstarted.objects.Post;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.SortDirection;
+import java.util.Enumeration;
 
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+import java.util.*;
 
 /**
  * DatastorePostDao as storage type
@@ -179,9 +178,62 @@ public class DatastorePostDao implements PostDao {
   }
   // [END listposts]
 
+    // [START listPostsBySearch]
+
+    /**
+     * List all Posts by Search
+     * @param startCursorString to display 10 per time
+     * @return Result<Post>
+     */
+    @Override
+    public Result<Post> listPostsBySearch(Hashtable search, String startCursorString) {
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
+        if (startCursorString != null && !startCursorString.equals("")) {
+            fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
+        }
+        Query query = new Query(POST_KIND) // We only care about Posts
+        .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "title"
+
+        if (search.size() > 0) {
+            Enumeration keys;
+            String key;
+            ArrayList<Query.Filter> filters = new ArrayList<Query.Filter>();
+
+            keys = search.keys();
+
+            while(keys.hasMoreElements()) {
+                key = (String) keys.nextElement();
+                Query.FilterPredicate filter = new Query.FilterPredicate(key, Query.FilterOperator.EQUAL, search.get(key));
+                filters.add(filter);
+            }
+
+            if (filters.size() > 1) {
+                System.out.println(filters.toString());
+                Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filters);
+                System.out.println(filter.toString());
+                query.setFilter(filter);
+            } else {
+                query.setFilter(filters.get(0));
+            }
+        }
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
+
+        List<Post> resultPosts = entitiesToPosts(results);     // Retrieve and convert Entities
+        Cursor cursor = results.getCursor();              // Where to start next time
+        if (cursor != null && resultPosts.size() == 8) {         // Are we paging? Save Cursor
+            String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
+            return new Result<>(resultPosts, cursorString);
+        } else {
+            return new Result<>(resultPosts);
+        }
+    }
+    // [END listPostsBySearch]
+
     public Result<Post> listAllPosts() {
         Query query = new Query(POST_KIND) // We only care about Posts
-                .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "first"
+        .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "first"
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
@@ -204,11 +256,12 @@ public class DatastorePostDao implements PostDao {
         fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
       }
       Query query = new Query(POST_KIND) // We only care about Posts
-          // Only for this user
-          .setFilter(new Query.FilterPredicate(Post.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
-          // a custom datastore index is required since you are filtering by one property
-          // but ordering by another
-          .addSort(Post.TITLE, SortDirection.ASCENDING);
+      // Only for this user
+      .setFilter(new Query.FilterPredicate(Post.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+      // a custom datastore index is required since you are filtering by one property
+      // but ordering by another
+      .addSort(Post.TITLE, SortDirection.ASCENDING);
+
       PreparedQuery preparedQuery = datastore.prepare(query);
       QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 

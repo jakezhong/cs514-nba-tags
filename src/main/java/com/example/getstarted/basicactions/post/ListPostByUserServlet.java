@@ -1,7 +1,7 @@
 package com.example.getstarted.basicactions.post;
 
-import com.example.getstarted.daos.PostDao;
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.interfaces.PostDao;
+import com.example.getstarted.daos.interfaces.ProfileDao;
 import com.example.getstarted.objects.Post;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;

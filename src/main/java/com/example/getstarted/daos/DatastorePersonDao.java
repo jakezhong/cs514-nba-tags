@@ -1,5 +1,6 @@
 package com.example.getstarted.daos;
 
+import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.Cursor;

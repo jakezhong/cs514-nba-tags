@@ -1,5 +1,6 @@
 package com.example.getstarted.daos;
 
+import com.example.getstarted.daos.interfaces.ProfileDao;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.*;
@@ -120,7 +121,6 @@ public class DatastoreProfileDao implements ProfileDao {
     @Override
     public Result<Profile> findProfile(String userId) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(1);
-        Profile profile;
         Query query = new Query(PROFILE_KIND) // We only care about Groups
         // Only for this user
         .setFilter(new Query.FilterPredicate(Profile.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId));

@@ -1,6 +1,6 @@
 package com.example.getstarted.basicactions.group;
 
-import com.example.getstarted.daos.*;
+import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;

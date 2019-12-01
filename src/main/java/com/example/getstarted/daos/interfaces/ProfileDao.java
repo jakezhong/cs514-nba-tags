@@ -1,4 +1,4 @@
-package com.example.getstarted.daos;
+package com.example.getstarted.daos.interfaces;
 
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;

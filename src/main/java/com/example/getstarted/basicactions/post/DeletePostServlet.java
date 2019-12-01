@@ -1,8 +1,7 @@
 package com.example.getstarted.basicactions.post;
 
-import com.example.getstarted.daos.AssociationDao;
-import com.example.getstarted.daos.PostDao;
-import com.example.getstarted.daos.PostTagDao;
+import com.example.getstarted.daos.interfaces.PostDao;
+import com.example.getstarted.daos.interfaces.PostTagDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,7 @@ public class DeletePostServlet extends HttpServlet {
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.decode(req.getParameter("id"));
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
-        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
+        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         try {
             daoPost.deletePost(id);

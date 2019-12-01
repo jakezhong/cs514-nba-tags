@@ -1,9 +1,10 @@
 package com.example.getstarted.basicactions;
 
 import com.example.getstarted.daos.*;
+import com.example.getstarted.daos.interfaces.AssociationDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Group;
-import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
 import java.util.ArrayList;

@@ -1,6 +1,6 @@
 package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.PersonDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;

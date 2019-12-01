@@ -1,9 +1,9 @@
 package com.example.getstarted.basicactions.person;
 
 import com.example.getstarted.daos.DatastoreAssociationDao;
-import com.example.getstarted.daos.GroupDao;
-import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.SocialLinkDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
+import com.example.getstarted.daos.interfaces.SocialLinkDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;

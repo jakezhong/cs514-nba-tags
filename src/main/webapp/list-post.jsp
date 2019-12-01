@@ -8,19 +8,21 @@
                 <div class="col-lg-3">
                     <div class="filter-secs">
                         <div class="filter-heading">
-                            <h3>Filters</h3>
-                            <a href="#" title="">Clear all filters</a>
+							<h3>Filters</h3>
                         </div><!--filter-heading end-->
                         <div class="paddy">
                             <div class="filter-dd">
                                 <div class="filter-ttl">
-                                    <h3>Skills</h3>
+                                    <h3>Search</h3>
                                     <a href="#" title="">Clear</a>
                                 </div>
-                                <form>
-                                    <input type="text" name="search-skills" placeholder="Search skills">
+                                <form action="" method="GET">
+                                    <input type="text" name="search" placeholder="Search...">
+                                    <input type="text" name="category" placeholder="Category">
+									<button type="submit">Submit</button>
                                 </form>
                             </div>
+<!--
                             <div class="filter-dd">
                                 <div class="filter-ttl">
                                     <h3>Job Type</h3>
@@ -36,6 +38,8 @@
                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                 </form>
                             </div>
+-->
+<!--
                             <div class="filter-dd">
                                 <div class="filter-ttl">
                                     <h3>Experience Level</h3>
@@ -51,6 +55,7 @@
                                     <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
                                 </form>
                             </div>
+-->
                         </div>
                     </div><!--filter-secs end-->
                 </div>

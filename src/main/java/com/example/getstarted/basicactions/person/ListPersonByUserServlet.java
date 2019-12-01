@@ -1,7 +1,7 @@
 package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
+import com.example.getstarted.daos.interfaces.ProfileDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;

@@ -1,8 +1,8 @@
 package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.PersonDao;
-import com.example.getstarted.daos.AssociationDao;
-import com.example.getstarted.daos.PostTagDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
+import com.example.getstarted.daos.interfaces.AssociationDao;
+import com.example.getstarted.daos.interfaces.PostTagDao;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -27,7 +27,7 @@ public class DeletePersonServlet extends HttpServlet {
         Long id = Long.decode(req.getParameter("id"));
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
-        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
+        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         try {
             daoPerson.deletePerson(id);

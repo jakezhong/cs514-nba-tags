@@ -1,7 +1,6 @@
 package com.example.getstarted.daos;
+import com.example.getstarted.daos.interfaces.AssociationDao;
 import com.example.getstarted.objects.Association;
-import com.example.getstarted.objects.Group;
-import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import com.google.appengine.api.datastore.*;
 
@@ -82,7 +81,7 @@ public class DatastoreAssociationDao implements AssociationDao {
     public void deleteAssociationByPersonId(Long personId){
         Query query = new Query(ASSOCIATION_KIND) // We only care about Persons
         // Only for this user
-        .setFilter(new Query.FilterPredicate(Association. PERSON_ID, Query.FilterOperator.EQUAL, personId));
+        .setFilter(new Query.FilterPredicate(Association.PERSON_ID, Query.FilterOperator.EQUAL, personId));
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> resultAssociations = preparedQuery.asQueryResultIterator();
@@ -123,8 +122,7 @@ public class DatastoreAssociationDao implements AssociationDao {
     public void deleteAssociationByGroupPersonID(Long groupId,Long personId)  {
         Query.FilterPredicate filterGroupId = new Query.FilterPredicate(Association. GROUP_ID, Query.FilterOperator.EQUAL, groupId);
         Query.FilterPredicate filterpersonId = new Query.FilterPredicate(Association. PERSON_ID, Query.FilterOperator.EQUAL, personId);
-        Query.CompositeFilter filter =
-                Query.CompositeFilterOperator.and(filterGroupId, filterpersonId);
+        Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filterGroupId, filterpersonId);
 
         Query query = new Query(ASSOCIATION_KIND).setFilter(filter);
         // System.out.println(query);
