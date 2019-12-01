@@ -1,4 +1,4 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.group;
 
 import com.example.getstarted.daos.AssociationDao;
 import com.example.getstarted.daos.GroupDao;

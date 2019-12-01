@@ -1,6 +1,6 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.daos.AssociationDao;
 import com.example.getstarted.daos.PostTagDao;
 
@@ -12,11 +12,11 @@ import javax.servlet.http.HttpServletResponse;
 
 @SuppressWarnings("serial")
 /**
-    * Delete group object according to groupId
+    * Delete person object according to personId
 */
-public class DeleteGroupServlet extends HttpServlet {
+public class DeletePersonServlet extends HttpServlet {
     /**
-        * To delete Group object according by groupId
+        * To delete person object according by personId
         * @param req HttpServletRequest
         * @param resp HttpServletResponse
         * @throws ServletException
@@ -25,17 +25,17 @@ public class DeleteGroupServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.decode(req.getParameter("id"));
-        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+        PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
         PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
 
         try {
-            daoGroup.deleteGroup(id);
-            daoAssociation.deleteAssociationByGroupId(id);
-            dapPostTag.deletePostTagByGroupId(id);
-            resp.sendRedirect("/groups/user");
+            daoPerson.deletePerson(id);
+            daoAssociation.deleteAssociationByPersonId(id);
+            dapPostTag.deletePostTagByPersonId(id);
+            resp.sendRedirect("/persons/user");
         } catch (Exception e) {
-            throw new ServletException("Error deleting group", e);
+            throw new ServletException("Error deleting person", e);
         }
     }
 }

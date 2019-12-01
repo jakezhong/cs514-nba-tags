@@ -1,4 +1,4 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.person;
 
 import com.example.getstarted.daos.PersonDao;
 import com.example.getstarted.objects.Person;

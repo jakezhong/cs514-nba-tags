@@ -1,36 +1,37 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.profile;
 
-import com.example.getstarted.daos.GroupDao;
-import com.example.getstarted.objects.Group;
+import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.objects.Profile;
+import com.example.getstarted.objects.Result;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
-import java.io.IOException;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Map;
-
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import javax.servlet.http.HttpSession;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
-// [START example]
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
+import java.io.IOException;
+import java.util.Date;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
+
 @SuppressWarnings("serial")
 /**
- * Create group object
+ * Create profile object
  */
-public class CreateGroupServlet extends HttpServlet {
+public class CreateProfileServlet extends HttpServlet {
 
     // [START setup]
 
     /**
-     * When request add Group, redirect the page to form-group JSP
+     * When request add Profile, redirect the page to form-profile JSP
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
@@ -38,16 +39,31 @@ public class CreateGroupServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
-        req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
-        req.setAttribute("page", "form-group");           // Tells base.jsp to include form-person.jsp
-        req.getRequestDispatcher("/base.jsp").forward(req, resp);
+        String userId = (String) req.getSession().getAttribute("userId");
+
+        ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
+        List<Profile> profile;
+
+        try {
+            Result<Profile> result = daoProfile.findProfile(userId);
+            profile = result.result;
+            if (profile.size() == 0) {
+                req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
+                req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
+                req.setAttribute("page", "form-profile");           // Tells base.jsp to include form-person.jsp
+                req.getRequestDispatcher("/base.jsp").forward(req, resp);
+            } else {
+                resp.sendRedirect("/profile/user");
+            }
+        } catch (Exception e) {
+            throw new ServletException("Error displaying profile", e);
+        }
     }
     // [END setup]
 
     // [START formpost]
     /**
-     * Create  an Group Object and store in Group4 Kind, store image to bucket
+     * Create  an Profile Object and store in Profile4 Kind, store image to bucket
      * @param req HttpServletRequest
      * @param resp HttpServletResponse
      * @throws ServletException
@@ -88,11 +104,14 @@ public class CreateGroupServlet extends HttpServlet {
         // [END createdBy]
 
         // [START personBuilder]
-        Group group = new Group.Builder()
-                .name(params.get("name"))
+        Profile profile = new Profile.Builder()
+                .first(params.get("first"))
+                .last(params.get("last"))
+                .title(params.get("title"))
                 .introduction(params.get("introduction"))
-                .category(params.get("category"))
-                .type(params.get("type"))
+                .email(params.get("email"))
+                .phone(params.get("phone"))
+                .address(params.get("address"))
                 .linkedin(params.get("linkedin"))
                 .facebook(params.get("facebook"))
                 .twitter(params.get("twitter"))
@@ -104,19 +123,19 @@ public class CreateGroupServlet extends HttpServlet {
                 // [START auth]
                 .createdBy(createdByString)
                 .createdById(createdByIdString)
-                .createdDate(date)
+                .publishedDate(date)
                 // [END auth]
                 .build();
-        // [END groupBuilder]
+        // [END profileBuilder]
 
-        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+        ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
         try {
-            Long id = daoGroup.createGroup(group);
-            resp.sendRedirect("/group/read?id=" + id.toString());   // read what we just wrote
+            Long id = daoProfile.createProfile(profile);
+            profile = daoProfile.readProfile(id);
+            resp.sendRedirect("/profile/user?id=" + profile.getCreatedById());   // read what we just wrote
         } catch (Exception e) {
-            throw new ServletException("Error creating group", e);
+            throw new ServletException("Error creating profile", e);
         }
     }
     // [END formpost]
 }
-// [END example]

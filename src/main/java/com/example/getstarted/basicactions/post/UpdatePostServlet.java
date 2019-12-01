@@ -1,4 +1,4 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.post;
 
 import com.example.getstarted.daos.PostDao;
 import com.example.getstarted.objects.Post;

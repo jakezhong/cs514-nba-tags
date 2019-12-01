@@ -1,37 +1,39 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.post;
 
-import com.example.getstarted.daos.GroupDao;
+import com.example.getstarted.daos.PostDao;
 import com.example.getstarted.daos.ProfileDao;
-import com.example.getstarted.objects.Group;
+import com.example.getstarted.objects.Post;
 import com.example.getstarted.objects.Profile;
 import com.example.getstarted.objects.Result;
-import java.io.IOException;
-import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import java.io.IOException;
+import java.util.List;
 
 // [START example]
 @SuppressWarnings("serial")
 /**
- * To List groups by user according to userId
+ * To List posts by user according to userId
  */
-public class ListGroupByUserServlet extends HttpServlet {
+public class ListPostByUserServlet extends HttpServlet {
+
     /**
-     * list all groups created by specific user according to userID
-     * display all persons by cursor( fetch 10 per time)
-     * @param req HttpServletRequest
-     * @param resp HttpServletResponse
-     * @throws IOException
-     * @throws ServletException
-     */
+    * list all posts created by specific user according to userID
+    * display all posts by cursor( fetch 10 per time)
+    * @param req HttpServletRequest
+    * @param resp HttpServletResponse
+    * @throws IOException
+    * @throws ServletException
+    */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         /*
             If there's user id parameter, list group by this id
             Otherwise, list group by logged in user id
-         */
+        */
         String userId;
         try {
             userId = req.getParameter("id") == null || req.getParameter("id").isEmpty() ? (String) req.getSession().getAttribute("userId") : req.getParameter("id");
@@ -52,24 +54,22 @@ public class ListGroupByUserServlet extends HttpServlet {
             profile = null;
         }
 
-        /* Then fetch the user's groups */
-        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+        PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
         String startCursor = req.getParameter("cursor");
-        List<Group> groups;
+        List<Post> posts;
         String endCursor;
         try {
-            Result<Group> result = daoGroup.listGroupsByUser(userId, startCursor);
-            groups = result.result;
+            Result<Post> result = daoPost.listPostsByUser(userId, startCursor);
+            posts = result.result;
             endCursor = result.cursor;
         } catch (Exception e) {
-            throw new ServletException("Error listing groups", e);
+            throw new ServletException("Error listing posts", e);
         }
 
         req.setAttribute("profile", profile);
-        req.getSession().getServletContext().setAttribute("groups", groups);
+        req.getSession().getServletContext().setAttribute("posts", posts);
         req.getSession().setAttribute("cursor", endCursor);
-        req.getSession().setAttribute("page", "list-user-groups");
+        req.getSession().setAttribute("page", "list-user-posts");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
 }
-// [END example]

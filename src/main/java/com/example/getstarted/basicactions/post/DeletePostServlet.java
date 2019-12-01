@@ -1,7 +1,8 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.post;
 
 import com.example.getstarted.daos.AssociationDao;
-import com.example.getstarted.daos.ProfileDao;
+import com.example.getstarted.daos.PostDao;
+import com.example.getstarted.daos.PostTagDao;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,11 +12,11 @@ import java.io.IOException;
 
 @SuppressWarnings("serial")
 /**
-    * Delete profile object according to profileId
+    * Delete post object according to postId
 */
-public class DeleteProfileServlet extends HttpServlet {
+public class DeletePostServlet extends HttpServlet {
     /**
-        * To delete profile object according by profileId
+        * To delete post object according by postId
         * @param req HttpServletRequest
         * @param resp HttpServletResponse
         * @throws ServletException
@@ -24,13 +25,15 @@ public class DeleteProfileServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.decode(req.getParameter("id"));
-        ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
+        PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
+        PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
 
         try {
-            daoProfile.deleteProfile(id);
-            resp.sendRedirect("/profile/user");
+            daoPost.deletePost(id);
+            dapPostTag.deletePostTagByPostId(id);
+            resp.sendRedirect("/posts/user");
         } catch (Exception e) {
-            throw new ServletException("Error deleting profile", e);
+            throw new ServletException("Error deleting post", e);
         }
     }
 }

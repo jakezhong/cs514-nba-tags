@@ -1,4 +1,4 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.profile;
 
 import com.example.getstarted.daos.ProfileDao;
 import com.example.getstarted.objects.Profile;

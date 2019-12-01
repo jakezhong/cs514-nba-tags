@@ -1,29 +1,28 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.ProfileDao;
-import com.example.getstarted.objects.Profile;
+import com.example.getstarted.daos.PersonDao;
+import com.example.getstarted.objects.Person;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
 import org.apache.commons.fileupload.FileItemIterator;
 import org.apache.commons.fileupload.FileItemStream;
 import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.IOException;
-import java.util.HashMap;
-import java.util.Map;
-
 // [START example]
 @SuppressWarnings("serial")
 /**
  * To update person info
  */
-public class UpdateProfileServlet extends HttpServlet {
+public class UpdatePersonServlet extends HttpServlet {
   /**
    * To redirect to page form jsp
    * @param req HttpServletRequest
@@ -33,21 +32,21 @@ public class UpdateProfileServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-person");
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     try {
-        Profile person = daoProfile.readProfile(Long.decode(req.getParameter("id")));
+        Person person = daoPerson.readPerson(Long.decode(req.getParameter("id")));
         req.setAttribute("person", person);
         req.setAttribute("action", "Edit");
         req.setAttribute("destination", "update");
-        req.setAttribute("page", "form-profile");
+        req.setAttribute("page", "form-person");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     } catch (Exception e) {
-        throw new ServletException("Error loading profile for editing", e);
+        throw new ServletException("Error loading person for editing", e);
     }
   }
 
   /**
-   * According to updated info to create profile object and store it datastore
+   * According to updated info to create person object and store it datastore
    * @param req HttpServletRequest
    * @param resp HttpServletResponse
    * @throws ServletException
@@ -56,7 +55,7 @@ public class UpdateProfileServlet extends HttpServlet {
 
   @Override
   public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
 
     assert ServletFileUpload.isMultipartContent(req);
     CloudStorageHelper storageHelper = (CloudStorageHelper) getServletContext().getAttribute("storageHelper");
@@ -71,7 +70,7 @@ public class UpdateProfileServlet extends HttpServlet {
           params.put(item.getFieldName(), Streams.asString(item.openStream()));
         } else if (!Strings.isNullOrEmpty(item.getName())) {
           newImageUrl = storageHelper.uploadFile(
-              item, getServletContext().getInitParameter("profileshelf.bucket"));
+              item, getServletContext().getInitParameter("personshelf.bucket"));
         }
       }
     } catch (FileUploadException e) {
@@ -79,10 +78,10 @@ public class UpdateProfileServlet extends HttpServlet {
     }
 
     try {
-      Profile oldProfile = daoProfile.readProfile(Long.decode(params.get("id")));
+      Person oldPerson = daoPerson.readPerson(Long.decode(params.get("id")));
 
-      // [START profileBuilder]
-      Profile profile = new Profile.Builder()
+      // [START personBuilder]
+      Person person = new Person.Builder()
           .id(Long.decode(params.get("id")))
           .first(params.get("first"))
           .last(params.get("last"))
@@ -91,6 +90,8 @@ public class UpdateProfileServlet extends HttpServlet {
           .email(params.get("email"))
           .phone(params.get("phone"))
           .address(params.get("address"))
+          .category(params.get("category"))
+          .type(params.get("type"))
           .linkedin(params.get("linkedin"))
           .facebook(params.get("facebook"))
           .twitter(params.get("twitter"))
@@ -99,16 +100,16 @@ public class UpdateProfileServlet extends HttpServlet {
           .website(params.get("website"))
           .description(params.get("description"))
           .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
-          .createdBy(oldProfile.getCreatedBy())
-          .createdById(oldProfile.getCreatedById())
-          .publishedDate(oldProfile.getPublishedDate())
+          .createdBy(oldPerson.getCreatedBy())
+          .createdById(oldPerson.getCreatedById())
+          .publishedDate(oldPerson.getPublishedDate())
           .build();
-      // [END profileBuilder]
+      // [END personBuilder]
 
-      daoProfile.updateProfile(profile);
-      resp.sendRedirect("/profile/user?id=" + params.get("id"));
+      daoPerson.updatePerson(person);
+      resp.sendRedirect("read?id=" + params.get("id"));
     } catch (Exception e) {
-      throw new ServletException("Error updating profile", e);
+      throw new ServletException("Error updating person", e);
     }
   }
 }

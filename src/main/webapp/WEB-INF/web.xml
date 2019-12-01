@@ -53,6 +53,9 @@
         <url-pattern>/post/update</url-pattern>
         <url-pattern>/post-tag/create</url-pattern>
         <url-pattern>/profile/user</url-pattern>
+        <url-pattern>/profile/create</url-pattern>
+        <url-pattern>/profile/delete</url-pattern>
+        <url-pattern>/profile/update</url-pattern>
         <url-pattern>/add/socialLink</url-pattern>
         <url-pattern>/enjoyGroups</url-pattern>
         <url-pattern>/association/delete</url-pattern><!--delete group members -->
@@ -106,7 +109,7 @@
 
     <servlet>
         <servlet-name>ListPerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListPersonServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.ListPersonServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
@@ -117,7 +120,7 @@
 
     <servlet>
         <servlet-name>ListPersonByUser</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListPersonByUserServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.ListPersonByUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListPersonByUser</servlet-name>
@@ -126,7 +129,7 @@
 
     <servlet>
         <servlet-name>CreatePerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.CreatePersonServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.CreatePersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreatePerson</servlet-name>
@@ -135,7 +138,7 @@
 
     <servlet>
         <servlet-name>DeletePerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.DeletePersonServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.DeletePersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeletePerson</servlet-name>
@@ -144,7 +147,7 @@
 
     <servlet>
         <servlet-name>ReadPerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ReadPersonServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.ReadPersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadPerson</servlet-name>
@@ -153,7 +156,7 @@
 
     <servlet>
         <servlet-name>UpdatePerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.UpdatePersonServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.UpdatePersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdatePerson</servlet-name>
@@ -162,7 +165,7 @@
 
     <servlet>
         <servlet-name>ListGroupByPerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListGroupByPersonServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.ListGroupByPersonServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListGroupByPerson</servlet-name>
@@ -171,7 +174,7 @@
 
     <servlet>
         <servlet-name>ListGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListGroupServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.ListGroupServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListGroup</servlet-name>
@@ -180,7 +183,7 @@
 
     <servlet>
         <servlet-name>ListGroupByUser</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListGroupByUserServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.ListGroupByUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListGroupByUser</servlet-name>
@@ -189,7 +192,7 @@
 
     <servlet>
         <servlet-name>CreateGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.CreateGroupServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.CreateGroupServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateGroup</servlet-name>
@@ -198,7 +201,7 @@
 
     <servlet>
         <servlet-name>ReadGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ReadGroupServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.ReadGroupServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadGroup</servlet-name>
@@ -207,7 +210,7 @@
 
     <servlet>
         <servlet-name>DeleteGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.DeleteGroupServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.DeleteGroupServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteGroup</servlet-name>
@@ -216,7 +219,7 @@
 
     <servlet>
         <servlet-name>UpdateGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.UpdateGroupServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.UpdateGroupServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdateGroup</servlet-name>
@@ -225,7 +228,7 @@
 
     <servlet>
         <servlet-name>ListPersonByGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListGroupServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.ListGroupServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListPersonByGroup</servlet-name>
@@ -243,7 +246,7 @@
 
     <servlet>
         <servlet-name>ListPost</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListPostServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.ListPostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListPost</servlet-name>
@@ -252,7 +255,7 @@
 
     <servlet>
         <servlet-name>ListPostByUser</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ListPostByUserServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.ListPostByUserServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ListPostByUser</servlet-name>
@@ -261,7 +264,7 @@
 
     <servlet>
         <servlet-name>CreatePost</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.CreatePostServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.CreatePostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreatePost</servlet-name>
@@ -270,7 +273,7 @@
 
     <servlet>
         <servlet-name>ReadPost</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ReadPostServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.ReadPostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadPost</servlet-name>
@@ -279,7 +282,7 @@
 
     <servlet>
         <servlet-name>DeletePost</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.DeletePostServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.DeletePostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeletePost</servlet-name>
@@ -288,7 +291,7 @@
 
     <servlet>
         <servlet-name>UpdatePost</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.UpdatePostServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.UpdatePostServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>UpdatePost</servlet-name>
@@ -297,7 +300,7 @@
 
     <servlet>
         <servlet-name>CreatePostTag</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.CreatePostTagServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.post.CreatePostTagServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreatePostTag</servlet-name>
@@ -306,7 +309,7 @@
 
     <servlet>
         <servlet-name>ReadProfile</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.ReadProfileServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.profile.ReadProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>ReadProfile</servlet-name>
@@ -315,11 +318,29 @@
 
     <servlet>
         <servlet-name>CreateProfile</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.CreateProfileServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.profile.CreateProfileServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateProfile</servlet-name>
         <url-pattern>/profile/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteProfile</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.profile.DeleteProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteProfile</servlet-name>
+        <url-pattern>/profile/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>UpdateProfile</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.profile.UpdateProfileServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>UpdateProfile</servlet-name>
+        <url-pattern>/profile/update</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -343,7 +364,7 @@
 
     <servlet>
         <servlet-name>DeleteAssociation</servlet-name><!--remove group members -->
-        <servlet-class>com.example.getstarted.basicactions.DeleteGroupMembersServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.DeleteGroupMembersServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>DeleteAssociation</servlet-name>
