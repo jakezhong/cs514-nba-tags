@@ -83,6 +83,12 @@
                                         </a>
                                     </li>
                                     <li>
+                                        <a href="enjoy?personId=${person.id}" class="btn btn-primary btn-sm">
+                                            <i class="glyphicon glyphicon-edit"></i>
+                                            Enjoy Group
+                                        </a>
+                                    </li>
+                                    <li>
                                     </li>
                                 </ul>
                                 <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(not empty person.last?person.last:'Unknown')}</h3>

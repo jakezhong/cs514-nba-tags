@@ -54,6 +54,7 @@
         <url-pattern>/post-tag/create</url-pattern>
         <url-pattern>/profile/user</url-pattern>
         <url-pattern>/add/socialLink</url-pattern>
+        <url-pattern>/enjoyGroups</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -326,6 +327,16 @@
     <servlet-mapping>
         <servlet-name>addSocialLink</servlet-name>
         <url-pattern>/add/socialLink</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>enjoyGroups</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.EnjoyGroupsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>enjoyGroups</servlet-name>
+        <url-pattern>/person/enjoy</url-pattern>
+        <url-pattern>/enjoyGroups</url-pattern>
     </servlet-mapping>
 
     <!-- [START config] -->
