@@ -8,6 +8,7 @@ import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.Hashtable;
 import java.util.List;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -96,17 +97,46 @@ public class ListPersonServlet extends HttpServlet {
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException,
       ServletException {
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
+    Hashtable<String, String> search = new Hashtable<String, String>();
+
+    List<Person> persons;
+    // Cursor variables
     String startCursor = req.getParameter("cursor");
-    List<Person> persons = null;
-    String endCursor = null;
+    String endCursor;
+    // Search variables
+    String searchFirst = req.getParameter("first");
+    String searchLast = req.getParameter("last");
+    String searchCategory = req.getParameter("category");
+
+
     try {
-      Result<Person> result = daoPerson.listPersons(startCursor);
-      persons = result.result;
-      endCursor = result.cursor;
+        Result<Person> result;
+
+        /* Check if there's search params, if so, list person by search, otherwise, list person by default */
+        if (!(searchFirst == null && searchLast == null && searchCategory == null)) {
+          if (searchFirst != null && !searchFirst.isEmpty()) {
+              search.put("first", searchFirst);
+          }
+          if (searchLast != null && !searchLast.isEmpty()) {
+              search.put("last", searchLast);
+          }
+          if (searchCategory != null && !searchCategory.isEmpty()) {
+              search.put("category", searchCategory);
+          }
+          result = daoPerson.listPersonsBySearch(search, startCursor);
+        } else {
+          result = daoPerson.listPersons(startCursor);
+        }
+        persons = result.result;
+        endCursor = result.cursor;
     } catch (Exception e) {
-      throw new ServletException("Error listing persons", e);
+        throw new ServletException("Error listing persons", e);
     }
+
     req.getSession().getServletContext().setAttribute("persons", persons);
+    req.setAttribute("first", searchFirst);
+    req.setAttribute("last", searchLast);
+    req.setAttribute("category", searchCategory);
     req.setAttribute("cursor", endCursor);
     req.setAttribute("page", "list-person");
     req.getRequestDispatcher("/base.jsp").forward(req, resp);

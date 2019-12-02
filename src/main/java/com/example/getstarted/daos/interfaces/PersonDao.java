@@ -3,6 +3,7 @@ package com.example.getstarted.daos.interfaces;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.sql.SQLException;
+import java.util.Hashtable;
 
 /**
  * Interface for PersonDao Class
@@ -17,6 +18,8 @@ public interface PersonDao {
   void deletePerson(Long personId) throws SQLException;
 
   Result<Person> listPersons(String startCursor) throws SQLException;
+
+  Result<Person> listPersonsBySearch(Hashtable search, String startCursor) throws SQLException;
 
   Result<Person> listAllPersons() throws SQLException;
 

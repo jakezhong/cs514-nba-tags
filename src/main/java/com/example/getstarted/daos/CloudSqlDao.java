@@ -26,6 +26,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
+import java.util.Hashtable;
 import java.util.List;
 
 // [START example]
@@ -170,6 +171,18 @@ public class CloudSqlDao implements PersonDao {
     }
   }
   // [END listpersons]
+
+    // [START listPostsBySearch]
+    /**
+     * List all Posts by Search
+     * @param startCursorString to display 10 per time
+     * @return Result<Post>
+     */
+    @Override
+    public Result<Person> listPersonsBySearch(Hashtable search, String startCursorString) {
+        return new Result<>(null);
+    }
+  // [END listPersonsBySearch]
 
   @Override
   public Result<Person> listAllPersons() throws SQLException {

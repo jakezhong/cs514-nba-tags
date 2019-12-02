@@ -9654,7 +9654,7 @@ main { float: left; width: 100%; padding: 60px 0; }
 
 select { -webkit-appearance: none; -moz-appearance: none; }
 
-.inp-field { float: left; width: 100%; position: relative; }
+.inp-field { width: 100%; position: relative; }
 
 .inp-field:before { content: '\f107'; position: absolute; top: 13px; right: 15px; color: #717171; font-family: fontawesome; }
 
@@ -10798,6 +10798,18 @@ a:hover { color: initial; }
 .widget-feat ul li i.fa-eye { color: #00b540; }
 
 /* ============= Customized CSS ============ */
+.btn.red { background-color: #e44d3a; color: #fff; }
+
+.btn.red:hover { background-color: #51a5fb; }
+
+.btn.blue { background-color: #51a5fb; color: #fff; }
+
+.btn.blue:hover { background-color: #e44d3a; }
+
+.btn.green { background-color: #53d690; color: #fff; }
+
+.btn.green:hover { background-color: #00b540; }
+
 .main h3 { margin-bottom: 20px; font-size: 30px; }
 
 .main .post-project h3 { margin-bottom: 0; }
@@ -10813,6 +10825,10 @@ a:hover { color: initial; }
 .main .read-more a { display: block; width: 100%; }
 
 .main .category { text-transform: capitalize; }
+
+.main .filter-secs { padding: 25px 0; }
+
+.main .filter-secs .filter-dd { margin-bottom: 0; }
 
 .company_profile_info > a { display: block; }
 

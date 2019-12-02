@@ -7,55 +7,31 @@
             <div class="row">
                 <div class="col-lg-3">
                     <div class="filter-secs">
-                        <div class="filter-heading">
-							<h3>Filters</h3>
-                        </div><!--filter-heading end-->
                         <div class="paddy">
                             <div class="filter-dd">
-                                <div class="filter-ttl">
-                                    <h3>Search</h3>
-                                    <a href="#" title="">Clear</a>
-                                </div>
                                 <form action="" method="GET">
-                                    <input type="text" name="search" placeholder="Search...">
-                                    <input type="text" name="category" placeholder="Category">
-									<button type="submit">Submit</button>
+									<div class="form-group">
+										<label for="category">Search</label>
+                                    	<input type="text" name="title" placeholder="Post title...">
+									</div>
+									<div class="form-group">
+										<label for="category">Category</label>
+										<div class="inp-field">
+											<select name="category" id="category">
+												<option value="" selected disabled>Choose Category</option>
+												<option value="basketball" ${category=='basketball'?"selected" : ""}>Basketball</option>
+												<option value="football" ${category=='football'?"selected" : ""}>Football</option>
+												<option value="baseball" ${category=='baseball'?"selected" : ""}>Baseball</option>
+												<option value="soccer" ${category=='soccer'?"selected" : ""}>Soccer</option>
+												<option value="hiking" ${category=='hiking'?"selected" : ""}>Hiking</option>
+											</select>
+										</div>
+									</div>
+									<div class="form-footer">
+										<button type="submit" class="btn red">Submit</button>
+									</div>
                                 </form>
                             </div>
-<!--
-                            <div class="filter-dd">
-                                <div class="filter-ttl">
-                                    <h3>Job Type</h3>
-                                    <a href="#" title="">Clear</a>
-                                </div>
-                                <form class="job-tp">
-                                    <select>
-                                        <option>Select a job type</option>
-                                        <option>Select a job type</option>
-                                        <option>Select a job type</option>
-                                        <option>Select a job type</option>
-                                    </select>
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </form>
-                            </div>
--->
-<!--
-                            <div class="filter-dd">
-                                <div class="filter-ttl">
-                                    <h3>Experience Level</h3>
-                                    <a href="#" title="">Clear</a>
-                                </div>
-                                <form class="job-tp">
-                                    <select>
-                                        <option>Select a experience level</option>
-                                        <option>3 years</option>
-                                        <option>4 years</option>
-                                        <option>5 years</option>
-                                    </select>
-                                    <i class="fa fa-ellipsis-v" aria-hidden="true"></i>
-                                </form>
-                            </div>
--->
                         </div>
                     </div><!--filter-secs end-->
                 </div>

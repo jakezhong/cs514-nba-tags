@@ -1752,7 +1752,6 @@ select {
 }
 
 .inp-field {
-	float: left;
 	width: 100%;
 	position: relative;
 }
@@ -5141,6 +5140,29 @@ a:hover {
 }
 
 /* ============= Customized CSS ============ */
+.btn {
+	&.red {
+		background-color: #e44d3a;
+		color: #fff;
+		&:hover {
+			background-color: #51a5fb;
+		}
+	}
+	&.blue {
+		background-color: #51a5fb;
+		color: #fff;
+		&:hover {
+			background-color: #e44d3a;
+		}
+	}
+	&.green {
+		background-color: #53d690;
+		color: #fff;
+		&:hover {
+			background-color: #00b540;
+		}
+	}
+}
 .main {
 	h3 {
 		margin-bottom: 20px;
@@ -5170,6 +5192,12 @@ a:hover {
 	}
 	.category {
 		text-transform: capitalize;
+	}
+	.filter-secs {
+		padding: 25px 0;
+		.filter-dd {
+			margin-bottom: 0;
+		}
 	}
 }
 .company_profile_info > a {

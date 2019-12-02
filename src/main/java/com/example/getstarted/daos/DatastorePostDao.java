@@ -208,7 +208,6 @@ public class DatastorePostDao implements PostDao {
             }
 
             if (filters.size() > 1) {
-                System.out.println(filters.toString());
                 Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filters);
                 System.out.println(filter.toString());
                 query.setFilter(filter);

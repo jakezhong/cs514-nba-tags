@@ -4,6 +4,7 @@ import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Result;
 
 import java.sql.SQLException;
+import java.util.Hashtable;
 
 /**
  * Interface for GroupDao Class
@@ -18,6 +19,8 @@ public interface GroupDao {
     void deleteGroup(Long groupId) throws SQLException;
 
     Result<Group> listGroups(String startCursor) throws SQLException;
+
+    Result<Group> listGroupsBySearch(Hashtable search, String startCursor) throws SQLException;
 
     Result<Group> listAllGroups() throws SQLException;
 

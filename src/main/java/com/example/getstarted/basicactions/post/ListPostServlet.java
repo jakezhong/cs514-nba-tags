@@ -38,30 +38,33 @@ public class ListPostServlet extends HttpServlet {
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         Hashtable<String, String> search = new Hashtable<String, String>();
 
-        String startCursor = req.getParameter("cursor");
-        String searchKey = req.getParameter("search");
-        String searchCategory = req.getParameter("category");
-        String searchPerson = req.getParameter("person");
-        String searchGroup = req.getParameter("group");
-
         List<Post> posts;
+        // Cursor variables
+        String startCursor = req.getParameter("cursor");
+        String endCursor;
+        // Search variables
+        String searchTitle = req.getParameter("title");
+        String searchCategory = req.getParameter("category");
+        // Post tag variables
         List<PostTag> allTags;
         List<Object> tags = new ArrayList<Object>();
 
-        String endCursor;
+        /* Check if there's search params, if so, list post by search, otherwise, list post by default */
         try {
-            Result<Post> result = null;
-            if (searchKey != null || searchCategory != null || searchPerson != null || searchGroup != null) {
-                if (searchKey != null) {
-                    search.put("title", searchKey);
+            Result<Post> result;
+
+            if (!(searchTitle == null && searchCategory == null)) {
+                if (searchTitle != null && !searchTitle.isEmpty()) {
+                    search.put("title", searchTitle);
                 }
-                if (searchCategory != null) {
+                if (searchCategory != null && !searchCategory.isEmpty()) {
                     search.put("category", searchCategory);
                 }
                 result = daoPost.listPostsBySearch(search, startCursor);
             } else {
                 result = daoPost.listPosts(startCursor);
             }
+
             posts = result.result;
 //            for (Post post: posts) {
 //                Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
@@ -82,6 +85,8 @@ public class ListPostServlet extends HttpServlet {
             throw new ServletException("Error listing posts", e);
         }
         req.getSession().getServletContext().setAttribute("posts", posts);
+        req.setAttribute("title", searchTitle);
+        req.setAttribute("category", searchCategory);
         req.setAttribute("cursor", endCursor);
         req.setAttribute("page", "list-post");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);

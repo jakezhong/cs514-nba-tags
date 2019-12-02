@@ -15,10 +15,8 @@ import com.google.appengine.api.datastore.PreparedQuery;
 import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.QueryResultIterator;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.Iterator;
-import java.util.List;
+
+import java.util.*;
 
 /**
  * DatastoreGroupDao as storage type
@@ -196,9 +194,60 @@ public class DatastoreGroupDao implements GroupDao {
     }
     // [END listpersons]
 
-    public Result<Group> listAllGroups() {
-        Query query = new Query(GROUP_KIND) // We only care about Persons
+    // [START listPostsBySearch]
+    /**
+     * List all Posts by Search
+     * @param startCursorString to display 10 per time
+     * @return Result<Post>
+     */
+    @Override
+    public Result<Group> listGroupsBySearch(Hashtable search, String startCursorString) {
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(8); // Only show 10 at a time
+        if (startCursorString != null && !startCursorString.equals("")) {
+            fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
+        }
+        Query query = new Query(GROUP_KIND) // We only care about Groups
                 .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+
+        if (search.size() > 0) {
+            Enumeration keys;
+            String key;
+            ArrayList<Query.Filter> filters = new ArrayList<Query.Filter>();
+
+            keys = search.keys();
+
+            while(keys.hasMoreElements()) {
+                key = (String) keys.nextElement();
+                Query.FilterPredicate filter = new Query.FilterPredicate(key, Query.FilterOperator.EQUAL, search.get(key));
+                filters.add(filter);
+            }
+
+            if (filters.size() > 1) {
+                Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filters);
+                System.out.println(filter.toString());
+                query.setFilter(filter);
+            } else {
+                query.setFilter(filters.get(0));
+            }
+        }
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
+
+        List<Group> resultGroups = entitiesToGroups(results);     // Retrieve and convert Entities
+        Cursor cursor = results.getCursor();              // Where to start next time
+        if (cursor != null && resultGroups.size() == 8) {         // Are we paging? Save Cursor
+            String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
+            return new Result<>(resultGroups, cursorString);
+        } else {
+            return new Result<>(resultGroups);
+        }
+    }
+    // [END listGroupsBySearch]
+
+    public Result<Group> listAllGroups() {
+        Query query = new Query(GROUP_KIND) // We only care about Groups
+        .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
@@ -220,9 +269,9 @@ public class DatastoreGroupDao implements GroupDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
         }
         Query query = new Query(GROUP_KIND) // We only care about Groups
-            // Only for this user
-            .setFilter(new Query.FilterPredicate(Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
-            .addSort(Group.NAME, SortDirection.ASCENDING);
+        .setFilter(new Query.FilterPredicate(Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+        .addSort(Group.NAME, SortDirection.ASCENDING);
+
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
@@ -237,9 +286,9 @@ public class DatastoreGroupDao implements GroupDao {
     }
 
     public Result<Group> listAllGroupsByUser(String userId) {
-        Query query = new Query(GROUP_KIND) // We only care about Persons
-                .setFilter(new Query.FilterPredicate(Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
-                .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+        Query query = new Query(GROUP_KIND) // We only care about Groups
+        .setFilter(new Query.FilterPredicate(Group.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
+        .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
 
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();

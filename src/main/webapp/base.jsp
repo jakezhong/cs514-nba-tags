@@ -18,12 +18,6 @@
 						<div class="logo">
 							<a href="/${pageContext.request.contextPath}" title=""><img src="${pageContext.request.contextPath}/ui/images/logo.png" alt=""></a>
 						</div><!--logo end-->
-						<div class="search-bar">
-                            <form>
-                                <input type="text" name="search" placeholder="Search...">
-                                <button type="submit"><i class="la la-search"></i></button>
-                            </form>
-                        </div><!--search-bar end-->
 					</div>
 					<div class="header-right">
 						<nav>
