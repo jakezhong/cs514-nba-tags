@@ -3,6 +3,7 @@ package com.example.getstarted.basicactions.person;
 import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.daos.interfaces.AssociationDao;
 import com.example.getstarted.daos.interfaces.PostTagDao;
+import com.example.getstarted.objects.Person;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -24,15 +25,27 @@ public class DeletePersonServlet extends HttpServlet {
     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.decode(req.getParameter("id"));
+        Long personId = Long.decode(req.getParameter("id"));
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
         PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
+        /* If the current user is not the person author, redirect */
         try {
-            daoPerson.deletePerson(id);
-            daoAssociation.deleteAssociationByPersonId(id);
-            dapPostTag.deletePostTagByPersonId(id);
+            Person post = daoPerson.readPerson(personId);
+            if (!post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/persons");
+            return;
+        }
+
+        try {
+            daoPerson.deletePerson(personId);
+            daoAssociation.deleteAssociationByPersonId(personId);
+            dapPostTag.deletePostTagByPersonId(personId);
             resp.sendRedirect("/persons/user");
         } catch (Exception e) {
             throw new ServletException("Error deleting person", e);

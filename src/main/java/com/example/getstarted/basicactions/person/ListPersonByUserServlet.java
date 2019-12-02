@@ -56,6 +56,7 @@ public class ListPersonByUserServlet extends HttpServlet {
         /* Ask user to login if there's no current profile */
         if (profile == null && req.getSession().getAttribute("userId") == null) {
             resp.sendRedirect("/login");
+            return;
         }
         /* Don't show profile to others if it's private */
         if (profile != null && profile.getStatus() != null) {

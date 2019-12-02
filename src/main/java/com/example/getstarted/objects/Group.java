@@ -3,40 +3,26 @@ package com.example.getstarted.objects;
 import java.util.Date;
 import java.util.Objects;
 
-// [START example]
 public class Group {
-    // [START person]
+    // [START Group]
     private Long id;
     private String name;
     private String introduction;
     private String category;
-    private String type;
-    private String linkedin;
-    private String facebook;
-    private String twitter;
-    private String instagram;
-    private String youtube;
-    private String website;
+    private String status;
     private String description;
     private String createdBy;
     private String createdById;
     private Date createdDate;
     private String imageUrl;
     private String profileBg;
+    // [END Group]
 
-    // [END person]
     // [START keys]
     public static final String ID = "id";
     public static final String NAME = "name";
     public static final String INTRODUCTION = "introduction";
     public static final String CATEGORY = "category";
-    public static final String TYPE = "type";
-    public static final String LINKEDIN = "linkedin";
-    public static final String FACEBOOK = "facebook";
-    public static final String TWITTER = "twitter";
-    public static final String INSTAGRAM = "instagram";
-    public static final String YOUTUBE = "youtube";
-    public static final String WEBSITE = "website";
     public static final String DESCRIPTION = "description";
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";
@@ -52,13 +38,7 @@ public class Group {
         this.name = builder.name;
         this.introduction = builder.introduction;
         this.category = builder.category;
-        this.type = builder.type;
-        this.linkedin = builder.linkedin;
-        this.facebook = builder.facebook;
-        this.twitter = builder.twitter;
-        this.instagram = builder.instagram;
-        this.youtube = builder.youtube;
-        this.website = builder.website;
+        this.status = builder.status;
         this.description = builder.description;
         this.createdBy = builder.createdBy;
         this.createdById = builder.createdById;
@@ -74,13 +54,7 @@ public class Group {
         private String name;
         private String introduction;
         private String category;
-        private String type;
-        private String linkedin;
-        private String facebook;
-        private String twitter;
-        private String instagram;
-        private String youtube;
-        private String website;
+        private String status;
         private String description;
         private String createdBy;
         private String createdById;
@@ -108,38 +82,8 @@ public class Group {
             return this;
         }
 
-        public Builder type(String type) {
-            this.type = type;
-            return this;
-        }
-
-        public Builder linkedin(String linkedin) {
-            this.linkedin = linkedin;
-            return this;
-        }
-
-        public Builder facebook(String facebook) {
-            this.facebook = facebook;
-            return this;
-        }
-
-        public Builder twitter(String twitter) {
-            this.twitter = twitter;
-            return this;
-        }
-
-        public Builder instagram(String instagram) {
-            this.instagram = instagram;
-            return this;
-        }
-
-        public Builder youtube(String youtube) {
-            this.youtube = youtube;
-            return this;
-        }
-
-        public Builder website(String website) {
-            this.website = website;
+        public Builder status(String status) {
+            this.status = status;
             return this;
         }
 
@@ -214,60 +158,12 @@ public class Group {
         this.category = category;
     }
 
-    public String getType() {
-        return type;
+    public String getStatus() {
+        return status;
     }
 
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
-    public String getTwitter() {
-        return twitter;
-    }
-
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
-    }
-
-    public String getInstagram() {
-        return instagram;
-    }
-
-    public void setInstagram(String instagram) {
-        this.instagram = instagram;
-    }
-
-    public String getYoutube() {
-        return youtube;
-    }
-
-    public void setYoutube(String youtube) {
-        this.youtube = youtube;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
+    public void setStatus(String status) {
+        this.status = status;
     }
 
     public String getDescription() {
@@ -334,13 +230,7 @@ public class Group {
                 Objects.equals(name, group.name) &&
                 Objects.equals(introduction, group.introduction) &&
                 Objects.equals(category, group.category) &&
-                Objects.equals(type, group.type) &&
-                Objects.equals(linkedin, group.linkedin) &&
-                Objects.equals(facebook, group.facebook) &&
-                Objects.equals(twitter, group.twitter) &&
-                Objects.equals(instagram, group.instagram) &&
-                Objects.equals(youtube, group.youtube) &&
-                Objects.equals(website, group.website) &&
+                Objects.equals(status, group.status) &&
                 Objects.equals(description, group.description) &&
                 Objects.equals(createdBy, group.createdBy) &&
                 Objects.equals(createdById, group.createdById) &&
@@ -360,13 +250,7 @@ public class Group {
                 ", name='" + name + '\'' +
                 ", introduction='" + introduction + '\'' +
                 ", category='" + category + '\'' +
-                ", type='" + type + '\'' +
-                ", linkedin='" + linkedin + '\'' +
-                ", facebook='" + facebook + '\'' +
-                ", twitter='" + twitter + '\'' +
-                ", instagram='" + instagram + '\'' +
-                ", youtube='" + youtube + '\'' +
-                ", website='" + website + '\'' +
+                ", status='" + status + '\'' +
                 ", description='" + description + '\'' +
                 ", createdBy='" + createdBy + '\'' +
                 ", createdById='" + createdById + '\'' +
@@ -376,4 +260,3 @@ public class Group {
                 '}';
     }
 }
-// [END example]

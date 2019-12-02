@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.Map;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
 * To update post info

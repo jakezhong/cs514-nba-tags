@@ -3,6 +3,7 @@ package com.example.getstarted.basicactions.group;
 import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.daos.interfaces.AssociationDao;
 import com.example.getstarted.daos.interfaces.PostTagDao;
+import com.example.getstarted.objects.Group;
 
 import java.io.IOException;
 import javax.servlet.ServletException;
@@ -24,15 +25,27 @@ public class DeleteGroupServlet extends HttpServlet {
     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.decode(req.getParameter("id"));
+        Long groupId = Long.decode(req.getParameter("id"));
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
         PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
+        /* If the current user is not the post author, redirect */
         try {
-            daoGroup.deleteGroup(id);
-            daoAssociation.deleteAssociationByGroupId(id);
-            dapPostTag.deletePostTagByGroupId(id);
+            Group group = daoGroup.readGroup(groupId);
+            if (!group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/groups");
+            return;
+        }
+
+        try {
+            daoGroup.deleteGroup(groupId);
+            daoAssociation.deleteAssociationByGroupId(groupId);
+            dapPostTag.deletePostTagByGroupId(groupId);
             resp.sendRedirect("/groups/user");
         } catch (Exception e) {
             throw new ServletException("Error deleting group", e);

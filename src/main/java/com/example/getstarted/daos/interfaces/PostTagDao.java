@@ -23,6 +23,10 @@ public interface PostTagDao {
 
     void deletePostTagByGroupId(Long personId) throws SQLException;
 
+    void deletePostTagByPostIdPersonId(Long postId, Long personId) throws SQLException;
+
+    void deletePostTagByPostIdGroupId(Long postId, Long groupId) throws SQLException;
+
     PostTag entityToPostTag(Entity entity) throws SQLException;
 
     Result<Long> listPostByPerson(Long personId, String startCursor) throws SQLException;

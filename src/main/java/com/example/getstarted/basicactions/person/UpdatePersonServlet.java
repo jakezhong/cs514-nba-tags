@@ -17,7 +17,6 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
  * To update person info
@@ -32,6 +31,12 @@ public class UpdatePersonServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+    /* If the user has not logged in, don't allow to create person and redirect */
+    if (req.getSession().getAttribute("userId") == null) {
+      resp.sendRedirect("/login");
+      return;
+    }
+
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     try {
         Person person = daoPerson.readPerson(Long.decode(req.getParameter("id")));
@@ -91,7 +96,6 @@ public class UpdatePersonServlet extends HttpServlet {
           .phone(params.get("phone"))
           .address(params.get("address"))
           .category(params.get("category"))
-          .type(params.get("type"))
           .linkedin(params.get("linkedin"))
           .facebook(params.get("facebook"))
           .twitter(params.get("twitter"))
@@ -113,4 +117,3 @@ public class UpdatePersonServlet extends HttpServlet {
     }
   }
 }
-// [END example]

@@ -20,15 +20,12 @@ import org.apache.commons.fileupload.FileUploadException;
 import org.apache.commons.fileupload.servlet.ServletFileUpload;
 import org.apache.commons.fileupload.util.Streams;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
  * Create group object
  */
 public class CreateGroupServlet extends HttpServlet {
-
     // [START setup]
-
     /**
      * When request add Group, redirect the page to form-group JSP
      * @param req HttpServletRequest
@@ -38,6 +35,12 @@ public class CreateGroupServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* If the user has not logged in, don't allow to create group and redirect */
+        if (req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+
         req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
         req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
         req.setAttribute("page", "form-group");           // Tells base.jsp to include form-person.jsp
@@ -89,24 +92,18 @@ public class CreateGroupServlet extends HttpServlet {
 
         // [START personBuilder]
         Group group = new Group.Builder()
-                .name(params.get("name"))
-                .introduction(params.get("introduction"))
-                .category(params.get("category"))
-                .type(params.get("type"))
-                .linkedin(params.get("linkedin"))
-                .facebook(params.get("facebook"))
-                .twitter(params.get("twitter"))
-                .instagram(params.get("instagram"))
-                .youtube(params.get("youtube"))
-                .website(params.get("website"))
-                .description(params.get("description"))
-                .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
-                // [START auth]
-                .createdBy(createdByString)
-                .createdById(createdByIdString)
-                .createdDate(date)
-                // [END auth]
-                .build();
+            .name(params.get("name"))
+            .introduction(params.get("introduction"))
+            .category(params.get("category"))
+            .status(params.get("status"))
+            .description(params.get("description"))
+            .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
+            // [START auth]
+            .createdBy(createdByString)
+            .createdById(createdByIdString)
+            .createdDate(date)
+            // [END auth]
+            .build();
         // [END groupBuilder]
 
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");

@@ -54,9 +54,9 @@ public class ReadPostServlet extends HttpServlet {
 
             /* List the tagged persons */
             String startCursor = req.getParameter("cursor");
+            String endCursor;
             List<Long> personIds;
             List<Person> persons = new ArrayList<>();
-            String endCursor;
 
             try {
                 Result<Long> result = daoPostTag.listPersonByPost(postId, startCursor);

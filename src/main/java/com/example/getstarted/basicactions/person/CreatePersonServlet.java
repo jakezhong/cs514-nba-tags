@@ -24,9 +24,7 @@ import org.apache.commons.fileupload.util.Streams;
  * Create Person Object and store, display it
  */
 public class CreatePersonServlet extends HttpServlet {
-
   // [START setup]
-
   /**
    * When adding Person, redirect page to form JSP
    * @param req HttpServletRequest
@@ -35,8 +33,14 @@ public class CreatePersonServlet extends HttpServlet {
    * @throws IOException
    */
   @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-      IOException {
+  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+    /* If the user has not logged in, don't allow to create person and redirect */
+    if (req.getSession().getAttribute("userId") == null) {
+        resp.sendRedirect("/login");
+        return;
+    }
+
     req.setAttribute("action", "Add");          // Part of the Header in form-person.jsp
     req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
     req.setAttribute("page", "form-person");           // Tells base.jsp to include form-person.jsp
@@ -98,7 +102,7 @@ public class CreatePersonServlet extends HttpServlet {
         .phone(params.get("phone"))
         .address(params.get("address"))
         .category(params.get("category"))
-        .type(params.get("type"))
+        .status(params.get("status"))
         .linkedin(params.get("linkedin"))
         .facebook(params.get("facebook"))
         .twitter(params.get("twitter"))

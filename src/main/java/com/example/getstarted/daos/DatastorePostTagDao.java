@@ -151,6 +151,62 @@ public class DatastorePostTagDao implements PostTagDao {
     }
 
     /**
+     * delete association by groupId and personId
+     * @param postId
+     * @param personId
+     */
+    public void deletePostTagByPostIdPersonId(Long postId, Long personId)  {
+        Query.FilterPredicate filterPostId = new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId);
+        Query.FilterPredicate filterPersonId = new Query.FilterPredicate(PostTag.PERSON_ID, Query.FilterOperator.EQUAL, personId);
+        Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filterPostId, filterPersonId);
+
+        Query query = new Query(POST_TAG_KIND).setFilter(filter);
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> resultPostTags = preparedQuery.asQueryResultIterator();
+        // System.out.println(resultAssociations);
+
+//        while (resultAssociations.hasNext()) {  // We still have data
+//            System.out.println(resultAssociations.toString());
+//        }
+        List<PostTag> result = entitiesToPostTags(resultPostTags);
+//        System.out.println(result);
+        for(PostTag postTag: result){
+            Long postTagId = postTag.getId();
+            Key key = KeyFactory.createKey(POST_TAG_KIND, postTagId);// Create the Key
+            datastore.delete(key);// Delete the Entity
+        }
+    }
+
+    /**
+     * delete association by groupId and personId
+     * @param postId
+     * @param groupId
+     */
+    public void deletePostTagByPostIdGroupId(Long postId, Long groupId)  {
+        Query.FilterPredicate filterPostId = new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId);
+        Query.FilterPredicate filterGroupId = new Query.FilterPredicate(PostTag.GROUP_ID, Query.FilterOperator.EQUAL, groupId);
+        Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filterPostId, filterGroupId);
+
+        Query query = new Query(POST_TAG_KIND).setFilter(filter);
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> resultPostTags = preparedQuery.asQueryResultIterator();
+        // System.out.println(resultAssociations);
+
+//        while (resultAssociations.hasNext()) {  // We still have data
+//            System.out.println(resultAssociations.toString());
+//        }
+        List<PostTag> result = entitiesToPostTags(resultPostTags);
+//        System.out.println(result);
+        for(PostTag postTag: result){
+            Long postTagId = postTag.getId();
+            Key key = KeyFactory.createKey(POST_TAG_KIND, postTagId);// Create the Key
+            datastore.delete(key);// Delete the Entity
+        }
+    }
+
+    /**
      * list all group member in a specific group
      * @param groupId groupId
      * @param startCursor startCursor
