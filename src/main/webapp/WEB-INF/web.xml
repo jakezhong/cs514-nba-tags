@@ -66,27 +66,10 @@
         <filter-name>LogoutFilter</filter-name>
         <filter-class>com.example.getstarted.auth.LogoutFilter</filter-class>
     </filter>
+
     <filter-mapping>
         <filter-name>LogoutFilter</filter-name>
         <url-pattern>/logout</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>ListByUserFilter</filter-name>
-        <filter-class>com.example.getstarted.auth.ListPersonByUserFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>ListByUserFilter</filter-name>
-        <url-pattern>/persons/user</url-pattern>
-    </filter-mapping>
-
-    <filter>
-        <filter-name>ListGroupByUserFilter</filter-name>
-        <filter-class>com.example.getstarted.auth.ListGroupByUserFilter</filter-class>
-    </filter>
-    <filter-mapping>
-        <filter-name>ListGroupByUserFilter</filter-name>
-        <url-pattern>/groups/user</url-pattern>
     </filter-mapping>
 
     <servlet>

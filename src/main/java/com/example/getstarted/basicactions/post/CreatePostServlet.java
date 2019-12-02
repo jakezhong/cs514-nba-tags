@@ -37,6 +37,13 @@ public class CreatePostServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+
+      /* If the user has not logged in, don't allow to create post and redirect */
+      if (req.getSession().getAttribute("userId") == null) {
+          resp.sendRedirect("/login");
+          return;
+      }
+
       req.setAttribute("action", "Add");          // Part of the Header in form-post.jsp
       req.setAttribute("destination", "create");  // The urlPattern to invoke (this Servlet)
       req.setAttribute("page", "form-post");           // Tells base.jsp to include form-post.jsp

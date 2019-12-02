@@ -54,6 +54,18 @@ public class ListPostByUserServlet extends HttpServlet {
             profile = null;
         }
 
+        /* Ask user to login if there's no current profile */
+        if (profile == null && req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+        /* Don't show profile to others if it's private */
+        if (profile != null && profile.getStatus() != null) {
+            if (profile.getStatus().equals("private") && !profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                req.setAttribute("privacy", true);
+            }
+        }
+
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
         String startCursor = req.getParameter("cursor");
         List<Post> posts;

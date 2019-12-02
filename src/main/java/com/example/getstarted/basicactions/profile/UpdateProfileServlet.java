@@ -23,27 +23,33 @@ import java.util.Map;
  * To update profile info
  */
 public class UpdateProfileServlet extends HttpServlet {
-  /**
-   * To redirect to page form jsp
-   * @param req HttpServletRequest
-   * @param resp HttpServletResponse
-   * @throws ServletException
-   * @throws IOException
-   */
-  @Override
-  public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
-    try {
-        Profile profile = daoProfile.readProfile(Long.decode(req.getParameter("id")));
-        req.setAttribute("profile", profile);
-        req.setAttribute("action", "Edit");
-        req.setAttribute("destination", "update");
-        req.setAttribute("page", "form-profile");
-        req.getRequestDispatcher("/base.jsp").forward(req, resp);
-    } catch (Exception e) {
-        throw new ServletException("Error loading profile for editing", e);
+    /**
+    * To redirect to page form jsp
+    * @param req HttpServletRequest
+    * @param resp HttpServletResponse
+    * @throws ServletException
+    * @throws IOException
+    */
+    @Override
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* If the user has not logged in, don't allow to update profile and redirect */
+        if (req.getSession().getAttribute("userId") == null) {
+          resp.sendRedirect("/login");
+          return;
+        }
+
+        ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
+        try {
+            Profile profile = daoProfile.readProfile(Long.decode(req.getParameter("id")));
+            req.setAttribute("profile", profile);
+            req.setAttribute("action", "Edit");
+            req.setAttribute("destination", "update");
+            req.setAttribute("page", "form-profile");
+            req.getRequestDispatcher("/base.jsp").forward(req, resp);
+        } catch (Exception e) {
+            throw new ServletException("Error loading profile for editing", e);
+        }
     }
-  }
 
   /**
    * According to updated info to create profile object and store it datastore
@@ -87,15 +93,8 @@ public class UpdateProfileServlet extends HttpServlet {
               .last(params.get("last"))
               .title(params.get("title"))
               .introduction(params.get("introduction"))
+              .status(params.get("status"))
               .email(params.get("email"))
-              .phone(params.get("phone"))
-              .address(params.get("address"))
-              .linkedin(params.get("linkedin"))
-              .facebook(params.get("facebook"))
-              .twitter(params.get("twitter"))
-              .instagram(params.get("instagram"))
-              .youtube(params.get("youtube"))
-              .website(params.get("website"))
               .description(params.get("description"))
               .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
               .createdBy(oldProfile.getCreatedBy())

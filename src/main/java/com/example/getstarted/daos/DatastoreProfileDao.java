@@ -41,15 +41,8 @@ public class DatastoreProfileDao implements ProfileDao {
         .last((String) entity.getProperty(Profile.LAST))
         .title((String) entity.getProperty(Profile.TITLE))
         .introduction((String) entity.getProperty(Profile.INTRODUCTION))
+        .status((String) entity.getProperty(Profile.STATUS))
         .email((String) entity.getProperty(Profile.EMAIL))
-        .phone((String) entity.getProperty(Profile.PHONE))
-        .address((String) entity.getProperty(Profile.ADDRESS))
-        .linkedin((String) entity.getProperty(Profile.LINKEDIN))
-        .facebook((String) entity.getProperty(Profile.FACEBOOK))
-        .twitter((String) entity.getProperty(Profile.TWITTER))
-        .instagram((String) entity.getProperty(Profile.INSTAGRAM))
-        .youtube((String) entity.getProperty(Profile.YOUTUBE))
-        .website((String) entity.getProperty(Profile.WEBSITE))
         .description((String) entity.getProperty(Profile.DESCRIPTION))
         .createdBy((String) entity.getProperty(Profile.CREATED_BY))
         .createdById((String) entity.getProperty(Profile.CREATED_BY_ID))
@@ -73,15 +66,8 @@ public class DatastoreProfileDao implements ProfileDao {
       incProfileEntity.setProperty(Profile.LAST, profile.getLast());
       incProfileEntity.setProperty(Profile.TITLE, profile.getTitle());
       incProfileEntity.setProperty(Profile.INTRODUCTION, profile.getIntroduction());
+      incProfileEntity.setProperty(Profile.STATUS, profile.getStatus());
       incProfileEntity.setProperty(Profile.EMAIL, profile.getEmail());
-      incProfileEntity.setProperty(Profile.PHONE, profile.getPhone());
-      incProfileEntity.setProperty(Profile.ADDRESS, profile.getAddress());
-      incProfileEntity.setProperty(Profile.LINKEDIN, profile.getLinkedin());
-      incProfileEntity.setProperty(Profile.FACEBOOK, profile.getFacebook());
-      incProfileEntity.setProperty(Profile.TWITTER, profile.getTwitter());
-      incProfileEntity.setProperty(Profile.INSTAGRAM, profile.getInstagram());
-      incProfileEntity.setProperty(Profile.YOUTUBE, profile.getYoutube());
-      incProfileEntity.setProperty(Profile.WEBSITE, profile.getWebsite());
       incProfileEntity.setProperty(Profile.DESCRIPTION, profile.getDescription());
       incProfileEntity.setProperty(Profile.CREATED_BY, profile.getCreatedBy());
       incProfileEntity.setProperty(Profile.CREATED_BY_ID, profile.getCreatedById());
@@ -147,15 +133,8 @@ public class DatastoreProfileDao implements ProfileDao {
       entity.setProperty(Profile.LAST, profile.getLast());
       entity.setProperty(Profile.TITLE, profile.getTitle());
       entity.setProperty(Profile.INTRODUCTION, profile.getIntroduction());
+      entity.setProperty(Profile.STATUS, profile.getStatus());
       entity.setProperty(Profile.EMAIL, profile.getEmail());
-      entity.setProperty(Profile.PHONE, profile.getPhone());
-      entity.setProperty(Profile.ADDRESS, profile.getAddress());
-      entity.setProperty(Profile.LINKEDIN, profile.getLinkedin());
-      entity.setProperty(Profile.FACEBOOK, profile.getFacebook());
-      entity.setProperty(Profile.TWITTER, profile.getTwitter());
-      entity.setProperty(Profile.INSTAGRAM, profile.getInstagram());
-      entity.setProperty(Profile.YOUTUBE, profile.getYoutube());
-      entity.setProperty(Profile.WEBSITE, profile.getWebsite());
       entity.setProperty(Profile.DESCRIPTION, profile.getDescription());
       entity.setProperty(Profile.CREATED_BY, profile.getCreatedBy());
       entity.setProperty(Profile.CREATED_BY_ID, profile.getCreatedById());

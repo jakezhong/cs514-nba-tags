@@ -16,11 +16,11 @@
 										<img class="user-image" src="${fn:escapeXml(not empty profile.imageUrl?profile.imageUrl:'http://placekitten.com/g/500/500')}">
 									</div><!--user-pro-img end-->
 									<ul class="social_links">
-										<li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(profile.website)}</a></li>
-										<li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(profile.facebook)}</a></li>
-										<li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(profile.twitter)}</a></li>
-										<li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(profile.instagram)}</a></li>
-										<li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(profile.youtube)}</a></li>
+										<li><a href="#" title=""><i class="la la-globe"></i></a></li>
+										<li><a href="#" title=""><i class="fa fa-facebook-square"></i></a></li>
+										<li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+										<li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+										<li><a href="#" title=""><i class="fa fa-youtube"></i></a></li>
 									</ul>
 								</div><!--user_profile end-->
 							</div><!--main-left-sidebar end-->
@@ -28,7 +28,12 @@
 						</c:choose>
                     </div>
                     <div class="col-lg-9">
-                        <div class="main-ws-sec">
+						<c:choose>
+							<c:when test="${privacy == true}">
+							<h3 class="center">This profile is private</h3>
+							</c:when>
+							<c:otherwise>
+                        	<div class="main-ws-sec">
 							<ul class="flw-hr">
 								<li>
 									<a href="/profile/user" class="btn btn-primary btn-sm">
@@ -97,6 +102,8 @@
                                 </c:when>
                             </c:choose>
                         </div><!--main-ws-sec end-->
+							</c:otherwise>
+						</c:choose>
                     </div>
                 </div>
             </div>

@@ -42,11 +42,21 @@
                                 <div class="inp-field">
                                     <select name="category" id="category">
                                         <option value="" selected disabled>Choose Category</option>
-                                        <option value="basketball" ${post.category=='basketball'?"selected" : ""}>Basketball</option>
-                                        <option value="football" ${post.category=='football'?"selected" : ""}>Football</option>
-                                        <option value="baseball" ${post.category=='baseball'?"selected" : ""}>Baseball</option>
-                                        <option value="soccer" ${post.category=='soccer'?"selected" : ""}>Soccer</option>
-                                        <option value="hiking" ${post.category=='hiking'?"selected" : ""}>Hiking</option>
+                                        <option value="basketball" ${post.category=='basketball'?'selected' : ''}>Basketball</option>
+                                        <option value="football" ${post.category=='football'?'selected' : ''}>Football</option>
+                                        <option value="baseball" ${post.category=='baseball'?'selected' : ''}>Baseball</option>
+                                        <option value="soccer" ${post.category=='soccer'?'selected' : ''}>Soccer</option>
+                                        <option value="hiking" ${post.category=='hiking'?'selected' : ''}>Hiking</option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label for="category">Status</label>
+                                <div class="inp-field">
+                                    <select name="status" id="status">
+                                        <option value="" selected disabled>Choose Status</option>
+                                        <option value="public" ${post.status=='public'?'selected' : ''}>Public</option>
+                                        <option value="private" ${post.status=='private'?'selected' : ''}>Private</option>
                                     </select>
                                 </div>
                             </div>

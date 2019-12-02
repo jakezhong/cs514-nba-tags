@@ -48,6 +48,16 @@ public class ReadProfileServlet extends HttpServlet {
         } catch (Exception e) {
             profile = null;
         }
+        /* Ask user to login if there's no current profile */
+        if (profile == null && req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+        }
+        /* Don't show profile to others if it's private */
+        if (profile != null && profile.getStatus() != null) {
+            if (profile.getStatus().equals("private") && !profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                req.setAttribute("privacy", true);
+            }
+        }
 
         req.setAttribute("profile", profile);
         req.setAttribute("page", "view-profile");

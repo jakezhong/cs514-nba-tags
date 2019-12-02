@@ -1,7 +1,6 @@
 package com.example.getstarted.objects;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Objects;
 
 /**
@@ -14,15 +13,8 @@ public class Profile {
     private String last;
     private String title;
     private String introduction;
+    private String status;
     private String email;
-    private String phone;
-    private String address;
-    private String linkedin;
-    private String facebook;
-    private String twitter;
-    private String instagram;
-    private String youtube;
-    private String website;
     private String description;
     private String createdBy;
     private String createdById;
@@ -37,15 +29,8 @@ public class Profile {
     public static final String LAST = "last";
     public static final String TITLE = "title";
     public static final String INTRODUCTION = "introduction";
+    public static final String STATUS = "status";
     public static final String EMAIL = "email";
-    public static final String PHONE = "phone";
-    public static final String ADDRESS = "address";
-    public static final String LINKEDIN = "linkedin";
-    public static final String FACEBOOK = "facebook";
-    public static final String TWITTER = "twitter";
-    public static final String INSTAGRAM = "instagram";
-    public static final String YOUTUBE = "youtube";
-    public static final String WEBSITE = "website";
     public static final String DESCRIPTION = "description";
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";
@@ -62,15 +47,8 @@ public class Profile {
         this.last = builder.last;
         this.title = builder.title;
         this.introduction = builder.introduction;
+        this.status = builder.status;
         this.email = builder.email;
-        this.phone = builder.phone;
-        this.address = builder.address;
-        this.linkedin = builder.linkedin;
-        this.facebook = builder.facebook;
-        this.twitter = builder.twitter;
-        this.instagram = builder.instagram;
-        this.youtube = builder.youtube;
-        this.website = builder.website;
         this.description = builder.description;
         this.createdBy = builder.createdBy;
         this.createdById = builder.createdById;
@@ -86,15 +64,8 @@ public class Profile {
         private String last;
         private String title;
         private String introduction;
+        private String status;
         private String email;
-        private String phone;
-        private String address;
-        private String linkedin;
-        private String facebook;
-        private String twitter;
-        private String instagram;
-        private String youtube;
-        private String website;
         private String description;
         private String createdBy;
         private String createdById;
@@ -131,48 +102,13 @@ public class Profile {
             return this;
         }
 
+        public Builder status(String status) {
+            this.status = status;
+            return this;
+        }
+
         public Builder email(String email) {
             this.email = email;
-            return this;
-        }
-
-        public Builder phone(String phone) {
-            this.phone = phone;
-            return this;
-        }
-
-        public Builder address(String address) {
-            this.address = address;
-            return this;
-        }
-
-        public Builder linkedin(String linkedin) {
-            this.linkedin = linkedin;
-            return this;
-        }
-
-        public Builder facebook(String facebook) {
-            this.facebook = facebook;
-            return this;
-        }
-
-        public Builder twitter(String twitter) {
-            this.twitter = twitter;
-            return this;
-        }
-
-        public Builder instagram(String instagram) {
-            this.instagram = instagram;
-            return this;
-        }
-
-        public Builder youtube(String youtube) {
-            this.youtube = youtube;
-            return this;
-        }
-
-        public Builder website(String website) {
-            this.website = website;
             return this;
         }
 
@@ -246,6 +182,14 @@ public class Profile {
         return introduction;
     }
 
+    public void setStatus(String status) {
+        this.status = status;
+    }
+
+    public String getStatus() {
+        return status;
+    }
+
     public void setIntroduction(String introduction) {
         this.introduction = introduction;
     }
@@ -256,70 +200,6 @@ public class Profile {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public String getPhone() {
-        return phone;
-    }
-
-    public void setPhone(String phone) {
-        this.phone = phone;
-    }
-
-    public String getAddress() {
-        return address;
-    }
-
-    public void setAddress(String address) {
-        this.address = address;
-    }
-
-    public String getLinkedin() {
-        return linkedin;
-    }
-
-    public void setLinkedin(String linkedin) {
-        this.linkedin = linkedin;
-    }
-
-    public String getFacebook() {
-        return facebook;
-    }
-
-    public void setFacebook(String facebook) {
-        this.facebook = facebook;
-    }
-
-    public String getTwitter() {
-        return twitter;
-    }
-
-    public void setTwitter(String twitter) {
-        this.twitter = twitter;
-    }
-
-    public String getInstagram() {
-        return instagram;
-    }
-
-    public void setInstagram(String instagram) {
-        this.instagram = instagram;
-    }
-
-    public String getYoutube() {
-        return youtube;
-    }
-
-    public void setYoutube(String youtube) {
-        this.youtube = youtube;
-    }
-
-    public String getWebsite() {
-        return website;
-    }
-
-    public void setWebsite(String website) {
-        this.website = website;
     }
 
     public String getDescription() {
@@ -384,15 +264,8 @@ public class Profile {
         ", last='" + last + '\'' +
         ", title='" + title + '\'' +
         ", introduction='" + introduction + '\'' +
+        ", status='" + status + '\'' +
         ", email='" + email + '\'' +
-        ", phone='" + phone + '\'' +
-        ", address='" + address + '\'' +
-        ", linkedin='" + linkedin + '\'' +
-        ", facebook='" + facebook + '\'' +
-        ", twitter='" + twitter + '\'' +
-        ", instagram='" + instagram + '\'' +
-        ", youtube='" + youtube + '\'' +
-        ", website='" + website + '\'' +
         ", description='" + description + '\'' +
         ", createdBy='" + createdBy + '\'' +
         ", createdById='" + createdById + '\'' +
@@ -416,15 +289,8 @@ public class Profile {
         Objects.equals(last, profile.last) &&
         Objects.equals(title, profile.title) &&
         Objects.equals(introduction, profile.introduction) &&
+        Objects.equals(status, profile.status) &&
         Objects.equals(email, profile.email) &&
-        Objects.equals(phone, profile.phone) &&
-        Objects.equals(address, profile.address) &&
-        Objects.equals(linkedin, profile.linkedin) &&
-        Objects.equals(facebook, profile.facebook) &&
-        Objects.equals(twitter, profile.twitter) &&
-        Objects.equals(instagram, profile.instagram) &&
-        Objects.equals(youtube, profile.youtube) &&
-        Objects.equals(website, profile.website) &&
         Objects.equals(description, profile.description) &&
         Objects.equals(createdBy, profile.createdBy) &&
         Objects.equals(createdById, profile.createdById) &&

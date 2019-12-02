@@ -44,6 +44,15 @@ public class ReadPostServlet extends HttpServlet {
         try {
             Post post = daoPost.readPost(postId);
 
+            /* If the current post if private and the user is not the author, redirect user */
+            if (post.getStatus() != null) {
+                if (post.getStatus().equals("private") && !post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                    resp.sendRedirect("/posts/user?id="+post.getCreatedById());
+                    return;
+                }
+            }
+
+            /* List the tagged persons */
             String startCursor = req.getParameter("cursor");
             List<Long> personIds;
             List<Person> persons = new ArrayList<>();
@@ -63,6 +72,7 @@ public class ReadPostServlet extends HttpServlet {
                 throw new ServletException("Error listing persons", e);
             }
 
+            /* List the tagged groups */
             List<Long> groupIds;
             List<Group> groups = new ArrayList<>();
 
@@ -86,7 +96,7 @@ public class ReadPostServlet extends HttpServlet {
             req.setAttribute("page", "view-post");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
-                throw new ServletException("Error reading post", e);
+            throw new ServletException("Error reading post", e);
         }
     }
 }

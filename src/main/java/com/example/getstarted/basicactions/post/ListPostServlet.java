@@ -39,6 +39,7 @@ public class ListPostServlet extends HttpServlet {
         Hashtable<String, String> search = new Hashtable<String, String>();
 
         List<Post> posts;
+        List<Post> visiblePosts = new ArrayList<Post>();
         // Cursor variables
         String startCursor = req.getParameter("cursor");
         String endCursor;
@@ -80,11 +81,22 @@ public class ListPostServlet extends HttpServlet {
 //
 //                post.setPostTags(tags);
 //            }
+            for (Post post: posts) {
+                if (post.getStatus() != null) {
+                    if (post.getStatus().equals("public")) {
+                        visiblePosts.add(post);
+                    } else if (post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                        visiblePosts.add(post);
+                    }
+                } else {
+                    visiblePosts.add(post);
+                }
+            }
             endCursor = result.cursor;
         } catch (Exception e) {
             throw new ServletException("Error listing posts", e);
         }
-        req.getSession().getServletContext().setAttribute("posts", posts);
+        req.getSession().getServletContext().setAttribute("posts", visiblePosts);
         req.setAttribute("title", searchTitle);
         req.setAttribute("category", searchCategory);
         req.setAttribute("cursor", endCursor);

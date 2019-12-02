@@ -33,6 +33,12 @@ public class UpdatePostServlet extends HttpServlet {
     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* If the user has not logged in, don't allow to create post and redirect */
+        if (req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
         try {
             Post post = daoPost.readPost(Long.decode(req.getParameter("id")));

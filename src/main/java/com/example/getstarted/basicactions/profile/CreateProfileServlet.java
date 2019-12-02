@@ -105,27 +105,20 @@ public class CreateProfileServlet extends HttpServlet {
 
         // [START personBuilder]
         Profile profile = new Profile.Builder()
-                .first(params.get("first"))
-                .last(params.get("last"))
-                .title(params.get("title"))
-                .introduction(params.get("introduction"))
-                .email(params.get("email"))
-                .phone(params.get("phone"))
-                .address(params.get("address"))
-                .linkedin(params.get("linkedin"))
-                .facebook(params.get("facebook"))
-                .twitter(params.get("twitter"))
-                .instagram(params.get("instagram"))
-                .youtube(params.get("youtube"))
-                .website(params.get("website"))
-                .description(params.get("description"))
-                .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
-                // [START auth]
-                .createdBy(createdByString)
-                .createdById(createdByIdString)
-                .publishedDate(date)
-                // [END auth]
-                .build();
+            .first(params.get("first"))
+            .last(params.get("last"))
+            .title(params.get("title"))
+            .introduction(params.get("introduction"))
+            .status(params.get("status"))
+            .email(params.get("email"))
+            .description(params.get("description"))
+            .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
+            // [START auth]
+            .createdBy(createdByString)
+            .createdById(createdByIdString)
+            .publishedDate(date)
+            // [END auth]
+            .build();
         // [END profileBuilder]
 
         ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");

@@ -30,6 +30,12 @@ public class CreatePostTagServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* If the user has not logged in, don't allow to create postTag and redirect */
+        if (req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+
         try {
             Long postId = Long.decode(req.getParameter("id"));
             String userId = (String) req.getSession().getAttribute("userId");
@@ -41,6 +47,7 @@ public class CreatePostTagServlet extends HttpServlet {
             List<Person> allPersons;
             List<Long> oldPersonIds;
             List<Person> persons = new ArrayList<Person>();
+
             try {
                 /* List all persons */
                 Result<Person> result = daoPerson.listAllPersonsByUser(userId);
