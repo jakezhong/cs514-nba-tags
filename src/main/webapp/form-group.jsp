@@ -50,36 +50,16 @@
                                     </select>
                                 </div>
                             </div>
-
-                           <div class="form-group">
-                               <label for="linkedin">Linkedin</label>
-                               <input type="url" name="linkedin" id="linkedin" value="${fn:escapeXml(group.linkedin)}" class="form-control" />
-                           </div>
-
-                           <div class="form-group">
-                               <label for="facebook">Facebook</label>
-                               <input type="url" name="facebook" id="facebook" value="${fn:escapeXml(group.facebook)}" class="form-control" />
-                           </div>
-
-                           <div class="form-group">
-                               <label for="twitter">Twitter</label>
-                               <input type="url" name="twitter" id="twitter" value="${fn:escapeXml(group.twitter)}" class="form-control" />
-                           </div>
-
-                           <div class="form-group">
-                               <label for="instagram">Instagram</label>
-                               <input type="url" name="instagram" id="instagram" value="${fn:escapeXml(group.instagram)}" class="form-control" />
-                           </div>
-
-                           <div class="form-group">
-                               <label for="youtube">Youtube</label>
-                               <input type="url" name="youtube" id="youtube" value="${fn:escapeXml(group.youtube)}" class="form-control" />
-                           </div>
-
-                           <div class="form-group">
-                               <label for="website">Website</label>
-                               <input type="url" name="website" id="website" value="${fn:escapeXml(group.website)}" class="form-control" />
-                           </div>
+                            <div class="form-group">
+                                <label for="category">Status</label>
+                                <div class="inp-field">
+                                    <select name="status" id="status">
+                                        <option value="" selected disabled>Choose Status</option>
+                                        <option value="public" ${group.status=='public'?'selected' : ''}>Public</option>
+                                        <option value="private" ${group.status=='private'?'selected' : ''}>Private</option>
+                                    </select>
+                                </div>
+                            </div>
                         </div>
                     </div>
                     <div class="form-footer">

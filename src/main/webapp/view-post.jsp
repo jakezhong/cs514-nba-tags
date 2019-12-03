@@ -72,12 +72,14 @@
 													</c:forEach>
 												</ul>
 											</div><!--widget-user end-->
-                                            <button type="submit"  class="btn btn-primary btn-sm">
+                                            <button type="submit"  class="btn btn-danger btn-sm">
                                                 <i class="glyphicon glyphicon-edit"></i>
                                                 Remove Person
                                             </button>
 										</form>
 									</c:when>
+								</c:choose>
+								<c:choose>
 									<c:when test="${not empty groups}">
                                         <form method ="POST" action ="/post-tag/delete" class="detail_descp">
                                             <input type="text" name="postId" value="${post.id}" class="hidden">
@@ -100,7 +102,7 @@
 													</c:forEach>
 												</ul>
 											</div><!--widget-user end-->
-											<button type="submit"  class="btn btn-primary btn-sm">
+											<button type="submit"  class="btn btn-danger btn-sm">
 												<i class="glyphicon glyphicon-edit"></i>
 												Remove Group
 											</button>

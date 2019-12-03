@@ -60,6 +60,17 @@
                                     </select>
                                 </div>
                             </div>
+							
+                            <div class="form-group">
+                                <label for="category">Status</label>
+                                <div class="inp-field">
+                                    <select name="status" id="status">
+                                        <option value="" selected disabled>Choose Status</option>
+                                        <option value="public" ${person.status=='public'?'selected' : ''}>Public</option>
+                                        <option value="private" ${person.status=='private'?'selected' : ''}>Private</option>
+                                    </select>
+                                </div>
+                            </div>
 
                             <div class="form-group">
                                 <label for="email">Email</label>

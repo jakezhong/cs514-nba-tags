@@ -52,7 +52,6 @@ public class ListPostServlet extends HttpServlet {
         try {
             /* Filter for search */
             Result<Post> result;
-
             if (!(searchTitle == null && searchCategory == null)) {
                 if (searchTitle != null && !searchTitle.isEmpty()) {
                     search.put("title", searchTitle);
@@ -64,8 +63,8 @@ public class ListPostServlet extends HttpServlet {
             } else {
                 result = daoPost.listPosts(startCursor);
             }
-
             posts = result.result;
+
             for (Post post: posts) {
                 /* Check if post is public, only show own post if it's not */
                 if (post.getStatus() != null) {

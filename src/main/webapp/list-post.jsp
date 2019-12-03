@@ -12,7 +12,7 @@
                                 <form action="" method="GET">
 									<div class="form-group">
 										<label for="category">Search</label>
-                                    	<input type="text" name="title" value="${empty title ? 'Post title...' : title}">
+                                    	<input type="text" name="title" placeholder="Post title..." value="${empty title ? '' : title}">
 									</div>
 									<div class="form-group">
 										<label for="category">Category</label>
@@ -62,22 +62,18 @@
 													<li><a href="/posts?category=${fn:escapeXml(post.category)}" title="">${fn:escapeXml(post.category)}</a></li>
 												</ul>
 												<p>${fn:escapeXml(post.introduction)} <a href="/post/read?id=${post.id}" title="">view more</a></p>
-												<c:choose>
-													<c:when test="${not empty post.postTags}">
-														<ul class="skill-tags">
-														<c:forEach items="${post.postTags}" var="tag">
-															<c:choose>
-																<c:when test="${tag['class'].name == 'Group'}">
-																	<li><a href="/group/read?id=${tag.id}">${tag.name}</a></li>
-																</c:when>
-																<c:when test="${tag['class'].name == 'com.example.getstarted.objects.Person'}">
-																	<li><a href="/person/read?id=${tag.id}">${tag.first} ${tag.last}</a></li>
-																</c:when>
-															</c:choose>
-														</c:forEach>
-														</ul>
-													</c:when>
-												</c:choose>
+												<c:if test="${not empty post.postTags}">
+													<ul class="skill-tags">
+													<c:forEach items="${post.postTags}" var="tag">
+														<c:if test="${tag['class'].name == 'com.example.getstarted.objects.Group'}">
+															<li><a href="/group/read?id=${tag.id}">${tag.name}</a></li>
+														</c:if>
+														<c:if test="${tag['class'].name == 'com.example.getstarted.objects.Person'}">
+															<li><a href="/person/read?id=${tag.id}">${tag.first} ${tag.last}</a></li>
+														</c:if>
+													</c:forEach>
+													</ul>
+												</c:if>
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">

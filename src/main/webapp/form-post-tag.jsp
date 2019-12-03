@@ -4,7 +4,7 @@
 <main class="main">
     <div class="container">
         <div class="post-project">
-            <h3><c:out value="${action}" /> Persons</h3>
+            <h3><c:out value="${action}" /> Tags</h3>
             <div class="post-project-fields">
                 <form method="POST" action="${destination}" >
                     <input type="text" name="postId" value="${postId}" class="hidden">

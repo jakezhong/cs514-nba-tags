@@ -15,10 +15,10 @@
                                 <form action="" method="GET">
 									<div class="form-group">
 										<label for="category">Search</label>
-                                    	<input type="text" name="first" value="${empty first ? 'First name...' : first}">
+                                    	<input type="text" name="first" placeholder="First name..." value="${empty first ? '' : first}">
 									</div>
 									<div class="form-group">
-                                    	<input type="text" name="first" value="${empty last ? 'Last name...' : first}">
+                                    	<input type="text" name="last" placeholder="Last name..." value="${empty last ? '' : last}">
 									</div>
 									<div class="form-group">
 										<label for="category">Category</label>

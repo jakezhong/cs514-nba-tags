@@ -15,7 +15,7 @@
                                 <form action="" method="GET">
 									<div class="form-group">
 										<label for="category">Search</label>
-                                    	<input type="text" name="name" value="${empty name ? 'Group name...' : name}">
+                                    	<input type="text" name="name" placeholder="Group name..." value="${empty name ? '' : name}">
 									</div>
 									<div class="form-group">
 										<label for="category">Category</label>

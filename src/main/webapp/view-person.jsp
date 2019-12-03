@@ -121,48 +121,97 @@
                                     </div>
                                 </div>
                             </div>
-                            <c:choose>
-                                <c:when test="${not empty groups}">
-                                    <div class="post-bar">
-                                        <div class="detail_descp">
-                                            <form method ="POST" action ="/group/quit" class="detail_descp">
-                                            <h3>Groups</h3>
-                                                <button type="submit"  class="btn btn-primary btn-sm">
-                                                    <i class="glyphicon glyphicon-edit"></i>
-                                                    Quit Groups
-                                                </button>
-                                                <input type="text" name="personId" value="${person.id}" class="hidden">
-                                            <div class="companies-list">
-                                                <div class="row">
-                                                    <c:forEach items="${groups}" var="group">
-                                                        <div class="col-lg-4 col-md-6  col-sm-12 col-12">
-                                                            <div class="company_profile_info">
-                                                                <a href="/group/read?id=${group.id}" title="">
-                                                                    <div class="company-up-info">
-                                                                        <img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
-                                                                        <h3>${fn:escapeXml(group.name)}</h3>
-                                                                        <h5 class="category">${fn:escapeXml(group.category)}</h5>
-                                                                    </div>
-                                                                    <div class="view-more-pro">View Detail</div>
-                                                                </a>
-                                                                <input type="checkbox" name="groups" value=${group.id} />
-                                                            </div><!--company_profile_info end-->
-                                                        </div>
-                                                    </c:forEach>
-                                                </div>
-                                                <c:if test="${not empty cursor}">
-                                                    <div class="read-more">
-                                                        <a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
-                                                            <i class="glyphicon glyphicon-edit"></i>More
-                                                        </a>
-                                                    </div>
-                                                </c:if>
-                                            </div>
-                                            </form>
-                                        </div>
-                                    </div>
-                                </c:when>
-                            </c:choose>
+							<c:if test="${not empty groups}">
+								<div class="post-bar">
+									<div class="detail_descp">
+										<form method ="POST" action ="/group/quit" class="detail_descp">
+										<h3>Groups</h3>
+											<button type="submit"  class="btn btn-primary btn-sm">
+												<i class="glyphicon glyphicon-edit"></i>
+												Quit Groups
+											</button>
+											<input type="text" name="personId" value="${person.id}" class="hidden">
+										<div class="companies-list">
+											<div class="row">
+												<c:forEach items="${groups}" var="group">
+													<div class="col-lg-4 col-md-6  col-sm-12 col-12">
+														<div class="company_profile_info">
+															<a href="/group/read?id=${group.id}" title="">
+																<div class="company-up-info">
+																	<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+																	<h3>${fn:escapeXml(group.name)}</h3>
+																	<h5 class="category">${fn:escapeXml(group.category)}</h5>
+																</div>
+																<div class="view-more-pro">View Detail</div>
+															</a>
+															<input type="checkbox" name="groups" value=${group.id} />
+														</div><!--company_profile_info end-->
+													</div>
+												</c:forEach>
+											</div>
+											<c:if test="${not empty cursor}">
+												<div class="read-more">
+													<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+														<i class="glyphicon glyphicon-edit"></i>More
+													</a>
+												</div>
+											</c:if>
+										</div>
+										</form>
+									</div>
+								</div>
+							</c:if>
+							<c:if test="${not empty posts}">
+								<div class="post-bar">
+									<div class="detail_descp">
+										<h3>Posts</h3>
+										<div class="row posts-section">
+											<c:forEach items="${posts}" var="post">
+												<div class="col-lg-6 col-sm-12">
+													<div class="post_topbar">
+														<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
+													</div>
+													<div class="epi-sec">
+														<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
+														<ul>
+															<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
+															<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
+														</ul>
+													</div>
+													<div class="job_descp">
+														<ul class="job-dt">
+															<li><a href="/posts?category=${fn:escapeXml(post.category)}" title="">${fn:escapeXml(post.category)}</a></li>
+														</ul>
+														<p>${fn:escapeXml(post.introduction)} <a href="/post/read?id=${post.id}" title="">view more</a></p>
+														<c:if test="${not empty post.postTags}">
+															<ul class="skill-tags">
+															<c:forEach items="${post.postTags}" var="tag">
+																<c:if test="${tag['class'].name == 'com.example.getstarted.objects.Group'}">
+																	<li><a href="/group/read?id=${tag.id}">${tag.name}</a></li>
+																</c:if>
+																<c:if test="${tag['class'].name == 'com.example.getstarted.objects.Person'}">
+																	<li><a href="/person/read?id=${tag.id}">${tag.first} ${tag.last}</a></li>
+																</c:if>
+															</c:forEach>
+															</ul>
+														</c:if>
+													</div>
+													<div class="job-status-bar">
+														<ul class="like-com">
+															<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
+														</ul>
+													</div>
+												</div>
+											</c:forEach>
+										</div>
+										<c:if test="${not empty cursor}">
+											<div class="process-comm">
+												<a href="?cursor=$	{fn:escapeXml(cursor)}" title=""><img src="${pageContext.request.contextPath}/ui/images/process-icon.png" alt=""></a>
+											</div><!--process-comm end-->
+										</c:if>
+									</div>
+								</div>
+							</c:if>
                         </div><!--main-ws-sec end-->
                     </div>
                 </div>
