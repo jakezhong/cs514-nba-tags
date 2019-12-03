@@ -1,7 +1,10 @@
 package com.example.getstarted.basicactions.group;
 
 import com.example.getstarted.daos.DatastoreAssociationDao;
+import com.example.getstarted.daos.interfaces.AssociationDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.objects.Association;
+import com.example.getstarted.objects.Group;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -14,28 +17,37 @@ import java.util.Arrays;
 @WebServlet(name = "DeleteGroupMembersServlet")
 public class DeleteGroupMembersServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-
-        String[] personsId = req.getParameterValues("members");
-        System.out.println(Arrays.toString(personsId));
+        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
 
         Long groupId = Long.valueOf(req.getParameter("groupId"));
-        System.out.println(groupId);
 
-        //   [START GroupBuilder]
-        for (String person: personsId) {
-            Long personId = Long.parseLong(person);
-            //[END AssociationBuilder]
-            DatastoreAssociationDao daoAssociation = new DatastoreAssociationDao();
-            try {
-                daoAssociation.deleteAssociationByGroupPersonID(groupId,personId);
+        /* If the current user is not the group author, redirect */
+        try {
+            Group group = daoGroup.readGroup(groupId);
+            if (!group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/groups");
+            return;
+        }
 
-            } catch (Exception e) {
-                throw new ServletException("Error creating association", e);
+        String[] personIds = req.getParameterValues("members");
+
+//        System.out.println(groupId);
+
+        if (personIds != null) {
+            for (String person: personIds) {
+                Long personId = Long.parseLong(person);
+                AssociationDao daoAssociation = new DatastoreAssociationDao();
+                try {
+                    daoAssociation.deleteAssociationByGroupIdPersonId(groupId, personId);
+                } catch (Exception e) {
+                    throw new ServletException("Error deleting association", e);
+                }
             }
         }
-        resp.sendRedirect("/group/read?id=" +groupId);   // read what we just wrote
-
+        resp.sendRedirect("/group/read?id="+groupId);   // read what we just wrote
     }
-
-
 }

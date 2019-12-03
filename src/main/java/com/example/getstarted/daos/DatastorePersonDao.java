@@ -53,7 +53,7 @@ public class DatastorePersonDao implements PersonDao {
           .phone((String) entity.getProperty(Person.PHONE))
           .address((String) entity.getProperty(Person.ADDRESS))
           .category((String) entity.getProperty(Person.CATEGORY))
-          .type((String) entity.getProperty(Person.TYPE))
+          .status((String) entity.getProperty(Person.STATUS))
           .linkedin((String) entity.getProperty(Person.LINKEDIN))
           .facebook((String) entity.getProperty(Person.FACEBOOK))
           .twitter((String) entity.getProperty(Person.TWITTER))
@@ -87,7 +87,7 @@ public class DatastorePersonDao implements PersonDao {
       incPersonEntity.setProperty(Person.PHONE, person.getPhone());
       incPersonEntity.setProperty(Person.ADDRESS, person.getAddress());
       incPersonEntity.setProperty(Person.CATEGORY, person.getCategory());
-      incPersonEntity.setProperty(Person.TYPE, person.getType());
+      incPersonEntity.setProperty(Person.STATUS, person.getStatus());
       incPersonEntity.setProperty(Person.LINKEDIN, person.getLinkedin());
       incPersonEntity.setProperty(Person.FACEBOOK, person.getFacebook());
       incPersonEntity.setProperty(Person.TWITTER, person.getTwitter());
@@ -141,7 +141,7 @@ public class DatastorePersonDao implements PersonDao {
       entity.setProperty(Person.PHONE, person.getPhone());
       entity.setProperty(Person.ADDRESS, person.getAddress());
       entity.setProperty(Person.CATEGORY, person.getCategory());
-      entity.setProperty(Person.TYPE, person.getType());
+      entity.setProperty(Person.STATUS, person.getStatus());
       entity.setProperty(Person.LINKEDIN, person.getLinkedin());
       entity.setProperty(Person.FACEBOOK, person.getFacebook());
       entity.setProperty(Person.TWITTER, person.getTwitter());

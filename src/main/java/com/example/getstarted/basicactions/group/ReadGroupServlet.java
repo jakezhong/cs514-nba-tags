@@ -14,7 +14,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
  * To view all information of a specific group
@@ -39,10 +38,19 @@ public class ReadGroupServlet extends HttpServlet {
         try {
             Group group = daoGroup.readGroup(groupId);
 
+            /* If the current person if private and the user is not the author, redirect user */
+            if (group.getStatus() != null) {
+                if (group.getStatus().equals("private") && !group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                    resp.sendRedirect("/groups/user?id="+group.getCreatedById());
+                    return;
+                }
+            }
+
             String startCursor = req.getParameter("cursor");
+            String endCursor;
+
             List<Person> persons = new ArrayList<>();
             List<Long> personIds;
-            String endCursor;
 
             try {
                 Result<Long> result = daoAssociation.listPersonsByGroup(groupId, startCursor);
@@ -68,4 +76,3 @@ public class ReadGroupServlet extends HttpServlet {
         }
     }
 }
-// [END example]

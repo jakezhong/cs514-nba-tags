@@ -36,14 +36,12 @@
         <url-pattern>/person/delete</url-pattern>
         <url-pattern>/person/read</url-pattern>
         <url-pattern>/person/update</url-pattern>
-        <url-pattern>/person/groups</url-pattern>
         <url-pattern>/groups</url-pattern>
         <url-pattern>/groups/user</url-pattern>
         <url-pattern>/group/create</url-pattern>
         <url-pattern>/group/delete</url-pattern>
         <url-pattern>/group/read</url-pattern>
         <url-pattern>/group/update</url-pattern>
-        <url-pattern>/group/members</url-pattern>
         <url-pattern>/association/create</url-pattern>
         <url-pattern>/posts</url-pattern>
         <url-pattern>/posts/user</url-pattern>
@@ -52,6 +50,7 @@
         <url-pattern>/post/read</url-pattern>
         <url-pattern>/post/update</url-pattern>
         <url-pattern>/post-tag/create</url-pattern>
+        <url-pattern>/post-tag/delete</url-pattern>
         <url-pattern>/profile/user</url-pattern>
         <url-pattern>/profile/create</url-pattern>
         <url-pattern>/profile/delete</url-pattern>
@@ -147,15 +146,6 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>ListGroupByPerson</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.group.ListGroupByPersonServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ListGroupByPerson</servlet-name>
-        <url-pattern>/person/groups</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
         <servlet-name>ListGroup</servlet-name>
         <servlet-class>com.example.getstarted.basicactions.group.ListGroupServlet</servlet-class>
     </servlet>
@@ -207,15 +197,6 @@
     <servlet-mapping>
         <servlet-name>UpdateGroup</servlet-name>
         <url-pattern>/group/update</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>ListPersonByGroup</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.group.ListGroupServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>ListPersonByGroup</servlet-name>
-        <url-pattern>/group/members</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -291,6 +272,15 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>DeletePostTag</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.post.DeletePostTagServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeletePostTag</servlet-name>
+        <url-pattern>/post-tag/delete</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ReadProfile</servlet-name>
         <servlet-class>com.example.getstarted.basicactions.profile.ReadProfileServlet</servlet-class>
     </servlet>
@@ -356,7 +346,7 @@
 
     <servlet>
         <servlet-name>QuitGroups</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.QuitGroupsServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.QuitGroupsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>QuitGroups</servlet-name>

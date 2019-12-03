@@ -23,6 +23,7 @@ public class Group {
     public static final String NAME = "name";
     public static final String INTRODUCTION = "introduction";
     public static final String CATEGORY = "category";
+    public static final String STATUS = "status";
     public static final String DESCRIPTION = "description";
     public static final String CREATED_BY = "createdBy";
     public static final String CREATED_BY_ID = "createdById";

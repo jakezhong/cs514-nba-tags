@@ -20,11 +20,11 @@
                                     </a>
                                 </div><!--user_pro_status end-->
                                 <ul class="social_links">
-                                    <li><a href="#" title=""><i class="la la-globe"></i> ${fn:escapeXml(group.website)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(group.facebook)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(group.twitter)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(group.instagram)}</a></li>
-                                    <li><a href="#" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(group.youtube)}</a></li>
+                                    <li><a href="#" title=""><i class="la la-globe"></i></a></li>
+                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i></a></li>
+                                    <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
+                                    <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
+                                    <li><a href="#" title=""><i class="fa fa-youtube"></i></a></li>
                                 </ul>
                             </div><!--user_profile end-->
                         </div><!--main-left-sidebar end-->

@@ -21,6 +21,8 @@ public interface AssociationDao {
 
     void deleteAssociationByGroupId(Long personId) throws SQLException;
 
+    void deleteAssociationByGroupIdPersonId(Long groupId, Long personId) throws SQLException;
+
     Association entityToAssociation(Entity entity) throws SQLException;
 
     Result<Long> listPersonsByGroup(Long groupId, String startCursor) throws SQLException;

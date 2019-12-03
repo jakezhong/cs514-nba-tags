@@ -46,13 +46,7 @@ public class DatastoreGroupDao implements GroupDao {
             .name((String) entity.getProperty(Group.NAME))
             .introduction((String) entity.getProperty(Group.INTRODUCTION))
             .category((String) entity.getProperty(Group.CATEGORY))
-            .type((String) entity.getProperty(Group.TYPE))
-            .linkedin((String) entity.getProperty(Group.LINKEDIN))
-            .facebook((String) entity.getProperty(Group.FACEBOOK))
-            .twitter((String) entity.getProperty(Group.TWITTER))
-            .instagram((String) entity.getProperty(Group.INSTAGRAM))
-            .youtube((String) entity.getProperty(Group.YOUTUBE))
-            .website((String) entity.getProperty(Group.WEBSITE))
+            .status((String) entity.getProperty(Group.STATUS))
             .description((String) entity.getProperty(Group.DESCRIPTION))
             .createdBy((String) entity.getProperty(Group.CREATED_BY))
             .createdById((String) entity.getProperty(Group.CREATED_BY_ID))
@@ -74,13 +68,7 @@ public class DatastoreGroupDao implements GroupDao {
         incGroupEntity.setProperty(Group.NAME, group.getName());
         incGroupEntity.setProperty(Group.INTRODUCTION, group.getIntroduction());
         incGroupEntity.setProperty(Group.CATEGORY, group.getCategory());
-        incGroupEntity.setProperty(Group.TYPE, group.getType());
-        incGroupEntity.setProperty(Group.LINKEDIN, group.getLinkedin());
-        incGroupEntity.setProperty(Group.FACEBOOK, group.getFacebook());
-        incGroupEntity.setProperty(Group.TWITTER, group.getTwitter());
-        incGroupEntity.setProperty(Group.INSTAGRAM, group.getInstagram());
-        incGroupEntity.setProperty(Group.YOUTUBE, group.getYoutube());
-        incGroupEntity.setProperty(Group.WEBSITE, group.getWebsite());
+        incGroupEntity.setProperty(Group.STATUS, group.getStatus());
         incGroupEntity.setProperty(Group.DESCRIPTION, group.getDescription());
         incGroupEntity.setProperty(Group.CREATED_BY, group.getCreatedBy());
         incGroupEntity.setProperty(Group.CREATED_BY_ID, group.getCreatedById());
@@ -121,13 +109,7 @@ public class DatastoreGroupDao implements GroupDao {
         entity.setProperty(Group.NAME, group.getName());
         entity.setProperty(Group.INTRODUCTION, group.getIntroduction());
         entity.setProperty(Group.CATEGORY, group.getCategory());
-        entity.setProperty(Group.TYPE, group.getType());
-        entity.setProperty(Group.LINKEDIN, group.getLinkedin());
-        entity.setProperty(Group.FACEBOOK, group.getFacebook());
-        entity.setProperty(Group.TWITTER, group.getTwitter());
-        entity.setProperty(Group.INSTAGRAM, group.getInstagram());
-        entity.setProperty(Group.YOUTUBE, group.getYoutube());
-        entity.setProperty(Group.WEBSITE, group.getWebsite());
+        entity.setProperty(Group.STATUS, group.getStatus());
         entity.setProperty(Group.DESCRIPTION, group.getDescription());
         entity.setProperty(Group.CREATED_BY, group.getCreatedBy());
         entity.setProperty(Group.CREATED_BY_ID, group.getCreatedById());
@@ -179,7 +161,8 @@ public class DatastoreGroupDao implements GroupDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
         }
         Query query = new Query(GROUP_KIND) // We only care about Groups
-                .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+        .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
@@ -207,7 +190,7 @@ public class DatastoreGroupDao implements GroupDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
         }
         Query query = new Query(GROUP_KIND) // We only care about Groups
-                .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
+        .addSort(Group.NAME, SortDirection.ASCENDING); // Use default Index "first"
 
         if (search.size() > 0) {
             Enumeration keys;

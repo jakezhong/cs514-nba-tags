@@ -31,8 +31,13 @@ public class UpdateGroupServlet extends HttpServlet {
      * @throws IOException
      */
     @Override
-    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException,
-            IOException {
+    public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* If the user has not logged in, don't allow to create person and redirect */
+        if (req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         try {
             Group group = daoGroup.readGroup(Long.decode(req.getParameter("id")));
@@ -86,13 +91,7 @@ public class UpdateGroupServlet extends HttpServlet {
                 .name(params.get("name"))
                 .introduction(params.get("introduction"))
                 .category(params.get("category"))
-                .type(params.get("type"))
-                .linkedin(params.get("linkedin"))
-                .facebook(params.get("facebook"))
-                .twitter(params.get("twitter"))
-                .instagram(params.get("instagram"))
-                .youtube(params.get("youtube"))
-                .website(params.get("website"))
+                .status(params.get("status"))
                 .description(params.get("description"))
                 .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
                 // [START auth]

@@ -119,7 +119,7 @@ public class DatastoreAssociationDao implements AssociationDao {
      * @param groupId
      * @param personId
      */
-    public void deleteAssociationByGroupPersonID(Long groupId,Long personId)  {
+    public void deleteAssociationByGroupIdPersonId(Long groupId, Long personId)  {
         Query.FilterPredicate filterGroupId = new Query.FilterPredicate(Association. GROUP_ID, Query.FilterOperator.EQUAL, groupId);
         Query.FilterPredicate filterpersonId = new Query.FilterPredicate(Association. PERSON_ID, Query.FilterOperator.EQUAL, personId);
         Query.CompositeFilter filter = Query.CompositeFilterOperator.and(filterGroupId, filterpersonId);

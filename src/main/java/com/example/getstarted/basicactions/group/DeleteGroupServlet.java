@@ -25,10 +25,11 @@ public class DeleteGroupServlet extends HttpServlet {
     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long groupId = Long.decode(req.getParameter("id"));
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         AssociationDao daoAssociation =(AssociationDao) this.getServletContext().getAttribute("dao-association");
         PostTagDao dapPostTag =(PostTagDao) this.getServletContext().getAttribute("dao-postTag");
+
+        Long groupId = Long.decode(req.getParameter("id"));
 
         /* If the current user is not the post author, redirect */
         try {

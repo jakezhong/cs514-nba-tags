@@ -51,46 +51,60 @@
 								</a>
 								<c:choose>
 									<c:when test="${not empty persons}">
-										<div class="widget widget-user">
-											<h3 class="title-wd">Tagged Persons</h3>
-											<ul>
-												<c:forEach items="${persons}" var="person">
-												<li>
-													<div class="usr-msg-details">
-														<div class="usr-ms-img">
-															<img alt="ahhh" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+                                        <form method ="POST" action ="/post-tag/delete" class="detail_descp">
+                                            <input type="text" name="postId" value="${post.id}" class="hidden">
+											<div class="widget widget-user">
+												<h3 class="title-wd">Tagged Persons</h3>
+												<ul>
+													<c:forEach items="${persons}" var="person">
+													<li>
+														<div class="usr-msg-details">
+															<div class="usr-ms-img">
+																<img alt="ahhh" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+															</div>
+															<div class="usr-mg-info">
+																<h3><a href="/person/read?id=${person.id}">${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</a></h3>
+																<p>${fn:escapeXml(person.category)}</p>
+															</div><!--usr-mg-info end-->
 														</div>
-														<div class="usr-mg-info">
-															<h3><a href="/person/read?id=${person.id}">${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</a></h3>
-															<p>${fn:escapeXml(person.category)}</p>
-														</div><!--usr-mg-info end-->
-													</div>
-												</li>
-												</c:forEach>
-											</ul>
-										</div><!--widget-user end-->
+														<input type="checkbox" name="persons" value=${person.id} />
+													</li>
+													</c:forEach>
+												</ul>
+											</div><!--widget-user end-->
+                                            <button type="submit"  class="btn btn-primary btn-sm">
+                                                <i class="glyphicon glyphicon-edit"></i>
+                                                Remove Person
+                                            </button>
+										</form>
 									</c:when>
-								</c:choose>
-								<c:choose>
 									<c:when test="${not empty groups}">
-										<div class="widget widget-user">
-											<h3 class="title-wd">Tagged Groups</h3>
-											<ul>
-												<c:forEach items="${groups}" var="group">
-												<li>
-													<div class="usr-msg-details">
-														<div class="usr-ms-img">
-															<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+                                        <form method ="POST" action ="/post-tag/delete" class="detail_descp">
+                                            <input type="text" name="postId" value="${post.id}" class="hidden">
+											<div class="widget widget-user">
+												<h3 class="title-wd">Tagged Groups</h3>
+												<ul>
+													<c:forEach items="${groups}" var="group">
+													<li>
+														<div class="usr-msg-details">
+															<div class="usr-ms-img">
+																<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+															</div>
+															<div class="usr-mg-info">
+																<h3><a href="/group/read?id=${group.id}">${fn:escapeXml(group.name)}</a></h3>
+																<p>${fn:escapeXml(group.category)}</p>
+															</div><!--usr-mg-info end-->
 														</div>
-														<div class="usr-mg-info">
-															<h3><a href="/group/read?id=${group.id}">${fn:escapeXml(group.name)}</a></h3>
-															<p>${fn:escapeXml(group.category)}</p>
-														</div><!--usr-mg-info end-->
-													</div>
-												</li>
-												</c:forEach>
-											</ul>
-										</div><!--widget-user end-->
+														<input type="checkbox" name="groups" value=${group.id} />
+													</li>
+													</c:forEach>
+												</ul>
+											</div><!--widget-user end-->
+											<button type="submit"  class="btn btn-primary btn-sm">
+												<i class="glyphicon glyphicon-edit"></i>
+												Remove Group
+											</button>
+										</form>
 									</c:when>
 								</c:choose>
                             </div>
