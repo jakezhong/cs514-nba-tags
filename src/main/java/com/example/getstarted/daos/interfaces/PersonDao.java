@@ -4,6 +4,7 @@ import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.sql.SQLException;
 import java.util.Hashtable;
+import java.util.Map;
 
 /**
  * Interface for PersonDao Class
@@ -26,4 +27,6 @@ public interface PersonDao {
   Result<Person> listPersonsByUser(String userId, String startCursor) throws SQLException;
 
   Result<Person> listAllPersonsByUser(String userId) throws SQLException;
+
+  Map<String,String> listSocialLink(long personId)throws SQLException;
 }

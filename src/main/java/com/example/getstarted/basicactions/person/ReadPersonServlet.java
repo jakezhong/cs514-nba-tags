@@ -5,7 +5,7 @@ import com.example.getstarted.objects.*;
 
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,7 +29,7 @@ public class ReadPersonServlet extends HttpServlet {
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
-        SocialLinkDao daoSocial = (SocialLinkDao) this.getServletContext().getAttribute("dao-social");
+//        SocialLinkDao daoSocial = (SocialLinkDao) this.getServletContext().getAttribute("dao-social");
         AssociationDao associationDao = (AssociationDao) this.getServletContext().getAttribute("dao-association");
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
@@ -52,7 +52,7 @@ public class ReadPersonServlet extends HttpServlet {
             /* Initial group list */
             List<Group> groups = new ArrayList<>();
             List<Long> groupsId;
-            List<SocialLink> socialLinks;
+          //  List<SocialLink> socialLinks;
             try {
                 Result<Long> result = associationDao.listGroupByPerson(personId,startCursor);
                 groupsId = result.result;
@@ -123,12 +123,13 @@ public class ReadPersonServlet extends HttpServlet {
             }
 
             //get socials
+            Map<String,String> socialLinks;
             try {
-                Result<SocialLink> result = daoSocial.listSocialLinksByPerson(personId);
-                socialLinks = result.result;
+                socialLinks = daoPerson.listSocialLink(personId);
             } catch (Exception e) {
                 throw new ServletException("Error listing socialLinks", e);
             }
+
 
             req.setAttribute("person", person);
             req.setAttribute("socialLinks",socialLinks);

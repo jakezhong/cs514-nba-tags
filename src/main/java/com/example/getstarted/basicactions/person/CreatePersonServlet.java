@@ -90,6 +90,7 @@ public class CreatePersonServlet extends HttpServlet {
         createdByIdString = (String) session.getAttribute("userId");
     }
     Date date = new Date();
+    String socialLink ="";
     // [END createdBy]
 
     // [START personBuilder]
@@ -115,6 +116,7 @@ public class CreatePersonServlet extends HttpServlet {
         .createdBy(createdByString)
         .createdById(createdByIdString)
         .publishedDate(date)
+        .socialLink(socialLink)
         // [END auth]
         .build();
         System.out.println(person);

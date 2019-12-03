@@ -3,6 +3,7 @@ package com.example.getstarted.daos;
 import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -16,6 +17,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.QueryResultIterator;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -65,6 +67,7 @@ public class DatastorePersonDao implements PersonDao {
           .createdById((String) entity.getProperty(Person.CREATED_BY_ID))
           .publishedDate((Date) entity.getProperty(Person.PUBLISHED_DATE))
           .imageUrl((String) entity.getProperty(Person.IMAGE_URL))
+          .socialLink((String)entity.getProperty(Person.SOCIAL_LINK))
           .build();
   }
   // [END entityToPerson]
@@ -99,6 +102,7 @@ public class DatastorePersonDao implements PersonDao {
       incPersonEntity.setProperty(Person.CREATED_BY_ID, person.getCreatedById());
       incPersonEntity.setProperty(Person.PUBLISHED_DATE, person.getPublishedDate());
       incPersonEntity.setProperty(Person.IMAGE_URL, person.getImageUrl());
+      incPersonEntity.setProperty(Person.SOCIAL_LINK,person.getSocialLink());
 
       Key personKey = datastore.put(incPersonEntity); // Save the Entity
       return personKey.getId();                     // The ID of the Key
@@ -322,5 +326,71 @@ public class DatastorePersonDao implements PersonDao {
         List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
 
         return new Result<>(resultPersons);
+    }
+
+
+
+    public void addSocialLinkInPerson(long personId, String socialLinkName, String socialLinkUrl ){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
+            String jsonString = (String) personEntity.getProperty(Person.SOCIAL_LINK);
+            Map<String,String> map;
+            //convert string to a map
+            if(jsonString.length()!=0){
+                 map = mapper.readValue(jsonString, Map.class);
+            }else {
+                map = new HashMap<>();
+            }
+            //convert jsonString to map, and fetch existed content
+
+            //add new sociallink
+            map.put(socialLinkName,socialLinkUrl);
+//            for (Map.Entry<String, String> entry : map.entrySet()) {
+//                System.out.println(entry.getKey() + ":" + entry.getValue().toString());
+//            }
+
+
+            // convert to string
+            String newJsonString  = mapper.writeValueAsString(map);
+
+            //System.out.println(newJsonString);
+            //update entity
+            personEntity.setProperty(Person.SOCIAL_LINK,newJsonString);
+            datastore.put(personEntity);
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch (EntityNotFoundException e){
+            System.out.println("error adding socialLink");
+        }
+    }
+
+    /**
+     * use hashmap since the key is unique, so when key is same, will update value
+     * @param personId personId
+     * @return map
+     */
+    public Map<String,String> listSocialLink(long personId){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,String> map = null;
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
+            String jsonString = (String) personEntity.getProperty(Person.SOCIAL_LINK);
+
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+            }else{
+                map = new HashMap<>();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch (EntityNotFoundException e){
+            System.out.println("error listing socialLink");
+        }
+        return map;
     }
 }

@@ -27,6 +27,7 @@ public class Person {
     private Date publishedDate;
     private String imageUrl;
     private String profileBg;
+    private String socialLink;
 
     // [END person]
     // [START keys]
@@ -52,6 +53,7 @@ public class Person {
     public static final String PUBLISHED_DATE = "publishedDate";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
+    public static final String SOCIAL_LINK ="socialLink";
     // [END keys]
 
     // [START constructor]
@@ -78,6 +80,7 @@ public class Person {
         this.publishedDate = builder.publishedDate;
         this.createdById = builder.createdById;
         this.imageUrl = builder.imageUrl;
+        this.socialLink =builder.socialLink;
     }
     // [END constructor]
 
@@ -104,6 +107,7 @@ public class Person {
         private String createdById;
         private Date publishedDate;
         private String imageUrl;
+        private String socialLink;
 
         /**
         * Build constructor
@@ -212,6 +216,10 @@ public class Person {
 
         public Builder imageUrl(String imageUrl) {
             this.imageUrl = imageUrl;
+            return this;
+        }
+        public Builder socialLink(String socialLink) {
+            this.socialLink = socialLink;
             return this;
         }
 
@@ -398,6 +406,14 @@ public class Person {
 
     public void setProfileBg(String profileBg) {
         this.profileBg = profileBg;
+    }
+
+    public String getSocialLink() {
+        return socialLink;
+    }
+
+    public void setSocialLink(String socialLink) {
+        this.socialLink = socialLink;
     }
     // [END builder]
 
