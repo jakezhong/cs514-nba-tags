@@ -45,6 +45,7 @@ public class DatastorePostDao implements PostDao {
           .createdBy((String) entity.getProperty(Post.CREATED_BY))
           .createdById((String) entity.getProperty(Post.CREATED_BY_ID))
           .publishedDate((Date) entity.getProperty(Post.PUBLISHED_DATE))
+          .like((List<String>) entity.getProperty(Post.LIKE))
           .imageUrl((String) entity.getProperty(Post.IMAGE_URL))
           .build();
   }
@@ -69,6 +70,7 @@ public class DatastorePostDao implements PostDao {
       incPostEntity.setProperty(Post.CREATED_BY, post.getCreatedBy());
       incPostEntity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
       incPostEntity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
+      incPostEntity.setProperty(Post.LIKE, post.getLike());
       incPostEntity.setProperty(Post.IMAGE_URL, post.getImageUrl());
 
       Key postKey = datastore.put(incPostEntity); // Save the Entity
@@ -113,6 +115,7 @@ public class DatastorePostDao implements PostDao {
       entity.setProperty(Post.CREATED_BY, post.getCreatedBy());
       entity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
       entity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
+      entity.setProperty(Post.LIKE, post.getLike());
       entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
 
       datastore.put(entity);                   // Update the Entity
@@ -150,6 +153,7 @@ public class DatastorePostDao implements PostDao {
         entity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
         entity.setProperty(Post.LIKE, post.getLike());
         entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
+
         datastore.put(entity);                   // Update the Entity
     }
     // [END like]

@@ -113,6 +113,7 @@ public class CreatePostServlet extends HttpServlet {
         .build();
     // [END postBuilder]
 
+
     Long postId;
     PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
 

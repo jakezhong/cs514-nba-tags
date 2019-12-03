@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 @SuppressWarnings("serial")
@@ -39,14 +40,18 @@ public class LikePostServlet extends HttpServlet {
         try {
             Post post = daoPost.readPost(postId);
             List<String> like = post.getLike();
-            System.out.println(like);
-//            if (!post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+            if (like == null) {
+                like = new ArrayList<String>();
+                like.add((String) req.getSession().getAttribute("userId"));
+            } else {
+                //            if (!post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
                 if (like.indexOf((String) req.getSession().getAttribute("userId")) < 0) {
                     like.add((String) req.getSession().getAttribute("userId"));
                 } else {
-                    like.remove((String) req.getSession().getAttribute("userId"));
+                    like.remove(like.indexOf((String) req.getSession().getAttribute("userId")));
                 }
 //            }
+            }
             daoPost.likePost(post);
 
             req.setAttribute("like", like);
