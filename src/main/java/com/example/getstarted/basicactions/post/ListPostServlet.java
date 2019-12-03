@@ -4,9 +4,7 @@ import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.daos.interfaces.PostDao;
 import com.example.getstarted.daos.interfaces.PostTagDao;
-import com.example.getstarted.objects.Post;
-import com.example.getstarted.objects.PostTag;
-import com.example.getstarted.objects.Result;
+import com.example.getstarted.objects.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -33,7 +31,7 @@ public class ListPostServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
-        PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-post-tag");
+        PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         Hashtable<String, String> search = new Hashtable<String, String>();
@@ -52,6 +50,7 @@ public class ListPostServlet extends HttpServlet {
 
         /* Check if there's search params, if so, list post by search, otherwise, list post by default */
         try {
+            /* Filter for search */
             Result<Post> result;
 
             if (!(searchTitle == null && searchCategory == null)) {
@@ -67,21 +66,8 @@ public class ListPostServlet extends HttpServlet {
             }
 
             posts = result.result;
-//            for (Post post: posts) {
-//                Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
-//                allTags = resultTags.result;
-//
-//                for (PostTag tag: allTags) {
-//                    if (daoPerson.readPerson(tag.getPersonId()) != null) {
-//                        tags.add(daoPerson.readPerson(tag.getPersonId()));
-//                    } else if (daoGroup.readGroup(tag.getGroupId()) != null) {
-//                        tags.add(daoGroup.readGroup(tag.getGroupId()));
-//                    }
-//                }
-//
-//                post.setPostTags(tags);
-//            }
             for (Post post: posts) {
+                /* Check if post is public, only show own post if it's not */
                 if (post.getStatus() != null) {
                     if (post.getStatus().equals("public")) {
                         visiblePosts.add(post);
@@ -90,6 +76,32 @@ public class ListPostServlet extends HttpServlet {
                     }
                 } else {
                     visiblePosts.add(post);
+                }
+
+                /* Save all tags from the current post to a list */
+                try {
+                    Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
+                    allTags = resultTags.result;
+                    for (PostTag tag: allTags) {
+                        if (tag.getPersonId() != null) {
+                            try {
+                                Person person = daoPerson.readPerson(tag.getPersonId());
+                                tags.add(person);
+                            } catch (Exception e) {
+                                throw new ServletException("Error read person", e);
+                            }
+                        } else if (tag.getGroupId() != null) {
+                            try {
+                                Group group = daoGroup.readGroup(tag.getGroupId());
+                                tags.add(group);
+                            } catch (Exception e) {
+                                throw new ServletException("Error read group", e);
+                            }
+                        }
+                    }
+                    post.setPostTags(tags);
+                } catch (Exception e) {
+                    throw new ServletException("Error listing tags", e);
                 }
             }
             endCursor = result.cursor;
