@@ -36,6 +36,7 @@ public class ListPostServlet extends HttpServlet {
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         Hashtable<String, String> search = new Hashtable<String, String>();
 
+        /* Initial post list */
         List<Post> posts;
         List<Post> visiblePosts = new ArrayList<Post>();
         // Cursor variables
@@ -81,6 +82,7 @@ public class ListPostServlet extends HttpServlet {
                 try {
                     Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
                     allTags = resultTags.result;
+                    /* Loop through tags and store persons/groups */
                     for (PostTag tag: allTags) {
                         if (tag.getPersonId() != null) {
                             try {

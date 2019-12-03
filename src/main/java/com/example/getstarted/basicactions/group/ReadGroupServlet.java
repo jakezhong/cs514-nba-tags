@@ -34,10 +34,12 @@ public class ReadGroupServlet extends HttpServlet {
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long groupId = Long.decode(req.getParameter("id"));
+        /* Initial cursor */
+        String startCursor = req.getParameter("cursor");
+        String endCursor;
 
         try {
             Group group = daoGroup.readGroup(groupId);
-
             /* If the current person if private and the user is not the author, redirect user */
             if (group.getStatus() != null) {
                 if (group.getStatus().equals("private") && !group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
@@ -45,18 +47,15 @@ public class ReadGroupServlet extends HttpServlet {
                     return;
                 }
             }
-
-            /* Initial cursor */
-            String startCursor = req.getParameter("cursor");
-            String endCursor;
-
             /* Initial person list */
             List<Person> persons = new ArrayList<>();
             List<Long> personIds;
-
             try {
+
+                /* List all person by the current group */
                 Result<Long> result = daoAssociation.listPersonsByGroup(groupId, startCursor);
                 personIds = result.result;
+                /* Read all persons by the person ids */
                 for(Long personId: personIds){
                     Person person = daoPerson.readPerson(personId);
                     persons.add(person);
@@ -73,7 +72,6 @@ public class ReadGroupServlet extends HttpServlet {
             // Post tag variables
             List<PostTag> allTags;
             List<Object> tags = new ArrayList<Object>();
-
             try {
                 Result<Long> result = daoPostTag.listPostByGroup(groupId, startCursor);
                 postIds = result.result;

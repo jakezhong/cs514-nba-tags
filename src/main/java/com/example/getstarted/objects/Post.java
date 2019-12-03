@@ -17,6 +17,7 @@ public class Post {
     private String createdById;
     private Date publishedDate;
     private List<Object> postTags;
+    private List<String> like;
     private String imageUrl;
     private String profileBg;
     // [END post]
@@ -33,6 +34,7 @@ public class Post {
     public static final String CREATED_BY_ID = "createdById";
     public static final String PUBLISHED_DATE = "publishedDate";
     public static final String POST_TAGS = "postTags";
+    public static final String LIKE = "like";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
     // [END keys]
@@ -51,6 +53,7 @@ public class Post {
         this.createdById = builder.createdById;
         this.publishedDate = builder.publishedDate;
         this.postTags = builder.postTags;
+        this.like = builder.like;
         this.imageUrl = builder.imageUrl;
     }
     // [END constructor]
@@ -68,6 +71,7 @@ public class Post {
         private String createdById;
         private Date publishedDate;
         private List<Object> postTags;
+        private List<String> like;
         private String imageUrl;
 
         /**
@@ -127,6 +131,11 @@ public class Post {
 
         public Builder postTags(List<Object> postTags) {
             this.postTags = postTags;
+            return this;
+        }
+
+        public Builder like(List<String> like) {
+            this.like = like;
             return this;
         }
 
@@ -232,6 +241,14 @@ public class Post {
         this.postTags = postTags;
     }
 
+    public List<String> getLike() {
+        return like;
+    }
+
+    public void setLike(List<String> like) {
+        this.like = like;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -267,6 +284,7 @@ public class Post {
             ", createdById='" + createdById + '\'' +
             ", publishedDate='" + publishedDate + '\'' +
             ", postTags='" + postTags + '\'' +
+            ", like='" + like + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             '}';
     }
@@ -292,6 +310,7 @@ public class Post {
                 Objects.equals(createdById, post.createdById) &&
                 Objects.equals(publishedDate, post.publishedDate) &&
                 Objects.equals(postTags, post.postTags) &&
+                Objects.equals(like, post.like) &&
                 Objects.equals(imageUrl, post.imageUrl);
     }
 }

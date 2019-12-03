@@ -1,6 +1,5 @@
 package com.example.getstarted.basicactions.person;
 
-import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.daos.interfaces.*;
 import com.example.getstarted.objects.*;
 
@@ -35,6 +34,9 @@ public class ReadPersonServlet extends HttpServlet {
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long personId = Long.decode(req.getParameter("id"));
+        /* Initial cursor */
+        String startCursor = req.getParameter("cursor");
+        String endCursor;
 
         try {
             Person person = daoPerson.readPerson(personId);
@@ -47,13 +49,10 @@ public class ReadPersonServlet extends HttpServlet {
                 }
             }
 
-            String startCursor = req.getParameter("cursor");
-            String endCursor;
-
+            /* Initial group list */
             List<Group> groups = new ArrayList<>();
             List<Long> groupsId;
             List<SocialLink> socialLinks;
-
             try {
                 Result<Long> result = associationDao.listGroupByPerson(personId,startCursor);
                 groupsId = result.result;
@@ -73,7 +72,6 @@ public class ReadPersonServlet extends HttpServlet {
             // Post tag variables
             List<PostTag> allTags;
             List<Object> tags = new ArrayList<Object>();
-
             try {
                 Result<Long> result = daoPostTag.listPostByPerson(personId, startCursor);
                 postIds = result.result;
@@ -93,7 +91,6 @@ public class ReadPersonServlet extends HttpServlet {
                     } else {
                         visiblePosts.add(post);
                     }
-
                     /* Save all tags from the current post to a list */
                     try {
                         Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
