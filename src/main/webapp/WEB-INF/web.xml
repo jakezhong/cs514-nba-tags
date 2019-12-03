@@ -49,6 +49,7 @@
         <url-pattern>/post/delete</url-pattern>
         <url-pattern>/post/read</url-pattern>
         <url-pattern>/post/update</url-pattern>
+        <url-pattern>/post/like</url-pattern>
         <url-pattern>/post-tag/create</url-pattern>
         <url-pattern>/post-tag/delete</url-pattern>
         <url-pattern>/profile/user</url-pattern>
@@ -260,6 +261,15 @@
     <servlet-mapping>
         <servlet-name>UpdatePost</servlet-name>
         <url-pattern>/post/update</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>LikePost</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.post.LikePostServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>LikePost</servlet-name>
+        <url-pattern>/post/like</url-pattern>
     </servlet-mapping>
 
     <servlet>

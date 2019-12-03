@@ -45,9 +45,6 @@ public class ListPostServlet extends HttpServlet {
         // Search variables
         String searchTitle = req.getParameter("title");
         String searchCategory = req.getParameter("category");
-        // Post tag variables
-        List<PostTag> allTags;
-        List<Object> tags = new ArrayList<Object>();
 
         /* Check if there's search params, if so, list post by search, otherwise, list post by default */
         try {
@@ -77,7 +74,11 @@ public class ListPostServlet extends HttpServlet {
                 } else {
                     visiblePosts.add(post);
                 }
-
+            }
+            for (Post post: visiblePosts) {
+                // Post tag variables
+                List<PostTag> allTags;
+                List<Object> tags = new ArrayList<Object>();
                 /* Save all tags from the current post to a list */
                 try {
                     Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());

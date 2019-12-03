@@ -18,7 +18,6 @@ public class AddSocialLinkServlet extends HttpServlet {
         String socialLinkName = req.getParameter("socialLink");
         String socialLinkUrl = req.getParameter("socialLinkUrl");
 
-
         SocialLink socialLink = new SocialLink.Builder()
                 .socialLinkName(socialLinkName)
                 .socialLinkUrl(socialLinkUrl)

@@ -5,6 +5,7 @@ import com.example.getstarted.objects.*;
 import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
@@ -108,6 +109,7 @@ public class CreatePostServlet extends HttpServlet {
         .createdById(createdByIdString)
         .publishedDate(date)
         // [END auth]
+        .like(new ArrayList<String>())
         .build();
     // [END postBuilder]
 

@@ -120,7 +120,6 @@ public class DatastorePostDao implements PostDao {
   // [END update]
 
   // [START delete]
-
     /**
      * To delete Post according to postId
      * @param postId
@@ -132,8 +131,30 @@ public class DatastorePostDao implements PostDao {
   }
   // [END delete]
 
-  // [START entitiesToPosts]
+    // [START like]
+    /**
+     * To like Post according to postId
+     * @param post
+     */
+    public void likePost(Post post) {
+        Key key = KeyFactory.createKey(POST_KIND, post.getId());  // From a post, create a Key
+        Entity entity = new Entity(key);         // Convert Post to an Entity
+        entity.setProperty(Post.SLUG, post.getSlug());
+        entity.setProperty(Post.TITLE, post.getTitle());
+        entity.setProperty(Post.INTRODUCTION, post.getIntroduction());
+        entity.setProperty(Post.CATEGORY, post.getCategory());
+        entity.setProperty(Post.STATUS, post.getStatus());
+        entity.setProperty(Post.DESCRIPTION, post.getDescription());
+        entity.setProperty(Post.CREATED_BY, post.getCreatedBy());
+        entity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
+        entity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
+        entity.setProperty(Post.LIKE, post.getLike());
+        entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
+        datastore.put(entity);                   // Update the Entity
+    }
+    // [END like]
 
+  // [START entitiesToPosts]
     /**
      * Loop through Iterator<Result> and call entity to post
      * To translate all entities to post Object
@@ -150,7 +171,6 @@ public class DatastorePostDao implements PostDao {
   // [END entitiesToPosts]
 
   // [START listposts]
-
     /**
      * List all Posts
      * @param startCursorString to display 10 per time
@@ -163,7 +183,7 @@ public class DatastorePostDao implements PostDao {
         fetchOptions.startCursor(Cursor.fromWebSafeString(startCursorString)); // Where we left off
       }
       Query query = new Query(POST_KIND) // We only care about Posts
-          .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "first"
+      .addSort(Post.TITLE, SortDirection.ASCENDING); // Use default Index "first"
       PreparedQuery preparedQuery = datastore.prepare(query);
       QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 

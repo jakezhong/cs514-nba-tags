@@ -18,6 +18,8 @@ public interface PostDao {
 
   void deletePost(Long postId) throws SQLException;
 
+  void likePost(Post post) throws SQLException;
+
   Result<Post> listPosts(String startCursor) throws SQLException;
 
   Result<Post> listPostsBySearch(Hashtable search, String startCursor) throws SQLException;

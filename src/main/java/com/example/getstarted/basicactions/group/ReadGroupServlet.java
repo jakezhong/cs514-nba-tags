@@ -69,9 +69,7 @@ public class ReadGroupServlet extends HttpServlet {
             List<Post> posts = new ArrayList<>();
             List<Long> postIds;
             List<Post> visiblePosts = new ArrayList<Post>();
-            // Post tag variables
-            List<PostTag> allTags;
-            List<Object> tags = new ArrayList<Object>();
+
             try {
                 Result<Long> result = daoPostTag.listPostByGroup(groupId, startCursor);
                 postIds = result.result;
@@ -80,6 +78,9 @@ public class ReadGroupServlet extends HttpServlet {
                     posts.add(post);
                 }
                 for (Post post: posts) {
+                    // Post tag variables
+                    List<PostTag> allTags;
+                    List<Object> tags = new ArrayList<Object>();
                     /* Check if post is public, only show own post if it's not */
                     if (post.getStatus() != null) {
                         if (post.getStatus().equals("public")) {

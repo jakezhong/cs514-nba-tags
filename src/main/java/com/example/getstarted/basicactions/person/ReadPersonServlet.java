@@ -69,9 +69,7 @@ public class ReadPersonServlet extends HttpServlet {
             List<Post> posts = new ArrayList<>();
             List<Long> postIds;
             List<Post> visiblePosts = new ArrayList<Post>();
-            // Post tag variables
-            List<PostTag> allTags;
-            List<Object> tags = new ArrayList<Object>();
+
             try {
                 Result<Long> result = daoPostTag.listPostByPerson(personId, startCursor);
                 postIds = result.result;
@@ -81,6 +79,9 @@ public class ReadPersonServlet extends HttpServlet {
                 }
 
                 for (Post post: posts) {
+                    // Post tag variables
+                    List<PostTag> allTags;
+                    List<Object> tags = new ArrayList<Object>();
                     /* Check if post is public, only show own post if it's not */
                     if (post.getStatus() != null) {
                         if (post.getStatus().equals("public")) {

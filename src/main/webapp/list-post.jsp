@@ -77,6 +77,7 @@
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">
+													<li><a href="/post/like?id=${post.id}" title="" class="com"><i class="la la-heart"></i>Like ${like.length}</a></li>
 													<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
 												</ul>
 											</div>

@@ -167,7 +167,7 @@
 										<h3>Posts</h3>
 										<div class="row posts-section">
 											<c:forEach items="${posts}" var="post">
-												<div class="col-lg-6 col-sm-12">
+												<div class="col-lg-6 col-sm-12 post-bar">
 													<div class="post_topbar">
 														<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
 													</div>
