@@ -240,11 +240,11 @@
     </servlet-mapping>
 
     <servlet>
-        <servlet-name>CreateAssociation</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.group.CreateAssociationServlet</servlet-class>
+        <servlet-name>AddGroupMember</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.group.AddGroupMemberServlet</servlet-class>
     </servlet>
     <servlet-mapping>
-        <servlet-name>CreateAssociation</servlet-name>
+        <servlet-name>AddGroupMember</servlet-name>
         <url-pattern>/association/create</url-pattern>
     </servlet-mapping>
 

@@ -21,10 +21,12 @@
                                 <ul class="social_links">
 									<c:if test="${not empty socialLinks}">
 										<c:forEach items="${socialLinks}" var ="socialLink">
-											<li><a href="${socialLink.value}" title=""><i class="fa fa-${fn:escapeXml(socialLink.key)}"></i> ${fn:escapeXml(socialLink.value)}</a>
+											<li>
+												<a href="${socialLink.value}" title="social" target="_blank"><i class="fa fa-${fn:escapeXml(socialLink.key)}"></i> ${fn:escapeXml(socialLink.value)}</a>
 												<a href="/person/delete-social?socialLinkName=${socialLink.key}&personId=${person.id}" class="delete-btn">
 													<i class="fa fa-trash-o"></i>
-												</a></li>
+												</a>
+											</li>
 										</c:forEach>
 									</c:if>
 									<c:if test="${login != false}">

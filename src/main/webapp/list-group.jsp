@@ -64,7 +64,7 @@
 															</h3>
 															<h5 class="category">${fn:escapeXml(group.category)}</h5>
 														</div>
-														<div class="view-more-pro">View Detail</div>
+														<div class="view-more-pro"><a href="/group/read?id=${group.id}" title="">View Detail</a></div>
 													</a>
 												</div><!--company_profile_info end-->
 											</div>

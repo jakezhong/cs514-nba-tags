@@ -15,8 +15,10 @@
 									<div class="user-pro-img">
 										<img class="user-image" src="${fn:escapeXml(not empty profile.imageUrl?profile.imageUrl:'http://placekitten.com/g/500/500')}">
 									</div><!--user-pro-img end-->
-									<h3>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</h3>
-									<p><span>${fn:escapeXml(profile.title)}</span></p>
+									<div class="user-info center">
+										<h3>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</h3>
+										<p><span>${fn:escapeXml(profile.title)}</span></p>
+									</div>
 								</div><!--user_profile end-->
 							</div><!--main-left-sidebar end-->
 							</c:when>

@@ -1,10 +1,12 @@
-package com.example.getstarted.basicactions.person;
+package com.example.getstarted.basicactions.group;
 
-import com.example.getstarted.daos.*;
+import com.example.getstarted.daos.DatastoreAssociationDao;
 import com.example.getstarted.daos.interfaces.AssociationDao;
 import com.example.getstarted.daos.interfaces.GroupDao;
+import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Association;
 import com.example.getstarted.objects.Group;
+import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,7 +20,10 @@ import javax.servlet.http.HttpServletResponse;
 /**
  * Create Association between person and group
  */
-public class JoinGroupsServlet extends HttpServlet {
+public class AddGroupMemberServlet extends HttpServlet {
+
+    // [START setup]
+
     /**
      * When user request Join group, redirect to form-association jsp
      * @param req HttpServletRequest
@@ -28,40 +33,41 @@ public class JoinGroupsServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        // pass personId
-        String personId = req.getParameter("personId");// to create association
+        Long groupId = Long.decode(req.getParameter("id"));
         String userId = (String) req.getSession().getAttribute("userId");
 
-        GroupDao daoGroup = (DatastoreGroupDao) this.getServletContext().getAttribute("dao-group");
+        PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         AssociationDao associationDao = (AssociationDao) this.getServletContext().getAttribute("dao-association");
 
         /* Initialize group list */
-        List<Long> groupsAlreadyEnjoyIds;
-        List<Group> Allgroups ;
-        List<Group>groups = new ArrayList<>();
+        List<Long> personsAlreadyAdded;
+        List<Person> Allpersons;
+        List<Person> persons = new ArrayList<>();
 
         /* List all groups */
         try {
-            Result<Group> result = daoGroup.listAllGroupsByUser(userId);
-            Allgroups = result.result;
-            groupsAlreadyEnjoyIds= associationDao.listAllGroupByPerson((Long.valueOf(personId))).result;
-            for(Group group: Allgroups){
-                if(groupsAlreadyEnjoyIds.indexOf(group.getId()) < 0){ // not added
-                    groups.add(group);
+            Result<Person> result = daoPerson.listAllPersonsByUser(userId);
+            Allpersons = result.result;
+            personsAlreadyAdded = associationDao.listAllPersonsByGroup((Long.valueOf(groupId))).result;
+            for(Person person: Allpersons){
+                if(personsAlreadyAdded.indexOf(person.getId()) < 0){ // not added
+                    persons.add(person);
                 }
             }
         } catch (Exception e) {
-            throw new ServletException("Error listing groups", e);
+            throw new ServletException("Error listing persons", e);
         }
-        req.getSession().getServletContext().setAttribute("groups", groups);
-        req.setAttribute("personId", personId);
-        req.setAttribute("action", "Join");          // Part of the Header in form-association.jsp
-        req.setAttribute("destination", "/person/join");  // The urlPattern to invoke (this Servlet)
-        req.setAttribute("page", "enjoy-group");
+        req.getSession().getServletContext().setAttribute("persons", persons);
+        req.setAttribute("groupId", groupId);
+        req.setAttribute("action", "Add");          // Part of the Header in form-association.jsp
+        req.setAttribute("destination", "/association/create");  // The urlPattern to invoke (this Servlet)
+        req.setAttribute("page", "add-member");           // Tells base.jsp to include form-association.jsp
         req.getRequestDispatcher("/base.jsp").forward(req, resp);
     }
+    // [END setup]
 
     // [START formpost]
+
     /**
      * To create association entity and store in corresponding kind
      * @param req HttpServletRequest
@@ -72,25 +78,23 @@ public class JoinGroupsServlet extends HttpServlet {
     @Override
     public void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 
-        String[] groupIds = req.getParameterValues("groups");
-//        System.out.println(Arrays.toString(groupsId));
+        String[] personIds = req.getParameterValues("persons");
 
-        Long personId = Long.valueOf(req.getParameter("personId"));
-//        System.out.println(personId);
+        Long groupId = Long.valueOf(req.getParameter("groupId"));
 
-        for (String group: groupIds) {
-            Long groupId = Long.parseLong(group);
+        for (String person: personIds) {
+            Long personId = Long.parseLong(person);
             Association association = new Association.Builder()
                 .personId(personId)
                 .groupId(groupId)
                 .build();
-            DatastoreAssociationDao daoAssociation = new DatastoreAssociationDao();
+            AssociationDao daoAssociation = new DatastoreAssociationDao();
             try {
                 daoAssociation.createAssociation(association);
             } catch (Exception e) {
                 throw new ServletException("Error creating association", e);
             }
         }
-        resp.sendRedirect("/person/read?id=" + personId);   // read what we just wrote
+        resp.sendRedirect("/group/read?id=" + groupId);   // read what we just wrote
     }
 }

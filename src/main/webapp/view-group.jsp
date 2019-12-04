@@ -13,16 +13,18 @@
                                 <div class="user-pro-img">
                                     <img class="group-image" height="200" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
                                 </div><!--user-pro-img end-->
-                                <h3>${fn:escapeXml(group.name)}</h3>
-								<p class="category"><a href="/groups?category=${group.category}">${fn:escapeXml(group.category)}</a></p>
-								<c:if test="${login != false}">
-                                <div class="user_pro_status">
-                                    <a href="/association/create?id=${group.id}" class="btn btn-primary btn-sm">
-                                        <i class="glyphicon glyphicon-edit"></i>
-                                        Add Member
-                                    </a>
-                                </div><!--user_pro_status end-->
-								</c:if>
+								<div class="user-info center">
+									<h3>${fn:escapeXml(group.name)}</h3>
+									<p class="category"><a href="/groups?category=${group.category}">${fn:escapeXml(group.category)}</a></p>
+									<c:if test="${login != false}">
+									<div class="user_pro_status">
+										<a href="/association/create?id=${group.id}" class="btn btn-primary btn-sm">
+											<i class="glyphicon glyphicon-edit"></i>
+											Add Member
+										</a>
+									</div><!--user_pro_status end-->
+									</c:if>
+								</div>
                             </div><!--user_profile end-->
                         </div><!--main-left-sidebar end-->
                     </div>

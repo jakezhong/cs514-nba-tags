@@ -9169,7 +9169,7 @@ nav > ul > li > a:hover { color: #fff; }
 
 .user-account { position: relative; float: right; border-left: 1px solid #dd3e2b; border-right: 1px solid #dd3e2b; -webkit-box-sizing: border-box; box-sizing: border-box; }
 
-.user-info { position: relative; padding: 13px 30px 13px 13px; }
+.user-info { position: relative; padding: 10px 10px 20px 10px; }
 
 .user-account-settingss { position: absolute; top: 100%; right: 0; width: 240px; background-color: #fff; border-left: 1px solid #e5e5e5; border-bottom: 1px solid #e5e5e5; border-right: 1px solid #e5e5e5; -webkit-border-radius: 0 0 5px 5px; -moz-border-radius: 0 0 5px 5px; -ms-border-radius: 0 0 5px 5px; -o-border-radius: 0 0 5px 5px; border-radius: 0 0 5px 5px; -webkit-box-shadow: 1px 1px 6px -2px rgba(0, 0, 0, 0.24); -moz-box-shadow: 1px 1px 6px -2px rgba(0, 0, 0, 0.24); -ms-box-shadow: 1px 1px 6px -2px rgba(0, 0, 0, 0.24); -o-box-shadow: 1px 1px 6px -2px rgba(0, 0, 0, 0.24); box-shadow: 1px 1px 6px -2px rgba(0, 0, 0, 0.24); opacity: 0; visibility: hidden; }
 
@@ -9309,7 +9309,7 @@ main { float: left; width: 100%; padding: 60px 0; }
 .cp-sec p img { float: none; display: inline-block; position: relative; top: 3px; padding-right: 5px; }
 
 /* =================== main-ws-sec ================== */
-.main-ws-sec { float: left; width: 100%; }
+.main-ws-sec { width: 100%; }
 
 .main-ws-sec h3 { font-size: 30px; }
 
@@ -9333,11 +9333,11 @@ main { float: left; width: 100%; padding: 60px 0; }
 .post-st ul li a:hover, .post-st ul li a.active { background-color: #e44d3a; color: #fff; }
 
 /* ================ posts-section ================== */
-.post-bar { float: left; width: 100%; background-color: #fff; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; margin-bottom: 20px; }
+.post-bar { width: 100%; background-color: #fff; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; margin-bottom: 20px; }
 
-.post_topbar { float: left; width: 100%; position: relative; margin-bottom: 40px; }
+.post_topbar { width: 100%; position: relative; margin-bottom: 40px; }
 
-.post_topbar img { width: 100%; }
+.post_topbar img { float: none; width: 100%; }
 
 .usy-dt { float: left; }
 
@@ -9374,7 +9374,7 @@ main { float: left; width: 100%; padding: 60px 0; }
 	font-size: 30px;
 */ }
 
-.epi-sec { float: left; width: 100%; margin-bottom: 15px; padding: 0 20px; }
+.epi-sec { width: 100%; margin-bottom: 15px; padding: 0 20px; }
 
 .descp { float: left; margin-top: 3px; }
 
@@ -9399,7 +9399,7 @@ main { float: left; width: 100%; padding: 60px 0; }
 .bid_now:hover { color: #fff; }
 
 /* ============== job_descp ============ */
-.job_descp { float: left; width: 100%; padding: 0 20px 20px 20px; border-bottom: 1px solid #e5e5e5; }
+.job_descp { width: 100%; padding: 0 20px 20px 20px; border-bottom: 1px solid #e5e5e5; }
 
 .job_descp h3 { color: #000000; font-size: 18px; font-weight: 600; margin-bottom: 20px; }
 
@@ -9416,14 +9416,14 @@ main { float: left; width: 100%; padding: 60px 0; }
 .job_descp > p a { color: #e44d3a; font-weight: 600; }
 
 /* ============= skill-tags =========== */
-.skill-tags { float: left; width: 100%; }
+.skill-tags { width: 100%; }
 
 .skill-tags li { display: inline-block; margin-right: 6px; margin-bottom: 10px; }
 
 .skill-tags li a { display: inline-block; color: #b2b2b2; font-size: 14px; background-color: #e5e5e5; -webkit-border-radius: 30px; -moz-border-radius: 30px; -ms-border-radius: 30px; -o-border-radius: 30px; border-radius: 30px; padding: 7px 15px; font-weight: 600; }
 
 /* ========== job-status-bar ========== */
-.job-status-bar { float: left; width: 100%; padding: 15px 20px; }
+.job-status-bar { width: 100%; padding: 15px 20px; }
 
 .like-com li { display: inline-block; vertical-align: middle; }
 
@@ -9833,15 +9833,11 @@ footer { float: left; width: 100%; background-color: #fff; }
 /* ============= user_profile ============= */
 .user_profile { width: 100%; text-align: center; margin-top: -40px; }
 
-.user_profile .user-info a { color: #51a5fb; }
-
 .user_profile .category a { color: #51a5fb; }
 
-.user_profile .social-form { padding: 20px 15px; }
+.user_profile .social-form { padding: 20px 15px 0; }
 
 .user_profile .social-form button { width: 100px; margin-top: 20px; }
-
-.user_profile p { margin-bottom: 20px; }
 
 .user-pro-img { position: relative; width: 80%; padding-bottom: 80%; text-align: center; margin: 0 auto; margin-bottom: 28px; margin-top: -95px; background-color: #fff; border-radius: 50%; overflow: hidden; }
 
@@ -9849,7 +9845,7 @@ footer { float: left; width: 100%; background-color: #fff; }
 
 .user-pro-img > a { width: 40px; height: 40px; -webkit-border-radius: 100px; -moz-border-radius: 100px; -ms-border-radius: 100px; -o-border-radius: 100px; border-radius: 100px; color: #fff; line-height: 40px; background-color: #e44d3a; position: absolute; top: 0; left: 60%; }
 
-.user_pro_status { width: 100%; border-bottom: 1px solid #e5e5e5; padding: 0 20px 20px; }
+.user_pro_status { width: 100%; border-bottom: 1px solid #e5e5e5; padding: 20px; }
 
 .user_pro_status .btn { width: 100%; background-color: #e44d3a; border: 0; }
 
@@ -9902,11 +9898,11 @@ footer { float: left; width: 100%; background-color: #fff; }
 .fa-youtube { color: #cd201f; }
 
 /* ================= user-tab-sec ============== */
-.user-tab-sec { float: left; width: 100%; padding-top: 4px; }
+.user-tab-sec { width: 100%; padding-top: 4px; }
 
 .user-tab-sec h3 { color: #000000; font-size: 40px; font-weight: 400; text-transform: capitalize; margin-bottom: 7px; }
 
-.star-descp { float: left; width: 100%; margin-bottom: 50px; }
+.star-descp { width: 100%; margin-bottom: 50px; }
 
 .star-descp .category { margin-bottom: 10px; }
 
@@ -10173,7 +10169,7 @@ a:hover { color: initial; }
 
 .company_profile_info { display: block; width: 100%; background-color: #fff; text-align: center; border-top: 1px solid #e4e4e4; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; margin-bottom: 30px; padding: 0; }
 
-.company_profile_info input[type="checkbox"] { display: block; margin: 0 auto 20px; }
+.company_profile_info input[type="checkbox"] { display: block; margin: 20px auto; }
 
 .company_profile_info.post { text-align: left; }
 

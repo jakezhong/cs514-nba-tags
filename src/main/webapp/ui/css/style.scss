@@ -338,7 +338,7 @@ nav > ul > li > a:hover {
 }
 .user-info {
 	position: relative;
-	padding: 13px 30px 13px 13px;
+	padding: 10px 10px 20px 10px;
 }
 .user-account-settingss {
 	position: absolute;
@@ -755,7 +755,6 @@ main {
 /* =================== main-ws-sec ================== */
 
 .main-ws-sec {
-	float: left;
 	width: 100%;
 	h3 {
 		font-size: 30px;
@@ -821,7 +820,6 @@ main {
 
 /* ================ posts-section ================== */
 .post-bar {
-	float: left;
 	width: 100%;
 	background-color: #fff;
 	border-left: 1px solid #e4e4e4;
@@ -830,11 +828,11 @@ main {
 	margin-bottom: 20px;
 }
 .post_topbar {
-	float: left;
 	width: 100%;
 	position: relative;
 	margin-bottom: 40px;
 	img {
+		float: none;
 		width: 100%;
 	}
 }
@@ -925,7 +923,6 @@ main {
 	font-size: 30px;
 */}
 .epi-sec {
-	float: left;
 	width: 100%;
 	margin-bottom: 15px;
 	padding: 0 20px;
@@ -987,7 +984,6 @@ main {
 /* ============== job_descp ============ */
 
 .job_descp {
-	float: left;
 	width: 100%;
 	padding: 0 20px 20px 20px;
 	border-bottom: 1px solid #e5e5e5;
@@ -1040,7 +1036,6 @@ main {
 /* ============= skill-tags =========== */
 
 .skill-tags {
-	float: left;
 	width: 100%;
 }
 .skill-tags li {
@@ -1065,7 +1060,6 @@ main {
 /* ========== job-status-bar ========== */
 
 .job-status-bar {
-	float: left;
 	width: 100%;
 	padding: 15px 20px;
 }
@@ -2326,22 +2320,18 @@ footer {
 	width: 100%;
 	text-align: center;
 	margin-top: -40px;
-	.user-info a {
-		color: #51a5fb;
-	}
 	.category {
 		a {
 			color: #51a5fb;
 		}
 	}
 	.social-form {
-		padding: 20px 15px;
+		padding: 20px 15px 0;
 		button {
 			width: 100px;
 			margin-top: 20px;
 		}
 	}
-	p { margin-bottom: 20px; }
 }
 .user-pro-img {
 	position: relative;
@@ -2381,7 +2371,7 @@ footer {
 .user_pro_status {
 	width: 100%;
 	border-bottom: 1px solid #e5e5e5;
-	padding: 0 20px 20px;
+	padding: 20px;
 	.btn {
 		width: 100%;
 		background-color: #e44d3a;
@@ -2499,7 +2489,6 @@ footer {
 /* ================= user-tab-sec ============== */
 
 .user-tab-sec {
-	float: left;
 	width: 100%;
 	padding-top: 4px;
 }
@@ -2511,7 +2500,6 @@ footer {
 	margin-bottom: 7px;
 }
 .star-descp {
-	float: left;
 	width: 100%;
 	margin-bottom: 50px;
 	.category {
@@ -3298,7 +3286,7 @@ a:hover {
 	padding: 0;
 	input[type="checkbox"] {
 		display: block;
-		margin: 0 auto 20px;
+		margin: 20px auto;
 	}
 }
 .company_profile_info.post {

@@ -15,8 +15,10 @@
 									<div class="user-pro-img">
 										<img class="user-image" src="${fn:escapeXml(not empty profile.imageUrl?profile.imageUrl:'http://placekitten.com/g/500/500')}">
 									</div><!--user-pro-img end-->
-									<h3>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</h3>
-									<p><span>${fn:escapeXml(profile.title)}</span></p>
+									<div class="user-info center">
+										<h3>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</h3>
+										<p><span>${fn:escapeXml(profile.title)}</span></p>
+									</div>
 								</div><!--user_profile end-->
 							</div><!--main-left-sidebar end-->
 							</c:when>
@@ -29,7 +31,7 @@
 							</c:when>
 							<c:otherwise>
                         	<div class="main-ws-sec">
-							<ul class="flw-hr">
+								<ul class="flw-hr">
 								<li>
 									<a href="/profile/user" class="btn btn-primary btn-sm">
 										<i class="glyphicon glyphicon-edit"></i>
@@ -55,15 +57,15 @@
 									</a>
 								</li>
 							</ul>
-                            <div class="user-tab-sec">
-								<div class="landing-header">
-									<a href="/post/create" class="btn btn-success btn-sm">
-										<i class="glyphicon glyphicon-plus"></i>
-										Add Post
-									</a>
-								</div>
-                            </div><!--user-tab-sec end-->
-							<c:choose>
+								<div class="user-tab-sec">
+									<div class="landing-header">
+										<a href="/post/create" class="btn btn-success btn-sm">
+											<i class="glyphicon glyphicon-plus"></i>
+											Add Post
+										</a>
+									</div>
+								</div><!--user-tab-sec end-->
+								<c:choose>
 								<c:when test="${not empty posts}">
 									<div class="posts-section">
 										<c:forEach items="${posts}" var="post">
@@ -107,14 +109,14 @@
 									</div><!--posts-section end-->
 									<c:if test="${not empty cursor}">
 										<div class="read-more">
-											<a href="?cursor=${fn:escapeXml(cursor)}&id=${profile.id}"  class="btn btn-primary btn-sm">
+											<a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
 												<i class="glyphicon glyphicon-edit"></i>Load More
 											</a>
 										</div>
 									</c:if>
 								</c:when>
 							</c:choose>
-                        </div><!--main-ws-sec end-->
+                        	</div><!--main-ws-sec end-->
 							</c:otherwise>
 						</c:choose>
                     </div>

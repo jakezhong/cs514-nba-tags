@@ -65,7 +65,7 @@
 														<h4>${fn:escapeXml(person.title)}</h4>
 														<h5 class="category"><a href="/persons?category=${person.category}">${fn:escapeXml(person.category)}</a></h5>
 													</div>
-													<div class="view-more-pro">View Profile</div>
+													<div class="view-more-pro"><a href="/person/read?id=${person.id}" title="">View Profile</a></div>
 												</div><!--company_profile_info end-->
 											</div>
 										</c:forEach>
