@@ -38,6 +38,7 @@ public class CreateAssociationServlet extends HttpServlet {
             PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
             AssociationDao daoAssociation = (AssociationDao) this.getServletContext().getAttribute("dao-association");
 
+            /* Initialize person list */
             List<Person> allPersons;
             List<Long> oldPersonIds;
             List<Person> persons = new ArrayList<Person>();

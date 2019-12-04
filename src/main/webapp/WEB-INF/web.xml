@@ -36,6 +36,7 @@
         <url-pattern>/person/delete</url-pattern>
         <url-pattern>/person/read</url-pattern>
         <url-pattern>/person/update</url-pattern>
+        <url-pattern>/person/join</url-pattern>
         <url-pattern>/groups</url-pattern>
         <url-pattern>/groups/user</url-pattern>
         <url-pattern>/group/create</url-pattern>
@@ -57,7 +58,6 @@
         <url-pattern>/profile/delete</url-pattern>
         <url-pattern>/profile/update</url-pattern>
         <url-pattern>/add/socialLink</url-pattern>
-        <url-pattern>/enjoyGroups</url-pattern>
         <url-pattern>/association/delete</url-pattern><!--delete group members -->
         <url-pattern>/group/quit</url-pattern>
     </filter-mapping>
@@ -337,12 +337,11 @@
 
     <servlet>
         <servlet-name>enjoyGroups</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.EnjoyGroupsServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.person.JoinGroupsServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>enjoyGroups</servlet-name>
-        <url-pattern>/person/enjoy</url-pattern>
-        <url-pattern>/enjoyGroups</url-pattern>
+        <url-pattern>/person/join</url-pattern>
     </servlet-mapping>
 
     <servlet>

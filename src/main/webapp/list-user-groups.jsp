@@ -75,18 +75,22 @@
 											<div class="row">
 												<c:forEach items="${groups}" var="group">
 													<div class="col-lg-4 col-md-6  col-sm-12 col-12">
-														<div class="company-up-info">
-															<div class="grid-image">
-																<a href="/group/read?id=${group.id}" title="">
-																	<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
-																</a>
-															</div>
-															<h3>
-																<a href="/group/read?id=${group.id}" title="">${fn:escapeXml(group.name)}</a>
-															</h3>
-															<h5 class="category"><a href="/groups?category=${group.category}">${fn:escapeXml(group.category)}</a></h5>
-														</div>
-														<div class="view-more-pro"><a href="/group/read?id=${group.id}" title="">View Detail</a></div>
+														<div class="company_profile_info">
+															<a href="/group/read?id=${group.id}" title="">
+																<div class="company-up-info">
+																	<div class="grid-image">
+																		<a href="/group/read?id=${group.id}" title="">
+																			<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+																		</a>
+																	</div>
+																	<h3>
+																		<a href="/group/read?id=${group.id}" title="">${fn:escapeXml(group.name)}</a>
+																	</h3>
+																	<h5 class="category">${fn:escapeXml(group.category)}</h5>
+																</div>
+																<div class="view-more-pro">View Detail</div>
+															</a>
+														</div><!--company_profile_info end-->
 													</div>
 												</c:forEach>
 											</div>

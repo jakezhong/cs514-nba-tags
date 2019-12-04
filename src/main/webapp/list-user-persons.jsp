@@ -77,15 +77,17 @@
 														<c:forEach items="${persons}" var="person">
 															<div class="col-lg-4 col-md-6  col-sm-12 col-12">
 																<div class="company_profile_info">
-																	<a href="/person/read?id=${person.id}" title="">
-																		<div class="company-up-info">
-																			<img alt="ahhh" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
-																			<h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
-																			<h4>${fn:escapeXml(person.title)}</h4>
-																			<h5 class="category">${fn:escapeXml(person.category)}</h5>
+																	<div class="company-up-info">
+																		<div class="grid-image">
+																			<a href="/person/read?id=${person.id}" title="">
+																				<img alt="ahhh" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
+																			</a>
 																		</div>
-																		<div class="view-more-pro">View Profile</div>
-																	</a>
+																		<h3><a href="/person/read?id=${person.id}" title="">${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</a></h3>
+																		<h4>${fn:escapeXml(person.title)}</h4>
+																		<h5 class="category"><a href="/persons?category=${person.category}">${fn:escapeXml(person.category)}</a></h5>
+																	</div>
+																	<div class="view-more-pro">View Profile</div>
 																</div><!--company_profile_info end-->
 															</div>
 														</c:forEach>
@@ -93,7 +95,7 @@
 													<c:if test="${not empty cursor}">
 														<div class="read-more">
 															<a href="?cursor=${fn:escapeXml(cursor)}&id=${person.id}"  class="btn btn-primary btn-sm">
-																<i class="glyphicon glyphicon-edit"></i>More
+																<i class="glyphicon glyphicon-edit"></i>Load More
 															</a>
 														</div>
 													</c:if>

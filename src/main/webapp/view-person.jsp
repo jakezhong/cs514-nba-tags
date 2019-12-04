@@ -83,9 +83,9 @@
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="enjoy?personId=${person.id}" class="btn btn-primary btn-sm">
+                                        <a href="join?personId=${person.id}" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
-                                            Enjoy Group
+                                            Join Group
                                         </a>
                                     </li>
                                     <li>
