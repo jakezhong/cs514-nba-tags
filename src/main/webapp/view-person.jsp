@@ -171,9 +171,9 @@
 													</div>
 												</c:forEach>
 											</div>
-											<c:if test="${not empty cursor}">
+											<c:if test="${not empty cursor-group}">
 												<div class="read-more">
-													<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+													<a href="?cursor=${fn:escapeXml(cursor-group)}&id=${group.id}"  class="btn btn-primary btn-sm">
 														<i class="glyphicon glyphicon-edit"></i>More
 													</a>
 												</div>
@@ -226,9 +226,9 @@
 												</div>
 											</c:forEach>
 										</div>
-										<c:if test="${not empty cursor}">
+										<c:if test="${not empty cursor-post}">
 											<div class="process-comm">
-												<a href="?cursor=$	{fn:escapeXml(cursor)}" title=""><img src="${pageContext.request.contextPath}/ui/images/process-icon.png" alt=""></a>
+												<a href="?cursor=$	{fn:escapeXml(cursor-post)}" title=""><img src="${pageContext.request.contextPath}/ui/images/process-icon.png" alt=""></a>
 											</div><!--process-comm end-->
 										</c:if>
 									</div>

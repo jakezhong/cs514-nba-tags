@@ -35,8 +35,10 @@ public class ReadPersonServlet extends HttpServlet {
 
         Long personId = Long.decode(req.getParameter("id"));
         /* Initial cursor */
-        String startCursor = req.getParameter("cursor");
-        String endCursor;
+        String cursor_group = req.getParameter("cursor-group ");
+        String cursor_post = req.getParameter("cursor-post ");
+        String endCursor_group;
+        String endCursor_post;
 
         try {
             Person person = daoPerson.readPerson(personId);
@@ -54,13 +56,13 @@ public class ReadPersonServlet extends HttpServlet {
             List<Long> groupsId;
           //  List<SocialLink> socialLinks;
             try {
-                Result<Long> result = associationDao.listGroupByPerson(personId,startCursor);
+                Result<Long> result = associationDao.listGroupByPerson(personId,cursor_group);
                 groupsId = result.result;
                 for(Long groupId: groupsId){
                   Group group = daoGroup.readGroup(groupId);
                   groups.add(group);
                 }
-                endCursor = result.cursor;
+                endCursor_group = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing groups", e);
             }
@@ -73,7 +75,7 @@ public class ReadPersonServlet extends HttpServlet {
             List<PostTag> allTags;
             List<Object> tags = new ArrayList<Object>();
             try {
-                Result<Long> result = daoPostTag.listPostByPerson(personId, startCursor);
+                Result<Long> result = daoPostTag.listPostByPerson(personId, cursor_post);
                 postIds = result.result;
                 for(Long postId: postIds){
                     Post post = daoPost.readPost(postId);
@@ -117,7 +119,7 @@ public class ReadPersonServlet extends HttpServlet {
                         throw new ServletException("Error listing tags", e);
                     }
                 }
-                endCursor = result.cursor;
+                endCursor_post = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing posts", e);
             }
@@ -135,7 +137,8 @@ public class ReadPersonServlet extends HttpServlet {
             req.setAttribute("socialLinks",socialLinks);
             req.getSession().getServletContext().setAttribute("groups", groups);
             req.getSession().getServletContext().setAttribute("posts", visiblePosts);
-            req.setAttribute("cursor", endCursor);
+            req.setAttribute("cursor-post", endCursor_group);
+            req.setAttribute("cursor-group", endCursor_post);
             req.setAttribute("page", "view-person");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
