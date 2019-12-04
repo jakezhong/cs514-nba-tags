@@ -21,6 +21,18 @@ public class DeleteGroupMembersServlet extends HttpServlet {
 
         Long groupId = Long.valueOf(req.getParameter("groupId"));
 
+        /* If the current user is not the post author, redirect */
+        try {
+            Group group = daoGroup.readGroup(groupId);
+            if (!group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/group/read?id="+groupId.toString());
+            return;
+        }
+
         /* If the current user is not the group author, redirect */
         try {
             Group group = daoGroup.readGroup(groupId);

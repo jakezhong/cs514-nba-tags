@@ -15,13 +15,8 @@
 									<div class="user-pro-img">
 										<img class="user-image" src="${fn:escapeXml(not empty profile.imageUrl?profile.imageUrl:'http://placekitten.com/g/500/500')}">
 									</div><!--user-pro-img end-->
-									<ul class="social_links">
-										<li><a href="#" title=""><i class="la la-globe"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-facebook-square"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-youtube"></i></a></li>
-									</ul>
+									<h3>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</h3>
+									<p><span>${fn:escapeXml(profile.title)}</span></p>
 								</div><!--user_profile end-->
 							</div><!--main-left-sidebar end-->
 							</c:when>
@@ -29,7 +24,7 @@
                     </div>
                     <div class="col-lg-9">
 						<c:choose>
-							<c:when test="${privacy == true}">
+							<c:when test="${visible == false}">
 							<h3 class="center">This profile is private</h3>
 							</c:when>
 							<c:otherwise>
@@ -63,25 +58,25 @@
 								<c:choose>
 									<c:when test="${not empty profile}">
 									<div class="user-tab-sec">
-										<div class="landing-header">
-											<ul class="flw-hr">
-												<li>
-													<a href="update?id=${profile.id}" class="btn btn-primary btn-sm">
-														<i class="glyphicon glyphicon-edit"></i>
-														Edit Profile
-													</a>
-												</li>
-												<li>
-													<a href="delete?id=${profile.id}" class="btn btn-danger btn-sm">
-														<i class="glyphicon glyphicon-trash"></i>
-														Delete Profile
-													</a>
-												</li>
-											</ul>
-										</div>
+										<c:if test="${login != false}">
+											<div class="landing-header">
+												<ul class="flw-hr">
+													<li>
+														<a href="update?id=${profile.id}" class="btn btn-primary btn-sm">
+															<i class="glyphicon glyphicon-edit"></i>
+															Edit Profile
+														</a>
+													</li>
+													<li>
+														<a href="delete?id=${profile.id}" class="btn btn-danger btn-sm">
+															<i class="glyphicon glyphicon-trash"></i>
+															Delete Profile
+														</a>
+													</li>
+												</ul>
+											</div>
+										</c:if>
 										<div class="star-descp">
-											<p><span>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</span></p>
-											<p><span>${fn:escapeXml(profile.title)}</span></p>
 											<p>
 												<small>Email
 													${fn:escapeXml(not empty profile.email?profile.email:'')}
@@ -110,14 +105,16 @@
 									</div>
 									</c:when>
 									<c:otherwise>
-									<div class="user-tab-sec">
-										<div class="landing-header">
-											<a href="/profile/create" class="btn btn-success btn-sm">
-												<i class="glyphicon glyphicon-edit"></i>
-												Create Profile
-											</a>
+									<c:if test="${login != false}">
+										<div class="user-tab-sec">
+											<div class="landing-header">
+												<a href="/profile/create" class="btn btn-success btn-sm">
+													<i class="glyphicon glyphicon-edit"></i>
+													Create Profile
+												</a>
+											</div>
 										</div>
-									</div>
+									</c:if>
 									</c:otherwise>
 								</c:choose>
 							</div><!--main-ws-sec end-->

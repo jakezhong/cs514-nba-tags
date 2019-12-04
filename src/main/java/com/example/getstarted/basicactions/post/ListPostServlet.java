@@ -14,6 +14,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 /**
@@ -103,6 +104,16 @@ public class ListPostServlet extends HttpServlet {
                         }
                     }
                     post.setPostTags(tags);
+                    try {
+                        Map<String, String> comments = daoPost.listComment(post.getId());
+                        if (comments != null) {
+                            post.setCommentNum(comments.size());
+                        } else {
+                            post.setCommentNum(0);
+                        }
+                    } catch (Exception e) {
+                        throw new ServletException("Error listing comments", e);
+                    }
                 } catch (Exception e) {
                     throw new ServletException("Error listing tags", e);
                 }

@@ -32,13 +32,21 @@ public class UpdateGroupServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        /* If the user has not logged in, don't allow to create person and redirect */
-        if (req.getSession().getAttribute("userId") == null) {
-            resp.sendRedirect("/login");
+        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+        Long groupId = Long.decode(req.getParameter("id"));
+
+        /* If the current user is not the post author, redirect */
+        try {
+            Group group = daoGroup.readGroup(groupId);
+            if (!group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/groups");
             return;
         }
 
-        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         try {
             Group group = daoGroup.readGroup(Long.decode(req.getParameter("id")));
             req.setAttribute("group", group);

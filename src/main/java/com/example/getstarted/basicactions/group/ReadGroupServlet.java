@@ -7,6 +7,7 @@ import com.example.getstarted.objects.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -34,6 +35,12 @@ public class ReadGroupServlet extends HttpServlet {
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long groupId = Long.decode(req.getParameter("id"));
+        /* Initial cursor */
+        String cursor_person = req.getParameter("cursor_person");
+        String cursor_post = req.getParameter("cursor_post");
+        String endCursor_person;
+        String endCursor_post;
+        boolean login = false;
 
         try {
             Group group = daoGroup.readGroup(groupId);
@@ -44,18 +51,22 @@ public class ReadGroupServlet extends HttpServlet {
                     return;
                 }
             }
+            if (group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                login = true;
+            }
             /* Initial person list */
             List<Person> persons = new ArrayList<>();
             List<Long> personIds;
             try {
                 /* List all person by the current group */
-                Result<Long> result = daoAssociation.listAllPersonsByGroup(groupId);
+                Result<Long> result = daoAssociation.listPersonsByGroup(groupId, cursor_person);
                 personIds = result.result;
                 /* Read all persons by the person ids */
                 for(Long personId: personIds){
                     Person person = daoPerson.readPerson(personId);
                     persons.add(person);
                 }
+                endCursor_person = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);
             }
@@ -66,7 +77,7 @@ public class ReadGroupServlet extends HttpServlet {
             List<Post> visiblePosts = new ArrayList<Post>();
 
             try {
-                Result<Long> result = daoPostTag.listAllPostByGroup(groupId);
+                Result<Long> result = daoPostTag.listPostByGroup(groupId, cursor_post);
                 postIds = result.result;
                 /* Loop posts tagged this person */
                 for(Long postId: postIds){
@@ -120,16 +131,30 @@ public class ReadGroupServlet extends HttpServlet {
                             }
                         }
                         post.setPostTags(tags);
+                        try {
+                            Map<String, String> comments = daoPost.listComment(post.getId());
+                            if (comments != null) {
+                                post.setCommentNum(comments.size());
+                            } else {
+                                post.setCommentNum(0);
+                            }
+                        } catch (Exception e) {
+                            throw new ServletException("Error listing comments", e);
+                        }
                     } catch (Exception e) {
                         throw new ServletException("Error listing tags", e);
                     }
                 }
+                endCursor_post = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing posts", e);
             }
             req.setAttribute("group", group);
+            req.setAttribute("login", login);
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.getSession().getServletContext().setAttribute("posts", visiblePosts);
+            req.setAttribute("cursor_group", endCursor_person);
+            req.setAttribute("cursor_post", endCursor_post);
             req.setAttribute("page", "view-group");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {

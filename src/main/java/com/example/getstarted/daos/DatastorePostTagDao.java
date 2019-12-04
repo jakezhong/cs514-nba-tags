@@ -214,7 +214,7 @@ public class DatastorePostTagDao implements PostTagDao {
      */
     @Override
     public Result<Long> listPostByGroup(Long groupId, String startCursor) {
-        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(2); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
@@ -233,7 +233,7 @@ public class DatastorePostTagDao implements PostTagDao {
         }
 
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && resultTags.size() == 6) {         // Are we paging? Save Cursor
+        if (cursor != null && resultTags.size() == 2) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
             return new Result<>(postIds, cursorString);
         } else {
@@ -271,7 +271,7 @@ public class DatastorePostTagDao implements PostTagDao {
      * @return Result<Post>
      */
     public Result<Long> listPostByPerson(Long personId, String startCursor) {
-        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(2); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
@@ -290,7 +290,7 @@ public class DatastorePostTagDao implements PostTagDao {
         }
 
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && resultTags.size() == 6) {         // Are we paging? Save Cursor
+        if (cursor != null && resultTags.size() == 2) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
             return new Result<>(postIds, cursorString);
         } else {

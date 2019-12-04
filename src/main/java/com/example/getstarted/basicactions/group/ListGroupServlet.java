@@ -4,6 +4,7 @@ import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -30,7 +31,9 @@ public class ListGroupServlet extends HttpServlet {
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         Hashtable<String, String> search = new Hashtable<String, String>();
 
+        /* Initial group list */
         List<Group> groups;
+        List<Group> visibleGroups = new ArrayList<Group>();
         // Cursor variables
         String startCursor = req.getParameter("cursor");
         String endCursor;
@@ -55,11 +58,24 @@ public class ListGroupServlet extends HttpServlet {
             }
 
             groups = result.result;
+
+            /* Check if the person is public */
+            for (Group group: groups) {
+                if (group.getStatus() != null) {
+                    if (group.getStatus().equals("public")) {
+                        visibleGroups.add(group);
+                    } else if (group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                        visibleGroups.add(group);
+                    }
+                } else {
+                    visibleGroups.add(group);
+                }
+            }
             endCursor = result.cursor;
         } catch (Exception e) {
             throw new ServletException("Error listing groups", e);
         }
-        req.getSession().getServletContext().setAttribute("groups", groups);
+        req.getSession().getServletContext().setAttribute("groups", visibleGroups);
         req.setAttribute("name", searchName);
         req.setAttribute("category", searchCategory);
         req.setAttribute("cursor", endCursor);

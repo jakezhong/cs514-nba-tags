@@ -820,11 +820,6 @@ main {
 
 
 /* ================ posts-section ================== */
-
-.posts-section {
-	float: left;
-	width: 100%;
-}
 .post-bar {
 	float: left;
 	width: 100%;
@@ -1317,10 +1312,9 @@ main {
 /* =============== comment-section ============== */
 
 .comment-section {
-	float: left;
 	width: 100%;
+	margin-top: 40px;
 	background-color: #fff;
-	padding: 20px;
 }
 .plus-ic {
 	float: left;
@@ -1343,26 +1337,8 @@ main {
 }
 
 /* =============== comment-sec ================ */
-
-
-.comment-sec {
-	float: left;
-	width: 100%;
-}
-.comment-sec ul {
-	float: left;
-	width: 100%;
-}
-.comment-sec ul li {
-	float: left;
-	width: 100%;
-}
 .comment-sec ul ul {
 	padding-left: 50px;
-}
-.comment-list {
-	display: table;
-	padding-bottom: 30px;
 }
 .bg-img {
 	display: table-cell;
@@ -1375,10 +1351,16 @@ main {
 	border-radius: 100px;
 }
 .comment {
-	display: table-cell;
+	position: relative;
 	vertical-align: top;
 	width: 100%;
 	padding-left: 10px;
+	padding-right: 40px;
+	.delete-btn {
+		position: absolute;
+		top: 0;
+		right: 0;
+	}
 }
 .comment h3 {
 	color: #000000;
@@ -2344,6 +2326,22 @@ footer {
 	width: 100%;
 	text-align: center;
 	margin-top: -40px;
+	.user-info a {
+		color: #51a5fb;
+	}
+	.category {
+		a {
+			color: #51a5fb;
+		}
+	}
+	.social-form {
+		padding: 20px 15px;
+		button {
+			width: 100px;
+			margin-top: 20px;
+		}
+	}
+	p { margin-bottom: 20px; }
 }
 .user-pro-img {
 	position: relative;
@@ -2440,9 +2438,21 @@ footer {
 	text-align: left;
 }
 .social_links li {
+	position: relative;
 	width: 100%;
-	padding: 15px 15px;
+	padding: 15px 30px 15px 10px;
 	border-bottom: 1px solid #e5e5e5;
+	.delete-btn {
+		position: absolute;
+		width: 15px;
+		right: 10px;
+		top: 50%;
+		transform: translateY(-50%);
+		i {
+			font-size: 18px;
+			color: #e44d3a;
+		}
+	}
 }
 .social_links li a {
 	display: block;
@@ -2456,6 +2466,9 @@ footer {
 	font-size: 20px;
 	position: relative;
 	top: 3px;
+}
+.social_links {
+	
 }
 .la-globe {
 	color: #51a5fb;
@@ -3283,6 +3296,10 @@ a:hover {
 	border-bottom: 1px solid #e4e4e4;
 	margin-bottom: 30px;
 	padding: 0;
+	input[type="checkbox"] {
+		display: block;
+		margin: 0 auto 20px;
+	}
 }
 .company_profile_info.post {
 	text-align: left;
@@ -4772,11 +4789,6 @@ a:hover {
 	-o-border-radius: 100px;
 	border-radius: 100px;
 }
-.usr_quest {
-	float: left;
-	width: 90%;
-	padding-left: 15px;
-}
 .usr_quest > h3 {
 	color: #000000;
 	font-size: 17px;
@@ -4963,17 +4975,11 @@ a:hover {
 	line-height: 24px;
 	margin-bottom: 40px;
 }
-.forum-post-view .comment-section {
-	padding: 0;
-}
 .forum-post-view .comment-section > h3 {
-	float: left;
 	width: 100%;
 	color: #000000;
 	font-size: 18px;
 	font-weight: 600;
-	border-bottom: 1px solid #e5e5e5;
-	padding-bottom: 15px;
 }
 .forum-post-view .comment-sec ul li {
 	border-bottom: 1px solid #e5e5e5;
@@ -5001,10 +5007,10 @@ a:hover {
 /* =============== post-comment-box ============= */
 
 .post-comment-box {
-	float: left;
 	width: 100%;
-	padding: 20px;
+	padding-top: 40px;
 	background-color: #fff;
+	border-top: 1px solid #e5e5e5;
 }
 .post-comment-box h3 {
 	float: left;
@@ -5015,7 +5021,6 @@ a:hover {
 	margin-bottom: 30px;
 }
 .user-poster {
-	float: left;
 	width: 100%;
 }
 .usr-post-img {
@@ -5031,16 +5036,7 @@ a:hover {
 	-o-border-radius: 100px;
 	border-radius: 100px;
 }
-.post_comment_sec {
-	float: left;
-	width: 90%;
-}
-.post_comment_sec form {
-	float: left;
-	width: 100%;
-}
 .post_comment_sec form textarea {
-	float: left;
 	width: 100%;
 	height: 130px;
 	border: 1px solid #dce2eb;
@@ -5128,6 +5124,9 @@ a:hover {
 }
 
 /* ============= Customized CSS ============ */
+img {
+	max-width: 100%;
+}
 .btn {
 	&.red {
 		background-color: #e44d3a;
@@ -5159,8 +5158,22 @@ a:hover {
 		margin-bottom: 20px;
 		font-size: 30px;
 	}
+	h4 {
+		font-size: 24px;
+	}
 	.post-project h3 {
 		margin-bottom: 0;
+	}
+	.usr-msg-details {
+		h3 {
+			margin-bottom: 10px;
+		}
+		img {
+			width: 50px;
+		}
+		input[type="checkbox"] {
+			
+		}
 	}
 	.center {
 		text-align: center;

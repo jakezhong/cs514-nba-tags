@@ -84,6 +84,7 @@ public class CreatePersonServlet extends HttpServlet {
     // [START createdBy]
     String createdByString = "";
     String createdByIdString = "";
+    String socialLink ="";
     HttpSession session = req.getSession();
     if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
         createdByString = (String) session.getAttribute("userEmail");
@@ -103,12 +104,6 @@ public class CreatePersonServlet extends HttpServlet {
         .address(params.get("address"))
         .category(params.get("category"))
         .status(params.get("status"))
-        .linkedin(params.get("linkedin"))
-        .facebook(params.get("facebook"))
-        .twitter(params.get("twitter"))
-        .instagram(params.get("instagram"))
-        .youtube(params.get("youtube"))
-        .website(params.get("website"))
         .description(params.get("description"))
         .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
         // [START auth]
@@ -116,6 +111,7 @@ public class CreatePersonServlet extends HttpServlet {
         .createdById(createdByIdString)
         .publishedDate(date)
         // [END auth]
+        .socialLink(socialLink)
         .build();
         System.out.println(person);
     // [END personBuilder]

@@ -29,7 +29,6 @@ public class JoinGroupsServlet extends HttpServlet {
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         // pass personId
-
         String personId = req.getParameter("personId");// to create association
         String userId = (String) req.getSession().getAttribute("userId");
 

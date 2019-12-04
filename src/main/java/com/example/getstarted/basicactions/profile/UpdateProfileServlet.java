@@ -94,7 +94,7 @@ public class UpdateProfileServlet extends HttpServlet {
               .title(params.get("title"))
               .introduction(params.get("introduction"))
               .status(params.get("status"))
-              .email(params.get("email"))
+              .email(oldProfile.getEmail())
               .description(params.get("description"))
               .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
               .createdBy(oldProfile.getCreatedBy())

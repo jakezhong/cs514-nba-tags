@@ -21,6 +21,8 @@ public class Post {
     private boolean liked;
     private String imageUrl;
     private String profileBg;
+    private String comment;
+    private int commentNum;
     // [END post]
 
     // [START keys]
@@ -39,6 +41,8 @@ public class Post {
     public static final String LIKED = "liked";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
+    public static final String COMMENT ="comment";
+    public static final String COMMENT_NUM ="commentNum";
     // [END keys]
 
     // [START constructor]
@@ -58,6 +62,8 @@ public class Post {
         this.like = builder.like;
         this.liked = builder.liked;
         this.imageUrl = builder.imageUrl;
+        this.comment = builder.comment;
+        this.commentNum = builder.commentNum;
     }
     // [END constructor]
 
@@ -77,6 +83,8 @@ public class Post {
         private List<String> like;
         private boolean liked;
         private String imageUrl;
+        private String comment;
+        private int commentNum;
 
         /**
         * Build constructor
@@ -149,8 +157,13 @@ public class Post {
         }
 
         public Builder imageUrl(String imageUrl) {
-          this.imageUrl = imageUrl;
-          return this;
+            this.imageUrl = imageUrl;
+            return this;
+        }
+
+        public Builder comment(String comment) {
+            this.comment = comment;
+            return this;
         }
 
         public Post build() {
@@ -281,6 +294,22 @@ public class Post {
     public void setProfileBg(String profileBg) {
         this.profileBg = profileBg;
     }
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
+    }
+
+    public int getCommentNum() {
+        return commentNum;
+    }
+
+    public void setCommentNum(int commentNum) {
+        this.commentNum = commentNum;
+    }
     // [END builder]
 
     /**
@@ -304,6 +333,8 @@ public class Post {
             ", like='" + like + '\'' +
             ", liked='" + liked + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
+            ", comment='" + comment + '\'' +
+            ", commentNum='" + commentNum + '\'' +
             '}';
     }
 
@@ -318,18 +349,20 @@ public class Post {
         if (o == null || getClass() != o.getClass()) return false;
         Post post = (Post) o;
         return Objects.equals(id, post.id) &&
-                Objects.equals(slug, post.slug) &&
-                Objects.equals(title, post.title) &&
-                Objects.equals(introduction, post.introduction) &&
-                Objects.equals(category, post.category) &&
-                Objects.equals(status, post.status) &&
-                Objects.equals(description, post.description) &&
-                Objects.equals(createdBy, post.createdBy) &&
-                Objects.equals(createdById, post.createdById) &&
-                Objects.equals(publishedDate, post.publishedDate) &&
-                Objects.equals(postTags, post.postTags) &&
-                Objects.equals(like, post.like) &&
-                Objects.equals(liked, post.liked) &&
-                Objects.equals(imageUrl, post.imageUrl);
+            Objects.equals(slug, post.slug) &&
+            Objects.equals(title, post.title) &&
+            Objects.equals(introduction, post.introduction) &&
+            Objects.equals(category, post.category) &&
+            Objects.equals(status, post.status) &&
+            Objects.equals(description, post.description) &&
+            Objects.equals(createdBy, post.createdBy) &&
+            Objects.equals(createdById, post.createdById) &&
+            Objects.equals(publishedDate, post.publishedDate) &&
+            Objects.equals(postTags, post.postTags) &&
+            Objects.equals(like, post.like) &&
+            Objects.equals(liked, post.liked) &&
+            Objects.equals(comment, post.comment) &&
+            Objects.equals(commentNum, post.commentNum) &&
+            Objects.equals(imageUrl, post.imageUrl);
     }
 }

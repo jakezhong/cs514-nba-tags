@@ -28,8 +28,8 @@ import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
+import java.util.Map;
 
-// [START example]
 public class CloudSqlDao implements PersonDao {
   // [START constructor]
   private String sqlUrl;
@@ -310,5 +310,14 @@ public class CloudSqlDao implements PersonDao {
       }
     }
   }
+
+  @Override
+  public Map<String, String> listSocialLink(long personId) throws SQLException {
+    return null;
+  }
+
+  @Override
+  public void addSocialLinkInPerson(long personId, String socialLinkName, String socialLinkUrl) {
+
+  }
 }
-// [END example]

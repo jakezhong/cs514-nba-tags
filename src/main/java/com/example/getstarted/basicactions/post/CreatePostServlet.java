@@ -111,6 +111,7 @@ public class CreatePostServlet extends HttpServlet {
         // [END auth]
         .like(new ArrayList<String>())
         .liked(false)
+        .comment("")
         .build();
     // [END postBuilder]
 

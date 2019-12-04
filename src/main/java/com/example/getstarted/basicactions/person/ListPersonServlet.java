@@ -8,6 +8,7 @@ import com.example.getstarted.util.CloudStorageHelper;
 import com.google.common.base.Strings;
 import java.io.IOException;
 import java.sql.SQLException;
+import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
 import javax.servlet.ServletException;
@@ -33,7 +34,6 @@ public class ListPersonServlet extends HttpServlet {
     AssociationDao daoAssociation = null;
     PostDao daoPost = null;
     PostTagDao daoPostTag = null;
-    SocialLinkDao daoSocial =null;
     CloudStorageHelper storageHelper = new CloudStorageHelper();
 
     // Creates the DAO based on the Context Parameters
@@ -46,7 +46,6 @@ public class ListPersonServlet extends HttpServlet {
         daoAssociation = new DatastoreAssociationDao();
         daoPost = new DatastorePostDao();
         daoPostTag = new DatastorePostTagDao();
-        daoSocial = new DatastoreSocialDao();
 
         break;
       case "cloudsql":
@@ -78,7 +77,6 @@ public class ListPersonServlet extends HttpServlet {
     this.getServletContext().setAttribute("dao-association", daoAssociation);
     this.getServletContext().setAttribute("dao-post", daoPost);
     this.getServletContext().setAttribute("dao-postTag", daoPostTag);
-    this.getServletContext().setAttribute("dao-social",daoSocial);
     this.getServletContext().setAttribute("storageHelper", storageHelper);
     this.getServletContext().setAttribute(
         "isCloudStorageConfigured",  // Hide upload when Cloud Storage is not configured.
@@ -98,7 +96,9 @@ public class ListPersonServlet extends HttpServlet {
     PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     Hashtable<String, String> search = new Hashtable<String, String>();
 
+    /* Initial person list */
     List<Person> persons;
+    List<Person> visiblePersons = new ArrayList<Person>();
     // Cursor variables
     String startCursor = req.getParameter("cursor");
     String endCursor;
@@ -126,12 +126,25 @@ public class ListPersonServlet extends HttpServlet {
           result = daoPerson.listPersons(startCursor);
         }
         persons = result.result;
+
+        /* Check if the person is public */
+        for (Person person: persons) {
+          if (person.getStatus() != null) {
+            if (person.getStatus().equals("public")) {
+              visiblePersons.add(person);
+            } else if (person.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+              visiblePersons.add(person);
+            }
+          } else {
+            visiblePersons.add(person);
+          }
+        }
         endCursor = result.cursor;
     } catch (Exception e) {
         throw new ServletException("Error listing persons", e);
     }
 
-    req.getSession().getServletContext().setAttribute("persons", persons);
+    req.getSession().getServletContext().setAttribute("persons", visiblePersons);
     req.setAttribute("first", searchFirst);
     req.setAttribute("last", searchLast);
     req.setAttribute("category", searchCategory);

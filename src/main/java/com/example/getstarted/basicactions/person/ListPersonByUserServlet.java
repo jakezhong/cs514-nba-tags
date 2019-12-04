@@ -58,6 +58,7 @@ public class ListPersonByUserServlet extends HttpServlet {
             resp.sendRedirect("/login");
             return;
         }
+
         /* Don't show profile to others if it's private */
         if (profile != null && profile.getStatus() != null) {
             if (profile.getStatus().equals("private") && !profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {

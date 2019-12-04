@@ -165,7 +165,7 @@ public class DatastoreAssociationDao implements AssociationDao {
      */
     @Override
     public Result<Long> listPersonsByGroup(Long groupId, String startCursor) {
-        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(3); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
@@ -185,7 +185,7 @@ public class DatastoreAssociationDao implements AssociationDao {
         }
 
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && resultPersons.size() == 6) {         // Are we paging? Save Cursor
+        if (cursor != null && resultPersons.size() == 3) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
             return new Result<>(memberIds, cursorString);
         } else {
@@ -226,7 +226,7 @@ public class DatastoreAssociationDao implements AssociationDao {
      */
     @Override
     public Result<Long> listGroupByPerson(Long personId, String startCursor) {
-        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
+        FetchOptions fetchOptions = FetchOptions.Builder.withLimit(3); // Only show 10 at a time
         if (startCursor != null && !startCursor.equals("")) {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
@@ -245,7 +245,7 @@ public class DatastoreAssociationDao implements AssociationDao {
         }
 
         Cursor cursor = results.getCursor();              // Where to start next time
-        if (cursor != null && resultPersons.size() == 6) {         // Are we paging? Save Cursor
+        if (cursor != null && resultPersons.size() == 3) {         // Are we paging? Save Cursor
             String cursorString = cursor.toWebSafeString();               // Cursors are WebSafe
             return new Result<>(groupsId, cursorString);
         } else {

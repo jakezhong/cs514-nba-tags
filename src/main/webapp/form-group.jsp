@@ -20,7 +20,7 @@
 
 							<div class="form-group">
 							   <label for="introduction">Introduction</label>
-							   <textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(person.introduction)}</textarea>
+							   <textarea name="introduction" id="introduction" class="form-control" rows="3">${fn:escapeXml(group.introduction)}</textarea>
 							</div>
 
 							<div class="form-group">

@@ -1,8 +1,10 @@
-package com.example.getstarted.basicactions;
+package com.example.getstarted.basicactions.group;
 
 import com.example.getstarted.daos.interfaces.AssociationDao;
+import com.example.getstarted.daos.interfaces.GroupDao;
 import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Association;
+import com.example.getstarted.objects.Group;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
 import java.io.IOException;
@@ -31,8 +33,22 @@ public class CreateAssociationServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+        Long groupId = Long.decode(req.getParameter("id"));
+
+        /* If the current user is not the post author, redirect */
         try {
-            Long groupId = Long.decode(req.getParameter("id"));
+            Group group = daoGroup.readGroup(groupId);
+            if (!group.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/group/read?id="+groupId.toString());
+            return;
+        }
+
+        try {
             String userId = (String) req.getSession().getAttribute("userId");
 
             PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");

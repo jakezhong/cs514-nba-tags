@@ -13,25 +13,23 @@
                                 <div class="user-pro-img">
                                     <img class="group-image" height="200" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
                                 </div><!--user-pro-img end-->
+                                <h3>${fn:escapeXml(group.name)}</h3>
+								<p class="category"><a href="/groups?category=${group.category}">${fn:escapeXml(group.category)}</a></p>
+								<c:if test="${login != false}">
                                 <div class="user_pro_status">
                                     <a href="/association/create?id=${group.id}" class="btn btn-primary btn-sm">
                                         <i class="glyphicon glyphicon-edit"></i>
                                         Add Member
                                     </a>
                                 </div><!--user_pro_status end-->
-                                <ul class="social_links">
-                                    <li><a href="#" title=""><i class="la la-globe"></i></a></li>
-                                    <li><a href="#" title=""><i class="fa fa-facebook-square"></i></a></li>
-                                    <li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
-                                    <li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
-                                    <li><a href="#" title=""><i class="fa fa-youtube"></i></a></li>
-                                </ul>
+								</c:if>
                             </div><!--user_profile end-->
                         </div><!--main-left-sidebar end-->
                     </div>
                     <div class="col-lg-9">
                         <div class="main-ws-sec">
                             <div class="user-tab-sec">
+								<c:if test="${login != false}">
                                 <ul class="flw-hr">
                                     <li>
                                         <a href="update?id=${group.id}" class="btn btn-primary btn-sm">
@@ -45,11 +43,9 @@
                                             Delete group
                                         </a>
                                     </li>
-
                                 </ul>
-                                <h3>${fn:escapeXml(group.name)}</h3>
+								</c:if>
                                 <div class="star-descp">
-                                    <p class="category"><span>${fn:escapeXml(group.category)}</span></p>
                                     <p>
                                         <small>Added by
                                             ${fn:escapeXml(not empty group.createdBy?group.createdBy:'Anonymous')}
@@ -80,10 +76,12 @@
 								<div class="post-bar">
 									<form method ="POST" action ="/association/delete" class="detail_descp">
 										<h3>Members</h3>
+										<c:if test="${login != false}">
 										<button type="submit" class="btn btn-danger btn-sm">
 											<i class="glyphicon glyphicon-edit"></i>
 											Remove Members
 										</button>
+										</c:if>
 										<input type="text" name="groupId" value="${group.id}" class="hidden">
 										<div class="companies-list">
 											<div class="row">
@@ -103,14 +101,16 @@
 															<div class="view-more-pro">
 																<a href="/person/read?id=${person.id}" title="">View Profile</a>
 															</div>
+															<c:if test="${login != false}">
 															<input type="checkbox" name="members" value=${person.id} />
+															</c:if>
 														</div><!--company_profile_info end-->
 													</div>
 												</c:forEach>
 											</div>
-											<c:if test="${not empty cursor}">
+											<c:if test="${not empty cursor_person}">
 												<div class="read-more">
-													<a href="?cursor=${fn:escapeXml(cursor)}&id=${person.id}"  class="btn btn-primary btn-sm">
+													<a href="?cursor_person=${fn:escapeXml(cursor_person)}&id=${group.id}"  class="btn btn-primary btn-sm">
 														<i class="glyphicon glyphicon-edit"></i>Load More
 													</a>
 												</div>
@@ -130,7 +130,7 @@
 														<a href="/post/read?id=${post.id}"><img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}"></a>
 													</div>
 													<div class="epi-sec">
-														<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
+														<h3><a href="/post/read?id=${post.id}"><c:if test="${not empty post.status}">${post.status=='private'?'Private: ':''}</c:if>${fn:escapeXml(post.title)}</a></h3>
 														<ul class="post-info">
 															<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 															<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
@@ -157,15 +157,15 @@
 													<div class="job-status-bar">
 														<ul class="like-com">
 															<li><span class="com"><i class="la la-heart"></i>Like ${fn:length(post.like)}</li>
-															<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
+															<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment ${post.commentNum}</a></li>
 														</ul>
 													</div>
 												</div>
 											</c:forEach>
 										</div>
-										<c:if test="${not empty cursor}">
+										<c:if test="${not empty cursor_post}">
 											<div class="read-more">
-												<a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
+												<a href="?cursor_post=${fn:escapeXml(cursor_post)}&id=${group.id}"  class="btn btn-primary btn-sm">
 													<i class="glyphicon glyphicon-edit"></i>Load More
 												</a>
 											</div>

@@ -3,6 +3,7 @@ package com.example.getstarted.daos;
 import com.example.getstarted.daos.interfaces.PersonDao;
 import com.example.getstarted.objects.Person;
 import com.example.getstarted.objects.Result;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.appengine.api.datastore.Cursor;
 import com.google.appengine.api.datastore.DatastoreService;
 import com.google.appengine.api.datastore.DatastoreServiceFactory;
@@ -16,6 +17,7 @@ import com.google.appengine.api.datastore.Query;
 import com.google.appengine.api.datastore.Query.SortDirection;
 import com.google.appengine.api.datastore.QueryResultIterator;
 
+import java.io.IOException;
 import java.util.*;
 
 /**
@@ -54,17 +56,12 @@ public class DatastorePersonDao implements PersonDao {
           .address((String) entity.getProperty(Person.ADDRESS))
           .category((String) entity.getProperty(Person.CATEGORY))
           .status((String) entity.getProperty(Person.STATUS))
-          .linkedin((String) entity.getProperty(Person.LINKEDIN))
-          .facebook((String) entity.getProperty(Person.FACEBOOK))
-          .twitter((String) entity.getProperty(Person.TWITTER))
-          .instagram((String) entity.getProperty(Person.INSTAGRAM))
-          .youtube((String) entity.getProperty(Person.YOUTUBE))
-          .website((String) entity.getProperty(Person.WEBSITE))
           .description((String) entity.getProperty(Person.DESCRIPTION))
           .createdBy((String) entity.getProperty(Person.CREATED_BY))
           .createdById((String) entity.getProperty(Person.CREATED_BY_ID))
           .publishedDate((Date) entity.getProperty(Person.PUBLISHED_DATE))
           .imageUrl((String) entity.getProperty(Person.IMAGE_URL))
+          .socialLink((String)entity.getProperty(Person.SOCIAL_LINK))
           .build();
   }
   // [END entityToPerson]
@@ -88,17 +85,12 @@ public class DatastorePersonDao implements PersonDao {
       incPersonEntity.setProperty(Person.ADDRESS, person.getAddress());
       incPersonEntity.setProperty(Person.CATEGORY, person.getCategory());
       incPersonEntity.setProperty(Person.STATUS, person.getStatus());
-      incPersonEntity.setProperty(Person.LINKEDIN, person.getLinkedin());
-      incPersonEntity.setProperty(Person.FACEBOOK, person.getFacebook());
-      incPersonEntity.setProperty(Person.TWITTER, person.getTwitter());
-      incPersonEntity.setProperty(Person.INSTAGRAM, person.getInstagram());
-      incPersonEntity.setProperty(Person.YOUTUBE, person.getYoutube());
-      incPersonEntity.setProperty(Person.WEBSITE, person.getWebsite());
       incPersonEntity.setProperty(Person.DESCRIPTION, person.getDescription());
       incPersonEntity.setProperty(Person.CREATED_BY, person.getCreatedBy());
       incPersonEntity.setProperty(Person.CREATED_BY_ID, person.getCreatedById());
       incPersonEntity.setProperty(Person.PUBLISHED_DATE, person.getPublishedDate());
       incPersonEntity.setProperty(Person.IMAGE_URL, person.getImageUrl());
+      incPersonEntity.setProperty(Person.SOCIAL_LINK,person.getSocialLink());
 
       Key personKey = datastore.put(incPersonEntity); // Save the Entity
       return personKey.getId();                     // The ID of the Key
@@ -142,17 +134,12 @@ public class DatastorePersonDao implements PersonDao {
       entity.setProperty(Person.ADDRESS, person.getAddress());
       entity.setProperty(Person.CATEGORY, person.getCategory());
       entity.setProperty(Person.STATUS, person.getStatus());
-      entity.setProperty(Person.LINKEDIN, person.getLinkedin());
-      entity.setProperty(Person.FACEBOOK, person.getFacebook());
-      entity.setProperty(Person.TWITTER, person.getTwitter());
-      entity.setProperty(Person.INSTAGRAM, person.getInstagram());
-      entity.setProperty(Person.YOUTUBE, person.getYoutube());
-      entity.setProperty(Person.WEBSITE, person.getWebsite());
       entity.setProperty(Person.DESCRIPTION, person.getDescription());
       entity.setProperty(Person.CREATED_BY, person.getCreatedBy());
       entity.setProperty(Person.CREATED_BY_ID, person.getCreatedById());
       entity.setProperty(Person.PUBLISHED_DATE, person.getPublishedDate());
       entity.setProperty(Person.IMAGE_URL, person.getImageUrl());
+      entity.setProperty(Person.SOCIAL_LINK, person.getSocialLink());
 
       datastore.put(entity);                   // Update the Entity
   }
@@ -312,6 +299,11 @@ public class DatastorePersonDao implements PersonDao {
     }
 
     // [END listbyuser]
+    @Override
+    /**
+     * List all persons for a specific user
+     * @return Result<Person>
+     */
     public Result<Person> listAllPersonsByUser(String userId) {
         Query query = new Query(PERSON_KIND) // We only care about Persons
         .setFilter(new Query.FilterPredicate(Person.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
@@ -322,5 +314,97 @@ public class DatastorePersonDao implements PersonDao {
         List<Person> resultPersons = entitiesToPersons(results);     // Retrieve and convert Entities
 
         return new Result<>(resultPersons);
+    }
+
+    @Override
+    /**
+     * List all social links for a specific person
+     * @return Result<Person>
+     */
+    public void addSocialLinkInPerson(long personId, String socialLinkName, String socialLinkUrl){
+        ObjectMapper mapper = new ObjectMapper();
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
+            String jsonString = (String) personEntity.getProperty(Person.SOCIAL_LINK);
+            Map<String,String> map;
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+            }else {
+                map = new HashMap<>();
+            }
+            //convert jsonString to map, and fetch existed content
+            //add new sociallink
+            map.put(socialLinkName,socialLinkUrl);
+            // convert to string
+            String newJsonString  = mapper.writeValueAsString(map);
+            //System.out.println(newJsonString);
+            //update entity
+            personEntity.setProperty(Person.SOCIAL_LINK,newJsonString);
+
+            datastore.put(personEntity);
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch (EntityNotFoundException e){
+            System.out.println("error adding socialLink");
+        }
+    }
+
+    /**
+     * use hashmap since the key is unique, so when key is same, will update value
+     * @param personId personId
+     * @return map
+     */
+    public Map<String,String> listSocialLink(long personId){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,String> map = null;
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, personId));
+            String jsonString = (String) personEntity.getProperty(Person.SOCIAL_LINK);
+
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+            }else{
+                map = new HashMap<>();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch (EntityNotFoundException e){
+            System.out.println("error listing socialLink");
+        }
+        return map;
+    }
+
+    /**
+     * Delete the selected social link
+     * @param postId
+     * @param commentKey
+     */
+    public void deleteSocialLink( long postId, String commentKey){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,String> map = null;
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, postId));
+            String jsonString = (String) personEntity.getProperty(Person.SOCIAL_LINK);
+
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+                map.remove(commentKey);
+                String newJsonString  = mapper.writeValueAsString(map);
+                personEntity.setProperty(Person.SOCIAL_LINK,newJsonString);
+                datastore.put(personEntity);
+
+            }else{
+                return;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch (EntityNotFoundException e){
+            System.out.println("error deleting  socialLink");
+        }
     }
 }

@@ -1,6 +1,7 @@
 package com.example.getstarted.basicactions.profile;
 
 import com.example.getstarted.daos.interfaces.ProfileDao;
+import com.example.getstarted.objects.Profile;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -22,11 +23,23 @@ public class DeleteProfileServlet extends HttpServlet {
     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Long id = Long.decode(req.getParameter("id"));
+        Long profileId = Long.decode(req.getParameter("id"));
         ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
 
+        /* If the current user is not the person author, redirect */
         try {
-            daoProfile.deleteProfile(id);
+            Profile profile = daoProfile.readProfile(profileId);
+            if (!profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                resp.sendRedirect("/login");
+                return;
+            }
+        } catch (Exception e) {
+            resp.sendRedirect("/profile/user");
+            return;
+        }
+
+        try {
+            daoProfile.deleteProfile(profileId);
             resp.sendRedirect("/profile/user");
         } catch (Exception e) {
             throw new ServletException("Error deleting profile", e);

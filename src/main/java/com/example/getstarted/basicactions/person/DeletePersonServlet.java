@@ -32,8 +32,8 @@ public class DeletePersonServlet extends HttpServlet {
 
         /* If the current user is not the person author, redirect */
         try {
-            Person post = daoPerson.readPerson(personId);
-            if (!post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+            Person person = daoPerson.readPerson(personId);
+            if (!person.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
                 resp.sendRedirect("/login");
                 return;
             }

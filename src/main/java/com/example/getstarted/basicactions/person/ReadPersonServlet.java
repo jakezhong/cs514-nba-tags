@@ -6,6 +6,7 @@ import com.example.getstarted.objects.*;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -29,11 +30,16 @@ public class ReadPersonServlet extends HttpServlet {
         PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
         GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
-        SocialLinkDao daoSocial = (SocialLinkDao) this.getServletContext().getAttribute("dao-social");
         AssociationDao associationDao = (AssociationDao) this.getServletContext().getAttribute("dao-association");
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long personId = Long.decode(req.getParameter("id"));
+        /* Initial cursor */
+        String cursor_group = req.getParameter("cursor_group");
+        String cursor_post = req.getParameter("cursor_post");
+        String endCursor_group;
+        String endCursor_post;
+        boolean login = false;
 
         try {
             Person person = daoPerson.readPerson(personId);
@@ -44,18 +50,20 @@ public class ReadPersonServlet extends HttpServlet {
                     return;
                 }
             }
-
+            if (person.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                login = true;
+            }
             /* Initial group list */
             List<Group> groups = new ArrayList<>();
             List<Long> groupsId;
-            List<SocialLink> socialLinks;
             try {
-                Result<Long> result = associationDao.listAllGroupByPerson(personId);
+                Result<Long> result = associationDao.listGroupByPerson(personId, cursor_group);
                 groupsId = result.result;
                 for(Long groupId: groupsId){
                     Group group = daoGroup.readGroup(groupId);
                     groups.add(group);
                 }
+                endCursor_group = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing groups", e);
             }
@@ -66,7 +74,7 @@ public class ReadPersonServlet extends HttpServlet {
             List<Post> visiblePosts = new ArrayList<Post>();
 
             try {
-                Result<Long> result = daoPostTag.listAllPostByPerson(personId);
+                Result<Long> result = daoPostTag.listPostByPerson(personId, cursor_post);
                 postIds = result.result;
                 /* Loop posts tagged this person */
                 for(Long postId: postIds){
@@ -120,26 +128,42 @@ public class ReadPersonServlet extends HttpServlet {
                             }
                         }
                         post.setPostTags(tags);
+                        try {
+                            Map<String, String> comments = daoPost.listComment(post.getId());
+                            if (comments != null) {
+                                post.setCommentNum(comments.size());
+                            } else {
+                                post.setCommentNum(0);
+                            }
+                        } catch (Exception e) {
+                            throw new ServletException("Error listing comments", e);
+                        }
                     } catch (Exception e) {
                         throw new ServletException("Error listing tags", e);
                     }
                 }
+                endCursor_post = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing posts", e);
             }
 
             //get socials
-            try {
-                Result<SocialLink> result = daoSocial.listSocialLinksByPerson(personId);
-                socialLinks = result.result;
-            } catch (Exception e) {
-                throw new ServletException("Error listing socialLinks", e);
+            Map<String,String> socialLinks = null;
+            if (person.getSocialLink() != null) {
+                try {
+                    socialLinks = daoPerson.listSocialLink(personId);
+                } catch (Exception e) {
+                    throw new ServletException("Error listing socialLinks", e);
+                }
             }
 
             req.setAttribute("person", person);
-            req.setAttribute("socialLinks",socialLinks);
+            req.setAttribute("login", login);
+            req.setAttribute("socialLinks", socialLinks);
             req.getSession().getServletContext().setAttribute("groups", groups);
             req.getSession().getServletContext().setAttribute("posts", visiblePosts);
+            req.setAttribute("cursor_group", endCursor_group);
+            req.setAttribute("cursor_post", endCursor_post);
             req.setAttribute("page", "view-person");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {

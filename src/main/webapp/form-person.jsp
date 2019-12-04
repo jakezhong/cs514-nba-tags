@@ -35,7 +35,7 @@
 
                             <div class="form-group">
                                 <label for="description">Description</label>
-                                <textarea name="description" id="description" class="form-control text-editor" rows="12">$person.description}</textarea>
+                                <textarea name="description" id="description" class="form-control text-editor" rows="12">${person.description}</textarea>
                             </div>
 
                             <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">
@@ -60,7 +60,6 @@
                                     </select>
                                 </div>
                             </div>
-							
                             <div class="form-group">
                                 <label for="category">Status</label>
                                 <div class="inp-field">
@@ -70,51 +69,6 @@
                                         <option value="private" ${person.status=='private'?'selected' : ''}>Private</option>
                                     </select>
                                 </div>
-                            </div>
-
-                            <div class="form-group">
-                                <label for="email">Email</label>
-                                <input type="email" name="email" id="email" value="${fn:escapeXml(person.email)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="phone">Phone</label>
-                                <input type="text" name="phone" id="phone" value="${fn:escapeXml(person.phone)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="address">Address</label>
-                                <input type="text" name="address" id="address" value="${fn:escapeXml(person.address)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="linkedin">Linkedin</label>
-                                <input type="url" name="linkedin" id="linkedin" value="${fn:escapeXml(person.linkedin)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="facebook">Facebook</label>
-                                <input type="url" name="facebook" id="facebook" value="${fn:escapeXml(person.facebook)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="twitter">Twitter</label>
-                                <input type="url" name="twitter" id="twitter" value="${fn:escapeXml(person.twitter)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="instagram">Instagram</label>
-                                <input type="url" name="instagram" id="instagram" value="${fn:escapeXml(person.instagram)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="youtube">Youtube</label>
-                                <input type="url" name="youtube" id="youtube" value="${fn:escapeXml(person.youtube)}" class="form-control" />
-                            </div>
-
-                            <div class="form-group">
-                                <label for="website">Website</label>
-                                <input type="url" name="website" id="website" value="${fn:escapeXml(person.website)}" class="form-control" />
                             </div>
                         </div>
                     </div>

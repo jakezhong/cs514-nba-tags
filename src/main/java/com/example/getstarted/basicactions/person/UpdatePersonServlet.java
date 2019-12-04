@@ -31,13 +31,21 @@ public class UpdatePersonServlet extends HttpServlet {
    */
   @Override
   public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-    /* If the user has not logged in, don't allow to create person and redirect */
-    if (req.getSession().getAttribute("userId") == null) {
-      resp.sendRedirect("/login");
-      return;
+    Long personId = Long.decode(req.getParameter("id"));
+    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
+
+    /* If the current user is not the person author, redirect */
+    try {
+        Person post = daoPerson.readPerson(personId);
+        if (!post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+          resp.sendRedirect("/login");
+          return;
+        }
+    } catch (Exception e) {
+        resp.sendRedirect("/persons");
+        return;
     }
 
-    PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
     try {
         Person person = daoPerson.readPerson(Long.decode(req.getParameter("id")));
         req.setAttribute("person", person);
@@ -96,17 +104,13 @@ public class UpdatePersonServlet extends HttpServlet {
           .phone(params.get("phone"))
           .address(params.get("address"))
           .category(params.get("category"))
-          .linkedin(params.get("linkedin"))
-          .facebook(params.get("facebook"))
-          .twitter(params.get("twitter"))
-          .instagram(params.get("instagram"))
-          .youtube(params.get("youtube"))
-          .website(params.get("website"))
+          .status(params.get("status"))
           .description(params.get("description"))
           .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
           .createdBy(oldPerson.getCreatedBy())
           .createdById(oldPerson.getCreatedById())
           .publishedDate(oldPerson.getPublishedDate())
+          .socialLink(oldPerson.getSocialLink())
           .build();
       // [END personBuilder]
 

@@ -3,8 +3,11 @@ package com.example.getstarted.daos;
 import com.example.getstarted.daos.interfaces.PostDao;
 import com.example.getstarted.objects.Post;
 import com.example.getstarted.objects.Result;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.google.appengine.api.datastore.*;
 import com.google.appengine.api.datastore.Query.SortDirection;
+
+import java.io.IOException;
 import java.util.Enumeration;
 
 import java.util.*;
@@ -48,6 +51,7 @@ public class DatastorePostDao implements PostDao {
           .like((List<String>) entity.getProperty(Post.LIKE))
           .liked((boolean) entity.getProperty(Post.LIKED))
           .imageUrl((String) entity.getProperty(Post.IMAGE_URL))
+          .comment((String) entity.getProperty(Post.COMMENT))
           .build();
   }
   // [END entityToPost]
@@ -74,6 +78,7 @@ public class DatastorePostDao implements PostDao {
       incPostEntity.setProperty(Post.LIKE, post.getLike());
       incPostEntity.setProperty(Post.LIKED, post.getLiked());
       incPostEntity.setProperty(Post.IMAGE_URL, post.getImageUrl());
+      incPostEntity.setProperty(Post.COMMENT, post.getComment());
 
       Key postKey = datastore.put(incPostEntity); // Save the Entity
       return postKey.getId();                     // The ID of the Key
@@ -120,6 +125,7 @@ public class DatastorePostDao implements PostDao {
       entity.setProperty(Post.LIKE, post.getLike());
       entity.setProperty(Post.LIKED, post.getLiked());
       entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
+      entity.setProperty(Post.COMMENT, post.getComment());
 
       datastore.put(entity);                   // Update the Entity
   }
@@ -157,6 +163,7 @@ public class DatastorePostDao implements PostDao {
         entity.setProperty(Post.LIKE, post.getLike());
         entity.setProperty(Post.LIKED, post.getLiked());
         entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
+        entity.setProperty(Post.COMMENT, post.getComment());
 
         datastore.put(entity);                   // Update the Entity
     }
@@ -323,4 +330,103 @@ public class DatastorePostDao implements PostDao {
         return new Result<>(resultPosts);
     }
   // [END listAllPostsByUser]
+
+    // [START addCommentInPost]
+    @Override
+    /**
+     * Add comment to the current post
+     * @param postId to display 10 per time
+     * @return Result<Post>
+     */
+    public void addCommentInPost(long postId, String createdByString, String content ){
+        ObjectMapper mapper = new ObjectMapper();
+
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(POST_KIND, postId));
+            String jsonString = (String) personEntity.getProperty(Post.COMMENT);
+            Map<String,String> map;
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+            }else {
+                map = new HashMap<>();
+            }
+            //convert jsonString to map, and fetch existed content
+
+            //add new sociallink
+            map.put(content,createdByString);
+            // convert to string
+            String newJsonString  = mapper.writeValueAsString(map);
+
+            System.out.println(newJsonString);
+            //update entity
+            personEntity.setProperty(Post.COMMENT,newJsonString);
+            datastore.put(personEntity);
+
+        }catch(IOException e){
+            e.printStackTrace();
+        }catch (EntityNotFoundException e){
+            System.out.println("error adding socialLink");
+        }
+    }
+
+    /**
+     * use hashmap since the key is unique, so when key is same, will update value
+     * @param postId postId
+     * @return map
+     */
+    public Map<String,String> listComment(long postId){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String, String> map = null;
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(POST_KIND, postId));
+            String jsonString = (String) personEntity.getProperty(Post.COMMENT);
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+            }else{
+                map = new HashMap<>();
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch (EntityNotFoundException e){
+            System.out.println("error listing comments");
+        }
+
+        return map;
+    }
+
+    // [START deleteComment]
+    @Override
+    /**
+     * Delete the current comment
+     * @param postId to display 10 per time
+     * @return Result<Post>
+     */
+    public void deleteComment( long postId, String commentKey){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,String> map = null;
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(POST_KIND, postId));
+            String jsonString = (String) personEntity.getProperty(Post.COMMENT);
+
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+                map.remove(commentKey);
+                String newJsonString  = mapper.writeValueAsString(map);
+                personEntity.setProperty(Post.COMMENT,newJsonString);
+                datastore.put(personEntity);
+
+            }else{
+                return;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch (EntityNotFoundException e){
+            System.out.println("error listing comments");
+        }
+    }
 }

@@ -30,7 +30,10 @@ public class ReadProfileServlet extends HttpServlet {
           If there's user id parameter, list persons by this id
           Otherwise, list persons by logged in user id
        */
+        boolean visible = true;
         String userId;
+        boolean login = false;
+
         try {
             userId = req.getParameter("id") == null || req.getParameter("id").isEmpty() ? (String) req.getSession().getAttribute("userId") : req.getParameter("id");
         } catch (Exception e) {
@@ -45,20 +48,26 @@ public class ReadProfileServlet extends HttpServlet {
             Result<Profile> result = daoProfile.findProfile(userId);
             profiles = result.result;
             profile = profiles.get(0);
+            if (profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                login = true;
+            }
         } catch (Exception e) {
             profile = null;
         }
         /* Ask user to login if there's no current profile */
         if (profile == null && req.getSession().getAttribute("userId") == null) {
             resp.sendRedirect("/login");
+            return;
         }
         /* Don't show profile to others if it's private */
         if (profile != null && profile.getStatus() != null) {
             if (profile.getStatus().equals("private") && !profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
-                req.setAttribute("privacy", true);
+                visible = false;
             }
         }
 
+        req.setAttribute("visible", visible);
+        req.setAttribute("login", login);
         req.setAttribute("profile", profile);
         req.setAttribute("page", "view-profile");
         req.getRequestDispatcher("/base.jsp").forward(req, resp);

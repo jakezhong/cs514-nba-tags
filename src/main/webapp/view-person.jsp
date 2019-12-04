@@ -13,55 +13,44 @@
                                 <div class="user-pro-img">
                                     <img class="person-image" height="200" src="${fn:escapeXml(not empty person.imageUrl?person.imageUrl:'http://placekitten.com/g/128/192')}">
                                 </div><!--user-pro-img end-->
+								<div class="user-info center">
+                                	<h3>${fn:escapeXml(person.first)} ${fn:escapeXml(person.last)}</h3>
+                                    <p><span>${fn:escapeXml(person.title)}</span></p>
+									<h5 class="category"><a href="/persons?category=${person.category}">${fn:escapeXml(person.category)}</a></h5>
+								</div>
                                 <ul class="social_links">
-                                    <c:choose>
-                                        <c:when test="${not empty socialLinks}">
-                                            <c:forEach items="${socialLinks}" var ="socialLink">
-                                                <c:if test="${socialLink.socialLinkName=='Facebook'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                                <c:if test="${socialLink.socialLinkName=='Twitter'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                                <c:if test="${socialLink.socialLinkName=='Instagram'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                                <c:if test="${socialLink.socialLinkName=='Youtube'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                                <c:if test="${socialLink.socialLinkName=='Linkedin'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="fa fa-linkedin"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                                <c:if test="${socialLink.socialLinkName=='website'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                                <c:if test="${socialLink.socialLinkName=='other'}">
-                                                    <li><a href="${socialLink.socialLinkUrl}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.socialLinkUrl)}</a></li>
-                                                </c:if>
-                                            </c:forEach>
-                                        </c:when>
-                                    </c:choose>
-                                    <form method="POST" action="/add/socialLink" >
-                                        <input type="text" name="personId" value="${person.id}" class="hidden">
-                                        <div class="form-group">
-                                            <label for="socialLinks">Add social links</label>
-                                            <select name="socialLink" class="form-control" id="socialLink">
-                                                <option value="website">Personal Website</option>
-                                                <option value="Facebook">Facebook</option>
-                                                <option value="Twitter">Twitter</option>
-                                                <option value="Instagram">Instagram</option>
-                                                <option value="Youtube">Youtube</option>
-                                                <option value="Linkedin">Linkedin</option>
-                                                <option value ="other">other</option>
-                                                <input name= "other" type="text" style="display:none;"/>
-                                            </select>
-                                        </div>
-                                        <div class="form-socialLinks">
-                                            <label for="socialLinks">Links</label>
-                                            <textarea name="socialLinkUrl" id="socialLinks" class="form-control" rows="2"></textarea>
-                                        </div>
-                                        <button type="submit" class="btn btn-success">Save</button>
-                                    </form>
+									<c:if test="${not empty socialLinks}">
+										<c:forEach items="${socialLinks}" var ="socialLink">
+											<li><a href="${socialLink.value}" title=""><i class="fa fa-${fn:escapeXml(socialLink.key)}"></i> ${fn:escapeXml(socialLink.value)}</a>
+												<a href="/person/delete-social?socialLinkName=${socialLink.key}&personId=${person.id}" class="delete-btn">
+													<i class="fa fa-trash-o"></i>
+												</a></li>
+										</c:forEach>
+									</c:if>
+									<c:if test="${login != false}">
+									<form method="POST" action="/person/add-social" class="social-form">
+										<input type="text" name="personId" value="${person.id}" class="hidden">
+										<div class="form-group" id="social-other-trigger">
+											<label for="socialLinks">Social Type</label>
+											<div class="inp-field">
+												<select name="socialLink" class="form-control" id="socialLink">
+													<option value="website">Website</option>
+													<option value="facebook">Facebook</option>
+													<option value="twitter">Twitter</option>
+													<option value="instagram">Instagram</option>
+													<option value="youtube">Youtube</option>
+													<option value="linkedin">Linkedin</option>
+													<option value ="other">other</option>
+												</select>
+											</div>
+										</div>
+										<div class="form-group">
+											<label for="socialLinks">Social Link</label>
+											<input type="url" name="socialLinkUrl" id="socialLinks" class="form-control">
+										</div>
+										<button type="submit" class="btn btn-success">Add</button>
+									</form>
+									</c:if>
                                 </ul>
                             </div><!--user_profile end-->
                         </div><!--main-left-sidebar end-->
@@ -69,21 +58,22 @@
                     <div class="col-lg-9">
                         <div class="main-ws-sec">
                             <div class="user-tab-sec">
+								<c:if test="${login != false}">
                                 <ul class="flw-hr">
                                     <li>
-                                        <a href="update?id=${person.id}" class="btn btn-primary btn-sm">
+                                        <a href="/person/update?id=${person.id}" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
                                             Edit person
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="delete?id=${person.id}" class="btn btn-danger btn-sm">
+                                        <a href="/person/delete?id=${person.id}" class="btn btn-danger btn-sm">
                                             <i class="glyphicon glyphicon-trash"></i>
                                             Delete person
                                         </a>
                                     </li>
                                     <li>
-                                        <a href="join?personId=${person.id}" class="btn btn-primary btn-sm">
+                                        <a href="/person/join?personId=${person.id}" class="btn btn-primary btn-sm">
                                             <i class="glyphicon glyphicon-edit"></i>
                                             Join Group
                                         </a>
@@ -91,10 +81,8 @@
                                     <li>
                                     </li>
                                 </ul>
-                                <h3>${fn:escapeXml(person.first)} ${fn:escapeXml(not empty person.last?person.last:'Unknown')}</h3>
+								</c:if>
                                 <div class="star-descp">
-                                    <p><span>${fn:escapeXml(person.title)}</span></p>
-                                    <p class="category"><span>${fn:escapeXml(person.category)}</span></p>
                                     <p>
                                         <small>Added by
                                             ${fn:escapeXml(not empty person.createdBy?person.createdBy:'Anonymous')}
@@ -126,10 +114,12 @@
 									<div class="detail_descp">
 										<form method ="POST" action ="/group/quit" class="detail_descp">
 											<h3>Groups</h3>
+											<c:if test="${login != false}">
 											<button type="submit"  class="btn btn-primary btn-sm">
 												<i class="glyphicon glyphicon-edit"></i>
 												Quit Groups
 											</button>
+											</c:if>
 											<input type="text" name="personId" value="${person.id}" class="hidden">
 											<div class="companies-list">
 												<div class="row">
@@ -148,14 +138,16 @@
 																	<h5 class="category"><a href="/groups?category=${group.category}">${fn:escapeXml(group.category)}</a></h5>
 																</div>
 																<div class="view-more-pro"><a href="/group/read?id=${group.id}" title="">View Detail</a></div>
+																<c:if test="${login != false}">
 																<input type="checkbox" name="groups" value=${group.id} />
+																</c:if>
 															</div><!--company_profile_info end-->
 														</div>
 													</c:forEach>
 												</div>
-												<c:if test="${not empty cursor}">
+												<c:if test="${not empty cursor_group}">
 													<div class="read-more">
-														<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+														<a href="?cursor_group=${fn:escapeXml(cursor_group)}&id=${person.id}"  class="btn btn-primary btn-sm">
 															<i class="glyphicon glyphicon-edit"></i>Load More
 														</a>
 													</div>
@@ -176,7 +168,7 @@
 														<a href="/post/read?id=${post.id}"><img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}"></a>
 													</div>
 													<div class="epi-sec">
-														<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
+														<h3><a href="/post/read?id=${post.id}"><c:if test="${not empty post.status}">${post.status=='private'?'Private: ':''}</c:if>${fn:escapeXml(post.title)}</a></h3>
 														<ul class="post-info">
 															<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 															<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
@@ -203,15 +195,15 @@
 													<div class="job-status-bar">
 														<ul class="like-com">
 															<li><span class="com"><i class="la la-heart"></i>Like ${fn:length(post.like)}</li>
-															<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
+															<li><a href="/post/read?id=${post.id}#comment" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment ${post.commentNum}</a></li>
 														</ul>
 													</div>
 												</div>
 											</c:forEach>
 										</div>
-										<c:if test="${not empty cursor}">
+										<c:if test="${not empty cursor_post}">
 											<div class="read-more">
-												<a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
+												<a href="?cursor_post=${fn:escapeXml(cursor_post)}&id=${person.id}"  class="btn btn-primary btn-sm">
 													<i class="glyphicon glyphicon-edit"></i>Load More
 												</a>
 											</div>

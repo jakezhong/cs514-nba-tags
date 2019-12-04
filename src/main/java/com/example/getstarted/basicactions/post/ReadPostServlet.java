@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 @SuppressWarnings("serial")
 
@@ -39,6 +40,7 @@ public class ReadPostServlet extends HttpServlet {
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long postId = Long.decode(req.getParameter("id"));
+        boolean login = false;
 
         try {
             Post post = daoPost.readPost(postId);
@@ -49,6 +51,9 @@ public class ReadPostServlet extends HttpServlet {
                     resp.sendRedirect("/posts/user?id="+post.getCreatedById());
                     return;
                 }
+            }
+            if (post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                login = true;
             }
 
             /* Initial person list */
@@ -85,7 +90,18 @@ public class ReadPostServlet extends HttpServlet {
                 throw new ServletException("Error listing groups", e);
             }
 
+            /* List comment */
+            Map<String, String> comments;
+            try {
+                comments = daoPost.listComment(post.getId());
+                post.setCommentNum(comments.size());
+            } catch (Exception e) {
+                throw new ServletException("Error listing comments", e);
+            }
+
             req.setAttribute("post", post);
+            req.setAttribute("login", login);
+            req.setAttribute("comments", comments);
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.getSession().getServletContext().setAttribute("groups", groups);
             req.setAttribute("page", "view-post");

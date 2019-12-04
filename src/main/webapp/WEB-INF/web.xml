@@ -37,13 +37,15 @@
         <url-pattern>/person/read</url-pattern>
         <url-pattern>/person/update</url-pattern>
         <url-pattern>/person/join</url-pattern>
+        <url-pattern>/person/quit</url-pattern>
+        <url-pattern>/person/add-social</url-pattern>
+        <url-pattern>/person/delete-social</url-pattern>
         <url-pattern>/groups</url-pattern>
         <url-pattern>/groups/user</url-pattern>
         <url-pattern>/group/create</url-pattern>
         <url-pattern>/group/delete</url-pattern>
         <url-pattern>/group/read</url-pattern>
         <url-pattern>/group/update</url-pattern>
-        <url-pattern>/association/create</url-pattern>
         <url-pattern>/posts</url-pattern>
         <url-pattern>/posts/user</url-pattern>
         <url-pattern>/post/create</url-pattern>
@@ -51,15 +53,16 @@
         <url-pattern>/post/read</url-pattern>
         <url-pattern>/post/update</url-pattern>
         <url-pattern>/post/like</url-pattern>
+        <url-pattern>/post/add-comment</url-pattern>
+        <url-pattern>/post/delete-comment</url-pattern>
         <url-pattern>/post-tag/create</url-pattern>
         <url-pattern>/post-tag/delete</url-pattern>
         <url-pattern>/profile/user</url-pattern>
         <url-pattern>/profile/create</url-pattern>
         <url-pattern>/profile/delete</url-pattern>
         <url-pattern>/profile/update</url-pattern>
-        <url-pattern>/add/socialLink</url-pattern>
-        <url-pattern>/association/delete</url-pattern><!--delete group members -->
-        <url-pattern>/group/quit</url-pattern>
+        <url-pattern>/association/create</url-pattern>
+        <url-pattern>/association/delete</url-pattern>
     </filter-mapping>
 
     <filter>
@@ -147,6 +150,42 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>joinGroup</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.person.JoinGroupsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>joinGroup</servlet-name>
+        <url-pattern>/person/join</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>QuitGroups</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.person.QuitGroupsServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>QuitGroups</servlet-name>
+        <url-pattern>/person/quit</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>addSocialLink</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.person.AddSocialLinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>addSocialLink</servlet-name>
+        <url-pattern>/person/add-social</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteSocialLink</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.person.DeleteSocialLinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteSocialLink</servlet-name>
+        <url-pattern>/person/delete-social</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>ListGroup</servlet-name>
         <servlet-class>com.example.getstarted.basicactions.group.ListGroupServlet</servlet-class>
     </servlet>
@@ -202,11 +241,20 @@
 
     <servlet>
         <servlet-name>CreateAssociation</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.CreateAssociationServlet</servlet-class>
+        <servlet-class>com.example.getstarted.basicactions.group.CreateAssociationServlet</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>CreateAssociation</servlet-name>
         <url-pattern>/association/create</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteAssociation</servlet-name><!--remove group members -->
+        <servlet-class>com.example.getstarted.basicactions.group.DeleteGroupMembersServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteAssociation</servlet-name>
+        <url-pattern>/association/delete</url-pattern>
     </servlet-mapping>
 
     <servlet>
@@ -273,6 +321,24 @@
     </servlet-mapping>
 
     <servlet>
+        <servlet-name>AddComment</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.post.AddCommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddComment</servlet-name>
+        <url-pattern>/post/add-comment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteComment</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.post.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteComment</servlet-name>
+        <url-pattern>/post/delete-comment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
         <servlet-name>CreatePostTag</servlet-name>
         <servlet-class>com.example.getstarted.basicactions.post.CreatePostTagServlet</servlet-class>
     </servlet>
@@ -324,42 +390,6 @@
     <servlet-mapping>
         <servlet-name>UpdateProfile</servlet-name>
         <url-pattern>/profile/update</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>addSocialLink</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.AddSocialLinkServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>addSocialLink</servlet-name>
-        <url-pattern>/add/socialLink</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>enjoyGroups</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.person.JoinGroupsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>enjoyGroups</servlet-name>
-        <url-pattern>/person/join</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>DeleteAssociation</servlet-name><!--remove group members -->
-        <servlet-class>com.example.getstarted.basicactions.group.DeleteGroupMembersServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>DeleteAssociation</servlet-name>
-        <url-pattern>/association/delete</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>QuitGroups</servlet-name>
-        <servlet-class>com.example.getstarted.basicactions.person.QuitGroupsServlet</servlet-class>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>QuitGroups</servlet-name>
-        <url-pattern>/group/quit</url-pattern>
     </servlet-mapping>
 
     <!-- [START config] -->

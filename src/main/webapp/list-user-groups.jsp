@@ -15,13 +15,8 @@
 									<div class="user-pro-img">
 										<img class="user-image" src="${fn:escapeXml(not empty profile.imageUrl?profile.imageUrl:'http://placekitten.com/g/500/500')}">
 									</div><!--user-pro-img end-->
-									<ul class="social_links">
-										<li><a href="#" title=""><i class="la la-globe"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-facebook-square"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-twitter"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-instagram"></i></a></li>
-										<li><a href="#" title=""><i class="fa fa-youtube"></i></a></li>
-									</ul>
+									<h3>${fn:escapeXml(profile.first)} ${fn:escapeXml(profile.last)}</h3>
+									<p><span>${fn:escapeXml(profile.title)}</span></p>
 								</div><!--user_profile end-->
 							</div><!--main-left-sidebar end-->
 							</c:when>
@@ -86,7 +81,7 @@
 																	<h3>
 																		<a href="/group/read?id=${group.id}" title="">${fn:escapeXml(group.name)}</a>
 																	</h3>
-																	<h5 class="category">${fn:escapeXml(group.category)}</h5>
+																	<h5 class="category"><a href="/persons?category=${group.category}">${fn:escapeXml(group.category)}</a></h5>
 																</div>
 																<div class="view-more-pro">View Detail</div>
 															</a>
@@ -96,7 +91,7 @@
 											</div>
 											<c:if test="${not empty cursor}">
 												<div class="read-more">
-													<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+													<a href="?cursor=${fn:escapeXml(cursor)}&id=${profile.id}"  class="btn btn-primary btn-sm">
 														<i class="glyphicon glyphicon-edit"></i>Load More
 													</a>
 												</div>

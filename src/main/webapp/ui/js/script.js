@@ -280,7 +280,21 @@ $(window).on("load", function() {
 
 
     });
-
+	
+	socialOther();
+	function socialOther() {
+		var other = $('#socialLink');
+		$(other).change(function(e) {
+			var target = e.target;
+			var value = $(target).val();
+			if (value == 'other') {
+				$('#social-other-trigger').after('<div class="form-group hidden"  id="social-other"><label for="socialLinks">Other</label><input type="text" name="socialLink" class="form-control"></div>');
+			} else if($('#social-other').length > 0) {
+				$('#social-other').remove();
+			}
+		});
+	}
+	
 	uploader();
 	uploadFile();
 	function uploader() {

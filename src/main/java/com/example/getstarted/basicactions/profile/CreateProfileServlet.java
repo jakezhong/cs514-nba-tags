@@ -39,11 +39,16 @@ public class CreateProfileServlet extends HttpServlet {
      */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        /* If the user has not logged in, don't allow to create group and redirect */
+        if (req.getSession().getAttribute("userId") == null) {
+            resp.sendRedirect("/login");
+            return;
+        }
+
         String userId = (String) req.getSession().getAttribute("userId");
 
         ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
         List<Profile> profile;
-
         try {
             Result<Profile> result = daoProfile.findProfile(userId);
             profile = result.result;
@@ -110,7 +115,7 @@ public class CreateProfileServlet extends HttpServlet {
             .title(params.get("title"))
             .introduction(params.get("introduction"))
             .status(params.get("status"))
-            .email(params.get("email"))
+            .email(createdByString)
             .description(params.get("description"))
             .imageUrl(null == newImageUrl ? params.get("imageUrl") : newImageUrl)
             // [START auth]
