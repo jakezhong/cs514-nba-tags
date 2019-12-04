@@ -15,7 +15,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-// [START example]
 @SuppressWarnings("serial")
 /**
  * List all persons in Person4 kind
@@ -108,7 +107,6 @@ public class ListPersonServlet extends HttpServlet {
     String searchLast = req.getParameter("last");
     String searchCategory = req.getParameter("category");
 
-
     try {
         Result<Person> result;
 
@@ -142,4 +140,3 @@ public class ListPersonServlet extends HttpServlet {
     req.getRequestDispatcher("/base.jsp").forward(req, resp);
   }
 }
-// [END example]

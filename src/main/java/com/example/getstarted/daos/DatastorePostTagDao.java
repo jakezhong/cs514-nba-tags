@@ -242,10 +242,33 @@ public class DatastorePostTagDao implements PostTagDao {
     }
 
     /**
-     * List all groups by specific person
+     * list all post in a specific group
+     * @param groupId groupId
+     * @return Result<Post>
+     */
+    @Override
+    public Result<Long> listAllPostByGroup(Long groupId) {
+        Query query = new Query(POST_TAG_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(PostTag.GROUP_ID, Query.FilterOperator.EQUAL, groupId));
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
+        List<Long> postIds = new ArrayList<>();
+
+        for(PostTag tag: resultTags){
+            Long post = tag.getPostId();
+            postIds.add(post);
+        }
+        return new Result<>(postIds);
+    }
+
+    /**
+     * List all post by specific person
      * @param personId personId
      * @param startCursor startCursor
-     * @return Result<Group>
+     * @return Result<Post>
      */
     public Result<Long> listPostByPerson(Long personId, String startCursor) {
         FetchOptions fetchOptions = FetchOptions.Builder.withLimit(6); // Only show 10 at a time
@@ -253,8 +276,8 @@ public class DatastorePostTagDao implements PostTagDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(POST_TAG_KIND) // We only care about Persons
-        // Only for this user
         .setFilter(new Query.FilterPredicate(PostTag.PERSON_ID, Query.FilterOperator.EQUAL, personId));
+
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
@@ -276,10 +299,33 @@ public class DatastorePostTagDao implements PostTagDao {
     }
 
     /**
+     * list all post in a specific person
+     * @param personId personId
+     * @return Result<Post>
+     */
+    @Override
+    public Result<Long> listAllPostByPerson(Long personId) {
+        Query query = new Query(POST_TAG_KIND) // We only care about Persons
+        .setFilter(new Query.FilterPredicate(PostTag.PERSON_ID, Query.FilterOperator.EQUAL, personId));
+
+        PreparedQuery preparedQuery = datastore.prepare(query);
+        QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator();
+
+        List<PostTag> resultTags = entitiesToPostTags(results);     // Retrieve and convert Entities
+        List<Long> postIds = new ArrayList<>();
+
+        for(PostTag tag: resultTags){
+            Long post = tag.getPostId();
+            postIds.add(post);
+        }
+        return new Result<>(postIds);
+    }
+
+    /**
      * list all persons in a specific post
-     * @param postId groupId
+     * @param postId postId
      * @param startCursor startCursor
-     * @return Result<Person>
+     * @return Result<post>
      */
     @Override
     public Result<PostTag> listTagsByPost(Long postId, String startCursor) {
@@ -304,6 +350,12 @@ public class DatastorePostTagDao implements PostTagDao {
         }
     }
 
+    /**
+     * list all post tags in a specific post
+     * @param postId
+     * @return Result<PostTag>
+     */
+    @Override
     public Result<PostTag> listAllTagsByPost(Long postId) {
         Query query = new Query(POST_TAG_KIND) // We only care about Persons
         .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
@@ -315,9 +367,10 @@ public class DatastorePostTagDao implements PostTagDao {
 
         return new Result<>(resultTags);
     }
+
     /**
      * list all persons in a specific post
-     * @param postId groupId
+     * @param postId postId
      * @param startCursor startCursor
      * @return Result<Person>
      */
@@ -352,7 +405,7 @@ public class DatastorePostTagDao implements PostTagDao {
 
     /**
      * list all persons in a specific post
-     * @param postId groupId
+     * @param postId postId
      * @return Result<Person>
      */
     @Override
@@ -375,7 +428,7 @@ public class DatastorePostTagDao implements PostTagDao {
 
     /**
      * list all groups in a specific post
-     * @param postId groupId
+     * @param postId postId
      * @param startCursor startCursor
      * @return Result<Group>
      */
@@ -386,8 +439,8 @@ public class DatastorePostTagDao implements PostTagDao {
             fetchOptions.startCursor(Cursor.fromWebSafeString(startCursor)); // Where we left off
         }
         Query query = new Query(POST_TAG_KIND) // We only care about Persons
-                // Only for this user
-                .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+        .setFilter(new Query.FilterPredicate(PostTag.POST_ID, Query.FilterOperator.EQUAL, postId));
+
         PreparedQuery preparedQuery = datastore.prepare(query);
         QueryResultIterator<Entity> results = preparedQuery.asQueryResultIterator(fetchOptions);
 
@@ -410,7 +463,7 @@ public class DatastorePostTagDao implements PostTagDao {
 
     /**
      * list all groups in a specific post
-     * @param postId groupId
+     * @param postId postId
      * @return Result<Group>
      */
     @Override

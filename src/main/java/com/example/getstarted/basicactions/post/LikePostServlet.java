@@ -27,7 +27,7 @@ public class LikePostServlet extends HttpServlet {
     */
     @Override
     public void doGet(HttpServletRequest req, HttpServletResponse resp) throws IOException, ServletException {
-        /* If the user has not logged in, don't allow to create post and redirect */
+        /* If the user has not logged in, don't allow to like post and redirect */
         if (req.getSession().getAttribute("userId") == null) {
             resp.sendRedirect("/login");
             return;
@@ -36,27 +36,30 @@ public class LikePostServlet extends HttpServlet {
         PostDao daoPost = (PostDao) this.getServletContext().getAttribute("dao-post");
 
         Long postId = Long.decode(req.getParameter("id"));
+        String userId = req.getSession().getAttribute("userId").toString();
 
+        /* Post like method */
         try {
             Post post = daoPost.readPost(postId);
             List<String> like = post.getLike();
             if (like == null) {
                 like = new ArrayList<String>();
-                like.add((String) req.getSession().getAttribute("userId"));
+                like.add(userId);
+                post.setLiked(true);
             } else {
-                //            if (!post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
-                if (like.indexOf((String) req.getSession().getAttribute("userId")) < 0) {
-                    like.add((String) req.getSession().getAttribute("userId"));
+                if (like.indexOf(userId) < 0) {
+                    like.add(userId);
+                    post.setLiked(true);
                 } else {
-                    like.remove(like.indexOf((String) req.getSession().getAttribute("userId")));
+                    like.remove(userId);
+                    post.setLiked(false);
                 }
-//            }
             }
+            post.setLike(like);
             daoPost.likePost(post);
 
-            req.setAttribute("like", like);
-            req.setAttribute("page", "list-post");
-            req.getRequestDispatcher("/base.jsp").forward(req, resp);
+            resp.sendRedirect("/posts");
+            return;
         } catch (Exception e) {
             throw new ServletException("Error liking post", e);
         }

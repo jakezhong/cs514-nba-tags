@@ -34,13 +34,9 @@ public class ReadPersonServlet extends HttpServlet {
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long personId = Long.decode(req.getParameter("id"));
-        /* Initial cursor */
-        String startCursor = req.getParameter("cursor");
-        String endCursor;
 
         try {
             Person person = daoPerson.readPerson(personId);
-
             /* If the current person if private and the user is not the author, redirect user */
             if (person.getStatus() != null) {
                 if (person.getStatus().equals("private") && !person.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
@@ -54,13 +50,12 @@ public class ReadPersonServlet extends HttpServlet {
             List<Long> groupsId;
             List<SocialLink> socialLinks;
             try {
-                Result<Long> result = associationDao.listGroupByPerson(personId,startCursor);
+                Result<Long> result = associationDao.listAllGroupByPerson(personId);
                 groupsId = result.result;
                 for(Long groupId: groupsId){
-                  Group group = daoGroup.readGroup(groupId);
-                  groups.add(group);
+                    Group group = daoGroup.readGroup(groupId);
+                    groups.add(group);
                 }
-                endCursor = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing groups", e);
             }
@@ -71,45 +66,56 @@ public class ReadPersonServlet extends HttpServlet {
             List<Post> visiblePosts = new ArrayList<Post>();
 
             try {
-                Result<Long> result = daoPostTag.listPostByPerson(personId, startCursor);
+                Result<Long> result = daoPostTag.listAllPostByPerson(personId);
                 postIds = result.result;
+                /* Loop posts tagged this person */
                 for(Long postId: postIds){
-                    Post post = daoPost.readPost(postId);
-                    posts.add(post);
+                    try {
+                        Post post = daoPost.readPost(postId);
+                        posts.add(post);
+                    } catch (Exception e) {
+                        throw new ServletException("Error reading post", e);
+                    }
                 }
-
+                /* Check if the post is public */
                 for (Post post: posts) {
+                    if (post != null) {
+                        /* Check if post is public, only show own post if it's not */
+                        if (post.getStatus() != null) {
+                            if (post.getStatus().equals("public")) {
+                                visiblePosts.add(post);
+                            } else if (post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
+                                visiblePosts.add(post);
+                            }
+                        } else {
+                            visiblePosts.add(post);
+                        }
+                    }
+                }
+                /* Loop tags from posts */
+                for (Post post: visiblePosts) {
                     // Post tag variables
                     List<PostTag> allTags;
                     List<Object> tags = new ArrayList<Object>();
-                    /* Check if post is public, only show own post if it's not */
-                    if (post.getStatus() != null) {
-                        if (post.getStatus().equals("public")) {
-                            visiblePosts.add(post);
-                        } else if (post.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
-                            visiblePosts.add(post);
-                        }
-                    } else {
-                        visiblePosts.add(post);
-                    }
                     /* Save all tags from the current post to a list */
                     try {
                         Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
                         allTags = resultTags.result;
+                        /* Loop through tags and store persons/groups */
                         for (PostTag tag: allTags) {
                             if (tag.getPersonId() != null) {
                                 try {
                                     Person personTag = daoPerson.readPerson(tag.getPersonId());
                                     tags.add(personTag);
                                 } catch (Exception e) {
-                                    throw new ServletException("Error read person", e);
+                                    throw new ServletException("Error read person tag", e);
                                 }
                             } else if (tag.getGroupId() != null) {
                                 try {
                                     Group groupTag = daoGroup.readGroup(tag.getGroupId());
                                     tags.add(groupTag);
                                 } catch (Exception e) {
-                                    throw new ServletException("Error read group", e);
+                                    throw new ServletException("Error read group tag", e);
                                 }
                             }
                         }
@@ -118,7 +124,6 @@ public class ReadPersonServlet extends HttpServlet {
                         throw new ServletException("Error listing tags", e);
                     }
                 }
-                endCursor = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing posts", e);
             }
@@ -135,7 +140,6 @@ public class ReadPersonServlet extends HttpServlet {
             req.setAttribute("socialLinks",socialLinks);
             req.getSession().getServletContext().setAttribute("groups", groups);
             req.getSession().getServletContext().setAttribute("posts", visiblePosts);
-            req.setAttribute("cursor", endCursor);
             req.setAttribute("page", "view-person");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {

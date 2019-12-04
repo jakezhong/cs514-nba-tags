@@ -48,11 +48,11 @@
 									<c:forEach items="${posts}" var="post">
 										<div class="post-bar">
 											<div class="post_topbar">
-												<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
+												<a href="/post/read?id=${post.id}"><img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}"></a>
 											</div>
 											<div class="epi-sec">
 												<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
-												<ul>
+												<ul class="post-info">
 													<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 													<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
 												</ul>
@@ -77,16 +77,18 @@
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">
-													<li><a href="/post/like?id=${post.id}" title="" class="com"><i class="la la-heart"></i>Like ${like}</a></li>
+													<li><a href="/post/like?id=${post.id}" title="" class="com${post.liked == true?' active':''}"><i class="la la-heart"></i>Like ${fn:length(post.like)}</a></li>
 													<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
 												</ul>
 											</div>
 										</div><!--post-bar end-->
 									</c:forEach>
 									<c:if test="${not empty cursor}">
-										<div class="process-comm">
-											<a href="?cursor=$	{fn:escapeXml(cursor)}" title=""><img src="${pageContext.request.contextPath}/ui/images/process-icon.png" alt=""></a>
-										</div><!--process-comm end-->
+										<div class="read-more">
+											<a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
+												<i class="glyphicon glyphicon-edit"></i>Load More
+											</a>
+										</div>
 									</c:if>
 								</div><!--posts-section end-->
 							</c:otherwise>

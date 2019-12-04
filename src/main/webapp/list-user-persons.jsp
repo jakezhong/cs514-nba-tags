@@ -92,7 +92,7 @@
 													</div>
 													<c:if test="${not empty cursor}">
 														<div class="read-more">
-															<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+															<a href="?cursor=${fn:escapeXml(cursor)}&id=${person.id}"  class="btn btn-primary btn-sm">
 																<i class="glyphicon glyphicon-edit"></i>More
 															</a>
 														</div>

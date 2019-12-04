@@ -100,6 +100,7 @@ public class UpdatePostServlet extends HttpServlet {
             .createdById(oldPost.getCreatedById())
             .publishedDate(oldPost.getPublishedDate())
             .like(oldPost.getLike())
+            .liked(oldPost.getLiked())
             .build();
             // [END postBuilder]
 

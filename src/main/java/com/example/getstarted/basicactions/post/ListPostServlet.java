@@ -63,8 +63,8 @@ public class ListPostServlet extends HttpServlet {
             }
             posts = result.result;
 
+            /* Check if the post is public */
             for (Post post: posts) {
-                /* Check if post is public, only show own post if it's not */
                 if (post.getStatus() != null) {
                     if (post.getStatus().equals("public")) {
                         visiblePosts.add(post);
@@ -75,6 +75,7 @@ public class ListPostServlet extends HttpServlet {
                     visiblePosts.add(post);
                 }
             }
+            /* Loop tags from posts */
             for (Post post: visiblePosts) {
                 // Post tag variables
                 List<PostTag> allTags;
@@ -87,17 +88,17 @@ public class ListPostServlet extends HttpServlet {
                     for (PostTag tag: allTags) {
                         if (tag.getPersonId() != null) {
                             try {
-                                Person person = daoPerson.readPerson(tag.getPersonId());
-                                tags.add(person);
+                                Person personTag = daoPerson.readPerson(tag.getPersonId());
+                                tags.add(personTag);
                             } catch (Exception e) {
-                                throw new ServletException("Error read person", e);
+                                throw new ServletException("Error read person tag", e);
                             }
                         } else if (tag.getGroupId() != null) {
                             try {
-                                Group group = daoGroup.readGroup(tag.getGroupId());
-                                tags.add(group);
+                                Group groupTag = daoGroup.readGroup(tag.getGroupId());
+                                tags.add(groupTag);
                             } catch (Exception e) {
-                                throw new ServletException("Error read group", e);
+                                throw new ServletException("Error read group tag", e);
                             }
                         }
                     }

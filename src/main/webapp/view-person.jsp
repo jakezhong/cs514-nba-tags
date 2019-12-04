@@ -117,7 +117,7 @@
                                 <div class="detail_descp">
                                     <h3>Description</h3>
                                     <div class="content-main">
-                                        <p>${fn:escapeXml(person.description)}</p>
+                                        <p>${person.description}</p>
                                     </div>
                                 </div>
                             </div>
@@ -125,38 +125,42 @@
 								<div class="post-bar">
 									<div class="detail_descp">
 										<form method ="POST" action ="/group/quit" class="detail_descp">
-										<h3>Groups</h3>
+											<h3>Groups</h3>
 											<button type="submit"  class="btn btn-primary btn-sm">
 												<i class="glyphicon glyphicon-edit"></i>
 												Quit Groups
 											</button>
 											<input type="text" name="personId" value="${person.id}" class="hidden">
-										<div class="companies-list">
-											<div class="row">
-												<c:forEach items="${groups}" var="group">
-													<div class="col-lg-4 col-md-6  col-sm-12 col-12">
-														<div class="company_profile_info">
-															<a href="/group/read?id=${group.id}" title="">
+											<div class="companies-list">
+												<div class="row">
+													<c:forEach items="${groups}" var="group">
+														<div class="col-lg-4 col-md-6  col-sm-12 col-12">
+															<div class="company_profile_info">
 																<div class="company-up-info">
-																	<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
-																	<h3>${fn:escapeXml(group.name)}</h3>
-																	<h5 class="category">${fn:escapeXml(group.category)}</h5>
+																	<div class="grid-image">
+																		<a href="/group/read?id=${group.id}" title="">
+																			<img alt="ahhh" src="${fn:escapeXml(not empty group.imageUrl?group.imageUrl:'http://placekitten.com/g/128/192')}">
+																		</a>
+																	</div>
+																	<h3>
+																		<a href="/group/read?id=${group.id}" title="">${fn:escapeXml(group.name)}</a>
+																	</h3>
+																	<h5 class="category"><a href="/groups?category=${group.category}">${fn:escapeXml(group.category)}</a></h5>
 																</div>
-																<div class="view-more-pro">View Detail</div>
-															</a>
-															<input type="checkbox" name="groups" value=${group.id} />
-														</div><!--company_profile_info end-->
-													</div>
-												</c:forEach>
-											</div>
-											<c:if test="${not empty cursor}">
-												<div class="read-more">
-													<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
-														<i class="glyphicon glyphicon-edit"></i>More
-													</a>
+																<div class="view-more-pro"><a href="/group/read?id=${group.id}" title="">View Detail</a></div>
+																<input type="checkbox" name="groups" value=${group.id} />
+															</div><!--company_profile_info end-->
+														</div>
+													</c:forEach>
 												</div>
-											</c:if>
-										</div>
+												<c:if test="${not empty cursor}">
+													<div class="read-more">
+														<a href="?cursor=${fn:escapeXml(cursor)}&id=${group.id}"  class="btn btn-primary btn-sm">
+															<i class="glyphicon glyphicon-edit"></i>Load More
+														</a>
+													</div>
+												</c:if>
+											</div>
 										</form>
 									</div>
 								</div>
@@ -167,13 +171,13 @@
 										<h3>Posts</h3>
 										<div class="row posts-section">
 											<c:forEach items="${posts}" var="post">
-												<div class="col-lg-6 col-sm-12 post-bar">
+												<div class="col-lg-6 col-sm-12 company_profile_info post">
 													<div class="post_topbar">
-														<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
+														<a href="/post/read?id=${post.id}"><img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}"></a>
 													</div>
 													<div class="epi-sec">
 														<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
-														<ul>
+														<ul class="post-info">
 															<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 															<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
 														</ul>
@@ -198,6 +202,7 @@
 													</div>
 													<div class="job-status-bar">
 														<ul class="like-com">
+															<li><span class="com"><i class="la la-heart"></i>Like ${fn:length(post.like)}</li>
 															<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
 														</ul>
 													</div>
@@ -205,9 +210,11 @@
 											</c:forEach>
 										</div>
 										<c:if test="${not empty cursor}">
-											<div class="process-comm">
-												<a href="?cursor=$	{fn:escapeXml(cursor)}" title=""><img src="${pageContext.request.contextPath}/ui/images/process-icon.png" alt=""></a>
-											</div><!--process-comm end-->
+											<div class="read-more">
+												<a href="?cursor=${fn:escapeXml(cursor)}"  class="btn btn-primary btn-sm">
+													<i class="glyphicon glyphicon-edit"></i>Load More
+												</a>
+											</div>
 										</c:if>
 									</div>
 								</div>

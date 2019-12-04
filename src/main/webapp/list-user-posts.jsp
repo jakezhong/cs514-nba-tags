@@ -74,11 +74,11 @@
 										<c:forEach items="${posts}" var="post">
 											<div class="post-bar">
 												<div class="post_topbar">
-													<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
+													<a href="/post/read?id=${post.id}"><img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}"></a>
 												</div>
 												<div class="epi-sec">
 													<h3><a href="/post/read?id=${post.id}">${fn:escapeXml(post.title)}</a></h3>
-													<ul>
+													<ul class="post-info">
 														<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(post.createdBy)}</span></li>
 														<li><img src="${pageContext.request.contextPath}/ui/images/clock.png" alt=""><span>${fn:escapeXml(post.publishedDate)}</span></li>
 													</ul>
@@ -88,21 +88,33 @@
 														<li><a href="#" title="">${fn:escapeXml(post.category)}</a></li>
 													</ul>
 													<p>${fn:escapeXml(post.introduction)} <a href="/post/read?id=${post.id}" title="">view more</a></p>
-													<ul class="skill-tags">
-														<li><a href="#" title="">${fn:escapeXml(post.category)}</a></li>
-													</ul>
+													<c:if test="${not empty post.postTags}">
+														<ul class="skill-tags">
+														<c:forEach items="${post.postTags}" var="tag">
+															<c:if test="${tag['class'].name == 'com.example.getstarted.objects.Group'}">
+																<li><a href="/group/read?id=${tag.id}">${tag.name}</a></li>
+															</c:if>
+															<c:if test="${tag['class'].name == 'com.example.getstarted.objects.Person'}">
+																<li><a href="/person/read?id=${tag.id}">${tag.first} ${tag.last}</a></li>
+															</c:if>
+														</c:forEach>
+														</ul>
+													</c:if>
 												</div>
 												<div class="job-status-bar">
 													<ul class="like-com">
+														<li><span class="com"><i class="la la-heart"></i>Like ${fn:length(post.like)}</li>
 														<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
 													</ul>
 												</div>
 											</div><!--post-bar end-->
 										</c:forEach>
 										<c:if test="${not empty cursor}">
-											<div class="process-comm">
-												<a href="?cursor=$	{fn:escapeXml(cursor)}" title=""><img src="${pageContext.request.contextPath}/ui/images/process-icon.png" alt=""></a>
-											</div><!--process-comm end-->
+											<div class="read-more">
+												<a href="?cursor=${fn:escapeXml(cursor)}&id=${post.id}"  class="btn btn-primary btn-sm">
+													<i class="glyphicon glyphicon-edit"></i>More
+												</a>
+											</div>
 										</c:if>
 									</div><!--posts-section end-->
 								</c:when>

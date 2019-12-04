@@ -104,7 +104,7 @@
 										<div class="detail_descp">
 											<h3>Description</h3>
 											<div class="content-main">
-												<p>${fn:escapeXml(profile.description)}</p>
+												<p>${profile.description}</p>
 											</div>
 										</div>
 									</div>

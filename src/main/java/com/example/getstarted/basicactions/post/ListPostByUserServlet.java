@@ -1,16 +1,14 @@
 package com.example.getstarted.basicactions.post;
 
-import com.example.getstarted.daos.interfaces.PostDao;
-import com.example.getstarted.daos.interfaces.ProfileDao;
-import com.example.getstarted.objects.Post;
-import com.example.getstarted.objects.Profile;
-import com.example.getstarted.objects.Result;
+import com.example.getstarted.daos.interfaces.*;
+import com.example.getstarted.objects.*;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 // [START example]
@@ -43,6 +41,11 @@ public class ListPostByUserServlet extends HttpServlet {
 
         /* First fetch the user profile information */
         ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
+        PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
+        PersonDao daoPerson = (PersonDao) this.getServletContext().getAttribute("dao-person");
+        GroupDao daoGroup = (GroupDao) this.getServletContext().getAttribute("dao-group");
+
+        /* Initial post list */
         List<Profile> profiles;
         Profile profile;
 
@@ -73,6 +76,37 @@ public class ListPostByUserServlet extends HttpServlet {
         try {
             Result<Post> result = daoPost.listPostsByUser(userId, startCursor);
             posts = result.result;
+            for (Post post: posts) {
+                // Post tag variables
+                List<PostTag> allTags;
+                List<Object> tags = new ArrayList<Object>();
+                /* Save all tags from the current post to a list */
+                try {
+                    Result<PostTag> resultTags = daoPostTag.listAllTagsByPost(post.getId());
+                    allTags = resultTags.result;
+                    /* Loop through tags and store persons/groups */
+                    for (PostTag tag: allTags) {
+                        if (tag.getPersonId() != null) {
+                            try {
+                                Person person = daoPerson.readPerson(tag.getPersonId());
+                                tags.add(person);
+                            } catch (Exception e) {
+                                throw new ServletException("Error read person", e);
+                            }
+                        } else if (tag.getGroupId() != null) {
+                            try {
+                                Group group = daoGroup.readGroup(tag.getGroupId());
+                                tags.add(group);
+                            } catch (Exception e) {
+                                throw new ServletException("Error read group", e);
+                            }
+                        }
+                    }
+                    post.setPostTags(tags);
+                } catch (Exception e) {
+                    throw new ServletException("Error listing tags", e);
+                }
+            }
             endCursor = result.cursor;
         } catch (Exception e) {
             throw new ServletException("Error listing posts", e);

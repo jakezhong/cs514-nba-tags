@@ -25,7 +25,7 @@
 
 							<div class="form-group">
 								<label for="description">Description</label>
-								<textarea name="description" id="description" class="form-control" rows="12">${fn:escapeXml(post.description)}</textarea>
+								<textarea name="description" id="description" class="form-control text-editor" rows="12">${post.description}</textarea>
 							</div>
 							
                             <div class="form-group ${isCloudStorageConfigured ? '' : 'hidden'}">

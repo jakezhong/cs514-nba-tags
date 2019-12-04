@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-// [START example]
 @SuppressWarnings("serial")
 
 /**
@@ -52,14 +51,12 @@ public class ReadPostServlet extends HttpServlet {
                 }
             }
 
-            /* List the tagged persons */
-            String startCursor = req.getParameter("cursor");
-            String endCursor;
+            /* Initial person list */
             List<Long> personIds;
             List<Person> persons = new ArrayList<>();
-
             try {
-                Result<Long> result = daoPostTag.listPersonByPost(postId, startCursor);
+                /* List the tagged persons */
+                Result<Long> result = daoPostTag.listAllPersonByPost(postId);
                 personIds = result.result;
                 for(Long personId: personIds){
                     if (personId != null) {
@@ -67,17 +64,16 @@ public class ReadPostServlet extends HttpServlet {
                         persons.add(person);
                     }
                 }
-                endCursor = result.cursor;
             } catch (Exception e) {
                 throw new ServletException("Error listing persons", e);
             }
 
-            /* List the tagged groups */
+            /* Initial group list */
             List<Long> groupIds;
             List<Group> groups = new ArrayList<>();
-
             try {
-                Result<Long> result = daoPostTag.listGroupByPost(postId, startCursor);
+                /* List the tagged groups */
+                Result<Long> result = daoPostTag.listAllGroupByPost(postId);
                 groupIds = result.result;
                 for(Long groupId: groupIds) {
                     if (groupId != null) {
@@ -92,7 +88,6 @@ public class ReadPostServlet extends HttpServlet {
             req.setAttribute("post", post);
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.getSession().getServletContext().setAttribute("groups", groups);
-            req.setAttribute("cursor", endCursor);
             req.setAttribute("page", "view-post");
             req.getRequestDispatcher("/base.jsp").forward(req, resp);
         } catch (Exception e) {
@@ -100,4 +95,3 @@ public class ReadPostServlet extends HttpServlet {
         }
     }
 }
-// [END example]

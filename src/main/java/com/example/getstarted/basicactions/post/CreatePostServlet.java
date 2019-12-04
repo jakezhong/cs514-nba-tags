@@ -110,6 +110,7 @@ public class CreatePostServlet extends HttpServlet {
         .publishedDate(date)
         // [END auth]
         .like(new ArrayList<String>())
+        .liked(false)
         .build();
     // [END postBuilder]
 

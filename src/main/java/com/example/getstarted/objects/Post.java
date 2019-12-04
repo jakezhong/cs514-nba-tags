@@ -18,6 +18,7 @@ public class Post {
     private Date publishedDate;
     private List<Object> postTags;
     private List<String> like;
+    private boolean liked;
     private String imageUrl;
     private String profileBg;
     // [END post]
@@ -35,6 +36,7 @@ public class Post {
     public static final String PUBLISHED_DATE = "publishedDate";
     public static final String POST_TAGS = "postTags";
     public static final String LIKE = "like";
+    public static final String LIKED = "liked";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
     // [END keys]
@@ -54,6 +56,7 @@ public class Post {
         this.publishedDate = builder.publishedDate;
         this.postTags = builder.postTags;
         this.like = builder.like;
+        this.liked = builder.liked;
         this.imageUrl = builder.imageUrl;
     }
     // [END constructor]
@@ -72,6 +75,7 @@ public class Post {
         private Date publishedDate;
         private List<Object> postTags;
         private List<String> like;
+        private boolean liked;
         private String imageUrl;
 
         /**
@@ -136,6 +140,11 @@ public class Post {
 
         public Builder like(List<String> like) {
             this.like = like;
+            return this;
+        }
+
+        public Builder liked(boolean liked) {
+            this.liked = liked;
             return this;
         }
 
@@ -249,6 +258,14 @@ public class Post {
         this.like = like;
     }
 
+    public boolean getLiked() {
+        return liked;
+    }
+
+    public void setLiked(boolean liked) {
+        this.liked = liked;
+    }
+
     public String getImageUrl() {
         return imageUrl;
     }
@@ -285,6 +302,7 @@ public class Post {
             ", publishedDate='" + publishedDate + '\'' +
             ", postTags='" + postTags + '\'' +
             ", like='" + like + '\'' +
+            ", liked='" + liked + '\'' +
             ", imageUrl='" + imageUrl + '\'' +
             '}';
     }
@@ -311,6 +329,7 @@ public class Post {
                 Objects.equals(publishedDate, post.publishedDate) &&
                 Objects.equals(postTags, post.postTags) &&
                 Objects.equals(like, post.like) &&
+                Objects.equals(liked, post.liked) &&
                 Objects.equals(imageUrl, post.imageUrl);
     }
 }

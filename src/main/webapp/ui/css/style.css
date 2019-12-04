@@ -9427,23 +9427,21 @@ main { float: left; width: 100%; padding: 60px 0; }
 /* ========== job-status-bar ========== */
 .job-status-bar { float: left; width: 100%; padding: 15px 20px; }
 
-.like-com { float: left; }
+.like-com li { display: inline-block; vertical-align: middle; }
 
-.like-com li { display: inline-block; margin-right: 15px; }
+.like-com li { color: #b2b2b2; font-size: 14px; line-height: 18px; margin-right: 10px; }
 
-.like-com li a { color: #b2b2b2; font-size: 14px; float: left; margin-top: 6px; margin-right: 5px; }
+.like-com li a { color: #b2b2b2; }
 
 .like-com li a:hover { color: #e44d3a; }
 
 .like-com li a.active { color: #e44d3a; }
 
-.like-com li a i { margin-right: 2px; font-size: 17px; position: relative; top: 2px; }
-
-.like-com li span { color: #ffffff; font-size: 13px; width: 30px; height: 30px; background-color: #e44d3a; line-height: 30px; -webkit-border-radius: 30px; -moz-border-radius: 30px; -ms-border-radius: 30px; -o-border-radius: 30px; border-radius: 30px; float: left; text-align: center; font-weight: 600; margin-left: -25px; }
+.like-com li i { margin-right: 2px; font-size: 17px; line-height: 18px; position: relative; top: 2px; }
 
 .like-com li .com { position: relative; top: -5px; }
 
-.like-com li .com img { margin-right: 10px; }
+.like-com li .com img { margin-top: 3px; margin-right: 5px; }
 
 .job-status-bar > a { float: right; color: #b2b2b2; font-size: 14px; margin-top: 5px; }
 
@@ -10167,7 +10165,9 @@ a:hover { color: initial; }
 
 .companies-list { width: 100%; margin-bottom: -30px; }
 
-.company_profile_info { display: block; width: 100%; background-color: #fff; text-align: center; border-top: 1px solid #e4e4e4; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; margin-bottom: 30px; }
+.company_profile_info { display: block; width: 100%; background-color: #fff; text-align: center; border-top: 1px solid #e4e4e4; border-left: 1px solid #e4e4e4; border-right: 1px solid #e4e4e4; border-bottom: 1px solid #e4e4e4; margin-bottom: 30px; padding: 0; }
+
+.company_profile_info.post { text-align: left; }
 
 .company-up-info { width: 100%; padding: 30px 0; border-bottom: 1px solid #e5e5e5; }
 
@@ -10720,7 +10720,7 @@ a:hover { color: initial; }
 .widget-adver img { width: 100%; }
 
 /* ============ forum-post-view ============ */
-.forum-post-view { float: left; width: 100%; background-color: #fff; padding: 25px 25px 0 25px; border-bottom: 1px solid #e5e5e5; }
+.forum-post-view { float: left; width: 100%; background-color: #fff; padding: 25px; border-bottom: 1px solid #e5e5e5; }
 
 .forum-post-view .usr-question { border-bottom: 0; padding: 0; }
 
@@ -10810,6 +10810,8 @@ a:hover { color: initial; }
 
 .btn.green:hover { background-color: #00b540; }
 
+.top-space { margin-top: 20px; }
+
 .main h3 { margin-bottom: 20px; font-size: 30px; }
 
 .main .post-project h3 { margin-bottom: 0; }
@@ -10829,6 +10831,12 @@ a:hover { color: initial; }
 .main .filter-secs { padding: 25px 0; }
 
 .main .filter-secs .filter-dd { margin-bottom: 0; }
+
+.main .post-info li { display: -webkit-box; display: -ms-flexbox; display: flex; -webkit-box-align: center; -ms-flex-align: center; align-items: center; font-size: 14px; }
+
+.main .post-info li span { display: block; margin-left: 5px; color: #686868; }
+
+.main .post-info li + li { margin-top: 10px; }
 
 .company_profile_info > a { display: block; }
 

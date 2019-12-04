@@ -46,6 +46,7 @@ public class DatastorePostDao implements PostDao {
           .createdById((String) entity.getProperty(Post.CREATED_BY_ID))
           .publishedDate((Date) entity.getProperty(Post.PUBLISHED_DATE))
           .like((List<String>) entity.getProperty(Post.LIKE))
+          .liked((boolean) entity.getProperty(Post.LIKED))
           .imageUrl((String) entity.getProperty(Post.IMAGE_URL))
           .build();
   }
@@ -71,6 +72,7 @@ public class DatastorePostDao implements PostDao {
       incPostEntity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
       incPostEntity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
       incPostEntity.setProperty(Post.LIKE, post.getLike());
+      incPostEntity.setProperty(Post.LIKED, post.getLiked());
       incPostEntity.setProperty(Post.IMAGE_URL, post.getImageUrl());
 
       Key postKey = datastore.put(incPostEntity); // Save the Entity
@@ -116,6 +118,7 @@ public class DatastorePostDao implements PostDao {
       entity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
       entity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
       entity.setProperty(Post.LIKE, post.getLike());
+      entity.setProperty(Post.LIKED, post.getLiked());
       entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
 
       datastore.put(entity);                   // Update the Entity
@@ -152,6 +155,7 @@ public class DatastorePostDao implements PostDao {
         entity.setProperty(Post.CREATED_BY_ID, post.getCreatedById());
         entity.setProperty(Post.PUBLISHED_DATE, post.getPublishedDate());
         entity.setProperty(Post.LIKE, post.getLike());
+        entity.setProperty(Post.LIKED, post.getLiked());
         entity.setProperty(Post.IMAGE_URL, post.getImageUrl());
 
         datastore.put(entity);                   // Update the Entity
@@ -297,6 +301,15 @@ public class DatastorePostDao implements PostDao {
         return new Result<>(resultPosts);
       }
   }
+    // [END listPostsByUser]
+
+    // [START listAllPostsByUser]
+    @Override
+    /**
+     * List all Posts by specific post
+     * @param startCursorString to display 10 per time
+     * @return Result<Post>
+     */
     public Result<Post> listAllPostsByUser(String userId) {
         Query query = new Query(POST_KIND) // We only care about Posts
         .setFilter(new Query.FilterPredicate(Post.CREATED_BY_ID, Query.FilterOperator.EQUAL, userId))
@@ -309,5 +322,5 @@ public class DatastorePostDao implements PostDao {
 
         return new Result<>(resultPosts);
     }
-  // [END listbyuser]
+  // [END listAllPostsByUser]
 }

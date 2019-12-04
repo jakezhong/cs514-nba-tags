@@ -93,6 +93,12 @@
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/jquery.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/jquery.plugins.js"></script>
 	<script type="text/javascript" src="${pageContext.request.contextPath}/ui/js/script.js"></script>
+	<script src="https://cdn.tiny.cloud/1/no-api-key/tinymce/5/tinymce.min.js" referrerpolicy="origin"></script>
+	<script>tinymce.init({
+			selector:'.text-editor',
+			plugins: "link",
+  			menubar: "insert",
+  			toolbar: "link"});</script>
 </body>
 </html>
 <!-- [END base]-->

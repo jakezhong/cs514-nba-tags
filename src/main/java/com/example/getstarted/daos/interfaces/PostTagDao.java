@@ -31,7 +31,11 @@ public interface PostTagDao {
 
     Result<Long> listPostByPerson(Long personId, String startCursor) throws SQLException;
 
+    Result<Long> listAllPostByPerson(Long personId) throws SQLException;
+
     Result<Long> listPostByGroup(Long groupId, String startCursor) throws SQLException;
+
+    Result<Long> listAllPostByGroup(Long groupId) throws SQLException;
 
     Result<PostTag> listTagsByPost(Long postId, String startCursor) throws SQLException;
 

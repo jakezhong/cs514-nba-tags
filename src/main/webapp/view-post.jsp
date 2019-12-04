@@ -32,11 +32,9 @@
                                             <h3>${fn:escapeXml(post.title)}</h3>
                                             <span><i class="fa fa-clock-o"></i>${fn:escapeXml(post.publishedDate)}</span>
                                             <ul class="quest-tags">
-                                                <li><a href="#" title="">${fn:escapeXml(post.category)}</a></li>
+                                                <li><a href="/posts?category=${post.category}" title="category">${fn:escapeXml(post.category)}</a></li>
                                             </ul>
-											<p>
-                                            	${fn:escapeXml(post.description)}
-											</p>
+											<div class="post-description">${post.description}</div>
                                         </div><!--usr_quest end-->
                                     </div><!--usr-question end-->
                                 </div><!--forum-post-view end-->
@@ -50,7 +48,7 @@
 									Add Tag
 								</a>
 								<c:if test="${not empty persons}">
-									<form method ="POST" action ="/post-tag/delete">
+									<form method ="POST" action ="/post-tag/delete" class="top-space">
 										<input type="text" name="postId" value="${post.id}" class="hidden">
 										<div class="widget widget-user">
 											<h3 class="title-wd">Tagged Persons</h3>
@@ -78,7 +76,7 @@
 									</form>
 								</c:if>
 								<c:if test="${not empty groups}">
-									<form method ="POST" action ="/post-tag/delete" class="detail_descp">
+									<form method ="POST" action ="/post-tag/delete" class="top-space">
 										<input type="text" name="postId" value="${post.id}" class="hidden">
 										<div class="widget widget-user">
 											<h3 class="title-wd">Tagged Groups</h3>
