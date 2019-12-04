@@ -20,6 +20,7 @@ public class Post {
     private List<String> like;
     private String imageUrl;
     private String profileBg;
+    private String comment;
     // [END post]
 
     // [START keys]
@@ -37,6 +38,7 @@ public class Post {
     public static final String LIKE = "like";
     public static final String IMAGE_URL = "imageUrl";
     public static final String PROFILE_BG = "profileBg";
+    public static final String COMMENT ="comment";
     // [END keys]
 
     // [START constructor]
@@ -55,6 +57,7 @@ public class Post {
         this.postTags = builder.postTags;
         this.like = builder.like;
         this.imageUrl = builder.imageUrl;
+        this.comment = builder.comment;
     }
     // [END constructor]
 
@@ -73,6 +76,8 @@ public class Post {
         private List<Object> postTags;
         private List<String> like;
         private String imageUrl;
+        private String comment;
+
 
         /**
         * Build constructor
@@ -142,6 +147,11 @@ public class Post {
         public Builder imageUrl(String imageUrl) {
           this.imageUrl = imageUrl;
           return this;
+        }
+
+        public Builder comment(String comment) {
+            this.comment = comment;
+            return this;
         }
 
         public Post build() {
@@ -263,6 +273,15 @@ public class Post {
 
     public void setProfileBg(String profileBg) {
         this.profileBg = profileBg;
+    }
+
+
+    public String getComment() {
+        return comment;
+    }
+
+    public void setComment(String comment) {
+        this.comment = comment;
     }
     // [END builder]
 

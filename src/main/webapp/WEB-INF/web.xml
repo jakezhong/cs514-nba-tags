@@ -353,6 +353,33 @@
         <url-pattern>/group/quit</url-pattern>
     </servlet-mapping>
 
+    <servlet>
+        <servlet-name>AddComment</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.AddCommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>AddComment</servlet-name>
+        <url-pattern>/add/comment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteComment</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.DeleteCommentServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteComment</servlet-name>
+        <url-pattern>/delete/comment</url-pattern>
+    </servlet-mapping>
+
+    <servlet>
+        <servlet-name>DeleteSocialLink</servlet-name>
+        <servlet-class>com.example.getstarted.basicactions.DeleteSocialLinkServlet</servlet-class>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>DeleteSocialLink</servlet-name>
+        <url-pattern>/delete/socialLink</url-pattern>
+    </servlet-mapping>
+
     <!-- [START config] -->
     <context-param>
         <param-name>personshelf.storageType</param-name>

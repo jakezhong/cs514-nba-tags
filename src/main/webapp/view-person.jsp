@@ -18,25 +18,47 @@
                                         <c:when test="${not empty socialLinks}">
                                             <c:forEach items="${socialLinks}" var ="socialLink">
                                                 <c:if test="${socialLink.key=='Facebook'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-facebook-square"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a>
+                                                    </li>
                                                 </c:if>
                                                 <c:if test="${socialLink.key=='Twitter'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-twitter"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a></li>
                                                 </c:if>
                                                 <c:if test="${socialLink.key=='Instagram'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-instagram"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a></li>
                                                 </c:if>
                                                 <c:if test="${socialLink.key=='Youtube'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-youtube"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a></li>
                                                 </c:if>
                                                 <c:if test="${socialLink.key=='Linkedin'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-linkedin"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="fa fa-linkedin"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a></li>
                                                 </c:if>
                                                 <c:if test="${socialLink.key=='website'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a></li>
                                                 </c:if>
                                                 <c:if test="${socialLink.key=='other'}">
-                                                    <li><a href="${socialLink.value}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.value)}</a></li>
+                                                    <li><a href="${socialLink.value}" title=""><i class="la la-globe"></i> ${fn:escapeXml(socialLink.value)}</a>
+                                                        <a href="/delete/socialLink?socialLinkName=${socialLink.key}&personId=${person.id}">
+                                                            <i class="fa fa-trash-o" style="font-size:24px"></i>
+                                                        </a></li>
                                                 </c:if>
                                             </c:forEach>
                                         </c:when>

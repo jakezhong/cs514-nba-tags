@@ -393,4 +393,32 @@ public class DatastorePersonDao implements PersonDao {
         }
         return map;
     }
+
+
+    public void deleteSocialLink( long postId, String commentKey){
+        ObjectMapper mapper = new ObjectMapper();
+        Map<String,String> map = null;
+        try{
+            Entity personEntity = datastore.get(KeyFactory.createKey(PERSON_KIND, postId));
+            String jsonString = (String) personEntity.getProperty(Person.SOCIAL_LINK);
+
+            //convert string to a map
+            if(jsonString.length()!=0){
+                map = mapper.readValue(jsonString, Map.class);
+                map.remove(commentKey);
+                String newJsonString  = mapper.writeValueAsString(map);
+                personEntity.setProperty(Person.SOCIAL_LINK,newJsonString);
+                datastore.put(personEntity);
+
+            }else{
+                return;
+            }
+        }catch(IOException e){
+            e.printStackTrace();
+        }
+        catch (EntityNotFoundException e){
+            System.out.println("error deleting  socialLink");
+        }
+
+    }
 }

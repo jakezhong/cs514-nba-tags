@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Hashtable;
 import java.util.List;
@@ -106,9 +107,13 @@ public class ListPostServlet extends HttpServlet {
                 }
             }
             endCursor = result.cursor;
+
         } catch (Exception e) {
             throw new ServletException("Error listing posts", e);
         }
+
+
+
         req.getSession().getServletContext().setAttribute("posts", visiblePosts);
         req.setAttribute("title", searchTitle);
         req.setAttribute("category", searchCategory);

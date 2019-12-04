@@ -40,7 +40,28 @@
                                         </div><!--usr_quest end-->
                                     </div><!--usr-question end-->
                                 </div><!--forum-post-view end-->
+
+								<!--lists comment-->
+								<form method="POST" action="/delete/comment" >
+								<input type="text" name="postId" value="${post.id}" class="hidden">
+								<div class="job-status-bar">
+									<ul>
+										<c:choose>
+											<c:when test="${not empty comments}">
+												<c:forEach items="${comments}" var ="comment">
+													<li><img src="${pageContext.request.contextPath}/ui/images/icon8.png" alt=""><span>${fn:escapeXml(comment.key)}</span><span>added by: ${fn:escapeXml(comment.value)}</span>
+														<input type="text" name="commentKey" value="${comment.key}" class="hidden">
+														<button type="submit" class="btn btn-default btn-sm">
+															<span class="glyphicon glyphicon-trash"></span> Trash</button>
+													</li>
+												</c:forEach>
+											</c:when>
+										</c:choose>
+									</ul>
+								</div>
+								</form>
                             </div>
+
                             <div class="col-lg-4">
                                 <div class="widget widget-adver">
 									<img alt="ahhh" src="${fn:escapeXml(not empty post.imageUrl?post.imageUrl:'http://placekitten.com/g/300/200')}">
@@ -117,4 +138,5 @@
         </div>
     </div>
 </div>
+</main>
 <!-- [END view] -->

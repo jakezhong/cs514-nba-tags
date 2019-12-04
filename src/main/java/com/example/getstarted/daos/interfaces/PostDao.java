@@ -1,10 +1,12 @@
 package com.example.getstarted.daos.interfaces;
 
+import com.example.getstarted.objects.Comment;
 import com.example.getstarted.objects.Post;
 import com.example.getstarted.objects.Result;
 
 import java.sql.SQLException;
 import java.util.Hashtable;
+import java.util.*;
 
 /**
  * Interface for PostDao Class
@@ -27,4 +29,10 @@ public interface PostDao {
   Result<Post> listPostsByUser(String userId, String startCursor) throws SQLException;
 
   Result<Post> listAllPostsByUser(String userId) throws SQLException;
+
+  void addCommentInPost(long postId, String createdByString, String content )throws SQLException;
+
+  Map<String,String> listComment(long postId) throws SQLException;
+
+  void deleteComment( long postId,String commentKey) throws  SQLException;
 }

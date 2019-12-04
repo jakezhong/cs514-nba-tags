@@ -86,6 +86,7 @@ public class CreatePostServlet extends HttpServlet {
     String createdByString = "";
     String createdByIdString = "";
     Date date = new Date();
+    String comment="";
     HttpSession session = req.getSession();
 
     if (session.getAttribute("userEmail") != null) { // Does the user have a logged in session?
@@ -107,6 +108,7 @@ public class CreatePostServlet extends HttpServlet {
         .createdBy(createdByString)
         .createdById(createdByIdString)
         .publishedDate(date)
+        .comment(comment)
         // [END auth]
         .build();
     // [END postBuilder]

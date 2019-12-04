@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+
 @SuppressWarnings("serial")
 public class DeletePostTagServlet extends HttpServlet {
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -16,6 +17,9 @@ public class DeletePostTagServlet extends HttpServlet {
         PostTagDao daoPostTag = (PostTagDao) this.getServletContext().getAttribute("dao-postTag");
 
         Long postId = Long.valueOf(req.getParameter("postId"));
+
+
+
 
         /* If the current user is not the post author, redirect */
         try {
@@ -51,6 +55,8 @@ public class DeletePostTagServlet extends HttpServlet {
                 }
             }
         }
+
+
         resp.sendRedirect("/post/read?id="+postId);   // read what we just wrote
     }
 }

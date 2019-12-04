@@ -16,6 +16,7 @@ import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
 // [START example]
 @SuppressWarnings("serial")
@@ -89,6 +90,17 @@ public class ReadPostServlet extends HttpServlet {
                 throw new ServletException("Error listing groups", e);
             }
 
+
+
+            //list comment by postId
+            Map<String,String> comments;
+            try {
+                comments = daoPost.listComment(postId);
+            } catch (Exception e) {
+                throw new ServletException("Error listing comments", e);
+            }
+
+            req.setAttribute("comments",comments);
             req.setAttribute("post", post);
             req.getSession().getServletContext().setAttribute("persons", persons);
             req.getSession().getServletContext().setAttribute("groups", groups);

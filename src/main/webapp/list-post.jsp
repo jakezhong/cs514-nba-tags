@@ -1,6 +1,18 @@
 <!-- [START list] -->
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn" %>
+<script>
+	window.onload =function () {
+		document.getElementById('click').onclick = function () {
+			if(document.getElementById('commentText').style.display=='none'){
+				document.getElementById('commentText').style.display='block';
+			}else{
+				document.getElementById('commentText').style.display='none';
+			}
+		}
+	}
+</script>
+
 <main class="main">
     <div class="container">
         <div class="main-section-data">
@@ -77,9 +89,18 @@
 											</div>
 											<div class="job-status-bar">
 												<ul class="like-com">
-													<li><a href="/post/read?id=${post.id}" title="" class="com"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
+													<li><a href="/post/read?id=${post.id}" title="" class="com" id ="show comment"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> Comment 15</a></li>
+													<li><a href="#" title="" class="com" id="click"><img src="${pageContext.request.contextPath}/ui/images/com.png" alt=""> add comment</a></li>
 												</ul>
+												<form method="POST" action="/add/comment" >
+												<input type="text" name="postId" value="${post.id}" class="hidden">
+												<div id="commentText"  style="display: none;">
+													<textarea type="commentText"   rows="3" placeholder="write your comment here" name ="commentContent"></textarea>
+													<button type="submit" class="btn btn-success" >Save</button>
+												</div>
+											</form>
 											</div>
+
 										</div><!--post-bar end-->
 									</c:forEach>
 									<c:if test="${not empty cursor}">
