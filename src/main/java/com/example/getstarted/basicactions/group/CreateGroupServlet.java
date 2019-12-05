@@ -116,4 +116,3 @@ public class CreateGroupServlet extends HttpServlet {
     }
     // [END formpost]
 }
-// [END example]

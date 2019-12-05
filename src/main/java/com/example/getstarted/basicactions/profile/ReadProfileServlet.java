@@ -40,6 +40,11 @@ public class ReadProfileServlet extends HttpServlet {
             userId = (String) req.getSession().getAttribute("userId");
         }
 
+        /* If the user has not logged in, don't allow to create post and redirect */
+        if (req.getSession().getAttribute("userId") != null) {
+            login = true;
+        }
+
         ProfileDao daoProfile = (ProfileDao) this.getServletContext().getAttribute("dao-profile");
         List<Profile> profiles;
         Profile profile;
@@ -48,9 +53,6 @@ public class ReadProfileServlet extends HttpServlet {
             Result<Profile> result = daoProfile.findProfile(userId);
             profiles = result.result;
             profile = profiles.get(0);
-            if (profile.getCreatedById().equals(req.getSession().getAttribute("userId"))) {
-                login = true;
-            }
         } catch (Exception e) {
             profile = null;
         }
